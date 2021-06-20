@@ -15,6 +15,16 @@ class CreateRocksTable extends Migration
     {
         Schema::create('rocks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->point('coords');
+            $table->string('photo');
+            $table->foreignId('forming_mineral_id')->constrained('minerals');
+            $table->foreignId('accessory_mineral_id')->constrained('minerals');
+            $table->foreignId('rock_type_id');
+            $table->foreignId('category_id');
+            $table->foreignId('period_id');
+
             $table->timestamps();
         });
     }
