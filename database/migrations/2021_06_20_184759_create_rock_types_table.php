@@ -16,7 +16,7 @@ class CreateRockTypesTable extends Migration
         Schema::create('rock_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
