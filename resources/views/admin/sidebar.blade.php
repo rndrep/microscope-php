@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('minerals.index')}}" class="nav-link">
                 <i class="fa nav-icon fa-cookie"></i>
                 <p>Минералы</p>
             </a>

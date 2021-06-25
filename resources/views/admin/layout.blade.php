@@ -904,7 +904,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
 
-<script src="/js/admin.js"></script>
+{{--<script src="/js/admin.js"></script>--}}
 {{--<script src="/plugins/ckeditor/ckeditor.js"></script>--}}
 {{--<script src="/plugins/ckfinder/ckfinder.js"></script>--}}
 {{--<script>--}}

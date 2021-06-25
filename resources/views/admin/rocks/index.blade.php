@@ -40,7 +40,7 @@
                   <td>{{$rock->getSecondMineralName()}}</td>
                   <td>{{$rock->getAccessoryMineralName()}}</td>
                   <td>
-                    <img src="{{$rock->getImage()}}" alt="" width="100">
+                    <img src="{{$rock->getPhoto()}}" alt="" width="100">
                   </td>
                   <td>
                       <div class="btn">

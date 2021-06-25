@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MineralController;
 use App\Http\Controllers\RockTypeController;
 use App\Http\Controllers\RockController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +22,4 @@ Route::get('/', function () {
 
 Route::resource('/admin/rocks', RockController::class);
 Route::resource('/admin/rock-types', RockTypeController::class);
+Route::resource('/admin/minerals', MineralController::class);

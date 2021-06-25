@@ -21,6 +21,7 @@ class CreateRocksTable extends Migration
             $table->float('x')->nullable();
             $table->float('y')->nullable();
             $table->string('photo')->nullable();
+            $table->integer('is_public')->nullable();
             $table->foreignId('rock_type_id')->nullable();
             $table->foreignId('category_id')->nullable();
             $table->foreignId('period_id')->nullable();

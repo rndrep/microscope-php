@@ -3,25 +3,17 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-{{--    <section class="content-header">--}}
-{{--      <h1>--}}
-{{--        Добавить категорию--}}
-{{--        <small>приятные слова..</small>--}}
-{{--      </h1>--}}
-{{--    </section>--}}
-
     <!-- Main content -->
     <section class="content">
 
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Изменение типа породы</h3>
+          <h3 class="box-title">Изменение минерала</h3>
           @include('admin.errors')
         </div>
         <div class="box-body">
-        {{Form::open(['route'=>['rock-types.update',$item->id], 'method'=>'put'])}}
+        {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put'])}}
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputName">Название</label>

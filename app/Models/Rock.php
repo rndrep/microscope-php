@@ -17,19 +17,68 @@ class Rock extends Model
 {
     use HasFactory;
 
-    const IMAGE_PATH_ROCK_INFO = 'images/rocks/detail/';
-    const IMAGE_PATH_ROCK_MICRO = 'images/rocks/microscope/';
+    const IMAGE_PATH_ROCK_INFO = '/images/rocks/detail/';
+    const IMAGE_PATH_ROCK_MICRO = '/images/rocks/microscope/';
 
     /**
      * The attributes that are not mass assignable.
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = ['photo', 'rock_type_id', 'forming_minerals', 'second_minerals', 'accessory_minerals'];
+
+    public static function add($fields)
+    {
+        $rock = new static;
+        $rock->fill($fields);
+        $rock->save();
+        return $rock;
+    }
+
+    public function edit($fields)
+    {
+        $this->fill($fields);
+        $this->save();
+    }
+
+    public function remove()
+    {
+        $this->deleteImage();
+        $this->deleteRelatedMinerals();
+        $this->delete();
+    }
+
+    public function isPublic()
+    {
+        return $this->is_public;
+    }
 
     public function rockType()
     {
         return $this->belongsTo(RockType::class);
+    }
+
+    // TODO: add empty value in selectbox
+
+    public function setRockType($id)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        if (empty(RockType::find($id))) {
+            // TODO: maybe display error
+            return false;
+        }
+        $this->rock_type_id = $id;
+        $this->save();
+    }
+
+    public function getRockTypeId()
+    {
+        if (empty($this->rockType)) {
+            return '';
+        }
+        return $this->rockType->id ?? 0;
     }
 
     public function getRockTypeName()
@@ -40,15 +89,19 @@ class Rock extends Model
         return $this->rockType->name ?? '';
     }
 
-    public function getImage()
+    public function getPhoto()
     {
         if (empty($this->photo)) {
             return '/img/no-image.png';
         }
-        return self::IMAGE_PATH_ROCK_INFO . $this->photo;
+        return self::IMAGE_PATH_ROCK_INFO . $this->photo . '?' . time();
     }
 
-    public function uploadImage(UploadedFile $image): bool
+    /**
+     * @param UploadedFile|null $image
+     * @return $this|false
+     */
+    public function uploadImage($image)
     {
         if (empty($image)) {
             return false;
@@ -60,7 +113,14 @@ class Rock extends Model
         $image->storeAs($this::IMAGE_PATH_ROCK_INFO, $filename);
         $this->photo = $filename;
         $this->save();
-        return true;
+        return $this;
+    }
+
+    public function deleteImage()
+    {
+        if (!empty($this->photo)) {
+            Storage::delete($this::IMAGE_PATH_ROCK_INFO . $this->photo);
+        }
     }
 
     public function formingMinerals()
@@ -95,30 +155,46 @@ class Rock extends Model
 
     public function getFormingMineralName()
     {
-        $names = [];
-        foreach ($this->formingMinerals as $item) {
-            $names[] = $item->name;
-        }
-        return implode(', ', $names);
+        return implode(', ', $this->formingMinerals->pluck('name')->all());
     }
 
     public function getSecondMineralName()
     {
-        $names = [];
-        foreach ($this->secondMinerals as $item) {
-            $names[] = $item->name;
-        }
-        return implode(', ', $names);
+        return implode(', ', $this->secondMinerals->pluck('name')->all());
     }
 
     public function getAccessoryMineralName()
     {
-        $names = [];
-        foreach ($this->accessoryMinerals as $item) {
-            $names[] = $item->name;
-        }
-        return implode(', ', $names);
+        return implode(', ', $this->accessoryMinerals->pluck('name')->all());
+    }
 
+    public function setFormingMinerals($ids)
+    {
+        if (empty($ids)) {
+            return false;
+        }
+        $this->formingMinerals()->sync($ids);
+    }
+
+    public function setSecondMinerals($ids)
+    {
+        if (empty($ids)) {
+            return false;
+        }
+        $this->secondMinerals()->sync($ids);
+    }
+
+    public function setAccessoryMinerals($ids)
+    {
+        if (empty($ids)) {
+            return false;
+        }
+        $this->accessoryMinerals()->sync($ids);
+    }
+
+    public function deleteRelatedMinerals()
+    {
+        //TODO: remove minerals before remove rock
     }
 
 }
