@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/images
+public/mix-manifest.json
 /storage/*.key
 /vendor
 .env
@@ -14,3 +16,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.vagrant
+package-lock.json
