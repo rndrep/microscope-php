@@ -16,7 +16,7 @@ class CreateRockAccessoryMineralsTable extends Migration
         Schema::create('rock__accessory_minerals', function (Blueprint $table) {
             $table->id();
             $table->integer('rock_id');
-            $table->integer('accessory_mineral_id');
+            $table->integer('mineral_id');
             $table->timestamps();
         });
     }

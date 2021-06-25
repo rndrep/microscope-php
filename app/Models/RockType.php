@@ -9,8 +9,6 @@ class RockType extends Model
 {
     use HasFactory;
 
-    public $name;
-    public $description;
     /**
      * The attributes that are mass assignable.
      *

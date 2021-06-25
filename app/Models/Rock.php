@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Each Rock can have several forming, second and accessory minerals
+ *
+ * Class Rock
+ * @package App\Models
+ */
 class Rock extends Model
 {
     use HasFactory;
@@ -21,21 +27,25 @@ class Rock extends Model
      */
     protected $guarded = [];
 
-    public function formingMineral()
-    {
-        $this->belongsTo(Mineral::class, 'forming_mineral_id');
-
-    }
-
-    public function accessoryMineral()
-    {
-        $this->belongsTo(Mineral::class, 'accessory_mineral_id');
-
-    }
-
     public function rockType()
     {
-        $this->belongsTo(RockType::class);
+        return $this->belongsTo(RockType::class);
+    }
+
+    public function getRockTypeName()
+    {
+        if (empty($this->rockType)) {
+            return '';
+        }
+        return $this->rockType->name ?? '';
+    }
+
+    public function getImage()
+    {
+        if (empty($this->photo)) {
+            return '/img/no-image.png';
+        }
+        return self::IMAGE_PATH_ROCK_INFO . $this->photo;
     }
 
     public function uploadImage(UploadedFile $image): bool
@@ -51,6 +61,64 @@ class Rock extends Model
         $this->photo = $filename;
         $this->save();
         return true;
+    }
+
+    public function formingMinerals()
+    {
+        return $this->belongsToMany(
+            Mineral::class,
+            'rock__forming_minerals',
+            'rock_id',
+            'mineral_id'
+        );
+    }
+
+    public function secondMinerals()
+    {
+        return $this->belongsToMany(
+            Mineral::class,
+            'rock__second_minerals',
+            'rock_id',
+            'mineral_id'
+        );
+    }
+
+    public function accessoryMinerals()
+    {
+        return $this->belongsToMany(
+            Mineral::class,
+            'rock__accessory_minerals',
+            'rock_id',
+            'mineral_id'
+        );
+    }
+
+    public function getFormingMineralName()
+    {
+        $names = [];
+        foreach ($this->formingMinerals as $item) {
+            $names[] = $item->name;
+        }
+        return implode(', ', $names);
+    }
+
+    public function getSecondMineralName()
+    {
+        $names = [];
+        foreach ($this->secondMinerals as $item) {
+            $names[] = $item->name;
+        }
+        return implode(', ', $names);
+    }
+
+    public function getAccessoryMineralName()
+    {
+        $names = [];
+        foreach ($this->accessoryMinerals as $item) {
+            $names[] = $item->name;
+        }
+        return implode(', ', $names);
+
     }
 
 }

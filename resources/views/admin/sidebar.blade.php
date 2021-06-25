@@ -1,7 +1,7 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('rocks.index')}}">
                 <i class="fa nav-icon fa-gem"></i>
                 <p>Образцы пород</p>
             </a>
