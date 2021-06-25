@@ -17,10 +17,10 @@ class CreateRocksTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->point('coords')->nullable();
+//            $table->point('coords')->nullable(); // не создаётся
+            $table->float('x')->nullable();
+            $table->float('y')->nullable();
             $table->string('photo')->nullable();
-            $table->foreignId('forming_mineral_id')->nullable()->constrained('minerals');
-            $table->foreignId('accessory_mineral_id')->nullable()->constrained('minerals');
             $table->foreignId('rock_type_id')->nullable();
             $table->foreignId('category_id')->nullable();
             $table->foreignId('period_id')->nullable();
