@@ -49,7 +49,7 @@ class RockTypeController extends Controller
 
     public function destroy($id)
     {
-        if (Rock::firstWhere('rock_types_id', $id)) {
+        if (Rock::firstWhere('rock_type_id', $id)) {
             //TODO: add custom error in template
             return 'Нельзя удалить тип породы. Существует порода с данным типом.'; // don't delete if there is rock with this rock type
         }
