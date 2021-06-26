@@ -24,12 +24,5 @@
                 <p>Пользователи</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="fa nav-icon fa-list-ul"></i>
-                <p>smth else</p>
-            </a>
-        </li>
-
     </ul>
 </nav>
