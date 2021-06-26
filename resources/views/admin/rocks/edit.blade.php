@@ -106,7 +106,7 @@
                 <!-- /.box-footer-->
             </div>
             <!-- /.box -->
-            {{Form::close()}}
+        {{Form::close()}}
         </section>
         <!-- /.content -->
     </div>

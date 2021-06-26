@@ -1,17 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Mineral;
 use App\Models\Rock;
 use App\Models\RockType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RockController extends Controller
 {
     public function index()
     {
-        return view('admin.rocks.index', ['rocks' => Rock::all()]);
+        if (Auth::check()) {
+            if (Auth::user()->isAdmin()) {
+                return view('admin.rocks.index', ['rocks' => Rock::all()]);
+            }
+            if (Auth::user()->isUser()) {
+                return view('user.rocks.index', ['rocks' => Rock::all()]);
+            }
+        }
+//        return view('user.rocks.index', ['rocks' => Rock::where('is_public=1')->all()]);
     }
 
     public function create()

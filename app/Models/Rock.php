@@ -29,10 +29,10 @@ class Rock extends Model
 
     public static function add($fields)
     {
-        $rock = new static;
-        $rock->fill($fields);
-        $rock->save();
-        return $rock;
+        $item = new static;
+        $item->fill($fields);
+        $item->save();
+        return $item;
     }
 
     public function edit($fields)

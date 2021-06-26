@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Mineral;
 use App\Models\Rock_AccessoryMineral;
 use App\Models\Rock_FormingMineral;
