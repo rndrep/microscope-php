@@ -25,7 +25,9 @@ class Rock extends Model
      *
      * @var array
      */
-    protected $guarded = ['photo', 'rock_type_id', 'forming_minerals', 'second_minerals', 'accessory_minerals'];
+    protected $guarded = [
+        'photo', 'rock_type_id', 'forming_minerals', 'second_minerals', 'accessory_minerals', 'is_public'
+    ];
 
     public static function add($fields)
     {
@@ -197,4 +199,25 @@ class Rock extends Model
         //TODO: remove minerals before remove rock
     }
 
+    public function toggleStatus($value)
+    {
+        if(empty($value))
+        {
+            $this->unpublish();
+        } else {
+            $this->publish();
+        }
+    }
+
+    public function publish()
+    {
+        $this->is_public = 1;
+        $this->save();
+    }
+
+    public function unpublish()
+    {
+        $this->is_public = 0;
+        $this->save();
+    }
 }

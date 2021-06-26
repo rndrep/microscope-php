@@ -26,6 +26,7 @@
                   <th>Вторичный минерал</th>
                   <th>Акцессорный минерал</th>
                   <th>Картинка</th>
+                  <th>Публичный</th>
                   <th>Действия</th>
                 </tr>
                 </thead>
@@ -42,7 +43,8 @@
                   <td>
                     <img src="{{$rock->getPhoto()}}" alt="" width="100">
                   </td>
-                  <td>
+                  <td>{{$rock->is_public ? 'Да' : 'Нет'}}</td>
+                    <td>
                       <div class="btn">
                         <a href="{{route('rocks.edit', $rock->id)}}" class="fa fa-pencil-alt"></a>
                       </div>

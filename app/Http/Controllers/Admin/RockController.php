@@ -47,6 +47,8 @@ class RockController extends Controller
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));
+        $rock->toggleStatus($request->get('is_public'));
+
         return redirect()->route('rocks.index');
     }
 
@@ -85,6 +87,7 @@ class RockController extends Controller
             'name' => 'required',
             'photo' => 'nullable|image'
         ]);
+        /** @var Rock $rock */
         $rock = Rock::find($id);
         $rock->edit($request->all());
         $rock->uploadImage($request->file('photo'));
@@ -92,6 +95,8 @@ class RockController extends Controller
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));
+        $rock->toggleStatus($request->get('is_public'));
+
         return redirect()->route('rocks.index');
     }
 
