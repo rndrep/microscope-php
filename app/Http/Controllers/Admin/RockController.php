@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Mineral;
 use App\Models\Rock;
 use App\Models\RockType;
@@ -48,7 +49,8 @@ class RockController extends Controller
             'admin.rocks.create',
             [
                 'rockTypes' => RockType::pluck('name', 'id'),
-                'minerals' => Mineral::pluck('name', 'id')
+                'minerals' => Mineral::pluck('name', 'id'),
+                'categories' => Category::pluck('name', 'id'),
             ]
         );
     }
@@ -92,6 +94,7 @@ class RockController extends Controller
                 'rock' => $rock,
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
+                'categories' => Category::pluck('name', 'id'),
                 'selectedFormMinerals' => $selectedFormMinerals,
                 'selectedSecMinerals' => $selectedSecMinerals,
                 'selectedAcMinerals' => $selectedAcMinerals

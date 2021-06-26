@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MineralController;
 use App\Http\Controllers\Admin\RockTypeController;
@@ -32,8 +33,6 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/rocks', RockController::class);
     Route::resource('/rock-types', RockTypeController::class);
     Route::resource('/minerals', MineralController::class);
+    Route::resource('/categories', CategoryController::class);
     Route::resource('/users', UserController::class);
 });
-//Route::resource('/admin/rocks', RockController::class);
-//Route::resource('/admin/rock-types', RockTypeController::class);
-//Route::resource('/admin/minerals', MineralController::class);

@@ -13,6 +13,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{route('categories.index')}}" class="nav-link">
+                <i class="fa nav-icon fa-bacon"></i>
+                <p>Категории</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{route('minerals.index')}}" class="nav-link">
                 <i class="fa nav-icon fa-cookie"></i>
                 <p>Минералы</p>

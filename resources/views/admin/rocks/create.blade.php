@@ -48,6 +48,14 @@
               }}
             </div>
             <div class="form-group">
+                <label>Категория</label>
+                {{Form::select('category_id',
+                    $categories,
+                    null,
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите категорию'])
+                }}
+            </div>
+            <div class="form-group">
               <label>Породообразующие минералы</label>
               {{Form::select('forming_minerals[]',
                 $minerals,

@@ -86,6 +86,40 @@ class Rock extends Model
         return $this->rockType->name ?? '';
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function setCategory($id)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        if (empty(RockType::find($id))) {
+            // TODO: maybe display error
+            return false;
+        }
+        $this->category_id = $id;
+        $this->save();
+    }
+
+    public function getCategoryId()
+    {
+        if (empty($this->category)) {
+            return '';
+        }
+        return $this->category->id ?? 0;
+    }
+
+    public function getCategoryName()
+    {
+        if (empty($this->category)) {
+            return '';
+        }
+        return $this->category->name ?? '';
+    }
+
     public function getPhoto()
     {
         if (empty($this->photo)) {
