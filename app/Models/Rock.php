@@ -50,11 +50,6 @@ class Rock extends Model
         $this->delete();
     }
 
-    public function isPublic()
-    {
-        return $this->is_public;
-    }
-
     public function rockType()
     {
         return $this->belongsTo(RockType::class);
@@ -197,6 +192,11 @@ class Rock extends Model
     public function deleteRelatedMinerals()
     {
         //TODO: remove minerals before remove rock
+    }
+
+    public function isPublic()
+    {
+        return $this->is_public;
     }
 
     public function toggleStatus($value)

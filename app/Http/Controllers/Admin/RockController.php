@@ -15,13 +15,31 @@ class RockController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->isAdmin()) {
-                return view('admin.rocks.index', ['rocks' => Rock::all()]);
+                return view('admin.rocks.index', ['items' => Rock::all()]);
             }
             if (Auth::user()->isUser()) {
-                return view('user.rocks.index', ['rocks' => Rock::all()]);
+                return view('main.index', ['items' => Rock::all()]);
             }
         }
-//        return view('user.rocks.index', ['rocks' => Rock::where('is_public=1')->all()]);
+        return view('main.index', ['items' => Rock::where('is_public', 1)->get()]);
+    }
+
+    public function info($id)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        /** @var Rock $rock */
+        $rock = Rock::find($id);
+
+        if (empty($rock)) {
+            return false;
+        }
+
+        if (!Auth::check() && !$rock->isPublic()) {
+            abort(404);
+        }
+        return view('main.rock', ['item' => $rock]);
     }
 
     public function create()

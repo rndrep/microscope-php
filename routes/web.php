@@ -25,6 +25,8 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'loginForm']);
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('/', [RockController::class, 'index'])->name('home');
+Route::get('/info/{id}', [RockController::class, 'info'])->name('info');
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/rocks', RockController::class);

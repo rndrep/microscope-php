@@ -24,10 +24,14 @@
                 <a href="#" class="header__logo"></a>
 
                 <div class="nav">
-                    <a class="nav__link active" href="#"><span class="nav-item__span">Главная</span></a>
+                    <a class="nav__link active" href="/"><span class="nav-item__span">Главная</span></a>
                     <a class="nav__link" href="#">Изучение</a>
                     <a class="nav__link" href="#">О сайте</a>
-                    <a class="nav__link" href="#">Войти</a>
+                    @if(Auth::check())
+                        <a class="nav__link" href="/logout">Выйти</a>
+                    @else
+                        <a class="nav__link" href="/login">Войти</a>
+                    @endif
                 </div>
             </div>
             <!-- /.row -->

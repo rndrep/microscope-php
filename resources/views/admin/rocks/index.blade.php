@@ -31,24 +31,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($rocks as $rock)
+                @foreach($items as $item)
                 <tr>
-                  <td>{{$rock->id}}</td>
-                  <td>{{$rock->name}}</td>
-                  <td>{{$rock->description}}</td>
-                  <td>{{$rock->getRockTypeName()}}</td>
-                  <td>{{$rock->getFormingMineralName()}}</td>
-                  <td>{{$rock->getSecondMineralName()}}</td>
-                  <td>{{$rock->getAccessoryMineralName()}}</td>
+                  <td>{{$item->id}}</td>
+                  <td>{{$item->name}}</td>
+                  <td>{{$item->description}}</td>
+                  <td>{{$item->getRockTypeName()}}</td>
+                  <td>{{$item->getFormingMineralName()}}</td>
+                  <td>{{$item->getSecondMineralName()}}</td>
+                  <td>{{$item->getAccessoryMineralName()}}</td>
                   <td>
-                    <img src="{{$rock->getPhoto()}}" alt="" width="100">
+                    <img src="{{$item->getPhoto()}}" alt="" width="100">
                   </td>
-                  <td>{{$rock->is_public ? 'Да' : 'Нет'}}</td>
+                  <td>{{$item->is_public ? 'Да' : 'Нет'}}</td>
                     <td>
                       <div class="btn">
-                        <a href="{{route('rocks.edit', $rock->id)}}" class="fa fa-pencil-alt"></a>
+                        <a href="{{route('rocks.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
                       </div>
-                      {{Form::open(['route'=>['rocks.destroy', $rock->id], 'method'=>'delete', 'class' => 'd-inline'])}}
+                      {{Form::open(['route'=>['rocks.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
                           <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
                            <i class="fa fa-trash-alt"></i>
                           </button>
