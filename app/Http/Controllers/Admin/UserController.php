@@ -52,7 +52,6 @@ class UserController extends Controller
         $item->edit($request->all());
         $item->setPassword($request->get('password'));
         $item->setRoleId($request->get('role_id'));
-        $item->update($request->all());
         return redirect()->route('users.index');
     }
 
