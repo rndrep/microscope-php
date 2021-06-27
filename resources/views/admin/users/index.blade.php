@@ -38,11 +38,13 @@
                                     <div class="btn">
                                         <a href="{{route('users.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
                                     </div>
+                                    @if(Auth::user()->id != $item->id)
                                     {{Form::open(['route'=>['users.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
                                     <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                                     {{Form::close()}}
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
