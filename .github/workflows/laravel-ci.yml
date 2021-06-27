@@ -23,6 +23,7 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
+        DB_PORT:
       run: php artisan migrate --force
     - name: Install NPM dependencies
       run: npm install
@@ -32,4 +33,5 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
+        DB_PORT:
       run: ./vendor/bin/phpunit
