@@ -10,7 +10,7 @@
       <div class="box">
       {!! Form::open(['route' => 'categories.store']) !!}
         <div class="box-header with-border">
-          <h3 class="box-title">Добавление минерала</h3>
+          <h3 class="box-title">Добавление категории</h3>
           @include('admin.errors')
         </div>
         <div class="box-body">

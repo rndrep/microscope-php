@@ -3,7 +3,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('rocks.index')}}">
                 <i class="fa nav-icon fa-gem"></i>
-                <p>Образцы пород</p>
+                <p>Образцы</p>
             </a>
         </li>
         <li class="nav-item">

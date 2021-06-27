@@ -16,7 +16,7 @@ class CreateRocksTable extends Migration
         Schema::create('rocks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
 //            $table->point('coords')->nullable(); // не создаётся
             $table->float('x')->nullable();
             $table->float('y')->nullable();

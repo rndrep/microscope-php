@@ -8,7 +8,7 @@
       <!-- Default box -->
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Породы</h3>
+              <h3 class="box-title">Образцы</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
