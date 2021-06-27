@@ -124,6 +124,7 @@ class RockController extends Controller
     public function destroy($id)
     {
         $rock = Rock::find($id)->remove();
+        return redirect()->route('rocks.index');
     }
 
 }

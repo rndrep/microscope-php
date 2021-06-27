@@ -225,7 +225,9 @@ class Rock extends Model
 
     public function deleteRelatedMinerals()
     {
-        //TODO: remove minerals before remove rock
+        Rock_FormingMineral::where('rock_id', $this->id)->delete();
+        Rock_SecondMineral::where('rock_id', $this->id)->delete();
+        Rock_AccessoryMineral::where('rock_id', $this->id)->delete();
     }
 
     public function isPublic()
