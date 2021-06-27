@@ -254,6 +254,5 @@ class Rock extends Model
     public function unpublish()
     {
         $this->is_public = 0;
-//        $this->save();
     }
 }
