@@ -11,8 +11,8 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');
     - name: Install composer dependencies
       run: composer install
-	- name: Set required directory permissions
-	  run: chmod -R 777 storage bootstrap/cache
+#	- name: Set required directory permissions
+#	  run: chmod -R 777 storage bootstrap/cache
 	- name: Generate encryption key
 	  run: php artisan key:generate
     - name: Run laravel database migrations
