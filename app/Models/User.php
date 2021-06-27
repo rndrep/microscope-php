@@ -113,7 +113,7 @@ class User extends Authenticatable
     {
         if (!empty($password)) {
             $this->password = Hash::make($password);
-            $this->save();
+//            $this->save();
         }
     }
 
@@ -121,7 +121,7 @@ class User extends Authenticatable
     {
         if (in_array($roleId, array_keys(self::ROLE_NAMES))) {
             $this->role_id = $roleId;
-            $this->save();
+//            $this->save();
         }
     }
 

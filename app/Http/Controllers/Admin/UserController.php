@@ -31,6 +31,8 @@ class UserController extends Controller
         $user = User::add($request->all());
         $user->setPassword($request->get('password'));
         $user->setRoleId($request->get('role_id'));
+        $user->save();
+
         return redirect()->route('users.index');
     }
 
@@ -52,6 +54,8 @@ class UserController extends Controller
         $item->edit($request->all());
         $item->setPassword($request->get('password'));
         $item->setRoleId($request->get('role_id'));
+        $item->save();
+
         return redirect()->route('users.index');
     }
 

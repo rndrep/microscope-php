@@ -68,6 +68,7 @@ class RockController extends Controller
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));
         $rock->toggleStatus($request->get('is_public'));
+        $rock->save();
 
         return redirect()->route('rocks.index');
     }
@@ -117,6 +118,7 @@ class RockController extends Controller
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));
         $rock->toggleStatus($request->get('is_public'));
+        $rock->save();
 
         return redirect()->route('rocks.index');
     }

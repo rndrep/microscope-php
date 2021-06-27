@@ -67,7 +67,7 @@ class Rock extends Model
             return false;
         }
         $this->rock_type_id = $id;
-        $this->save();
+//        $this->save();
     }
 
     public function getRockTypeId()
@@ -101,7 +101,7 @@ class Rock extends Model
             return false;
         }
         $this->category_id = $id;
-        $this->save();
+//        $this->save();
     }
 
     public function getCategoryId()
@@ -143,7 +143,7 @@ class Rock extends Model
         $filename = $this->getKey() . '.' . $image->extension();
         $image->storeAs($this::IMAGE_PATH_ROCK_INFO, $filename);
         $this->photo = $filename;
-        $this->save();
+//        $this->save();
         return $this;
     }
 
@@ -248,12 +248,12 @@ class Rock extends Model
     public function publish()
     {
         $this->is_public = 1;
-        $this->save();
+//        $this->save();
     }
 
     public function unpublish()
     {
         $this->is_public = 0;
-        $this->save();
+//        $this->save();
     }
 }
