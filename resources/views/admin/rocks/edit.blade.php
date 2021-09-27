@@ -109,7 +109,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button class="btn btn-default">Назад</button>
-                    <button class="btn btn-success pull-right">Добавить</button>
+                    <button class="btn btn-success pull-right">Изменить</button>
                 </div>
                 <!-- /.box-footer-->
             </div>

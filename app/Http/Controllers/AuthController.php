@@ -33,6 +33,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if (Auth::user()->isAdmin()) {
+                //TODO: check why don't redirect
                 return redirect()->route('rocks.index');
             }
             return redirect()->intended();

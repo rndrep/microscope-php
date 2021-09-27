@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Auth;
 
 class RockController extends Controller
 {
+
+    public function home()
+    {
+        if (Auth::check() && Auth::user()->isUser()) {
+            return view('main.index', ['items' => Rock::all()]);
+        }
+        return view('main.index', ['items' => Rock::where('is_public', 1)->get()]);
+    }
+
     public function index()
     {
         if (Auth::check()) {
@@ -58,8 +67,8 @@ class RockController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' =>'required',
-            'photo' => 'nullable|image'
+            'name' =>'required|max:255',
+            'photo' => 'nullable|image',
         ]);
         $rock = Rock::add($request->all());
         $rock->uploadImage($request->file('photo'));
@@ -106,9 +115,10 @@ class RockController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|max:255',
             'photo' => 'nullable|image'
         ]);
+
         /** @var Rock $rock */
         $rock = Rock::find($id);
         $rock->edit($request->all());
