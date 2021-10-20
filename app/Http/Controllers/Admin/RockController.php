@@ -142,14 +142,17 @@ class RockController extends Controller
     public function getMicroPhotos($id): string
     {
         if (empty($id)) {
-            return [];
+            return json_encode([]);
         }
         $publicPath = Rock::IMAGE_PATH_ROCK_MICRO . $id;
+        if (!is_dir(public_path($publicPath))) {
+            return json_encode([]);
+        }
         $photos = array_values(array_diff(
             scandir(public_path($publicPath)), ['.', '..']
         ));
         if (empty($photos)) {
-            return [];
+            return json_encode([]);
         }
         $photos = array_map(function ($item) use ($publicPath) {
                 return env('APP_URL') . $publicPath . '/' . $item;
