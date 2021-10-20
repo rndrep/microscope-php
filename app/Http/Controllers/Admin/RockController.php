@@ -71,7 +71,7 @@ class RockController extends Controller
             'photo' => 'nullable|image',
         ]);
         $rock = Rock::add($request->all());
-        $rock->uploadImage($request->file('photo'));
+        $rock->uploadPhoto($request->file('photo'));
         $rock->setRockType($request->get('rock_type_id'));
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
@@ -122,7 +122,7 @@ class RockController extends Controller
         /** @var Rock $rock */
         $rock = Rock::find($id);
         $rock->edit($request->all());
-        $rock->uploadImage($request->file('photo'));
+        $rock->uploadPhoto($request->file('photo'));
         $rock->setRockType($request->get('rock_type_id'));
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
@@ -137,6 +137,26 @@ class RockController extends Controller
     {
         $rock = Rock::find($id)->remove();
         return redirect()->route('rocks.index');
+    }
+
+    public function getMicroPhotos($id): string
+    {
+        if (empty($id)) {
+            return [];
+        }
+        $publicPath = Rock::IMAGE_PATH_ROCK_MICRO . $id;
+        $photos = array_values(array_diff(
+            scandir(public_path($publicPath)), ['.', '..']
+        ));
+        if (empty($photos)) {
+            return [];
+        }
+        $photos = array_map(function ($item) use ($publicPath) {
+                return env('APP_URL') . $publicPath . '/' . $item;
+            },
+            $photos
+        );
+        return json_encode($photos);
     }
 
 }

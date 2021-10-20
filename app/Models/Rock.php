@@ -18,7 +18,7 @@ class Rock extends Model
     use HasFactory;
 
     const IMAGE_PATH_ROCK_INFO = '/images/rocks/detail/';
-    const IMAGE_PATH_ROCK_MICRO = '/images/rocks/microscope/';
+    const IMAGE_PATH_ROCK_MICRO = '/images/rocks/micro/';
 
     /**
      * The attributes that are not mass assignable.
@@ -129,19 +129,19 @@ class Rock extends Model
     }
 
     /**
-     * @param UploadedFile|null $image
+     * @param UploadedFile|null $photo
      * @return $this|false
      */
-    public function uploadImage($image)
+    public function uploadPhoto($photo)
     {
-        if (empty($image)) {
+        if (empty($photo)) {
             return false;
         }
 
         // TODO: check that save and remove in correct path
         Storage::delete($this::IMAGE_PATH_ROCK_INFO . $this->photo);
-        $filename = $this->getKey() . '.' . $image->extension();
-        $image->storeAs($this::IMAGE_PATH_ROCK_INFO, $filename);
+        $filename = $this->getKey() . '.' . $photo->extension();
+        $photo->storeAs($this::IMAGE_PATH_ROCK_INFO, $filename);
         $this->photo = $filename;
 //        $this->save();
         return $this;

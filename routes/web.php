@@ -29,6 +29,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/', [RockController::class, 'home'])->name('home');
 Route::get('/info/{id}', [RockController::class, 'info'])->name('info');
 
+Route::group(['prefix' => '/microscope'], function () {
+    Route::get('/rock/{id}', [RockController::class, 'getMicroPhotos'])->name('micro_rock');
+    Route::get('/mineral/{id}', [MineralController::class, 'getMicroPhotos'])->name('micro_mineral');
+});
+
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/rocks', RockController::class);
     Route::resource('/rock-types', RockTypeController::class);
