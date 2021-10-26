@@ -84,45 +84,116 @@ class User extends Authenticatable
         $this->delete();
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role_id == self::ROLE_ADMIN;
     }
 
-    public function isUser()
+    public function isUser(): bool
     {
         return $this->role_id == self::ROLE_USER;
     }
 
-    public function getFullName()
+    public function getLogin(): string
+    {
+        return $this->login;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->first_name;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->last_name;
+    }
+
+    public function getPatronymic(): string
+    {
+        return $this->patronymic;
+    }
+
+    public function getFullName(): string
     {
         return $this->last_name . ' ' . $this->first_name . ' ' . $this->patronymic;
     }
 
-    public function getRoleName()
+    public function getPassword(): string
     {
-        return self::ROLE_NAMES[$this->role_id];
+        return $this->password;
     }
 
-    public function getRoleId()
+    public function getRoleId(): int
     {
         return $this->role_id;
     }
 
-    public function setPassword($password)
+    public function getRoleName(): string
+    {
+        return self::ROLE_NAMES[$this->role_id];
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->updated_at;
+    }
+
+
+    public function setLogin($value): self
+    {
+        $this->login = $value;
+        return $this;
+    }
+
+    public function setEmail($value): self
+    {
+        $this->email = $value;
+        return $this;
+    }
+
+    public function setFirstName($value): self
+    {
+        $this->first_name = $value;
+        return $this;
+    }
+
+    public function setLastName($value): self
+    {
+        $this->last_name = $value;
+        return $this;
+    }
+
+    public function setPatronymic($value): self
+    {
+        $this->patronymic = $value;
+        return $this;
+    }
+
+    public function setPassword($password): self
     {
         if (!empty($password)) {
             $this->password = Hash::make($password);
-//            $this->save();
         }
+        return $this;
     }
 
-    public function setRoleId($roleId)
+    public function setRoleId($roleId): self
     {
         if (in_array($roleId, array_keys(self::ROLE_NAMES))) {
             $this->role_id = $roleId;
-//            $this->save();
         }
+        return $this;
     }
 
 }

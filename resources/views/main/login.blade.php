@@ -38,6 +38,9 @@
                                         <button type="submit" class="btn">Log in →</button>
                                     </div>
                                 {{Form::close()}}
+                                <div class="btn-container">
+                                <a href="/login-tpu" class="btn">Войти через ТПУ</a>
+                                </div>
                             </div>
                         </div>
                     </div>

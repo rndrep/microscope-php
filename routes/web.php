@@ -23,7 +23,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'loginForm']);
+// SSO
+Route::get('/login-tpu', [AuthController::class, 'loginTpu'])->name('auth.loginTpu');
+Route::get('/sso/auth', [AuthController::class, 'ssoAuth']);
+//TODO: sso logout
+
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login_form');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/', [RockController::class, 'home'])->name('home');

@@ -15,6 +15,8 @@ class RockController extends Controller
 
     public function home()
     {
+//        dump(Auth::check());
+//        dump(Auth::user());
         if (Auth::check() && Auth::user()->isUser()) {
             return view('main.index', ['items' => Rock::all()]);
         }
