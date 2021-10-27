@@ -43,6 +43,19 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+        $isSSOUser = Auth::user()->isSSO();
+        Auth::logout();
+        if ($isSSOUser) {
+            return redirect(
+                'http://aid.main.tpu.ru:7777/pls/orasso/orasso.wwsso_app_admin.ls_logout?p_done_url=' .
+                route('home')
+            );
+        }
+        return redirect('/login');
+    }
+
     public function loginTpu(Request $request)
     {
         // doesn't work by curl
@@ -88,8 +101,9 @@ class AuthController extends Controller
         if (empty($user) || empty($user->getEmail())) {
             return redirect('/login');
         }
-//TODO: save user in db with flag isSSO
-        $dbUSer = User::firstWhere('email', $user->getEmail());
+        $dbUSer = User::where('email', $user->getEmail())
+            ->where('is_sso', 1)
+            ->first();
 
         if (empty($dbUSer)) {
             $user->save();
@@ -107,10 +121,11 @@ class AuthController extends Controller
         return redirect()->intended();
     }
 
-    public function logout()
+    public function ssoLogout(Request $request)
     {
-        Auth::logout();
-        return redirect('/login');
+        //What user should be logout?
+//        Auth::logout();
+        return  env('APP_URL') . '/images/sso/ok.gif';
     }
 
     /**
@@ -158,7 +173,8 @@ class AuthController extends Controller
 
         //TODO: set role for tpu user
         $user->setPassword(bin2hex(random_bytes(4)))
-            ->setRoleId(User::ROLE_USER);
+            ->setRoleId(User::ROLE_USER)
+            ->setSSO(1);
         return $user;
     }
 

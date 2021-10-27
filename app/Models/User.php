@@ -94,6 +94,11 @@ class User extends Authenticatable
         return $this->role_id == self::ROLE_USER;
     }
 
+    public function isSSO()
+    {
+        return $this->is_sso;
+    }
+
     public function getLogin(): string
     {
         return $this->login;
@@ -149,6 +154,11 @@ class User extends Authenticatable
         return $this->updated_at;
     }
 
+    public function setSSO($value): self
+    {
+        $this->is_sso = (int) $value;
+        return $this;
+    }
 
     public function setLogin($value): self
     {

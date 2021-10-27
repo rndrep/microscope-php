@@ -24,9 +24,9 @@ Route::get('/', function () {
 });
 
 // SSO
-Route::get('/login-tpu', [AuthController::class, 'loginTpu'])->name('auth.loginTpu');
+Route::get('/login-tpu', [AuthController::class, 'loginTpu'])->name('login_tpu');
 Route::get('/sso/auth', [AuthController::class, 'ssoAuth']);
-//TODO: sso logout
+Route::get('/sso/logout', [AuthController::class, 'ssoLogout']);
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login_form');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');

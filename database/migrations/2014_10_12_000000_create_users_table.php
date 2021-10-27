@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('patronymic')->nullable(); //отчество
             $table->integer('role_id')->default(0);
+            $table->smallInteger('is_sso')->default(0);
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();

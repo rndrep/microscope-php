@@ -39,7 +39,7 @@
                                     </div>
                                 {{Form::close()}}
                                 <div class="btn-container">
-                                <a href="/login-tpu" class="btn">Войти через ТПУ</a>
+                                <a href="{{route('login_tpu')}}" class="btn">Войти через ТПУ</a>
                                 </div>
                             </div>
                         </div>
