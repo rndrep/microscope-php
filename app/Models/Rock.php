@@ -196,6 +196,41 @@ class Rock extends Model
         return implode(', ', $this->accessoryMinerals->pluck('name')->all());
     }
 
+    public function getFormingMineralLinks()
+    {
+        return $this->getMineralLinkItems($this->formingMinerals);
+    }
+    public function getSecondMineralLinks()
+    {
+        return $this->getMineralLinkItems($this->secondMinerals);
+    }
+    public function getAccessoryMineralLinks()
+    {
+        return $this->getMineralLinkItems($this->accessoryMinerals);
+    }
+
+    private function getMineralLinkItems($minerals)
+    {
+        $optProps = Mineral::getOptionalProps();
+        $result = [];
+        foreach ($minerals as $mineral) {
+            $needAddLink = FALSE;
+            foreach ($optProps as $optProp) {
+                if (!empty($mineral->{$optProp})) {
+                    $needAddLink = TRUE;
+                    break;
+                }
+            }
+            $result[] = [
+                'link' => $needAddLink
+                    ? route('mineral_info', $mineral->id)
+                    : '',
+                'name' => $mineral->name
+            ];
+        }
+        return $result;
+    }
+
     public function setFormingMinerals($ids)
     {
         if (empty($ids)) {

@@ -31,10 +31,11 @@
                                 <li class="list-group-item">
                                     Класс: <a class="card-list__link" href="#">{{$item->getRockClassName()}}</a>
                                 </li>
-                                <li class="list-group-item">
-                                    Породообразующие минералы:
-                                    <a class="card-list__link" href="#">{{$item->getFormingMineralName()}}</a>
-                                </li>
+                                @include('main.rocks.minerals-section', [
+                                    'formingMinerals' => $item->getFormingMineralLinks(),
+                                    'secondMinerals' => $item->getSecondMineralLinks(),
+                                    'accessoryMinerals' => $item->getAccessoryMineralLinks(),
+                                ])
                             </ul>
                         </div>
                         <div class="rock-card__info order-sm-1 col-sm-7">

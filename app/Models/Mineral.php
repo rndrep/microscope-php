@@ -52,4 +52,9 @@ class Mineral extends Model
         );
     }
 
+    public static function getOptionalProps()
+    {
+        return ['description'];
+    }
+
 }
