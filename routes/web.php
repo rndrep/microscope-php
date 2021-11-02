@@ -33,7 +33,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/', [RockController::class, 'home'])->name('home');
 Route::get('/info/{id}', [RockController::class, 'info'])->name('info');
-Route::get('/mineral_info/{id}', [MineralController::class, 'info'])->name('mineral_info');
+Route::get('/mineral-info/{id}', [MineralController::class, 'info'])->name('mineral_info');
 
 Route::group(['prefix' => '/microscope'], function () {
     Route::get('/rock/{id}', [RockController::class, 'getMicroPhotos'])->name('micro_rock');
