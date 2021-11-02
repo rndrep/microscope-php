@@ -13,9 +13,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{route('categories.index')}}" class="nav-link">
+            <a href="{{route('rock-classes.index')}}" class="nav-link">
                 <i class="fa nav-icon fa-bacon"></i>
-                <p>Категории</p>
+                <p>Классы пород</p>
             </a>
         </li>
         <li class="nav-item">

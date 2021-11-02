@@ -22,7 +22,7 @@
                   <th>Название</th>
                   <th>Описание</th>
                   <th>Тип породы</th>
-                  <th>Категория</th>
+                  <th>Класс</th>
                   <th>Породообразующий минерал</th>
                   <th>Вторичный минерал</th>
                   <th>Акцессорный минерал</th>
@@ -38,7 +38,7 @@
                   <td>{{$item->name}}</td>
                   <td>{{$item->description}}</td>
                   <td>{{$item->getRockTypeName()}}</td>
-                  <td>{{$item->getCategoryName()}}</td>
+                  <td>{{$item->getRockClassName()}}</td>
                   <td>{{$item->getFormingMineralName()}}</td>
                   <td>{{$item->getSecondMineralName()}}</td>
                   <td>{{$item->getAccessoryMineralName()}}</td>

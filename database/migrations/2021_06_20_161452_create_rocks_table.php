@@ -23,7 +23,7 @@ class CreateRocksTable extends Migration
             $table->string('photo')->nullable();
             $table->integer('is_public')->nullable();
             $table->foreignId('rock_type_id')->nullable();
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('rock_class_id')->nullable();
             $table->foreignId('period_id')->nullable();
             $table->timestamps();
         });

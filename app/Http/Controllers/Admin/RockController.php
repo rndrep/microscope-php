@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\RockClass;
 use App\Models\Mineral;
 use App\Models\Rock;
 use App\Models\RockType;
@@ -61,7 +61,7 @@ class RockController extends Controller
             [
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
-                'categories' => Category::pluck('name', 'id'),
+                'rockClasses' => RockClass::pluck('name', 'id'),
             ]
         );
     }
@@ -106,7 +106,7 @@ class RockController extends Controller
                 'rock' => $rock,
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
-                'categories' => Category::pluck('name', 'id'),
+                'rockClasses' => RockClass::pluck('name', 'id'),
                 'selectedFormMinerals' => $selectedFormMinerals,
                 'selectedSecMinerals' => $selectedSecMinerals,
                 'selectedAcMinerals' => $selectedAcMinerals
@@ -117,7 +117,7 @@ class RockController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:100',
             'photo' => 'nullable|image'
         ]);
 

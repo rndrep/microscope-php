@@ -9,12 +9,12 @@
       <!-- Default box -->
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Категории</h3>
+              <h3 class="box-title">Классы пород</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div class="form-group">
-                <a href="{{route('categories.create')}}" class="btn btn-success">Добавить</a>
+                <a href="{{route('rock-classes.create')}}" class="btn btn-success">Добавить</a>
               </div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -33,9 +33,9 @@
 	                  <td>{{$item->description}}</td>
 	                  <td>
                           <div class="btn">
-                              <a href="{{route('categories.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
+                              <a href="{{route('rock-classes.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
                           </div>
-                          {{Form::open(['route'=>['categories.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
+                          {{Form::open(['route'=>['rock-classes.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
                               <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
                                <i class="fa fa-trash-alt"></i>
                               </button>

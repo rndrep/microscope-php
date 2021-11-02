@@ -29,7 +29,7 @@
                                     Тип: <a class="card-list__link" href="#">{{$item->getRockTypeName()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Категория: <a class="card-list__link" href="#">{{$item->getCategoryName()}}</a>
+                                    Класс: <a class="card-list__link" href="#">{{$item->getRockClassName()}}</a>
                                 </li>
                                 <li class="list-group-item">
                                     Породообразующие минералы:

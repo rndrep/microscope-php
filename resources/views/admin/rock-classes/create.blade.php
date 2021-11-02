@@ -8,28 +8,28 @@
 
       <!-- Default box -->
       <div class="box">
+      {!! Form::open(['route' => 'rock-classes.store']) !!}
         <div class="box-header with-border">
-          <h3 class="box-title">Изменение категории</h3>
+          <h3 class="box-title">Добавление класса</h3>
           @include('admin.errors')
         </div>
         <div class="box-body">
-        {{Form::open(['route'=>['categories.update',$item->id], 'method'=>'put'])}}
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputName">Название</label>
-              <input type="text" class="form-control" id="inputName" name="name" placeholder="" value="{{$item->name}}">
+              <input type="text" class="form-control" id="inputName" placeholder="" name="name">
               <label for="inputDesc">Описание</label>
-              <input type="text" class="form-control" id="inputDesc" name="description" placeholder="" value="{{$item->description}}">
+              <input type="text" class="form-control" id="inputDesc" placeholder="" name="description">
             </div>
         </div>
       </div>
         <!-- /.box-body -->
         <div class="box-footer">
           <button class="btn btn-default">Назад</button>
-          <button class="btn btn-warning pull-right">Изменить</button>
+          <button class="btn btn-success pull-right">Добавить</button>
         </div>
         <!-- /.box-footer-->
-        {{Form::close()}}
+        {!! Form::close() !!}
       </div>
       <!-- /.box -->
 
@@ -37,5 +37,4 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 @endsection

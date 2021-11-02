@@ -48,11 +48,11 @@
               }}
             </div>
             <div class="form-group">
-                <label>Категория</label>
-                {{Form::select('category_id',
-                    $categories,
+                <label>Класс</label>
+                {{Form::select('rock_class_id',
+                    $rockClasses,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите категорию'])
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите класс'])
                 }}
             </div>
             <div class="form-group">
