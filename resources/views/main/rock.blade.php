@@ -31,6 +31,9 @@
                                 <li class="list-group-item">
                                     Класс: <a class="card-list__link" href="#">{{$item->getRockClassName()}}</a>
                                 </li>
+                                <li class="list-group-item">
+                                    Отряд: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockSquad')}}</a>
+                                </li>
                                 @include('main.rocks.minerals-section',
                                     ['name' => 'Породообразующие минералы',
                                     'items' => $item->getFormingMineralLinks()

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RockClass;
 use App\Models\Mineral;
 use App\Models\Rock;
+use App\Models\RockSquad;
 use App\Models\RockType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,7 @@ class RockController extends Controller
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
                 'rockClasses' => RockClass::pluck('name', 'id'),
+                'rockSquads' => RockSquad::pluck('name', 'id'),
             ]
         );
     }
@@ -75,6 +77,8 @@ class RockController extends Controller
         $rock = Rock::add($request->all());
         $rock->uploadPhoto($request->file('photo'));
         $rock->setRockType($request->get('rock_type_id'));
+        $rock->setRockClass($request->get('rock_class_id'));
+        $rock->setRockSquad($request->get('rock_squad_id'));
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));
@@ -107,6 +111,7 @@ class RockController extends Controller
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
                 'rockClasses' => RockClass::pluck('name', 'id'),
+                'rockSquads' => RockSquad::pluck('name', 'id'),
                 'selectedFormMinerals' => $selectedFormMinerals,
                 'selectedSecMinerals' => $selectedSecMinerals,
                 'selectedAcMinerals' => $selectedAcMinerals
@@ -126,6 +131,8 @@ class RockController extends Controller
         $rock->edit($request->all());
         $rock->uploadPhoto($request->file('photo'));
         $rock->setRockType($request->get('rock_type_id'));
+        $rock->setRockClass($request->get('rock_class_id'));
+        $rock->setRockSquad($request->get('rock_squad_id'));
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));

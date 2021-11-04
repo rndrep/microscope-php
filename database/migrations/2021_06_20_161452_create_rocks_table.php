@@ -24,6 +24,7 @@ class CreateRocksTable extends Migration
             $table->integer('is_public')->nullable();
             $table->foreignId('rock_type_id')->nullable();
             $table->foreignId('rock_class_id')->nullable();
+            $table->foreignId('rock_squad_id')->nullable();
             $table->foreignId('period_id')->nullable();
             $table->timestamps();
         });

@@ -118,6 +118,50 @@ class Rock extends Model
         return $this->rockClass->name ?? '';
     }
 
+    // Use this for all dictionaries
+    /**
+     * @param string $class dictionary class name (rockType, rockClass, etc.)
+     * @return int
+     */
+    public function getDictionaryPropId(string $class)
+    {
+        $relation = lcfirst($class);
+        if (empty($this->$relation)) {
+            return '';
+        }
+        return $this->$relation->id ?? 0;
+    }
+
+    /**
+     * @param string $class dictionary class name (rockType, rockClass, etc.)
+     * @return string
+     */
+    public function getDictionaryPropName(string $class)
+    {
+        $relation = lcfirst($class);
+        if (empty($this->$relation)) {
+            return '';
+        }
+        return $this->$relation->name ?? '';
+    }
+
+    public function rockSquad()
+    {
+        return $this->belongsTo(RockSquad::class);
+    }
+
+    public function setRockSquad($id)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        if (empty(RockSquad::find($id))) {
+            return false;
+        }
+        $this->rock_squad_id = $id;
+    }
+
+
     public function getPhoto()
     {
         if (empty($this->photo)) {
@@ -137,6 +181,7 @@ class Rock extends Model
         }
 
         // TODO: check that save and remove in correct path
+        // replace Storage::delete by deleteImage()
         Storage::delete($this::IMAGE_PATH_ROCK_INFO . $this->photo);
         $filename = $this->getKey() . '.' . $photo->extension();
         $photo->storeAs($this::IMAGE_PATH_ROCK_INFO, $filename);

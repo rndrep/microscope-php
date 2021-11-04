@@ -56,6 +56,14 @@
                 }}
             </div>
             <div class="form-group">
+                <label>Отряд</label>
+                {{Form::select('rock_squad_id',
+                    $rockSquads,
+                    null,
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите отряд'])
+                }}
+            </div>
+            <div class="form-group">
               <label>Породообразующие минералы</label>
               {{Form::select('forming_minerals[]',
                 $minerals,
