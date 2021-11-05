@@ -16,6 +16,13 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             UserSeeder::class,
+            RockClassSeeder::class,
+            RockFamilySeeder::class,
+            RockKindSeeder::class,
+            RockSquadSeeder::class,
+            RockStructureSeeder::class,
+            RockTextureSeeder::class,
+            RockTypeSeeder::class,
         ]);
     }
 }
