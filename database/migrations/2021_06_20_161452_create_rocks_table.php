@@ -22,9 +22,17 @@ class CreateRocksTable extends Migration
             $table->float('y')->nullable();
             $table->string('photo')->nullable();
             $table->integer('is_public')->nullable();
+            $table->string('video')->nullable();
+            $table->string('model_3d')->nullable();
+            $table->string('region')->nullable();
+            $table->string('extra')->nullable();
             $table->foreignId('rock_type_id')->nullable();
             $table->foreignId('rock_class_id')->nullable();
             $table->foreignId('rock_squad_id')->nullable();
+            $table->foreignId('rock_family_id')->nullable();
+            $table->foreignId('rock_kind_id')->nullable();
+            $table->foreignId('rock_texture_id')->nullable();
+            $table->foreignId('rock_structure_id')->nullable();
             $table->foreignId('period_id')->nullable();
             $table->timestamps();
         });

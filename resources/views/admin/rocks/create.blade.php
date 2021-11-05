@@ -64,6 +64,38 @@
                 }}
             </div>
             <div class="form-group">
+                <label>Семейство</label>
+                {{Form::select('rock_family_id',
+                    $rockFamilies,
+                    null,
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите семейство'])
+                }}
+            </div>
+            <div class="form-group">
+                <label>Вид</label>
+                {{Form::select('rock_family_id',
+                    $rockKinds,
+                    null,
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите вид'])
+                }}
+            </div>
+            <div class="form-group">
+                <label>Текстура</label>
+                {{Form::select('rock_family_id',
+                    $rockTextures,
+                    null,
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите текстуру'])
+                }}
+            </div>
+            <div class="form-group">
+                <label>Структура</label>
+                {{Form::select('rock_family_id',
+                    $rockStructures,
+                    null,
+                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите структуру'])
+                }}
+            </div>
+            <div class="form-group">
               <label>Породообразующие минералы</label>
               {{Form::select('forming_minerals[]',
                 $minerals,

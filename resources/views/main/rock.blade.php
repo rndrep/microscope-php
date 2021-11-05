@@ -34,6 +34,18 @@
                                 <li class="list-group-item">
                                     Отряд: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockSquad')}}</a>
                                 </li>
+                                <li class="list-group-item">
+                                    Семейство: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockFamily')}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Вид: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockKind')}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Текстура: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockTexture')}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Структура: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockStructure')}}</a>
+                                </li>
                                 @include('main.rocks.minerals-section',
                                     ['name' => 'Породообразующие минералы',
                                     'items' => $item->getFormingMineralLinks()

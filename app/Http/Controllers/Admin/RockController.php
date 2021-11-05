@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\RockClass;
 use App\Models\Mineral;
 use App\Models\Rock;
+use App\Models\RockFamily;
+use App\Models\RockKind;
 use App\Models\RockSquad;
+use App\Models\RockStructure;
+use App\Models\RockTexture;
 use App\Models\RockType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +68,10 @@ class RockController extends Controller
                 'minerals' => Mineral::pluck('name', 'id'),
                 'rockClasses' => RockClass::pluck('name', 'id'),
                 'rockSquads' => RockSquad::pluck('name', 'id'),
+                'rockFamilies' => RockFamily::pluck('name', 'id'),
+                'rockKinds' => RockKind::pluck('name', 'id'),
+                'rockTextures' => RockTexture::pluck('name', 'id'),
+                'rockStructures' => RockStructure::pluck('name', 'id'),
             ]
         );
     }
@@ -79,6 +87,10 @@ class RockController extends Controller
         $rock->setRockType($request->get('rock_type_id'));
         $rock->setRockClass($request->get('rock_class_id'));
         $rock->setRockSquad($request->get('rock_squad_id'));
+        $rock->setRockFamily($request->get('rock_family_id'));
+        $rock->setRockKind($request->get('rock_kind_id'));
+        $rock->setRockTexture($request->get('rock_texture_id'));
+        $rock->setRockStructure($request->get('rock_structure_id'));
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));
@@ -112,6 +124,10 @@ class RockController extends Controller
                 'minerals' => Mineral::pluck('name', 'id'),
                 'rockClasses' => RockClass::pluck('name', 'id'),
                 'rockSquads' => RockSquad::pluck('name', 'id'),
+                'rockFamilies' => RockFamily::pluck('name', 'id'),
+                'rockKinds' => RockKind::pluck('name', 'id'),
+                'rockTextures' => RockTexture::pluck('name', 'id'),
+                'rockStructures' => RockStructure::pluck('name', 'id'),
                 'selectedFormMinerals' => $selectedFormMinerals,
                 'selectedSecMinerals' => $selectedSecMinerals,
                 'selectedAcMinerals' => $selectedAcMinerals
@@ -133,6 +149,10 @@ class RockController extends Controller
         $rock->setRockType($request->get('rock_type_id'));
         $rock->setRockClass($request->get('rock_class_id'));
         $rock->setRockSquad($request->get('rock_squad_id'));
+        $rock->setRockFamily($request->get('rock_family_id'));
+        $rock->setRockKind($request->get('rock_kind_id'));
+        $rock->setRockTexture($request->get('rock_texture_id'));
+        $rock->setRockStructure($request->get('rock_structure_id'));
         $rock->setFormingMinerals($request->get('forming_minerals'));
         $rock->setSecondMinerals($request->get('second_minerals'));
         $rock->setAccessoryMinerals($request->get('accessory_minerals'));

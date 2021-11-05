@@ -21,8 +21,13 @@
                   <th>ID</th>
                   <th>Название</th>
                   <th>Описание</th>
-                  <th>Тип породы</th>
+                  <th>Тип</th>
+                  <th>Отряд</th>
                   <th>Класс</th>
+                  <th>Семейство</th>
+                  <th>Вид</th>
+                  <th>Текстура</th>
+                  <th>Структура</th>
                   <th>Породообразующий минерал</th>
                   <th>Вторичный минерал</th>
                   <th>Акцессорный минерал</th>
@@ -37,8 +42,13 @@
                   <td>{{$item->id}}</td>
                   <td>{{$item->name}}</td>
                   <td>{{$item->description}}</td>
-                  <td>{{$item->getRockTypeName()}}</td>
-                  <td>{{$item->getRockClassName()}}</td>
+                  <td>{{$item->getDictionaryPropName('rockType')}}</td>
+                  <td>{{$item->getDictionaryPropName('rockSquad')}}</td>
+                  <td>{{$item->getDictionaryPropName('rockClass')}}</td>
+                  <td>{{$item->getDictionaryPropName('rockFamily')}}</td>
+                  <td>{{$item->getDictionaryPropName('rockKind')}}</td>
+                  <td>{{$item->getDictionaryPropName('rockTexture')}}</td>
+                  <td>{{$item->getDictionaryPropName('rockStructure')}}</td>
                   <td>{{$item->getFormingMineralName()}}</td>
                   <td>{{$item->getSecondMineralName()}}</td>
                   <td>{{$item->getAccessoryMineralName()}}</td>

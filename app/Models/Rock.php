@@ -59,10 +59,7 @@ class Rock extends Model
 
     public function setRockType($id)
     {
-        if (empty($id)) {
-            return false;
-        }
-        if (empty(RockType::find($id))) {
+        if (empty($id) || empty(RockType::find($id))) {
             // TODO: maybe display error
             return false;
         }
@@ -92,30 +89,11 @@ class Rock extends Model
 
     public function setRockClass($id)
     {
-        if (empty($id)) {
-            return false;
-        }
-        if (empty(RockType::find($id))) {
+        if (empty($id) || empty(RockClass::find($id))) {
             // TODO: maybe display error
             return false;
         }
         $this->rock_class_id = $id;
-    }
-
-    public function getRockClassId()
-    {
-        if (empty($this->rockClass)) {
-            return '';
-        }
-        return $this->rockClass->id ?? 0;
-    }
-
-    public function getRockClassName()
-    {
-        if (empty($this->rockClass)) {
-            return '';
-        }
-        return $this->rockClass->name ?? '';
     }
 
     // Use this for all dictionaries
@@ -152,15 +130,63 @@ class Rock extends Model
 
     public function setRockSquad($id)
     {
-        if (empty($id)) {
-            return false;
-        }
-        if (empty(RockSquad::find($id))) {
+        if (empty($id) || empty(RockSquad::find($id))) {
             return false;
         }
         $this->rock_squad_id = $id;
     }
 
+    public function rockFamily()
+    {
+        return $this->belongsTo(RockFamily::class);
+    }
+
+    public function setRockFamily($id)
+    {
+        if (empty($id) || empty(RockFamily::find($id))) {
+            return false;
+        }
+        $this->rock_family_id = $id;
+    }
+
+    public function rockKind()
+    {
+        return $this->belongsTo(RockKind::class);
+    }
+
+    public function setRockKind($id)
+    {
+        if (empty($id) || empty(RockKind::find($id))) {
+            return false;
+        }
+        return $this->rock_kind_id = $id;
+    }
+
+    public function rockTexture()
+    {
+        return $this->belongsTo(RockTexture::class);
+    }
+
+    public function setRockTexture($id)
+    {
+        if (empty($id) || empty(RockTexture::find($id))) {
+            return false;
+        }
+        return $this->rock_texture_id = $id;
+    }
+
+    public function rockStructure()
+    {
+        return $this->belongsTo(RockStructure::class);
+    }
+
+    public function setRockStructure($id)
+    {
+        if (empty($id) || empty(RockStructure::find($id))) {
+            return false;
+        }
+        return $this->rock_structure_id = $id;
+    }
 
     public function getPhoto()
     {
