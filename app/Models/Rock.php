@@ -26,7 +26,8 @@ class Rock extends Model
      * @var array
      */
     protected $guarded = [
-        'photo', 'rock_type_id', 'forming_minerals', 'second_minerals', 'accessory_minerals', 'is_public'
+        'photo', 'video', 'rock_type_id', 'rock_class_id', 'rock_squad_id', 'rock_family_id', 'rock_kind_id',
+        'rock_texture_id', 'rock_structure_id', 'forming_minerals', 'second_minerals', 'accessory_minerals', 'is_public'
     ];
 
     public static function add($fields)
@@ -355,4 +356,16 @@ class Rock extends Model
     {
         $this->is_public = 0;
     }
+
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    public function setVideo($value): self
+    {
+        $this->video = $value;
+        return $this;
+    }
+
 }
