@@ -44,7 +44,7 @@
               {{Form::select('rock_type_id',
               	$rockTypes,
               	null,
-              	['class' => 'form-control select2', 'data-placeholder'=>'Выберите тип породы'])
+              	['class' => 'form-control select2', 'placeholder'=>'-'])
               }}
             </div>
             <div class="form-group">
@@ -52,7 +52,7 @@
                 {{Form::select('rock_class_id',
                     $rockClasses,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите класс'])
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
                 }}
             </div>
             <div class="form-group">
@@ -60,7 +60,7 @@
                 {{Form::select('rock_squad_id',
                     $rockSquads,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите отряд'])
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
                 }}
             </div>
             <div class="form-group">
@@ -68,7 +68,7 @@
                 {{Form::select('rock_family_id',
                     $rockFamilies,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите семейство'])
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
                 }}
             </div>
             <div class="form-group">
@@ -76,7 +76,7 @@
                 {{Form::select('rock_family_id',
                     $rockKinds,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите вид'])
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
                 }}
             </div>
             <div class="form-group">
@@ -84,7 +84,7 @@
                 {{Form::select('rock_family_id',
                     $rockTextures,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите текстуру'])
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
                 }}
             </div>
             <div class="form-group">
@@ -92,7 +92,7 @@
                 {{Form::select('rock_family_id',
                     $rockStructures,
                     null,
-                    ['class' => 'form-control select2', 'data-placeholder'=>'Выберите структуру'])
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
                 }}
             </div>
             <div class="form-group">

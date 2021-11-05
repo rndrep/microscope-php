@@ -60,8 +60,7 @@ class Rock extends Model
     public function setRockType($id)
     {
         if (empty($id) || empty(RockType::find($id))) {
-            // TODO: maybe display error
-            return false;
+            $this->rock_type_id = null;
         }
         $this->rock_type_id = $id;
     }
@@ -90,8 +89,7 @@ class Rock extends Model
     public function setRockClass($id)
     {
         if (empty($id) || empty(RockClass::find($id))) {
-            // TODO: maybe display error
-            return false;
+            $this->rock_class_id = null;
         }
         $this->rock_class_id = $id;
     }
@@ -131,7 +129,7 @@ class Rock extends Model
     public function setRockSquad($id)
     {
         if (empty($id) || empty(RockSquad::find($id))) {
-            return false;
+            $this->rock_squad_id = null;
         }
         $this->rock_squad_id = $id;
     }
@@ -144,7 +142,7 @@ class Rock extends Model
     public function setRockFamily($id)
     {
         if (empty($id) || empty(RockFamily::find($id))) {
-            return false;
+            $this->rock_family_id = null;
         }
         $this->rock_family_id = $id;
     }
@@ -157,9 +155,9 @@ class Rock extends Model
     public function setRockKind($id)
     {
         if (empty($id) || empty(RockKind::find($id))) {
-            return false;
+            $this->rock_kind_id = null;
         }
-        return $this->rock_kind_id = $id;
+        $this->rock_kind_id = $id;
     }
 
     public function rockTexture()
@@ -170,9 +168,9 @@ class Rock extends Model
     public function setRockTexture($id)
     {
         if (empty($id) || empty(RockTexture::find($id))) {
-            return false;
+            $this->rock_texture_id = null;
         }
-        return $this->rock_texture_id = $id;
+        $this->rock_texture_id = $id;
     }
 
     public function rockStructure()
@@ -183,9 +181,9 @@ class Rock extends Model
     public function setRockStructure($id)
     {
         if (empty($id) || empty(RockStructure::find($id))) {
-            return false;
+            $this->rock_structure_id = null;
         }
-        return $this->rock_structure_id = $id;
+        $this->rock_structure_id = $id;
     }
 
     public function getPhoto()

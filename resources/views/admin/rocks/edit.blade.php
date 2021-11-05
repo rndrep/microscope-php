@@ -42,19 +42,19 @@
                             <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
                         </div>
                         <div class="form-group">
-                            <label>Тип породы</label>
+                            <label>Тип</label>
                             {{Form::select('rock_type_id',
                                 $rockTypes,
-                                $rock->getRockTypeId(),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите тип породы'])
+                                $rock->getDictionaryPropId('rockType'),
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
                             <label>Класс</label>
                             {{Form::select('rock_class_id',
                                 $rockClasses,
-                                $rock->getRockClassId(),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите класс'])
+                                $rock->getDictionaryPropId('rockClass'),
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                             {{Form::select('rock_squad_id',
                                 $rockSquads,
                                 $rock->getDictionaryPropId('rockSquad'),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите отряд'])
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
@@ -70,7 +70,7 @@
                             {{Form::select('rock_family_id',
                                 $rockFamilies,
                                 $rock->getDictionaryPropId('rockFamily'),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите семейство'])
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
@@ -78,7 +78,7 @@
                             {{Form::select('rock_family_id',
                                 $rockKinds,
                                 $rock->getDictionaryPropId('rockKind'),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите вид'])
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
@@ -86,7 +86,7 @@
                             {{Form::select('rock_family_id',
                                 $rockTextures,
                                 $rock->getDictionaryPropId('rockTexture'),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите текстуру'])
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
@@ -94,7 +94,7 @@
                             {{Form::select('rock_family_id',
                                 $rockStructures,
                                 $rock->getDictionaryPropId('rockStructure'),
-                                ['class' => 'form-control select2', 'data-placeholder'=>'Выберите структуру'])
+                                ['class' => 'form-control select2', 'placeholder'=>'-'])
                             }}
                         </div>
                         <div class="form-group">
