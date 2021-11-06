@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Class Mineral
  * @package App\Models
  */
-class Mineral extends Model
+class Mineral extends AbstractMediaEntity
 {
     use HasFactory;
 

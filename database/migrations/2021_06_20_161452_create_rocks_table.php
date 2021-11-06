@@ -33,7 +33,7 @@ class CreateRocksTable extends Migration
             $table->foreignId('rock_kind_id')->nullable();
             $table->foreignId('rock_texture_id')->nullable();
             $table->foreignId('rock_structure_id')->nullable();
-            $table->foreignId('period_id')->nullable();
+            $table->foreignId('fossil_id')->nullable();
             $table->timestamps();
         });
     }

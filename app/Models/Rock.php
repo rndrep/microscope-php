@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Each Rock can have several forming, second and accessory minerals
@@ -13,12 +10,18 @@ use Illuminate\Support\Facades\Storage;
  * Class Rock
  * @package App\Models
  */
-class Rock extends Model
+class Rock extends AbstractMediaEntity
 {
     use HasFactory;
 
-    const IMAGE_PATH_ROCK_INFO = '/images/rocks/detail/';
     const IMAGE_PATH_ROCK_MICRO = '/images/rocks/micro/';
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->imagePathDetail = '/images/rocks/detail/';
+        $this->imagePathGallery = '/images/rocks/gallery/';
+    }
 
     /**
      * The attributes that are not mass assignable.
@@ -187,38 +190,17 @@ class Rock extends Model
         $this->rock_structure_id = $id;
     }
 
-    public function getPhoto()
+    public function fossil()
     {
-        if (empty($this->photo)) {
-            return '/img/no-image.png';
-        }
-        return self::IMAGE_PATH_ROCK_INFO . $this->photo . '?' . time();
+        return $this->belongsTo(Fossil::class);
     }
 
-    /**
-     * @param UploadedFile|null $photo
-     * @return $this|false
-     */
-    public function uploadPhoto($photo)
+    public function setFossil($id)
     {
-        if (empty($photo)) {
-            return false;
+        if (empty($id) || empty(Fossil::find($id))) {
+            $this->fossil_id = null;
         }
-
-        // TODO: check that save and remove in correct path
-        // replace Storage::delete by deleteImage()
-        Storage::delete($this::IMAGE_PATH_ROCK_INFO . $this->photo);
-        $filename = $this->getKey() . '.' . $photo->extension();
-        $photo->storeAs($this::IMAGE_PATH_ROCK_INFO, $filename);
-        $this->photo = $filename;
-        return $this;
-    }
-
-    public function deleteImage()
-    {
-        if (!empty($this->photo)) {
-            Storage::delete($this::IMAGE_PATH_ROCK_INFO . $this->photo);
-        }
+        $this->fossil_id = $id;
     }
 
     public function formingMinerals()
