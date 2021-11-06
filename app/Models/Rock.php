@@ -59,30 +59,12 @@ class Rock extends AbstractMediaEntity
         return $this->belongsTo(RockType::class);
     }
 
-    // TODO: add empty value in selectbox
-
     public function setRockType($id)
     {
         if (empty($id) || empty(RockType::find($id))) {
             $this->rock_type_id = null;
         }
         $this->rock_type_id = $id;
-    }
-
-    public function getRockTypeId()
-    {
-        if (empty($this->rockType)) {
-            return '';
-        }
-        return $this->rockType->id ?? 0;
-    }
-
-    public function getRockTypeName()
-    {
-        if (empty($this->rockType)) {
-            return '';
-        }
-        return $this->rockType->name ?? '';
     }
 
     public function rockClass()
@@ -100,7 +82,7 @@ class Rock extends AbstractMediaEntity
 
     // Use this for all dictionaries
     /**
-     * @param string $class dictionary class name (rockType, rockClass, etc.)
+     * @param string $class dictionary id (rockType, rockClass, etc.)
      * @return int
      */
     public function getDictionaryPropId(string $class)
@@ -113,7 +95,7 @@ class Rock extends AbstractMediaEntity
     }
 
     /**
-     * @param string $class dictionary class name (rockType, rockClass, etc.)
+     * @param string $class dictionary name (rockType, rockClass, etc.)
      * @return string
      */
     public function getDictionaryPropName(string $class)
@@ -250,14 +232,23 @@ class Rock extends AbstractMediaEntity
 
     public function getFormingMineralLinks()
     {
+        if (!isset($this->formingMinerals)) {
+            return [];
+        }
         return $this->getMineralLinkItems($this->formingMinerals);
     }
     public function getSecondMineralLinks()
     {
+        if (!isset($this->secondMinerals)) {
+            return [];
+        }
         return $this->getMineralLinkItems($this->secondMinerals);
     }
     public function getAccessoryMineralLinks()
     {
+        if (!isset($this->accessoryMinerals)) {
+            return [];
+        }
         return $this->getMineralLinkItems($this->accessoryMinerals);
     }
 

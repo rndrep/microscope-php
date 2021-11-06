@@ -26,25 +26,25 @@
                             <h1>Детали</h1>
                             <ul class="card-list list-group list-group-flush">
                                 <li class="list-group-item">
-                                    Тип: <a class="card-list__link" href="#">{{$item->getRockTypeName()}}</a>
+                                    Тип: <a class="card-list__link">{{$item->getDictionaryPropName('rockType')}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Класс: <a class="card-list__link" href="#">{{$item->getRockClassName()}}</a>
+                                    Класс: <a class="card-list__link">{{$item->getDictionaryPropName('rockClass')}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Отряд: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockSquad')}}</a>
+                                    Отряд: <a class="card-list__link">{{$item->getDictionaryPropName('rockSquad')}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Семейство: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockFamily')}}</a>
+                                    Семейство: <a class="card-list__link">{{$item->getDictionaryPropName('rockFamily')}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Вид: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockKind')}}</a>
+                                    Вид: <a class="card-list__link">{{$item->getDictionaryPropName('rockKind')}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Текстура: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockTexture')}}</a>
+                                    Текстура: <a class="card-list__link">{{$item->getDictionaryPropName('rockTexture')}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Структура: <a class="card-list__link" href="#">{{$item->getDictionaryPropName('rockStructure')}}</a>
+                                    Структура: <a class="card-list__link">{{$item->getDictionaryPropName('rockStructure')}}</a>
                                 </li>
                                 @include('main.rocks.minerals-section',
                                     ['name' => 'Породообразующие минералы',
