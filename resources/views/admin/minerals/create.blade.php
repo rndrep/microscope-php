@@ -16,10 +16,10 @@
         <div class="box-body">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="inputName">Название</label>
-              <input type="text" class="form-control" id="inputName" placeholder="" name="name">
-              <label for="inputDesc">Описание</label>
-              <input type="text" class="form-control" id="inputDesc" placeholder="" name="description">
+            @foreach($fields as $name => $prop)
+              <label for="inputName">{{$name}}</label>
+              <input type="text" class="form-control" id="inputName" placeholder="" name="{{$prop}}">
+            @endforeach
             </div>
         </div>
       </div>

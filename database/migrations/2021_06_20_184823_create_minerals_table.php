@@ -32,6 +32,7 @@ class CreateMineralsTable extends Migration
             $table->string('feature_color')->nullable();
             $table->string('shine')->nullable();
             $table->string('transparency')->nullable();
+            $table->string('splitting')->nullable();
             $table->string('other_props')->nullable();
             $table->string('diagnosis')->nullable();
             $table->string('genesis')->nullable();

@@ -15,12 +15,12 @@ class MineralController extends Controller
     {
         //TODO: add sorting
         $minerals = Mineral::all();
-        return view('admin.minerals.index', ['minerals' => $minerals]);
+        return view('admin.minerals.index', ['minerals' => $minerals, 'fields' => Mineral::SIMPLE_INPUT_FIELDS]);
     }
 
     public function create()
     {
-        return view('admin.minerals.create');
+        return view('admin.minerals.create', ['fields' => Mineral::SIMPLE_INPUT_FIELDS]);
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class MineralController extends Controller
     public function edit($id)
     {
         $item = Mineral::find($id);
-        return view('admin.minerals.edit', ['item' => $item]);
+        return view('admin.minerals.edit', ['item' => $item, 'fields' => Mineral::SIMPLE_INPUT_FIELDS]);
     }
 
     public function update(Request $request, $id)

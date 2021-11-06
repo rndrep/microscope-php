@@ -22,6 +22,34 @@ class Mineral extends AbstractMediaEntity
      */
     protected $guarded = [];
 
+    const SIMPLE_INPUT_FIELDS = [
+        'Название' => 'name',
+        'Описание' => 'description',
+        'Cостав' => 'composition',
+        'Класс/подкласс' => 'class',
+        'Картинка' => 'photo',
+        'Видео' => 'video',
+        'Разновидности' => 'varieties',
+        'Форма выделения' => 'aggregates',
+        'Черта' => 'feature',
+        'Сингония' => 'syngony',
+        'Облик кристаллов' => 'crystal_form',
+        'Твердость' => 'hardness',
+        'Удельный вес, г/см3' => 'specific_gravity',
+        'Цвет' => 'color',
+        'Цвет черты' => 'feature_color',
+        'Блеск' => 'shine',
+        'Прозрачность' => 'transparency',
+        'Спайность' => 'splitting',
+        'Прочие свойства' => 'other_props',
+        'Диагностика' => 'diagnosis',
+        'Генезис' => 'genesis',
+        'Парагенезис' => 'paragenesis',
+        'Долгота' => 'x',
+        'Широта' => 'y',
+//        'Месторождение' => '',
+    ];
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -155,7 +183,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getVarieties()
+    public function getVarieties() //Разновидности
     {
         return $this->varieties;
     }
@@ -166,7 +194,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getAggregates()
+    public function getAggregates() //Форма выделения ( по другому агрегаты)
     {
         return $this->aggregates;
     }
@@ -177,7 +205,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getFeature()
+    public function getFeature() //Черта
     {
         return $this->feature;
     }
@@ -188,7 +216,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getSyngony()
+    public function getSyngony() //Сингония
     {
         return $this->syngony;
     }
@@ -199,7 +227,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getCrystalForm()
+    public function getCrystalForm() //Облик кристаллов
     {
         return $this->crystal_form;
     }
@@ -210,7 +238,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getHardness()
+    public function getHardness() //Твердость
     {
         return $this->hardness;
     }
@@ -221,7 +249,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getSpecificGravity()
+    public function getSpecificGravity() //Удельный вес, г/см3
     {
         return $this->specific_gravity;
     }
@@ -243,7 +271,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getFeatureColor()
+    public function getFeatureColor() //Цвет черты
     {
         return $this->feature_color;
     }
@@ -254,7 +282,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getShine()
+    public function getShine() //Блеск
     {
         return $this->shine;
     }
@@ -265,7 +293,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getTransparency()
+    public function getTransparency() //Прозрачность
     {
         return $this->transparency;
     }
@@ -276,7 +304,18 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getOtherProps()
+    public function getSplitting() //Спайность
+    {
+        return $this->splitting;
+    }
+
+    public function setSplitting($value): self
+    {
+        $this->splitting = $value;
+        return $this;
+    }
+
+    public function getOtherProps() //Прочие свойства
     {
         return $this->other_props;
     }
@@ -287,7 +326,7 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getDiagnosis()
+    public function getDiagnosis() //Диагностика
     {
         return $this->diagnosis;
     }

@@ -16,10 +16,10 @@
         {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put'])}}
           <div class="col-md-6">
             <div class="form-group">
-              <label for="inputName">Название</label>
-              <input type="text" class="form-control" id="inputName" name="name" placeholder="" value="{{$item->name}}">
-              <label for="inputDesc">Описание</label>
-              <input type="text" class="form-control" id="inputDesc" name="description" placeholder="" value="{{$item->description}}">
+            @foreach($fields as $name => $prop)
+              <label for="inputName">{{$name}}</label>
+              <input type="text" class="form-control" id="inputName" name="{{$prop}}" placeholder="" value="{{$item->$prop}}">
+            @endforeach
             </div>
         </div>
       </div>
