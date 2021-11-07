@@ -5,7 +5,7 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-
+    {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put'])}}
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
@@ -13,14 +13,20 @@
           @include('admin.errors')
         </div>
         <div class="box-body">
-        {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put'])}}
           <div class="col-md-6">
-            <div class="form-group">
+              <div class="form-group">
+                  <label for="inputPhoto">Картинка</label>
+                  <img src="{{$item->getPhoto()}}" alt="" class="row img-responsive" width="200">
+                  <input type="file" id="inputPhoto" name="photo">
+                  {{--                <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto" name="photo" style="display:none"></label>--}}
+                  <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
+              </div>
             @foreach($fields as $name => $prop)
+            <div class="form-group">
               <label for="inputName">{{$name}}</label>
               <input type="text" class="form-control" id="inputName" name="{{$prop}}" placeholder="" value="{{$item->$prop}}">
-            @endforeach
             </div>
+            @endforeach
         </div>
       </div>
         <!-- /.box-body -->
@@ -29,10 +35,10 @@
           <button class="btn btn-warning pull-right">Изменить</button>
         </div>
         <!-- /.box-footer-->
-        {{Form::close()}}
+
       </div>
       <!-- /.box -->
-
+    {{Form::close()}}
     </section>
     <!-- /.content -->
   </div>

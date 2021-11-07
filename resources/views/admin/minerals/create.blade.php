@@ -15,12 +15,18 @@
         </div>
         <div class="box-body">
           <div class="col-md-6">
-            <div class="form-group">
-            @foreach($fields as $name => $prop)
+          <div class="form-group">
+              <label for="inputPhoto">Картинка</label>
+              <input type="file" id="inputPhoto" name="photo">
+              {{--                <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto" name="photo" style="display:none"></label>--}}
+              <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
+          </div>
+          @foreach($fields as $name => $prop)
+          <div class="form-group">
               <label for="inputName">{{$name}}</label>
               <input type="text" class="form-control" id="inputName" placeholder="" name="{{$prop}}">
-            @endforeach
-            </div>
+          </div>
+          @endforeach
         </div>
       </div>
         <!-- /.box-body -->

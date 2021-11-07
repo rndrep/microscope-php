@@ -27,7 +27,6 @@ class Mineral extends AbstractMediaEntity
         'Описание' => 'description',
         'Cостав' => 'composition',
         'Класс/подкласс' => 'class',
-        'Картинка' => 'photo',
         'Видео' => 'video',
         'Разновидности' => 'varieties',
         'Форма выделения' => 'aggregates',
