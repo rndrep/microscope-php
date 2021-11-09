@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AbstractMediaEntity;
 use App\Models\RockClass;
 use App\Models\Mineral;
 use App\Models\Rock;
@@ -82,20 +83,25 @@ class RockController extends Controller
             'name' =>'required|max:255',
             'photo' => 'nullable|image',
         ]);
-        $rock = Rock::add($request->all());
-        $rock->uploadPhoto($request->file('photo'));
-        $rock->setRockType($request->get('rock_type_id'));
-        $rock->setRockClass($request->get('rock_class_id'));
-        $rock->setRockSquad($request->get('rock_squad_id'));
-        $rock->setRockFamily($request->get('rock_family_id'));
-        $rock->setRockKind($request->get('rock_kind_id'));
-        $rock->setRockTexture($request->get('rock_texture_id'));
-        $rock->setRockStructure($request->get('rock_structure_id'));
-        $rock->setFormingMinerals($request->get('forming_minerals'));
-        $rock->setSecondMinerals($request->get('second_minerals'));
-        $rock->setAccessoryMinerals($request->get('accessory_minerals'));
-        $rock->toggleStatus($request->get('is_public'));
-        $rock->save();
+        $item = Rock::add($request->all());
+        $item->uploadPhoto($request->file('photo'));
+        $item->setRockType($request->get('rock_type_id'));
+        $item->setRockClass($request->get('rock_class_id'));
+        $item->setRockSquad($request->get('rock_squad_id'));
+        $item->setRockFamily($request->get('rock_family_id'));
+        $item->setRockKind($request->get('rock_kind_id'));
+        $item->setRockTexture($request->get('rock_texture_id'));
+        $item->setRockStructure($request->get('rock_structure_id'));
+        $item->setFormingMinerals($request->get('forming_minerals'));
+        $item->setSecondMinerals($request->get('second_minerals'));
+        $item->setAccessoryMinerals($request->get('accessory_minerals'));
+        $item->toggleStatus($request->get('is_public'));
+        $item->save();
+
+        $item->uploadMicroscope(
+            $request->file('pplPhotos') ?? [],
+            $request->file('xplPhotos') ?? []
+        );
 
         return redirect()->route('rocks.index');
     }
@@ -142,22 +148,27 @@ class RockController extends Controller
             'photo' => 'nullable|image'
         ]);
 
-        /** @var Rock $rock */
-        $rock = Rock::find($id);
-        $rock->edit($request->all());
-        $rock->uploadPhoto($request->file('photo'));
-        $rock->setRockType($request->get('rock_type_id'));
-        $rock->setRockClass($request->get('rock_class_id'));
-        $rock->setRockSquad($request->get('rock_squad_id'));
-        $rock->setRockFamily($request->get('rock_family_id'));
-        $rock->setRockKind($request->get('rock_kind_id'));
-        $rock->setRockTexture($request->get('rock_texture_id'));
-        $rock->setRockStructure($request->get('rock_structure_id'));
-        $rock->setFormingMinerals($request->get('forming_minerals'));
-        $rock->setSecondMinerals($request->get('second_minerals'));
-        $rock->setAccessoryMinerals($request->get('accessory_minerals'));
-        $rock->toggleStatus($request->get('is_public'));
-        $rock->save();
+        /** @var Rock $item */
+        $item = Rock::find($id);
+        $item->edit($request->all());
+        $item->uploadPhoto($request->file('photo'));
+        $item->setRockType($request->get('rock_type_id'));
+        $item->setRockClass($request->get('rock_class_id'));
+        $item->setRockSquad($request->get('rock_squad_id'));
+        $item->setRockFamily($request->get('rock_family_id'));
+        $item->setRockKind($request->get('rock_kind_id'));
+        $item->setRockTexture($request->get('rock_texture_id'));
+        $item->setRockStructure($request->get('rock_structure_id'));
+        $item->setFormingMinerals($request->get('forming_minerals'));
+        $item->setSecondMinerals($request->get('second_minerals'));
+        $item->setAccessoryMinerals($request->get('accessory_minerals'));
+        $item->toggleStatus($request->get('is_public'));
+        $item->save();
+
+        $item->uploadMicroscope(
+            $request->file('pplPhotos') ?? [],
+            $request->file('xplPhotos') ?? []
+        );
 
         return redirect()->route('rocks.index');
     }
@@ -168,33 +179,19 @@ class RockController extends Controller
         return redirect()->route('rocks.index');
     }
 
-    public function getMicroPhotos($id): string
+    public function getMicroPhotosJson($id): string
     {
         if (empty($id)) {
             return json_encode([]);
         }
-        $publicPath = Rock::IMAGE_PATH_ROCK_MICRO . $id . '/';
+        $publicPath = AbstractMediaEntity::IMAGE_PATH_ROCK_MICRO . $id . '/';
         $photos = [
-            'ppl' => $this->getMicroPhotoPaths($publicPath . 'ppl'),
-            'xpl' => $this->getMicroPhotoPaths($publicPath . 'xpl')
+            'ppl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'xpl'),
+            'smooth' => true,
+            'shift' => 5,
         ];
         return json_encode($photos);
-    }
-
-    private function getMicroPhotoPaths(string $publicPath): array
-    {
-        $path = $publicPath;
-        if (!is_dir(public_path($path))) {
-            return [];
-        }
-        $photos = array_values(array_diff(
-            scandir(public_path($path)), ['.', '..']
-        ));
-        return array_map(function ($item) use ($path) {
-            return env('APP_URL') . $path . '/' . $item;
-        },
-            $photos
-        );
     }
 
 }

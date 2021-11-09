@@ -15,13 +15,7 @@ class Mineral extends AbstractMediaEntity
 {
     use HasFactory;
 
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
+    // TODO: add flag 'required'
     const SIMPLE_INPUT_FIELDS = [
         'Название' => 'name',
         'Описание' => 'description',
@@ -51,9 +45,9 @@ class Mineral extends AbstractMediaEntity
 
     public function __construct(array $attributes = [])
     {
+        $this->commonImgPath = '/images/minerals/';
         parent::__construct($attributes);
-        $this->imagePathDetail = '/images/minerals/detail/';
-        $this->imagePathGallery = '/images/minerals/gallery/';
+
     }
 
 //doesn't work with Mineral::pluck
@@ -72,6 +66,28 @@ class Mineral extends AbstractMediaEntity
 //        }
 ////        call_user_func($name, $arguments);
 //    }
+
+    public static function add($fields)
+    {
+        $item = new static;
+        $item->fill($fields);
+        $item->save();
+        return $item;
+    }
+
+    public function remove()
+    {
+        parent::remove();
+        //TODO: check
+        $this->deleteRelatedRocks();
+    }
+
+    public function deleteRelatedRocks()
+    {
+        Rock_FormingMineral::where('mineral_id', $this->id)->delete();
+        Rock_SecondMineral::where('mineral_id', $this->id)->delete();
+        Rock_AccessoryMineral::where('mineral_id', $this->id)->delete();
+    }
 
     public static function getOptionalProps()
     {

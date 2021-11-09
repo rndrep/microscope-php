@@ -36,8 +36,8 @@ Route::get('/info/{id}', [RockController::class, 'info'])->name('info');
 Route::get('/mineral-info/{id}', [MineralController::class, 'info'])->name('mineral_info');
 
 Route::group(['prefix' => '/microscope'], function () {
-    Route::get('/rock/{id}', [RockController::class, 'getMicroPhotos'])->name('micro_rock');
-    Route::get('/mineral/{id}', [MineralController::class, 'getMicroPhotos'])->name('micro_mineral');
+    Route::get('/rock/{id}', [RockController::class, 'getMicroPhotosJson'])->name('micro_rock');
+    Route::get('/mineral/{id}', [MineralController::class, 'getMicroPhotosJson'])->name('micro_mineral');
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {

@@ -14,24 +14,16 @@ class Rock extends AbstractMediaEntity
 {
     use HasFactory;
 
-    const IMAGE_PATH_ROCK_MICRO = '/images/rocks/micro/';
-
     public function __construct(array $attributes = [])
     {
+        $this->commonImgPath = '/images/rocks/';
+        $this->guarded = array_merge($this->guarded, [
+            'video', 'rock_type_id', 'rock_class_id', 'rock_squad_id', 'rock_family_id', 'rock_kind_id',
+            'rock_texture_id', 'rock_structure_id', 'forming_minerals', 'second_minerals', 'accessory_minerals', 'is_public'
+        ]);
         parent::__construct($attributes);
-        $this->imagePathDetail = '/images/rocks/detail/';
-        $this->imagePathGallery = '/images/rocks/gallery/';
-    }
 
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [
-        'photo', 'video', 'rock_type_id', 'rock_class_id', 'rock_squad_id', 'rock_family_id', 'rock_kind_id',
-        'rock_texture_id', 'rock_structure_id', 'forming_minerals', 'second_minerals', 'accessory_minerals', 'is_public'
-    ];
+    }
 
     public static function add($fields)
     {
@@ -49,7 +41,7 @@ class Rock extends AbstractMediaEntity
 
     public function remove()
     {
-        $this->deleteImage();
+        parent::remove();
         $this->deleteRelatedMinerals();
         $this->delete();
     }

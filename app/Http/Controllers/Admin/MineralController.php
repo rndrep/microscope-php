@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AbstractMediaEntity;
 use App\Models\Mineral;
 use App\Models\Rock_AccessoryMineral;
 use App\Models\Rock_FormingMineral;
@@ -28,7 +29,15 @@ class MineralController extends Controller
         $this->validate($request, [
             'name'	=>	'required' //обязательно
         ]);
-        Mineral::create($request->all());
+
+        /** @var Mineral $item */
+        $item = Mineral::add($request->all());
+        $item->uploadPhoto($request->file('photo'));
+        $item->uploadMicroscope(
+            $request->file('pplPhotos') ?? [],
+            $request->file('xplPhotos') ?? []
+        );
+
         return redirect()->route('minerals.index');
     }
 
@@ -45,6 +54,10 @@ class MineralController extends Controller
         ]);
         $item = Mineral::find($id);
         $item->update($request->all());
+        $item->uploadMicroscope(
+            $request->file('pplPhotos') ?? [],
+            $request->file('xplPhotos') ?? []
+        );
         return redirect()->route('minerals.index');
     }
 
@@ -60,4 +73,20 @@ class MineralController extends Controller
         Mineral::find($id)->delete();
         return redirect()->route('minerals.index');
     }
+
+    public function getMicroPhotosJson($id): string
+    {
+        if (empty($id)) {
+            return json_encode([]);
+        }
+        $publicPath = AbstractMediaEntity::IMAGE_PATH_MINERAL_MICRO . $id . '/';
+        $photos = [
+            'ppl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'xpl'),
+            'smooth' => false,
+            'shift' => 10,
+        ];
+        return json_encode($photos);
+    }
+
 }

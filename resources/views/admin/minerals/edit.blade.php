@@ -5,7 +5,7 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-    {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put'])}}
+    {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put', 'enctype' => 'multipart/form-data'])}}
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
@@ -21,6 +21,9 @@
                   {{--                <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto" name="photo" style="display:none"></label>--}}
                   <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
               </div>
+            <div class="form-group">
+              @include('admin.input-microscope')
+            </div>
             @foreach($fields as $name => $prop)
             <div class="form-group">
               <label for="inputName">{{$name}}</label>
