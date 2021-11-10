@@ -125,6 +125,14 @@
                             ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите минералы'])
                           }}
                       </div>
+                      <div class="form-group">
+                        <label>Окаменелости</label>
+                        {{Form::select('fossils[]',
+                          $fossils,
+                          $selectedFossils,
+                          ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите окаменелости'])
+                        }}
+                      </div>
                         <!-- Date -->
                     {{--            <div class="form-group">--}}
                     {{--              <label>Дата:</label>--}}

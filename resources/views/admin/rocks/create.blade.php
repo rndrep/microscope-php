@@ -51,52 +51,52 @@
               }}
             </div>
             <div class="form-group">
-                <label>Класс</label>
-                {{Form::select('rock_class_id',
-                    $rockClasses,
-                    null,
-                    ['class' => 'form-control select2', 'placeholder'=>'-'])
-                }}
+              <label>Класс</label>
+              {{Form::select('rock_class_id',
+                  $rockClasses,
+                  null,
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
             </div>
             <div class="form-group">
-                <label>Отряд</label>
-                {{Form::select('rock_squad_id',
-                    $rockSquads,
-                    null,
-                    ['class' => 'form-control select2', 'placeholder'=>'-'])
-                }}
+              <label>Отряд</label>
+              {{Form::select('rock_squad_id',
+                  $rockSquads,
+                  null,
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
             </div>
             <div class="form-group">
-                <label>Семейство</label>
-                {{Form::select('rock_family_id',
-                    $rockFamilies,
-                    null,
-                    ['class' => 'form-control select2', 'placeholder'=>'-'])
-                }}
+              <label>Семейство</label>
+              {{Form::select('rock_family_id',
+                  $rockFamilies,
+                  null,
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
             </div>
             <div class="form-group">
-                <label>Вид</label>
-                {{Form::select('rock_family_id',
-                    $rockKinds,
-                    null,
-                    ['class' => 'form-control select2', 'placeholder'=>'-'])
-                }}
+              <label>Вид</label>
+              {{Form::select('rock_family_id',
+                  $rockKinds,
+                  null,
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
             </div>
             <div class="form-group">
-                <label>Текстура</label>
-                {{Form::select('rock_family_id',
-                    $rockTextures,
-                    null,
-                    ['class' => 'form-control select2', 'placeholder'=>'-'])
-                }}
+              <label>Текстура</label>
+              {{Form::select('rock_family_id',
+                  $rockTextures,
+                  null,
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
             </div>
             <div class="form-group">
-                <label>Структура</label>
-                {{Form::select('rock_family_id',
-                    $rockStructures,
-                    null,
-                    ['class' => 'form-control select2', 'placeholder'=>'-'])
-                }}
+              <label>Структура</label>
+              {{Form::select('rock_family_id',
+                  $rockStructures,
+                  null,
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
             </div>
             <div class="form-group">
               <label>Породообразующие минералы</label>
@@ -115,11 +115,19 @@
               }}
             </div>
             <div class="form-group">
-            <label>Акцессорные минералы</label>
+              <label>Акцессорные минералы</label>
               {{Form::select('accessory_minerals[]',
                 $minerals,
                 null,
                 ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите минералы'])
+              }}
+            </div>
+            <div class="form-group">
+              <label>Окаменелости</label>
+              {{Form::select('fossils[]',
+                $fossils,
+                null,
+                ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите окаменелости'])
               }}
             </div>
             <!-- Date -->

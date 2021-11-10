@@ -61,6 +61,11 @@
                                     'items' => $item->getAccessoryMineralLinks()
                                     ]
                                 )
+                                @include('main.rocks.minerals-section',
+                                    ['name' => 'Окаменелости',
+                                    'items' => $item->getFossilLinks()
+                                    ]
+                                )
                             </ul>
                         </div>
                         <div class="rock-card__info order-sm-1 col-sm-7">

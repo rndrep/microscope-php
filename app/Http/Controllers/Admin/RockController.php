@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
+use App\Models\Fossil;
 use App\Models\RockClass;
 use App\Models\Mineral;
 use App\Models\Rock;
@@ -67,6 +68,7 @@ class RockController extends Controller
             [
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
+                'fossils' => Fossil::pluck('name', 'id'),
                 'rockClasses' => RockClass::pluck('name', 'id'),
                 'rockSquads' => RockSquad::pluck('name', 'id'),
                 'rockFamilies' => RockFamily::pluck('name', 'id'),
@@ -95,6 +97,7 @@ class RockController extends Controller
         $item->setFormingMinerals($request->get('forming_minerals'));
         $item->setSecondMinerals($request->get('second_minerals'));
         $item->setAccessoryMinerals($request->get('accessory_minerals'));
+        $item->setFossils($request->get('fossils'));
         $item->toggleStatus($request->get('is_public'));
         $item->save();
 
@@ -121,6 +124,7 @@ class RockController extends Controller
         $selectedFormMinerals = $rock->formingMinerals->pluck('id')->all();
         $selectedSecMinerals = $rock->secondMinerals->pluck('id')->all();
         $selectedAcMinerals = $rock->accessoryMinerals->pluck('id')->all();
+        $selectedFossils = $rock->fossils->pluck('id')->all();
 
         return view(
             'admin.rocks.edit',
@@ -128,6 +132,7 @@ class RockController extends Controller
                 'rock' => $rock,
                 'rockTypes' => RockType::pluck('name', 'id'),
                 'minerals' => Mineral::pluck('name', 'id'),
+                'fossils' => Fossil::pluck('name', 'id'),
                 'rockClasses' => RockClass::pluck('name', 'id'),
                 'rockSquads' => RockSquad::pluck('name', 'id'),
                 'rockFamilies' => RockFamily::pluck('name', 'id'),
@@ -136,7 +141,8 @@ class RockController extends Controller
                 'rockStructures' => RockStructure::pluck('name', 'id'),
                 'selectedFormMinerals' => $selectedFormMinerals,
                 'selectedSecMinerals' => $selectedSecMinerals,
-                'selectedAcMinerals' => $selectedAcMinerals
+                'selectedAcMinerals' => $selectedAcMinerals,
+                'selectedFossils' => $selectedFossils
             ]
         );
     }
@@ -162,6 +168,7 @@ class RockController extends Controller
         $item->setFormingMinerals($request->get('forming_minerals'));
         $item->setSecondMinerals($request->get('second_minerals'));
         $item->setAccessoryMinerals($request->get('accessory_minerals'));
+        $item->setFossils($request->get('fossils'));
         $item->toggleStatus($request->get('is_public'));
         $item->save();
 
@@ -175,7 +182,7 @@ class RockController extends Controller
 
     public function destroy($id)
     {
-        $rock = Rock::find($id)->remove();
+        Rock::find($id)->remove();
         return redirect()->route('rocks.index');
     }
 

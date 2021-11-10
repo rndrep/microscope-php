@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\FossilController;
 use App\Http\Controllers\Admin\RockClassController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MineralController;
@@ -34,16 +35,19 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/', [RockController::class, 'home'])->name('home');
 Route::get('/info/{id}', [RockController::class, 'info'])->name('info');
 Route::get('/mineral-info/{id}', [MineralController::class, 'info'])->name('mineral_info');
+Route::get('/fossil-info/{id}', [FossilController::class, 'info'])->name('fossil_info');
 
 Route::group(['prefix' => '/microscope'], function () {
     Route::get('/rock/{id}', [RockController::class, 'getMicroPhotosJson'])->name('micro_rock');
     Route::get('/mineral/{id}', [MineralController::class, 'getMicroPhotosJson'])->name('micro_mineral');
+    Route::get('/fossil/{id}', [FossilController::class, 'getMicroPhotosJson'])->name('micro_fossil');
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/rocks', RockController::class);
     Route::resource('/rock-types', RockTypeController::class);
     Route::resource('/minerals', MineralController::class);
+    Route::resource('/fossils', FossilController::class);
     Route::resource('/rock-classes', RockClassController::class);
     Route::resource('/users', UserController::class);
 });

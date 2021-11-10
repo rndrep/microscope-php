@@ -37,7 +37,7 @@ class MineralController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
-
+        $item->save();
         return redirect()->route('minerals.index');
     }
 
@@ -52,25 +52,30 @@ class MineralController extends Controller
         $this->validate($request, [
             'name'	=>	'required' //обязательно
         ]);
+        /** @var Mineral $item */
         $item = Mineral::find($id);
         $item->update($request->all());
+        $item->uploadPhoto($request->file('photo'));
         $item->uploadMicroscope(
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+        $item->save();
+
         return redirect()->route('minerals.index');
     }
 
     public function destroy($id)
     {
+        // don't delete if there is rock with this mineral
         if (Rock_FormingMineral::firstWhere('mineral_id', $id)
             || Rock_SecondMineral::firstWhere('mineral_id', $id)
             || Rock_AccessoryMineral::firstWhere('mineral_id', $id)
         ) {
             //TODO: add custom error in template
-            return 'Нельзя удалить минерал. Существует порода с данным минералом.'; // don't delete if there is rock with this rock type
+            return 'Нельзя удалить минерал. Существует порода с данным минералом.';
         }
-        Mineral::find($id)->delete();
+        Mineral::find($id)->remove();
         return redirect()->route('minerals.index');
     }
 
@@ -87,6 +92,11 @@ class MineralController extends Controller
             'shift' => 10,
         ];
         return json_encode($photos);
+    }
+
+    public function info($id)
+    {
+        //TODO
     }
 
 }

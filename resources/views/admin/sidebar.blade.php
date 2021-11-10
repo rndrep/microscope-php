@@ -25,6 +25,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{route('fossils.index')}}" class="nav-link">
+                <i class="fa nav-icon fa-cookie"></i>
+                <p>Окаменелости</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{route('users.index')}}" class="nav-link">
                 <i class="fa nav-icon fa-users"></i>
                 <p>Пользователи</p>

@@ -82,7 +82,7 @@ abstract class AbstractMediaEntity extends Model
     /** TODO: remove image by path param */
     public function deleteImage($path)
     {
-        if (!empty($path) && file_exists($path)) {
+        if (!empty($path) && file_exists(public_path($path))) {
             Storage::delete($path);
         }
     }
@@ -90,7 +90,9 @@ abstract class AbstractMediaEntity extends Model
     public function remove()
     {
         $this->deleteImage($this->imagePathDetail . $this->photo);
-        //todo: remove gallery and micro photos
+        //remove gallery and microscope photos;
+        Storage::deleteDirectory($this->imagePathMicro . $this->id);
+        Storage::deleteDirectory($this->imagePathGallery . $this->id);
     }
 
     /**

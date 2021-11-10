@@ -15,8 +15,8 @@ class CreateRockFormingMineralsTable extends Migration
     {
         Schema::create('rock__forming_minerals', function (Blueprint $table) {
             $table->id();
-            $table->integer('rock_id');
-            $table->integer('mineral_id');
+            $table->bigInteger('rock_id');
+            $table->bigInteger('mineral_id');
             $table->timestamps();
         });
     }

@@ -43,6 +43,7 @@ class Rock extends AbstractMediaEntity
     {
         parent::remove();
         $this->deleteRelatedMinerals();
+        $this->deleteRelatedFossils();
         $this->delete();
     }
 
@@ -164,19 +165,6 @@ class Rock extends AbstractMediaEntity
         $this->rock_structure_id = $id;
     }
 
-    public function fossil()
-    {
-        return $this->belongsTo(Fossil::class);
-    }
-
-    public function setFossil($id)
-    {
-        if (empty($id) || empty(Fossil::find($id))) {
-            $this->fossil_id = null;
-        }
-        $this->fossil_id = $id;
-    }
-
     public function formingMinerals()
     {
         return $this->belongsToMany(
@@ -207,6 +195,16 @@ class Rock extends AbstractMediaEntity
         );
     }
 
+    public function fossils()
+    {
+        return $this->belongsToMany(
+            Fossil::class,
+            'rock__fossils',
+            'rock_id',
+            'fossil_id'
+        );
+    }
+
     public function getFormingMineralName()
     {
         return implode(', ', $this->formingMinerals->pluck('name')->all());
@@ -222,45 +220,63 @@ class Rock extends AbstractMediaEntity
         return implode(', ', $this->accessoryMinerals->pluck('name')->all());
     }
 
+    public function getFossilName()
+    {
+        return implode(', ', $this->fossils->pluck('name')->all());
+    }
+
     public function getFormingMineralLinks()
     {
         if (!isset($this->formingMinerals)) {
             return [];
         }
-        return $this->getMineralLinkItems($this->formingMinerals);
+        return $this->getLinkItems($this->formingMinerals, Mineral::class, 'mineral_info');
     }
     public function getSecondMineralLinks()
     {
         if (!isset($this->secondMinerals)) {
             return [];
         }
-        return $this->getMineralLinkItems($this->secondMinerals);
+        return $this->getLinkItems($this->secondMinerals, Mineral::class, 'mineral_info');
     }
     public function getAccessoryMineralLinks()
     {
         if (!isset($this->accessoryMinerals)) {
             return [];
         }
-        return $this->getMineralLinkItems($this->accessoryMinerals);
+        return $this->getLinkItems($this->accessoryMinerals, Mineral::class, 'mineral_info');
+    }
+    public function getFossilLinks()
+    {
+        if (!isset($this->fossils)) {
+            return [];
+        }
+        return $this->getLinkItems($this->fossils, Fossil::class, 'fossil_info');
     }
 
-    private function getMineralLinkItems($minerals)
+    /**
+     * @param $entityItems
+     * @param $entityClass - Mineral or Fossil
+     * @param $infoRoute
+     * @return array
+     */
+    private function getLinkItems($entityItems, $entityClass, $infoRoute)
     {
-        $optProps = Mineral::getOptionalProps();
+        $optProps = $entityClass::getOptionalProps();
         $result = [];
-        foreach ($minerals as $mineral) {
+        foreach ($entityItems as $item) {
             $needAddLink = FALSE;
             foreach ($optProps as $optProp) {
-                if (!empty($mineral->{$optProp})) {
+                if (!empty($item->{$optProp})) {
                     $needAddLink = TRUE;
                     break;
                 }
             }
             $result[] = [
                 'link' => $needAddLink
-                    ? route('mineral_info', $mineral->id)
+                    ? route($infoRoute, $item->id)
                     : '',
-                'name' => $mineral->name
+                'name' => $item->name
             ];
         }
         return $result;
@@ -290,11 +306,24 @@ class Rock extends AbstractMediaEntity
         $this->accessoryMinerals()->sync($ids);
     }
 
-    public function deleteRelatedMinerals()
+    public function setFossils($ids)
+    {
+        if (empty($ids)) {
+            return false;
+        }
+        $this->fossils()->sync($ids);
+    }
+
+    private function deleteRelatedMinerals()
     {
         Rock_FormingMineral::where('rock_id', $this->id)->delete();
         Rock_SecondMineral::where('rock_id', $this->id)->delete();
         Rock_AccessoryMineral::where('rock_id', $this->id)->delete();
+    }
+
+    private function deleteRelatedFossils()
+    {
+        Rock_Fossil::where('rock_id', $this->id)->delete();
     }
 
     public function isPublic()

@@ -80,9 +80,10 @@ class Mineral extends AbstractMediaEntity
         parent::remove();
         //TODO: check
         $this->deleteRelatedRocks();
+        $this->delete();
     }
 
-    public function deleteRelatedRocks()
+    private function deleteRelatedRocks()
     {
         Rock_FormingMineral::where('mineral_id', $this->id)->delete();
         Rock_SecondMineral::where('mineral_id', $this->id)->delete();
@@ -173,17 +174,6 @@ class Mineral extends AbstractMediaEntity
     public function setClass($value): self
     {
         $this->class = $value;
-        return $this;
-    }
-
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto($value): self
-    {
-        $this->photo = $value;
         return $this;
     }
 
