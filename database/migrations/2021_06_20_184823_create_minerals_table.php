@@ -21,6 +21,7 @@ class CreateMineralsTable extends Migration
             $table->string('class')->nullable();
             $table->string('photo')->nullable();
             $table->string('video')->nullable();
+            $table->string('model_3d')->nullable();
             $table->string('varieties')->nullable();
             $table->string('aggregates')->nullable();
             $table->string('feature')->nullable();

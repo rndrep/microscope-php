@@ -9,11 +9,16 @@ use Illuminate\Http\Request;
 
 class FossilController extends Controller
 {
+    //TODO: replace fossils templates by common
+    //TODO: remove old fossils templates
     public function index()
     {
-        //TODO: add sorting
-        $items = Fossil::all();
-        return view('admin.fossils.index', ['items' => $items, 'fields' => Fossil::SIMPLE_INPUT_FIELDS]);
+        $items = Fossil::orderBy('name')->get();
+        return view('admin.entity.index', [
+            'entityCaption' => Fossil::ENTITY_CAPTION,
+            'entityName' => Fossil::ENTITY_NAME,
+            'items' => $items,
+            'fields' => Fossil::getInputs()]);
     }
 
     public function create()

@@ -10,10 +10,10 @@ class InputField
     private $required;
     private $requiredTip;
 
-    public function __construct($caption, $field, $type, $required = false, $requiredTip = 'Обязательное поле')
+    public function __construct($caption, $property, $type, $required = false, $requiredTip = 'Обязательное поле')
     {
         $this->caption = $caption;
-        $this->prop = $field;
+        $this->prop = $property;
         $this->type = $type;
         $this->required = $required;
         $this->requiredTip = $requiredTip;

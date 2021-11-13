@@ -19,6 +19,7 @@ class CreateFossilsTable extends Migration
             $table->string('description')->nullable();
             $table->string('photo')->nullable();
             $table->string('video')->nullable();
+            $table->string('model_3d')->nullable();
             $table->string('invertebrates')->nullable(); // Типы беспозвоночных животных
             $table->string('index_fossils')->nullable(); // Руководящие формы
             $table->timestamps();

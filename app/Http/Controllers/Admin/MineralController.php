@@ -12,11 +12,17 @@ use Illuminate\Http\Request;
 
 class MineralController extends Controller
 {
+
+    //TODO: replace Mineral templates by common
+    //TODO: remove old Mineral templates
     public function index()
     {
-        //TODO: add sorting
-        $minerals = Mineral::orderBy('name')->get();
-        return view('admin.minerals.index', ['minerals' => $minerals, 'fields' => Mineral::SIMPLE_INPUT_FIELDS]);
+        $items = Mineral::orderBy('name')->get();
+        return view('admin.entity.index', [
+            'entityCaption' => Mineral::ENTITY_CAPTION,
+            'entityName' => Mineral::ENTITY_NAME,
+            'items' => $items,
+            'fields' => Mineral::getInputs()]);
     }
 
     public function create()

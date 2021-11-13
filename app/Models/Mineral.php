@@ -15,33 +15,8 @@ class Mineral extends AbstractMediaEntity
 {
     use HasFactory;
 
-    // TODO: add flag 'required'
-    const SIMPLE_INPUT_FIELDS = [
-        'Название' => 'name',
-        'Описание' => 'description',
-        'Химический состав' => 'composition',
-        'Класс/подкласс' => 'class',
-        'Видео' => 'video',
-        'Разновидности' => 'varieties',
-        'Форма выделения' => 'aggregates',
-        'Черта' => 'feature',
-        'Сингония' => 'syngony',
-        'Облик кристаллов' => 'crystal_form',
-        'Твердость' => 'hardness',
-        'Удельный вес, г/см3' => 'specific_gravity',
-        'Цвет' => 'color',
-        'Цвет черты' => 'feature_color',
-        'Блеск' => 'shine',
-        'Прозрачность' => 'transparency',
-        'Спайность' => 'splitting',
-        'Прочие свойства' => 'other_props',
-        'Диагностика' => 'diagnosis',
-        'Генезис' => 'genesis',
-        'Парагенезис' => 'paragenesis',
-        'Долгота' => 'x',
-        'Широта' => 'y',
-//        'Месторождение' => '',
-    ];
+    const ENTITY_CAPTION = 'Минералы';
+    const ENTITY_NAME = 'minerals';
 
     public static function getInputs()
     {
@@ -51,6 +26,7 @@ class Mineral extends AbstractMediaEntity
             new InputField('Химический состав', 'composition', 'text'),
             new InputField('Класс/подкласс', 'class', 'text'),
             new InputField('Видео', 'video', 'text'),
+            new InputField('3D', 'model_3d', 'text'),
             new InputField('Разновидности', 'varieties', 'text'),
             new InputField('Форма выделения', 'aggregates', 'text'),
             new InputField('Черта', 'feature', 'text'),
