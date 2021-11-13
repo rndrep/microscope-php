@@ -25,22 +25,22 @@ class RockController extends Controller
 //        dump(Auth::check());
 //        dump(Auth::user());
         if (Auth::check() && Auth::user()->isUser()) {
-            return view('main.index', ['items' => Rock::all()]);
+            return view('main.index', ['items' => Rock::orderBy('name')->get()]);
         }
-        return view('main.index', ['items' => Rock::where('is_public', 1)->get()]);
+        return view('main.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->get()]);
     }
 
     public function index()
     {
         if (Auth::check()) {
             if (Auth::user()->isAdmin()) {
-                return view('admin.rocks.index', ['items' => Rock::all()]);
+                return view('admin.rocks.index', ['items' => Rock::orderBy('name')->get()]);
             }
             if (Auth::user()->isUser()) {
-                return view('main.index', ['items' => Rock::all()]);
+                return view('main.index', ['items' => Rock::orderBy('name')->get()]);
             }
         }
-        return view('main.index', ['items' => Rock::where('is_public', 1)->get()]);
+        return view('main.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->get()]);
     }
 
     public function info($id)
@@ -66,15 +66,15 @@ class RockController extends Controller
         return view(
             'admin.rocks.create',
             [
-                'rockTypes' => RockType::pluck('name', 'id'),
-                'minerals' => Mineral::pluck('name', 'id'),
-                'fossils' => Fossil::pluck('name', 'id'),
-                'rockClasses' => RockClass::pluck('name', 'id'),
-                'rockSquads' => RockSquad::pluck('name', 'id'),
-                'rockFamilies' => RockFamily::pluck('name', 'id'),
-                'rockKinds' => RockKind::pluck('name', 'id'),
-                'rockTextures' => RockTexture::pluck('name', 'id'),
-                'rockStructures' => RockStructure::pluck('name', 'id'),
+                'rockTypes' => RockType::orderBy('name')->pluck('name', 'id'),
+                'minerals' => Mineral::orderBy('name')->pluck('name', 'id'),
+                'fossils' => Fossil::orderBy('name')->pluck('name', 'id'),
+                'rockClasses' => RockClass::orderBy('name')->pluck('name', 'id'),
+                'rockSquads' => RockSquad::orderBy('name')->pluck('name', 'id'),
+                'rockFamilies' => RockFamily::orderBy('name')->pluck('name', 'id'),
+                'rockKinds' => RockKind::orderBy('name')->pluck('name', 'id'),
+                'rockTextures' => RockTexture::orderBy('name')->pluck('name', 'id'),
+                'rockStructures' => RockStructure::orderBy('name')->pluck('name', 'id'),
             ]
         );
     }
@@ -130,15 +130,15 @@ class RockController extends Controller
             'admin.rocks.edit',
             [
                 'rock' => $rock,
-                'rockTypes' => RockType::pluck('name', 'id'),
-                'minerals' => Mineral::pluck('name', 'id'),
-                'fossils' => Fossil::pluck('name', 'id'),
-                'rockClasses' => RockClass::pluck('name', 'id'),
-                'rockSquads' => RockSquad::pluck('name', 'id'),
-                'rockFamilies' => RockFamily::pluck('name', 'id'),
-                'rockKinds' => RockKind::pluck('name', 'id'),
-                'rockTextures' => RockTexture::pluck('name', 'id'),
-                'rockStructures' => RockStructure::pluck('name', 'id'),
+                'rockTypes' => RockType::orderBy('name')->pluck('name', 'id'),
+                'minerals' => Mineral::orderBy('name')->pluck('name', 'id'),
+                'fossils' => Fossil::orderBy('name')->pluck('name', 'id'),
+                'rockClasses' => RockClass::orderBy('name')->pluck('name', 'id'),
+                'rockSquads' => RockSquad::orderBy('name')->pluck('name', 'id'),
+                'rockFamilies' => RockFamily::orderBy('name')->pluck('name', 'id'),
+                'rockKinds' => RockKind::orderBy('name')->pluck('name', 'id'),
+                'rockTextures' => RockTexture::orderBy('name')->pluck('name', 'id'),
+                'rockStructures' => RockStructure::orderBy('name')->pluck('name', 'id'),
                 'selectedFormMinerals' => $selectedFormMinerals,
                 'selectedSecMinerals' => $selectedSecMinerals,
                 'selectedAcMinerals' => $selectedAcMinerals,

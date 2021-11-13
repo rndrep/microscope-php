@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Classes\InputField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Support\Str;
 
 /**
  * Each Rock can have several forming, second and accessory minerals
@@ -19,7 +19,7 @@ class Mineral extends AbstractMediaEntity
     const SIMPLE_INPUT_FIELDS = [
         'Название' => 'name',
         'Описание' => 'description',
-        'Cостав' => 'composition',
+        'Химический состав' => 'composition',
         'Класс/подкласс' => 'class',
         'Видео' => 'video',
         'Разновидности' => 'varieties',
@@ -42,6 +42,35 @@ class Mineral extends AbstractMediaEntity
         'Широта' => 'y',
 //        'Месторождение' => '',
     ];
+
+    public static function getInputs()
+    {
+        return [
+            new InputField('Название', 'name', 'text', TRUE),
+            new InputField('Описание', 'description', 'text'),
+            new InputField('Химический состав', 'composition', 'text'),
+            new InputField('Класс/подкласс', 'class', 'text'),
+            new InputField('Видео', 'video', 'text'),
+            new InputField('Разновидности', 'varieties', 'text'),
+            new InputField('Форма выделения', 'aggregates', 'text'),
+            new InputField('Черта', 'feature', 'text'),
+            new InputField('Сингония', 'syngony', 'text'),
+            new InputField('Облик кристаллов', 'crystal_form', 'text'),
+            new InputField('Твердость', 'hardness', 'number'),
+            new InputField('Удельный вес, г/см3', 'specific_gravity', 'number'),
+            new InputField('Цвет', 'color', 'text'),
+            new InputField('Цвет черты', 'feature_color', 'text'),
+            new InputField('Блеск', 'shine', 'text'),
+            new InputField('Прозрачность', 'transparency', 'text'),
+            new InputField('Спайность', 'splitting', 'text'),
+            new InputField('Прочие свойства', 'other_props', 'text'),
+            new InputField('Диагностика', 'diagnosis', 'text'),
+            new InputField('Генезис', 'genesis', 'text'),
+            new InputField('Парагенезис', 'paragenesis', 'text'),
+            new InputField('Долгота', 'x', 'text'),
+            new InputField('Широта', 'y', 'text'),
+        ];
+    }
 
     public function __construct(array $attributes = [])
     {
