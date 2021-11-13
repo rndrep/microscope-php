@@ -21,8 +21,8 @@
                 <tr>
                   <th>Действия</th>
                   <th>ID</th>
-                  @foreach($fields as $name => $prop)
-                      <th>{{$name}}</th>
+                  @foreach($fields as $field)
+                      <th>{{$field->getCaption()}}</th>
                   @endforeach
                 </tr>
                 </thead>
@@ -40,8 +40,8 @@
                        {{Form::close()}}
                     </td>
                     <td>{{$mineral->id}}</td>
-                    @foreach($fields as $name => $prop)
-                      <td>{{$mineral->$prop}}</td>
+                    @foreach($fields as $field)
+                      <td>{{$mineral->{$field->getProp()} }}</td>
                     @endforeach
 	                </tr>
                 @endforeach

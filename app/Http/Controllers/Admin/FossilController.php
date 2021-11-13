@@ -23,7 +23,7 @@ class FossilController extends Controller
 
     public function create()
     {
-        return view('admin.fossils.create', ['fields' => Fossil::SIMPLE_INPUT_FIELDS]);
+        return view('admin.fossils.create', ['fields' => Fossil::getInputs()]);
     }
 
     public function store(Request $request)
@@ -44,7 +44,7 @@ class FossilController extends Controller
 
     public function edit($id)
     {
-        return view('admin.fossils.edit', ['item' => Fossil::find($id), 'fields' => Fossil::SIMPLE_INPUT_FIELDS]);
+        return view('admin.fossils.edit', ['item' => Fossil::find($id), 'fields' => Fossil::getInputs()]);
     }
 
     public function update(Request $request, $id)

@@ -20,8 +20,9 @@
               <thead>
               <tr>
                 <th>Действия</th>
-                @foreach($fields as $name => $prop)
-                    <th>{{$name}}</th>
+                <th>ID</th>
+              @foreach($fields as $field)
+                    <th>{{$field->getCaption()}}</th>
                 @endforeach
               </tr>
               </thead>
@@ -39,8 +40,8 @@
                      {{Form::close()}}
                   </td>
                   <td>{{$item->id}}</td>
-                  @foreach($fields as $name => $prop)
-                    <td>{{$item->$prop}}</td>
+                  @foreach($fields as $field)
+                    <td>{{$item->{$field->getProp()} }}</td>
                   @endforeach
                 </tr>
               @endforeach

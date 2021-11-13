@@ -22,10 +22,19 @@
                 <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
               </div>
             </div>
-            @foreach($fields as $name => $prop)
+            @foreach($fields as $field)
               <div class="form-group">
-                <label for="inputName">{{$name}}</label>
-                <input type="text" class="form-control" id="inputName" placeholder="" name="{{$prop}}" value="{{$item->$prop}}">
+                <label for="inputName">{{$field->getCaption()}}</label>
+                <input type="{{$field->getType()}}" class="form-control" placeholder=""
+                       name="{{$field->getProp()}}"
+                       @if($field->getRequired())
+                        required
+                        oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                       @endif
+                       value="{{$item->{$field->getProp()} }}"
+                  {{$field->getType() == 'number' ? 'step=any' : ''}}
+                >
+
               </div>
             @endforeach
           </div>

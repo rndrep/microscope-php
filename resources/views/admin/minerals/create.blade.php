@@ -29,10 +29,12 @@
               <div class="form-group">
                 <label for="inputName">{{$field->getCaption()}}</label>
                 <input type="{{$field->getType()}}" class="form-control" id="inputName" placeholder=""
-                       name="{{$field->getProp()}}"
-                       {{$field->getRequired() ? 'required' : ''}}
-                       oninvalid="this.setCustomValidity({{'"' . $field->getRequiredTip() . '"'}})"
-                       {{$field->getType() == 'number' ? 'step=any' : ''}}
+                      name="{{$field->getProp()}}"
+                      @if($field->getRequired())
+                        required
+                        oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                      @endif
+                      {{$field->getType() == 'number' ? 'step=any' : ''}}
                 >
               </div>
             @endforeach

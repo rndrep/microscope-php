@@ -29,10 +29,10 @@
               <label for="inputName">{{$field->getCaption()}}</label>
               <input type="{{$field->getType()}}" class="form-control" id="inputName" placeholder=""
                      name="{{$field->getProp()}}"
-                     {{$field->getRequired() ? 'required' : ''}}
-                     {{$field->getRequired()
-                        ? 'oninvalid="this.setCustomValidity("' . $field->getRequiredTip() . '")"'
-                        : ''}}
+                     @if($field->getRequired())
+                       required
+                       oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                     @endif
                      value="{{$item->{$field->getProp()} }}"
                      {{$field->getType() == 'number' ? 'step=any' : ''}}
               >
