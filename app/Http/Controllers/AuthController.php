@@ -125,7 +125,7 @@ class AuthController extends Controller
     {
         //What user should be logout?
 //        Auth::logout();
-        return  env('APP_URL') . '/images/sso/ok.gif';
+        return  env('APP_URL') . '/img/sso/ok.gif';
     }
 
     /**

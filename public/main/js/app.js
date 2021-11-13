@@ -667,5 +667,3 @@
 
 })));
 //# sourceMappingURL=modal.js.map
-
-console.log('tabs');
