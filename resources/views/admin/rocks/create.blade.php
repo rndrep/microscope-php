@@ -36,11 +36,13 @@
             </div>
             <div class="form-group">
               <label for="inputName">Название *</label>
-              <input type="text" class="form-control" id="inputName" placeholder="" name="name" value="{{old('name')}}">
+              <input required type="text" class="form-control" id="inputName" placeholder=""
+                     name="name" value="{{old('name')}}">
             </div>
             <div class="form-group">
               <label for="inputName">Описание</label>
-              <input type="text" class="form-control" id="inputDescription" placeholder="" name="description" value="{{old('description')}}">
+              <input type="text" class="form-control" id="inputDescription" placeholder=""
+                     name="description" value="{{old('description')}}">
             </div>
             <div class="form-group">
               <label>Тип породы</label>
