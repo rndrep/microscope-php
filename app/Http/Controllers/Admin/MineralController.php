@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
 use App\Models\Mineral;
+use App\Models\MineralSplitting;
+use App\Models\MineralSyngony;
 use App\Models\Rock_AccessoryMineral;
 use App\Models\Rock_FormingMineral;
 use App\Models\Rock_SecondMineral;
@@ -18,16 +20,23 @@ class MineralController extends Controller
     public function index()
     {
         $items = Mineral::orderBy('name')->get();
-        return view('admin.entity.index', [
-            'entityCaption' => Mineral::ENTITY_CAPTION,
-            'entityName' => Mineral::ENTITY_NAME,
+        return view('admin.minerals.index', [
+//            'entityCaption' => Mineral::ENTITY_CAPTION,
+//            'entityName' => Mineral::ENTITY_NAME,
             'items' => $items,
             'fields' => Mineral::getInputs()]);
     }
 
     public function create()
     {
-        return view('admin.minerals.create', ['fields' => Mineral::getInputs()]);
+        return view(
+            'admin.minerals.create',
+            [
+                'fields' => Mineral::getInputs(),
+                'syngonyItems' => MineralSyngony::orderBy('name')->pluck('name', 'id'),
+                'splittingItems' => MineralSplitting::orderBy('name')->pluck('name', 'id'),
+            ]
+        );
     }
 
     public function store(Request $request)
@@ -50,7 +59,15 @@ class MineralController extends Controller
     public function edit($id)
     {
         $item = Mineral::find($id);
-        return view('admin.minerals.edit', ['item' => $item, 'fields' => Mineral::getInputs()]);
+        return view(
+            'admin.minerals.edit',
+            [
+                'item' => $item,
+                'fields' => Mineral::getInputs(),
+                'syngonyItems' => MineralSyngony::orderBy('name')->pluck('name', 'id'),
+                'splittingItems' => MineralSplitting::orderBy('name')->pluck('name', 'id'),
+            ]
+        );
     }
 
     public function update(Request $request, $id)

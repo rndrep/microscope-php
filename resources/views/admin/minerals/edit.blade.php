@@ -32,13 +32,29 @@
                      @if($field->getRequired())
                        required
                        oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                       oninput="setCustomValidity('')"
                      @endif
                      value="{{$item->{$field->getProp()} }}"
                      {{$field->getType() == 'number' ? 'step=any' : ''}}
               >
-
             </div>
             @endforeach
+            <div class="form-group">
+              <label>Сингония</label>
+              {{Form::select('syngony_id',
+                $syngonyItems,
+                $item->getDictionaryPropId('mineralSyngony'),
+                ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
+            </div>
+            <div class="form-group">
+              <label>Спайность</label>
+              {{Form::select('splitting_id',
+                $splittingItems,
+                $item->getDictionaryPropId('mineralSplitting'),
+                ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
+            </div>
         </div>
       </div>
         <!-- /.box-body -->

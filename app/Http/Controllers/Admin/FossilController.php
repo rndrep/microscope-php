@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Fossil;
+use App\Models\IndexFossil;
+use App\Models\Invertebrate;
 use App\Models\Rock_Fossil;
 use Illuminate\Http\Request;
 
@@ -14,16 +16,23 @@ class FossilController extends Controller
     public function index()
     {
         $items = Fossil::orderBy('name')->get();
-        return view('admin.entity.index', [
-            'entityCaption' => Fossil::ENTITY_CAPTION,
-            'entityName' => Fossil::ENTITY_NAME,
+        return view('admin.fossils.index', [
+//            'entityCaption' => Fossil::ENTITY_CAPTION,
+//            'entityName' => Fossil::ENTITY_NAME,
             'items' => $items,
             'fields' => Fossil::getInputs()]);
     }
 
     public function create()
     {
-        return view('admin.fossils.create', ['fields' => Fossil::getInputs()]);
+        return view(
+            'admin.fossils.create',
+            [
+                'fields' => Fossil::getInputs(),
+                'invertebrates' => Invertebrate::orderBy('name')->pluck('name', 'id'),
+                'indexFossils' => IndexFossil::orderBy('name')->pluck('name', 'id'),
+            ]
+        );
     }
 
     public function store(Request $request)
@@ -44,7 +53,15 @@ class FossilController extends Controller
 
     public function edit($id)
     {
-        return view('admin.fossils.edit', ['item' => Fossil::find($id), 'fields' => Fossil::getInputs()]);
+        return view(
+            'admin.fossils.edit',
+            [
+                'item' => Fossil::find($id),
+                'fields' => Fossil::getInputs(),
+                'invertebrates' => Invertebrate::orderBy('name')->pluck('name', 'id'),
+                'indexFossils' => IndexFossil::orderBy('name')->pluck('name', 'id')
+            ]
+        );
     }
 
     public function update(Request $request, $id)

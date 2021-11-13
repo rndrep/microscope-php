@@ -24,25 +24,29 @@
                   @foreach($fields as $field)
                       <th>{{$field->getCaption()}}</th>
                   @endforeach
+                  <th>Сингония</th>
+                  <th>Спайность</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($minerals as $mineral)
+                @foreach($items as $item)
 					        <tr>
 	                  <td>
                       <div class="btn">
-                          <a href="{{route('minerals.edit', $mineral->id)}}" class="fa fa-pencil-alt"></a>
+                          <a href="{{route('minerals.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
                       </div>
-                      {{Form::open(['route'=>['minerals.destroy', $mineral->id], 'method'=>'delete', 'class' => 'd-inline'])}}
+                      {{Form::open(['route'=>['minerals.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
                           <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
                            <i class="fa fa-trash-alt"></i>
                           </button>
                        {{Form::close()}}
                     </td>
-                    <td>{{$mineral->id}}</td>
+                    <td>{{$item->id}}</td>
                     @foreach($fields as $field)
-                      <td>{{$mineral->{$field->getProp()} }}</td>
+                      <td>{{$item->{$field->getProp()} }}</td>
                     @endforeach
+                    <td>{{$item->getDictionaryPropName('mineralSyngony')}}</td>
+                    <td>{{$item->getDictionaryPropName('mineralSplitting')}}</td>
 	                </tr>
                 @endforeach
 

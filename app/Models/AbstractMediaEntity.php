@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-abstract class AbstractMediaEntity extends Model
+abstract class AbstractMediaEntity extends AbstractEntity
 {
 
     protected $imagePathDetail;

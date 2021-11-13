@@ -36,8 +36,11 @@
             </div>
             <div class="form-group">
               <label for="inputName">Название *</label>
-              <input required type="text" class="form-control" id="inputName" placeholder=""
-                     name="name" value="{{old('name')}}">
+              <input type="text" class="form-control" id="inputName" placeholder=""
+                     name="name" value="{{old('name')}}"
+                     required
+                     oninvalid="this.setCustomValidity('Обязательное поле')"
+                     oninput="setCustomValidity('')">
             </div>
             <div class="form-group">
               <label for="inputName">Описание</label>

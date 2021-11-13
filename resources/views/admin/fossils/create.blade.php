@@ -27,13 +27,30 @@
                 <input type="{{$field->getType()}}" class="form-control" id="inputName" placeholder=""
                        name="{{$field->getProp()}}"
                        @if($field->getRequired())
-                        required
-                        oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                         required
+                         oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                         oninput="setCustomValidity('')"
                        @endif
                   {{$field->getType() == 'number' ? 'step=any' : ''}}
                 >
               </div>
             @endforeach
+            <div class="form-group">
+              <label>Типы беспозвоночных животных</label>
+              {{Form::select('invertebrate_id',
+                $invertebrates,
+                null,
+                ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
+            </div>
+            <div class="form-group">
+              <label>Руководящие формы</label>
+              {{Form::select('index_fossil_id',
+                $indexFossils,
+                null,
+                ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
+            </div>
           </div>
         </div>
         <!-- /.box-body -->

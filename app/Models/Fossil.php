@@ -26,8 +26,8 @@ class Fossil extends AbstractMediaEntity
             new InputField('Описание', 'description', 'text'),
             new InputField('Видео', 'video', 'text'),
             new InputField('3D', 'model_3d', 'text'),
-            new InputField('Типы беспозвоночных животных', 'invertebrates', 'text'),
-            new InputField('Руководящие формы', 'index_fossils', 'text'),
+//            new InputField('Типы беспозвоночных животных', 'invertebrates', 'text'),
+//            new InputField('Руководящие формы', 'index_fossils', 'text'),
         ];
     }
 
@@ -72,5 +72,30 @@ class Fossil extends AbstractMediaEntity
         );
     }
 
+    public function invertebrate()
+    {
+        return $this->belongsTo(Invertebrate::class);
+    }
+
+    public function setInvertebrate($id)
+    {
+        if (empty($id) || empty(Invertebrate::find($id))) {
+            $this->invertebrate_id = null;
+        }
+        $this->invertebrate_id = $id;
+    }
+
+    public function indexFossil()
+    {
+        return $this->belongsTo(IndexFossil::class);
+    }
+
+    public function setIndexFossil($id)
+    {
+        if (empty($id) || empty(Invertebrate::find($id))) {
+            $this->index_fossil_id = null;
+        }
+        $this->index_fossil_id = $id;
+    }
 
 }

@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
             RockStructureSeeder::class,
             RockTextureSeeder::class,
             RockTypeSeeder::class,
+            InvertebrateSeeder::class,
+            IndexFossilSeeder::class,
+            MineralSyngonySeeder::class,
+            MineralSplittingSeeder::class,
         ]);
     }
 }

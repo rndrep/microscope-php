@@ -33,11 +33,28 @@
                       @if($field->getRequired())
                         required
                         oninvalid="this.setCustomValidity('{{ $field->getRequiredTip()  }}')"
+                        oninput="setCustomValidity('')"
                       @endif
                       {{$field->getType() == 'number' ? 'step=any' : ''}}
                 >
               </div>
             @endforeach
+            <div class="form-group">
+              <label>Сингония</label>
+              {{Form::select('syngony_id',
+                $syngonyItems,
+                null,
+                ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
+            </div>
+            <div class="form-group">
+              <label>Спайность</label>
+              {{Form::select('splitting_id',
+                $splittingItems,
+                null,
+                ['class' => 'form-control select2', 'placeholder'=>'-'])
+              }}
+            </div>
           </div>
         </div>
         <!-- /.box-body -->

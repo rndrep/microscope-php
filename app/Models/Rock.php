@@ -73,33 +73,6 @@ class Rock extends AbstractMediaEntity
         $this->rock_class_id = $id;
     }
 
-    // Use this for all dictionaries
-    /**
-     * @param string $class dictionary id (rockType, rockClass, etc.)
-     * @return int
-     */
-    public function getDictionaryPropId(string $class)
-    {
-        $relation = lcfirst($class);
-        if (empty($this->$relation)) {
-            return '';
-        }
-        return $this->$relation->id ?? 0;
-    }
-
-    /**
-     * @param string $class dictionary name (rockType, rockClass, etc.)
-     * @return string
-     */
-    public function getDictionaryPropName(string $class)
-    {
-        $relation = lcfirst($class);
-        if (empty($this->$relation)) {
-            return '';
-        }
-        return $this->$relation->name ?? '';
-    }
-
     public function rockSquad()
     {
         return $this->belongsTo(RockSquad::class);

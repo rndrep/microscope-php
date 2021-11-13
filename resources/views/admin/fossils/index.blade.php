@@ -21,9 +21,11 @@
               <tr>
                 <th>Действия</th>
                 <th>ID</th>
-              @foreach($fields as $field)
-                    <th>{{$field->getCaption()}}</th>
+                @foreach($fields as $field)
+                  <th>{{$field->getCaption()}}</th>
                 @endforeach
+                <th>Беспозвоночные</th>
+                <th>Руководящие формы</th>
               </tr>
               </thead>
               <tbody>
@@ -43,6 +45,8 @@
                   @foreach($fields as $field)
                     <td>{{$item->{$field->getProp()} }}</td>
                   @endforeach
+                  <td>{{ $item->getDictionaryPropName('invertebrate') }}</td>
+                  <td>{{ $item->getDictionaryPropName('indexFossil') }}</td>
                 </tr>
               @endforeach
 

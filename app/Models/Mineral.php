@@ -30,7 +30,7 @@ class Mineral extends AbstractMediaEntity
             new InputField('Разновидности', 'varieties', 'text'),
             new InputField('Форма выделения', 'aggregates', 'text'),
             new InputField('Черта', 'feature', 'text'),
-            new InputField('Сингония', 'syngony', 'text'),
+//            new InputField('Сингония', 'syngony', 'text'),
             new InputField('Облик кристаллов', 'crystal_form', 'text'),
             new InputField('Твердость', 'hardness', 'number'),
             new InputField('Удельный вес, г/см3', 'specific_gravity', 'number'),
@@ -38,7 +38,7 @@ class Mineral extends AbstractMediaEntity
             new InputField('Цвет черты', 'feature_color', 'text'),
             new InputField('Блеск', 'shine', 'text'),
             new InputField('Прозрачность', 'transparency', 'text'),
-            new InputField('Спайность', 'splitting', 'text'),
+//            new InputField('Спайность', 'splitting', 'text'),
             new InputField('Прочие свойства', 'other_props', 'text'),
             new InputField('Диагностика', 'diagnosis', 'text'),
             new InputField('Генезис', 'genesis', 'text'),
@@ -120,7 +120,7 @@ class Mineral extends AbstractMediaEntity
         );
     }
 
-    public function accessoryRocks()
+    public function accessoryRocks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(
             Rock::class,
@@ -128,6 +128,32 @@ class Mineral extends AbstractMediaEntity
             'mineral_id',
             'rock_id'
         );
+    }
+
+    public function mineralSyngony()
+    {
+        return $this->belongsTo(MineralSyngony::class, 'syngony_id');
+    }
+
+    public function setMineralSyngony($id)
+    {
+        if (empty($id) || empty(MineralSyngony::find($id))) {
+            $this->syngony_id = null;
+        }
+        $this->syngony_id = $id;
+    }
+
+    public function mineralSplitting()
+    {
+        return $this->belongsTo(MineralSplitting::class, 'splitting_id');
+    }
+
+    public function setMineralSplitting($id)
+    {
+        if (empty($id) || empty(MineralSplitting::find($id))) {
+            $this->splitting_id = null;
+        }
+        $this->splitting_id = $id;
     }
 
     public function getLocation()

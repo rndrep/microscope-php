@@ -25,7 +25,6 @@ class CreateMineralsTable extends Migration
             $table->string('varieties')->nullable();
             $table->string('aggregates')->nullable();
             $table->string('feature')->nullable();
-            $table->string('syngony')->nullable();
             $table->string('crystal_form')->nullable();
             $table->smallInteger('hardness')->nullable();
             $table->float('specific_gravity')->nullable();
@@ -33,13 +32,14 @@ class CreateMineralsTable extends Migration
             $table->string('feature_color')->nullable();
             $table->string('shine')->nullable();
             $table->string('transparency')->nullable();
-            $table->string('splitting')->nullable();
             $table->string('other_props')->nullable();
             $table->string('diagnosis')->nullable();
             $table->string('genesis')->nullable();
             $table->string('paragenesis')->nullable();
             $table->float('x')->nullable();
             $table->float('y')->nullable();
+            $table->foreignId('syngony_id')->nullable();
+            $table->foreignId('splitting_id')->nullable();
             $table->timestamps();
         });
     }

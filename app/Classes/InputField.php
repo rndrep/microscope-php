@@ -9,6 +9,7 @@ class InputField
     private $type;
     private $required;
     private $requiredTip;
+    private $isDict = false;
 
     public function __construct($caption, $property, $type, $required = false, $requiredTip = 'Обязательное поле')
     {
@@ -24,7 +25,7 @@ class InputField
      */
     public function getCaption()
     {
-        return $this->caption;
+        return $this->caption . ($this->required ? ' *' : '');
     }
 
     /**
@@ -32,6 +33,9 @@ class InputField
      */
     public function getProp()
     {
+        if ($this->isDict) {
+            return sprintf('getDictionaryPropName(\'%s\')', $this->prop);
+        }
         return $this->prop;
     }
 
@@ -58,5 +62,18 @@ class InputField
     {
         return $this->requiredTip;
     }
+
+    public function isDict(): bool
+    {
+        return $this->isDict;
+    }
+
+    public function toggleDict(): self
+    {
+        $this->isDict = !$this->isDict;
+        return $this;
+    }
+
+
 
 }
