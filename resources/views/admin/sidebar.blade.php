@@ -41,7 +41,7 @@
           <ul class="nav nav-treeview">
             @foreach($dictItems as $dictItem)
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{route('get_all_dicts', $dictItem->class)}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>{{$dictItem->caption}}</p>
               </a>

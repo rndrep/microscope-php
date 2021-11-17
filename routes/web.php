@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MineralController;
 use App\Http\Controllers\Admin\RockTypeController;
 use App\Http\Controllers\Admin\RockController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DictionaryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,8 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/fossils', FossilController::class);
     Route::resource('/rock-classes', RockClassController::class);
     Route::resource('/users', UserController::class);
+    Route::resource('/dictionary', DictionaryController::class);
+    Route::get('/dictionary/all/{class}', [DictionaryController::class, 'all'])->name('get_all_dicts');
 });
 
 

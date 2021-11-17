@@ -6,9 +6,20 @@ use App\Http\Controllers\Controller;
 
 class DictionaryController extends Controller
 {
-    public function index()
-    {
 
+    public function all($modelClass)
+    {
+        $items = $modelClass::orderBy('name')->get();
+        return view('admin.entity.index', [
+//            'entityCaption' => Mineral::ENTITY_CAPTION,
+//            'entityName' => Mineral::ENTITY_NAME,
+            'items' => $items,
+            'fields' => $modelClass::getInputs()]);
+    }
+
+    public function index($modelClass)
+    {
+        //
     }
 
     public function create()
