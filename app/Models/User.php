@@ -12,11 +12,15 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    const ROLE_ADMIN = 1;
-    const ROLE_USER = 2;
+    const ROLE_ADMIN = 4;
+    const ROLE_MANAGER = 3;
+    const ROLE_CONTENT = 2;
+    const ROLE_USER = 1;
     const ROLE_NAMES = [
-        1 => 'Администратор',
-        2 => 'Студент'
+        self::ROLE_ADMIN => 'Администратор',
+        self::ROLE_MANAGER => 'Менеджер',
+        self::ROLE_CONTENT => 'Контент менеджер',
+        self::ROLE_USER => 'Студент'
     ];
 
 //    /**
@@ -87,6 +91,16 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role_id == self::ROLE_ADMIN;
+    }
+
+    public function isManager(): bool
+    {
+        return in_array($this->role_id, [self::ROLE_MANAGER, self::ROLE_ADMIN]);
+    }
+
+    public function isContentManager(): bool
+    {
+        return in_array($this->role_id, [self::ROLE_CONTENT, self::ROLE_MANAGER, self::ROLE_ADMIN]);
     }
 
     public function isUser(): bool

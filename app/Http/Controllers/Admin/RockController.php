@@ -33,7 +33,7 @@ class RockController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            if (Auth::user()->isAdmin()) {
+            if (Auth::user()->isContentManager()) {
                 return view('admin.rocks.index', ['items' => Rock::orderBy('name')->get()]);
             }
             if (Auth::user()->isUser()) {

@@ -44,10 +44,21 @@ Route::group(['prefix' => '/microscope'], function () {
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
-    Route::resource('/rocks', RockController::class);
-    Route::resource('/rock-types', RockTypeController::class);
-    Route::resource('/minerals', MineralController::class);
-    Route::resource('/fossils', FossilController::class);
-    Route::resource('/rock-classes', RockClassController::class);
+//    Route::resource('/rocks', RockController::class);
+//    Route::resource('/rock-types', RockTypeController::class);
+//    Route::resource('/minerals', MineralController::class);
+//    Route::resource('/fossils', FossilController::class);
+//    Route::resource('/rock-classes', RockClassController::class);
     Route::resource('/users', UserController::class);
+});
+
+//TODO: configure access by
+//RockController::class)->only(['index']);
+//RockController::class)->except(['destroy']);
+Route::group(['prefix' => '/admin', 'middleware' => 'content_manager'], function () {
+    Route::resource('/rocks', RockController::class)->except(['destroy']);
+    Route::resource('/rock-types', RockTypeController::class)->except(['destroy']);
+    Route::resource('/minerals', MineralController::class)->except(['destroy']);
+    Route::resource('/fossils', FossilController::class)->except(['destroy']);
+    Route::resource('/rock-classes', RockClassController::class)->except(['destroy']);
 });

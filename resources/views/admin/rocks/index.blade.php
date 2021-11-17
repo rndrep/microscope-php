@@ -60,12 +60,14 @@
                       <div class="btn">
                         <a href="{{route('rocks.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
                       </div>
+{{--                      Move delete button in separated template, add if user has rights --}}
+                      @if(Auth::user()->isAdmin())
                       {{Form::open(['route'=>['rocks.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
                           <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
                            <i class="fa fa-trash-alt"></i>
                           </button>
-
 	                   {{Form::close()}}
+                     @endif
                   </td>
                 </tr>
                 @endforeach

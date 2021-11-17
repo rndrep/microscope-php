@@ -27,19 +27,21 @@
                 </thead>
                 <tbody>
                 @foreach($items as $item)
-					<tr>
+                  <tr>
 	                  <td>{{$item->id}}</td>
 	                  <td>{{$item->name}}</td>
 	                  <td>{{$item->description}}</td>
 	                  <td>
-                          <div class="btn">
-                              <a href="{{route('rock-classes.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
-                          </div>
-                          {{Form::open(['route'=>['rock-classes.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
-                              <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
-                               <i class="fa fa-trash-alt"></i>
-                              </button>
-                           {{Form::close()}}
+                      <div class="btn">
+                          <a href="{{route('rock-classes.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
+                      </div>
+                      @if(Auth::user()->isAdmin())
+                      {{Form::open(['route'=>['rock-classes.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
+                        <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
+                          <i class="fa fa-trash-alt"></i>
+                        </button>
+                      {{Form::close()}}
+                      @endif
 	                   </td>
 	                </tr>
                 @endforeach

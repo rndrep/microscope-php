@@ -39,19 +39,21 @@
                 </thead>
                 <tbody>
                 @foreach($rockTypes as $rockType)
-					<tr>
+					        <tr>
 	                  <td>{{$rockType->id}}</td>
 	                  <td>{{$rockType->name}}</td>
 	                  <td>{{$rockType->description}}</td>
 	                  <td>
-                          <div class="btn">
-                              <a href="{{route('rock-types.edit', $rockType->id)}}" class="fa fa-pencil-alt"></a>
-                          </div>
-                          {{Form::open(['route'=>['rock-types.destroy', $rockType->id], 'method'=>'delete', 'class' => 'd-inline'])}}
-                              <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
-                               <i class="fa fa-trash-alt"></i>
-                              </button>
-                           {{Form::close()}}
+                      <div class="btn">
+                          <a href="{{route('rock-types.edit', $rockType->id)}}" class="fa fa-pencil-alt"></a>
+                      </div>
+                      @if(Auth::user()->isAdmin())
+                      {{Form::open(['route'=>['rock-types.destroy', $rockType->id], 'method'=>'delete', 'class' => 'd-inline'])}}
+                        <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
+                          <i class="fa fa-trash-alt"></i>
+                        </button>
+                      {{Form::close()}}
+                      @endif
 	                   </td>
 	                </tr>
                 @endforeach

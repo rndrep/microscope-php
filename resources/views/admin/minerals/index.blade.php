@@ -35,11 +35,13 @@
                       <div class="btn">
                           <a href="{{route('minerals.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
                       </div>
+                      @if(Auth::user()->isAdmin())
                       {{Form::open(['route'=>['minerals.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}
-                          <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
-                           <i class="fa fa-trash-alt"></i>
-                          </button>
-                       {{Form::close()}}
+                        <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
+                         <i class="fa fa-trash-alt"></i>
+                        </button>
+                      {{Form::close()}}
+                      @endif
                     </td>
                     <td>{{$item->id}}</td>
                     @foreach($fields as $field)
@@ -54,7 +56,7 @@
               </table>
             </div>
             <!-- /.box-body -->
-          </div>
+      </div>
       <!-- /.box -->
 
     </section>
