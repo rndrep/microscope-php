@@ -1,12 +1,13 @@
-<div>
-    <!-- Be present above all else. - Naval Ravikant -->
-    @foreach($rockTypes as $rockType)
-        <div>
-            {{$rockType->name}}
-            {{$rockType->description}}
-        </div>
-    @endforeach
-</div>
+<!-- TODO: Remove this template, cause this is not used -->
+{{--<div>--}}
+{{--    <!-- Be present above all else. - Naval Ravikant -->--}}
+{{--    @foreach($rockTypes as $rockType)--}}
+{{--        <div>--}}
+{{--            {{$rockType->name}}--}}
+{{--            {{$rockType->description}}--}}
+{{--        </div>--}}
+{{--    @endforeach--}}
+{{--</div>--}}
 
 <!DOCTYPE html>
 <html lang="en">

@@ -43,14 +43,6 @@ Route::group(['prefix' => '/microscope'], function () {
     Route::get('/fossil/{id}', [FossilController::class, 'getMicroPhotosJson'])->name('micro_fossil');
 });
 
-Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
-//    Route::resource('/rocks', RockController::class);
-//    Route::resource('/rock-types', RockTypeController::class);
-//    Route::resource('/minerals', MineralController::class);
-//    Route::resource('/fossils', FossilController::class);
-//    Route::resource('/rock-classes', RockClassController::class);
-    Route::resource('/users', UserController::class);
-});
 
 //TODO: configure access by
 //RockController::class)->only(['index']);
@@ -62,3 +54,15 @@ Route::group(['prefix' => '/admin', 'middleware' => 'content_manager'], function
     Route::resource('/fossils', FossilController::class)->except(['destroy']);
     Route::resource('/rock-classes', RockClassController::class)->except(['destroy']);
 });
+
+Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
+    Route::resource('/rocks', RockController::class);
+    Route::resource('/rock-types', RockTypeController::class);
+    Route::resource('/minerals', MineralController::class);
+    Route::resource('/fossils', FossilController::class);
+    Route::resource('/rock-classes', RockClassController::class);
+    Route::resource('/users', UserController::class);
+});
+
+
+Route::view('testLte','admin.adminLte');
