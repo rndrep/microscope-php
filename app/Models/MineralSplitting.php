@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MineralSplitting extends AbstractDictionary
 {
     use HasFactory;
+
+    const ENTITY_CAPTION = 'Спайность';
+
 }

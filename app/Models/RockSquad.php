@@ -9,13 +9,5 @@ class RockSquad extends AbstractDictionary
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'description',
-    ];
+    const ENTITY_CAPTION = 'Отряды пород';
 }

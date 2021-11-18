@@ -7,18 +7,6 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{route('rock-types.index')}}" class="nav-link">
-                <i class="fa nav-icon fa-bacon"></i>
-                <p>Типы пород</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('rock-classes.index')}}" class="nav-link">
-                <i class="fa nav-icon fa-bacon"></i>
-                <p>Классы пород</p>
-            </a>
-        </li>
-        <li class="nav-item">
             <a href="{{route('minerals.index')}}" class="nav-link">
                 <i class="fa nav-icon fa-cookie"></i>
                 <p>Минералы</p>

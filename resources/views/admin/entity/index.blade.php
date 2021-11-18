@@ -9,13 +9,12 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Имя сущности</h3>
+          <h3 class="box-title">{{$entityCaption}}</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <div class="form-group">
-{{--            <a href="{{route($entityName . '.create')}}" class="btn btn-success">Добавить</a>--}}
-            <a href="#" class="btn btn-success">Добавить</a>
+            <a href="{{route('dict_edit_view', ['entity' => $entityName])}}" class="btn btn-success">Добавить</a>
           </div>
           <table id="example1" class="table table-bordered table-striped">
             <thead>
@@ -32,15 +31,15 @@
               <tr>
                 <td>
                   <div class="btn">
-{{--                    <a href="{{route($entityName . '.edit', $item->id)}}" class="fa fa-pencil-alt"></a>--}}
-                    <a href="#" class="fa fa-pencil-alt"></a>
+                    <a href="{{route('dict_edit_view', ['entity' => $entityName, 'id' => $item->id])}}"
+                       class="fa fa-pencil-alt">
+                    </a>
                   </div>
-{{--                  {{Form::open(['route'=>[$entityName . '.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}--}}
-{{--                  {{Form::open(['route'=>[$entityName . '.destroy', $item->id], 'method'=>'delete', 'class' => 'd-inline'])}}--}}
-{{--                  <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">--}}
-{{--                    <i class="fa fa-trash-alt"></i>--}}
-{{--                  </button>--}}
-{{--                  {{Form::close()}}--}}
+                  {{Form::open(['route'=>['dict_destroy', ['entity' => $entityName, 'id' => $item->id]], 'method'=>'delete', 'class' => 'd-inline'])}}
+                  <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
+                    <i class="fa fa-trash-alt"></i>
+                  </button>
+                  {{Form::close()}}
                 </td>
                 <td>{{$item->id}}</td>
                 @foreach($fields as $field)

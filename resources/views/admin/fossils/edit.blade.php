@@ -57,7 +57,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          <button class="btn btn-default">Назад</button>
+          <a href="{{ url()->previous() }}" class="btn btn-default">Назад</a>
           <button class="btn btn-success pull-right">Измменить</button>
         </div>
         <!-- /.box-footer-->

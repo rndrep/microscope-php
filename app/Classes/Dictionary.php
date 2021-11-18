@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Models\AbstractDictionary;
 use App\Models\IndexFossil;
 use App\Models\Invertebrate;
 use App\Models\MineralSplitting;
@@ -17,28 +18,27 @@ use App\Models\RockType;
 class Dictionary
 {
 
-    //TODO: maybe use class name: 'RockType' instead of RockType::class
     const DICTIONARIES = [
-        ['caption' => 'Типы пород', 'class' => RockType::class],
-        ['caption' => 'Отряды пород', 'class' => RockSquad::class],
-        ['caption' => 'Классы пород', 'class' => RockClass::class],
-        ['caption' => 'Семейства пород', 'class' => RockFamily::class],
-        ['caption' => 'Виды пород', 'class' => RockKind::class],
-        ['caption' => 'Текстуры пород', 'class' => RockTexture::class],
-        ['caption' => 'Структуры пород', 'class' => RockStructure::class],
-        ['caption' => 'Сингония ', 'class' => MineralSyngony::class],
-        ['caption' => 'Спайность', 'class' => MineralSplitting::class],
-        ['caption' => 'Типы беспозвоночных животных', 'class' => Invertebrate::class],
-        ['caption' => 'Руководящие формы', 'class' => IndexFossil::class],
+        RockType::class,
+        RockSquad::class,
+        RockClass::class,
+        RockFamily::class,
+        RockKind::class,
+        RockTexture::class,
+        RockStructure::class,
+        MineralSyngony::class,
+        MineralSplitting::class,
+        Invertebrate::class,
+        IndexFossil::class,
     ];
-
     public static function getDicts(): array
     {
         $result = [];
+        /** @var AbstractDictionary $item */
         foreach (self::DICTIONARIES as $item) {
             $dictObj = new \stdClass();
-            $dictObj->caption = $item['caption'];
-            $dictObj->class = $item['class'];
+            $dictObj->caption = $item::ENTITY_CAPTION;
+            $dictObj->class = class_basename($item);
             $result[] = $dictObj;
         }
         return $result;

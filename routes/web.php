@@ -63,8 +63,13 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/fossils', FossilController::class);
     Route::resource('/rock-classes', RockClassController::class);
     Route::resource('/users', UserController::class);
-    Route::resource('/dictionary', DictionaryController::class);
-    Route::get('/dictionary/all/{class}', [DictionaryController::class, 'all'])->name('get_all_dicts');
+    Route::get('/dictionary/all/{entity}', [DictionaryController::class, 'all'])->name('get_all_dicts');
+    Route::get('/dictionary/edit', [DictionaryController::class, 'edit'])
+        ->name('dict_edit_view');
+    Route::match(['post', 'put'], '/dictionary/update', [DictionaryController::class, 'update'])
+        ->name('dict_update');
+    Route::delete('/dictionary/destroy', [DictionaryController::class, 'destroy'])
+        ->name('dict_destroy');
 });
 
 

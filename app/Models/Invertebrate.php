@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invertebrate extends AbstractDictionary
 {
     use HasFactory;
+
+    const ENTITY_CAPTION = 'Типы беспозвоночных животных';
+
 }

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class IndexFossil extends AbstractDictionary
 {
     use HasFactory;
+
+    const ENTITY_CAPTION = 'Руководящие формы';
+
 }

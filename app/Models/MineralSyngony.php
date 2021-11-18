@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MineralSyngony extends AbstractDictionary
 {
     use HasFactory;
+
+    const ENTITY_CAPTION = 'Сингония ';
+
 }
