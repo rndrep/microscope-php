@@ -24,18 +24,12 @@ class DictionaryController extends Controller
 
     public function index($modelClass)
     {
-        //
+        // not used
     }
 
     public function create(Request $request)
     {
-        $entity = $request->query('entity');
-        $this->abortIfNoModel($entity);
-
-        return view('admin.entity.editor', [
-            'entityName' => $entity,
-            'item' => false,
-        ]);
+        // edit() is used instead of create()
     }
 
     public function store()
@@ -50,13 +44,10 @@ class DictionaryController extends Controller
         $id = $request->query('id');
         $this->abortIfNoModel($entity);
 
-        if (empty($id)) {
-            return $this->create($request);
-        }
-
         $modelClass = 'App\Models\\' .$entity;
-        $item = $modelClass::find($id);
+        $item = $id ? $modelClass::find($id) : false;
         return view('admin.entity.editor', [
+            'entityCaption' => $modelClass::ENTITY_CAPTION,
             'entityName' => $entity,
             'item' => $item,
         ]);

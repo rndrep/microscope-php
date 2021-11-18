@@ -9,7 +9,7 @@
     <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">{{empty($item) ? 'Добавление' : 'Изменение'}}</h3>
+          <h3 class="box-title">{{$entityCaption . ' - '.  (empty($item) ? 'Добавление' : 'Изменение') }}</h3>
           @include('admin.errors')
         </div>
         <div class="box-body">
