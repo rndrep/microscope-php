@@ -11,17 +11,16 @@
                             <div class="card__body">
                                 <h1 class="mb-1 text-center">Вход</h1>
 
-                                <p class="fs-14 text-gray text-center mb-4">Пожалуйста, введите вашу почту и пароль.</p>
+                                <p class="fs-14 text-gray text-center mb-4">Пожалуйста, введите ваш логин и пароль.</p>
                                 @include('admin.errors')
                                 {{Form::open(['route' => 'auth.login'])}}
                                     <div class="mb-3">
-                                        <label for="InputEmail" class="form-label">Email </label>
+                                        <label for="InputLogin" class="form-label">Логин</label>
                                         <input
                                             type="text"
-                                            name="email"
+                                            name="login"
                                             class="form-control"
-                                            id="InputEmail"
-                                            aria-describedby="emailHelp"
+                                            id="InputLogin"
                                         />
                                     </div>
                                     <div class="mb-3">

@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'login' => 'required',
             'password' => 'required',
         ]);
 
@@ -39,7 +39,7 @@ class AuthController extends Controller
             return redirect()->intended();
         }
         return back()->withErrors([
-            'email' => 'почта и/или пароль неверны'
+            'login' => 'почта и/или пароль неверны'
         ]);
     }
 
