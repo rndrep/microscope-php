@@ -26,7 +26,6 @@
                                     <div class="mb-3">
                                         <label for="InputPassword" class="form-label">Пароль</label>
                                         <input
-                                            type="text"
                                             name="password"
                                             type="password"
                                             class="form-control"
