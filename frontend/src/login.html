@@ -1,25 +1,123 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-{{--    <partial src="tpl/partials/head.html" path-css="assets/css" title="Some title"></partial>--}}
-    <partial src="tpl/partials/head.html" path-css="css/dist/" title="Some title"></partial>
-</head>
-<body>
-<div class="page">
-    <partial src="tpl/partials/navbar.html" title="Some title"></partial>
+	<head>
+		@@include('head.html', { "title": "Вход на сайт" })
+	</head>
+	<body>
+		<div class="page">
+			@@include('navbar.html')
 
-    <!-- content -->
-    <partial src="tpl/partials/login.html" title="Some title"></partial>
+			<!-- Login -->
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="container container--xs">
+							<div
+								class="
+									row
+									d-flex
+									flex-column
+									align-content-center
+									justify-content-center
+									mb-3
+								"
+							>
+								<div class="col-12 col-xs-8 col-md-7 col-lg-5">
+									<div class="login">
+										<div class="card__body">
+											<div
+												class="
+													btn-container
+													d-flex
+													flex-column
+													align-items-center
+												"
+											>
+												<h1 class="text-center mb-3">
+													Войти с использованием учетной записи
+													ТПУ:
+												</h1>
+												<button class="btn">
+													<svg class="icon">
+														<use
+															href="/assets/sprite/sprite.svg#tpu-icon"
+														></use></svg
+													>Войти
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
 
-    <!-- footer -->
-    <partial src="tpl/partials/footer.html" title="Some title"></partial>
+								<div class="col-12 col-xs-8 col-md-7 col-lg-5">
+									<div class="login">
+										<div class="card__body">
+											<h1 class="mb-1 text-center">Вход</h1>
 
-</div>
+											<p class="text-center mb-3">
+												Пожалуйста, введите вашу почту и пароль.
+											</p>
+											<form>
+												<div class="mb-3">
+													<label
+														for="exampleInputEmail1"
+														class="form-label"
+														>Email
+													</label>
+													<input
+														type="email"
+														class="form-control"
+														id="InputEmail"
+														aria-describedby="emailHelp"
+													/>
+												</div>
+												<div class="mb-3">
+													<label
+														for="InputPassword"
+														class="form-label"
+														>Пароль</label
+													>
+													<input
+														type="password"
+														class="form-control"
+														id="exampleInputPassword1"
+													/>
+												</div>
 
-<partial src="tpl/partials/test.html" title="Some title"></partial>
+												<div
+													class="
+														btn-container
+														d-flex
+														flex-column
+														align-items-center
+													"
+												>
+													<button
+														type="submit"
+														class="btn mb-2"
+													>
+														<svg class="icon">
+															<use
+																href="/assets/sprite/sprite.svg#login"
+															></use>
+														</svg>
+														Войти
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- ./ Login -->
 
-<!-- js files -->
+			@@include('footer.html')
+		</div>
 
-<script type="text/javascript" src="js/dist/bundle.js"></script>
-</body>
+		@@include('js.html')
+	</body>
 </html>

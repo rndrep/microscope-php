@@ -8,13 +8,13 @@ export function microscope(urlResource) {
 	const url = urlResource;
 	const microscopePpl = document.createElement("div");
 	const microscopeXpl = document.createElement("div");
-	const ppl = document.getElementsByClassName("ppl");
-	const xpl = document.getElementsByClassName("xpl");
+	const ppl = document.getElementById("ppl");
+	const xpl = document.getElementById("xpl");
 	microscopePpl.className = "microscope__circle";
 	microscopeXpl.className = "microscope__circle";
 
-	ppl[0].append(microscopePpl);
-	xpl[0].append(microscopeXpl);
+	ppl.append(microscopePpl);
+	xpl.append(microscopeXpl);
 
 	getResource(url).then((data) => {
 		const step = data.shift;
@@ -24,7 +24,7 @@ export function microscope(urlResource) {
 		const pplMicroscope = new Microscope(
 			microscopePpl,
 			data.ppl,
-			".ppl",
+			"#ppl",
 			step,
 			isSmooth,
 			initRotation
@@ -35,14 +35,14 @@ export function microscope(urlResource) {
 		const xplMicroscope = new Microscope(
 			microscopeXpl,
 			data.xpl,
-			".xpl",
+			"#xpl",
 			step,
 			isSmooth,
 			initRotation
 		);
 		xplMicroscope.render(step, isSmooth, initRotation);
 
-		Draggable.create(".wheel", {
+		Draggable.create(".microscope__wheel", {
 			type: "rotation",
 			minimumMovement: 1,
 
@@ -54,6 +54,12 @@ export function microscope(urlResource) {
 	});
 
 	class Microscope {
+		STEP5 = 5;
+		STEP10 = 10;
+		microscopeDegree = document.querySelector(".microscope__degree");
+		isShowDegree = false;
+		numberOfImg;
+
 		constructor(
 			microscopeElement,
 			imgSources = [],
@@ -64,14 +70,12 @@ export function microscope(urlResource) {
 		) {
 			this.microscopeElement = microscopeElement;
 			this.imgSources = imgSources.reverse(); //TODO: убрать после переворачивания картинок
-			this.rotation = rotation;
-			this.smooth = smooth;
-			this.step = step;
 			this.parent = document.querySelector(parentSelector);
+			this.step = step;
+			this.smooth = smooth;
+			this.rotation = rotation;
 			this.initRotation();
-			this.microscopeDegree = document.querySelector(".microscope__degree");
 			this.createImg(this.step);
-			this.isShowDegree = false;
 		}
 
 		toggleShowDegree() {
@@ -80,12 +84,17 @@ export function microscope(urlResource) {
 		}
 
 		initRotation() {
-			this.sectionDeg = 360 / this.imgSources.length;
-			this.sectionDeg = 5; //TODO: fix
+			if (this.step == this.STEP5) {
+				this.numberOfImg = 72;
+			} else if (this.step == this.STEP10) {
+				this.numberOfImg = 36;
+			} else console.log("Задан неверный шаг");
+
+			this.sectionDeg = 360 / this.numberOfImg;
 			this.sectionPercent = (this.rotation / this.sectionDeg) % 1;
 			this.index = Math.floor(this.rotation / this.sectionDeg);
-			this.prev = 0 === this.index ? this.imgSources.length - 1 : this.index - 1;
-			this.next = this.imgSources.length - 1 === this.index ? 0 : this.index + 1;
+			this.prev = 0 === this.index ? this.numberOfImg - 1 : this.index - 1;
+			this.next = this.numberOfImg - 1 === this.index ? 0 : this.index + 1;
 			this.curRot = this.getRotationStyle(this.getDegree());
 			this.nextRot = this.getRotationStyle(this.getDegree(-1));
 			this.prevRot = this.getRotationStyle(this.getDegree(1));
@@ -93,24 +102,23 @@ export function microscope(urlResource) {
 
 		update(step, smooth, rotation) {
 			rotation = rotation - 360 * Math.floor(rotation / 360);
-			if (smooth == false && step == 10) {
+			if (smooth == false && step == this.STEP10) {
 				rotation = Math.floor(rotation / 10) * 10;
-			} else if (smooth == false && step == 5) {
+			} else if (smooth == false && step == this.STEP5) {
 				rotation = Math.floor(rotation / 5) * 5;
 			}
 
 			this.sectionPercent = (rotation / this.sectionDeg) % 1;
 			this.index = Math.floor(rotation / this.sectionDeg);
-			this.prev = 0 === this.index ? this.imgSources.length - 1 : this.index - 1;
-			this.next = this.imgSources.length - 1 === this.index ? 0 : this.index + 1;
+			this.prev = 0 === this.index ? this.numberOfImg - 1 : this.index - 1;
+			this.next = this.numberOfImg - 1 === this.index ? 0 : this.index + 1;
 			this.curRot = this.getRotationStyle(this.getDegree());
 			this.nextRot = this.getRotationStyle(this.getDegree(-1));
 			this.prevRot = this.getRotationStyle(this.getDegree(1));
 			this.render(step, smooth, rotation);
 		}
 
-		createImg(step) {
-			// TODO:скопировать картинки здесь
+		createImg() {
 			this.imgElements = this.imgSources.map((image, i, all) => {
 				let imgElement = document.createElement("img");
 				imgElement.src = image;
@@ -118,12 +126,11 @@ export function microscope(urlResource) {
 				return imgElement;
 			});
 
-			if (step == 5) {
+			if (this.step == this.STEP5) {
 				let imgElementsClone = [];
 				this.imgElements.forEach((item) => {
 					imgElementsClone.push(item.cloneNode());
 				});
-				// imgElementsClone.reverse();
 				this.imgElements.push(...imgElementsClone);
 			}
 
@@ -166,21 +173,6 @@ export function microscope(urlResource) {
 					return isCurr || isNext ? "visible" : "hidden";
 				};
 
-				// const getTransform = () => {
-				// 	let rotate = "";
-				// 	if (isCurr) {
-				// 		rotate = this.curRot;
-				// 	}
-				// 	if (isPrev) {
-				// 		rotate = this.prevRot;
-				// 	}
-				// 	if (isNext) {
-				// 		rotate = this.nextRot;
-				// 	}
-				// 	// return rot + " " + scale;
-				// 	return rotate;
-				// };
-
 				const getOpacity = (smooth) => {
 					if (isCurr) {
 						return 1;
@@ -212,11 +204,11 @@ export function microscope(urlResource) {
 						}
 						return rotate;
 					};
-					if (step == 5 && smooth == false) {
+					if (step == this.STEP5 && smooth == false) {
 						return reflection;
-					} else if (step == 10 && smooth == true) {
+					} else if (step == this.STEP10 && smooth == true) {
 						return smoothness();
-					} else if (step == 5 && smooth == true) {
+					} else if (step == this.STEP5 && smooth == true) {
 						let scale = reflection;
 						let rotate = smoothness();
 						return rotate + " " + scale;

@@ -17,6 +17,7 @@ const gulpif = require("gulp-if");
 const del = require("del");
 // const panini = require("panini");
 const htmlPartial = require("gulp-html-partial");
+const fileinclude = require("gulp-file-include");
 const browsersync = require("browser-sync").create();
 const svgSprite = require("gulp-svg-sprite");
 const webpack = require("webpack-stream");
@@ -106,8 +107,9 @@ function html() {
 			// подзадачи для html файлов
 			.pipe(plumber())
             .pipe(
-                htmlPartial({
-                    basePath: 'src/'
+                fileinclude({
+                    prefix: "@@",
+                    basepath: "./src/partials/",
                 })
             )
             .pipe(

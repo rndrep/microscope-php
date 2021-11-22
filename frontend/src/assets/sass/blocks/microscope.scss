@@ -1,18 +1,25 @@
 .microscope {
 	display: flex;
-
-	flex-direction: column;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 
+	padding: 2rem 3.2rem;
+	margin: 0 0 3.2rem 0;
+
 	width: 100%;
+}
+
+.microscope__wrap {
+	display: flex;
+	align-items: flex-end;
 }
 
 .microscope__container {
 	position: relative;
 
-	width: 490px;
-	height: 490px;
+	min-width: 490px;
+	min-height: 490px;
 }
 
 .microscope__degree {
@@ -118,7 +125,7 @@
 	background: rgba(255, 255, 255, 0.5);
 }
 
-.wheel {
+.microscope__wheel {
 	z-index: 400;
 	position: relative;
 
@@ -136,9 +143,4 @@
 	align-items: center;
 
 	width: 100%;
-}
-
-.microscope__wrap {
-	display: flex;
-	align-items: flex-end;
 }

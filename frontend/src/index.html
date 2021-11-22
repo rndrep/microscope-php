@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		@@include('head.html', { "title": "Цифровой микроскоп" })
+	</head>
+	<body>
+		<div class="page">
+			@@include('navbar.html')
+
+			<!-- Intro -->
+			@@include('intro.html')
+
+			<!-- Breadcrumb -->
+			@@include('breadcrumb.html')
+
+			<!-- Content -->
+			<!-- Search -->
+			<div class="search">
+				<div class="container">
+					<h1 class="search__title">Поиск по фильтрам</h1>
+					<div class="tabs">
+						<ul class="nav nav-tabs tabs__nav" id="myTab" role="tablist">
+							<!-- Rocks tab -->
+							<li class="nav-item" role="presentation">
+								<button
+									class="tabs__link nav-link active"
+									id="rocksTab"
+									data-bs-toggle="tab"
+									data-bs-target="#rocksTabContent"
+									type="button"
+									role="tab"
+									aria-controls="rocksTabContent"
+									aria-selected="true"
+								>
+									Породы
+								</button>
+							</li>
+
+							<!-- Minerals tab -->
+							<li class="nav-item" role="presentation">
+								<button
+									class="tabs__link nav-link"
+									id="mineralsTab"
+									data-bs-toggle="tab"
+									data-bs-target="#mineralsTabContent"
+									type="button"
+									role="tab"
+									aria-controls="mineralsTabContent"
+									aria-selected="false"
+								>
+									Минералы
+								</button>
+							</li>
+
+							<!-- Fossils tab -->
+							<li class="nav-item" role="presentation">
+								<button
+									class="tabs__link nav-link"
+									id="fossilsTab"
+									data-bs-toggle="tab"
+									data-bs-target="#fossilsTabContent"
+									type="button"
+									role="tab"
+									aria-controls="fossilsTabContent"
+									aria-selected="false"
+								>
+									Окаменелости
+								</button>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<!-- Rocks tab content -->
+							<div
+								class="tab-pane fade show active"
+								id="rocksTabContent"
+								role="tabpanel"
+								aria-labelledby="rocksTab"
+							>
+								<!-- Rock search-form-->
+								<form>
+									<div
+										class="
+											search__fields
+											row row-cols-1 row-cols-md-2 row-cols-lg-3
+										"
+									>
+										<!-- Отряд -->
+										<div class="col">
+											<label class="form-label">Название </label>
+											<input type="text" class="form-control" />
+										</div>
+										<!-- Описание -->
+										<div class="col">
+											<label class="form-label">Описание </label>
+											<input type="text" class="form-control" />
+										</div>
+										<!-- Тип -->
+										<div class="col">
+											<label class="form-label">Тип </label
+											><select class="select-multiply" multiple>
+												<option>магматический</option>
+												<option>метаморфический</option>
+												<option>осадочный</option>
+												<option>осадоsdfчный</option>
+												<option>sdfsdfsdfsdf</option>
+											</select>
+										</div>
+										<!-- Класс -->
+										<div class="col">
+											<label class="form-label">Класс </label
+											><select class="select-single">
+												<option selected>-</option>
+												<option value="1">плутонический</option>
+												<option value="2">вулканический</option>
+												<option value="3">гипабиссальный</option>
+												<option value="4">контактовый</option>
+												<option value="5">региональный</option>
+												<option value="6">обломочный</option>
+												<option value="7">хемогенный</option>
+												<option value="8">органогенный</option>
+											</select>
+										</div>
+										<!-- Отряд -->
+										<div class="col">
+											<label class="form-label">Отряд </label
+											><select class="select-single">
+												<option selected>-</option>
+												<option value="1">ультраосновной</option>
+												<option value="2">основной</option>
+												<option value="3">средний</option>
+												<option value="4">кислый</option>
+											</select>
+										</div>
+										<!-- Вид -->
+										<div class="col">
+											<label class="form-label">Вид </label>
+											<select class="select-single">
+												<option selected>-</option>
+												<option value="1">гранит</option>
+												<option value="2">риолит</option>
+												<option value="3">гранит-порфир</option>
+												<option value="4">
+													роговик хистатолитовый
+												</option>
+												<option value="5">
+													гнейс биотитовый
+												</option>
+												<option value="6">
+													гнейс биотитовый
+												</option>
+												<option value="7">эклогит</option>
+												<option value="8">
+													псаммитолиты (песчаные)
+												</option>
+												<option value="9">
+													пелитолиты (глинистые)
+												</option>
+												<option value="10">алюминиевый</option>
+												<option value="11">карбонатный</option>
+											</select>
+										</div>
+										<!-- Породообразующие минералы -->
+										<div class="col">
+											<label class="form-label"
+												>Породообразующие минералы
+											</label>
+											<select class="select-single">
+												<option selected>-</option>
+												<option value="1">оливин</option>
+												<option value="2">пироксен</option>
+												<option value="3">ортопироксен</option>
+											</select>
+										</div>
+									</div>
+									<div class="search__btn">
+										<button
+											id="rockSearchBtn"
+											class="btn"
+											type="submit"
+										>
+											Найти
+										</button>
+									</div>
+								</form>
+							</div>
+
+							<!-- Minerals tab content -->
+							<div
+								class="tab-pane fade"
+								id="mineralsTabContent"
+								role="tabpanel"
+								aria-labelledby="mineralsTab"
+							>
+								<!-- Minerals search-form-->
+								<form>
+									<div
+										class="
+											search__fields
+											row row-cols-1 row-cols-md-2 row-cols-lg-3
+										"
+									>
+										<!-- Название минерала -->
+										<div class="col">
+											<label class="form-label">Название </label>
+											<input type="text" class="form-control" />
+										</div>
+										<!-- Описание минерала -->
+										<div class="col">
+											<label class="form-label">Описание </label
+											><input type="text" class="form-control" />
+										</div>
+										<!-- Твердость минерала -->
+										<div class="col">
+											<label class="form-label"
+												>Твердость 1-10 </label
+											><input type="text" class="form-control" />
+										</div>
+										<!-- Поиск по породе -->
+										<div class="col">
+											<label class="form-label">Генезис </label
+											><select class="select-single">
+												<option>-</option>
+												<option>оливинит</option>
+												<option>пироксенит</option>
+												<option>габро</option>
+											</select>
+										</div>
+									</div>
+									<div class="search__btn">
+										<button
+											id="mineralsSearchBtn"
+											class="btn"
+											type="submit"
+										>
+											Найти
+										</button>
+									</div>
+								</form>
+							</div>
+
+							<!-- Fossils tab content -->
+							<div
+								class="tab-pane fade"
+								id="fossilsTabContent"
+								role="tabpanel"
+								aria-labelledby="fossilsTab"
+							>
+								<!-- Fossils search-form-->
+								<form>
+									<div
+										class="
+											search__fields
+											row row-cols-1 row-cols-md-2 row-cols-lg-3
+										"
+									>
+										<!-- Название окаменелости -->
+										<div class="col">
+											<label class="form-label">Название </label
+											><input type="text" class="form-control" />
+										</div>
+										<!-- Поиск по породе -->
+										<div class="col">
+											<label class="form-label">Генезис </label>
+											<select class="select-single">
+												<option>-</option>
+												<option>оливинит</option>
+												<option>пироксенит</option>
+												<option>габро</option>
+											</select>
+										</div>
+									</div>
+									<div class="search__btn">
+										<button
+											id="btnSearchBtn"
+											class="btn"
+											type="submit"
+										>
+											Найти
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ./ Search -->
+
+			@@include('cards.html')
+
+			<!-- Pagination -->
+			<nav aria-label="Навигация">
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li class="page-item active">
+						<a class="page-link" href="#">1</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- ./ Pagination -->
+
+			<!-- Footer -->
+			@@include('footer.html')
+		</div>
+
+		@@include('js.html')
+	</body>
+</html>

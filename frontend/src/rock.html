@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		@@include('head.html', { "title": "Порода" })
+	</head>
+	<body>
+		<div class="page">
+			@@include('navbar.html')
+
+			<!-- Breadcrumb -->
+			@@include('breadcrumb.html')
+
+			<!-- Rock -->
+			<section class="rock">
+				<div class="container">
+					<!-- rock__card -->
+					<div class="rock__card">
+						<!-- rock__top -->
+						<div class="row rock__top">
+							<h1 class="rock__title">Эпигранит</h1>
+							<div class="rock__img col-sm-12 col-md-7">
+								<img class="img" src="/assets/img/stone2.png" alt="" />
+							</div>
+							<!-- launch-btns -->
+							<div class="rock__launch-btns col-12 col-sm-12 col-md-5">
+								<div class="rock__text rock__text--gray">
+									Посмотреть тонкий срез образца
+								</div>
+
+								<a class="btn btn_rock" href="">
+									<svg class="icon">
+										<use
+											href="/assets/sprite/sprite.svg#biotech"
+										></use></svg
+									>Микроскоп</a
+								>
+								<div class="rock__text rock__text--gray">
+									Посмотреть поворот образца
+								</div>
+								<a class="btn btn_rock" href="">
+									<svg class="icon">
+										<use
+											href="/assets/sprite/sprite.svg#360"
+										></use></svg
+									>Обзор</a
+								>
+							</div>
+							<!-- ./ launch-btns -->
+						</div>
+						<!-- /. rock__top -->
+
+						<!-- rock__main -->
+						<div class="row rock__main">
+							<!-- rock__details -->
+							<div class="rock__details order-sm-2 col-sm-5">
+								<h1 class="rock__title">Детали</h1>
+								<ul class="card-list list-group list-group-flush">
+									<li class="list-group-item">
+										Тип:
+										<a class="card-list__text">магматический</a>
+									</li>
+									<li class="list-group-item">
+										Отряд:
+										<a class="card-list__text">основной</a>
+									</li>
+									<li class="list-group-item">
+										Класс:
+										<a class="card-list__text">вулканический</a>
+									</li>
+									<li class="list-group-item">
+										Вид:
+										<a class="card-list__text">гранит</a>
+									</li>
+									<li class="list-group-item">
+										Текстура:
+										<a class="card-list__text">массивная </a>
+									</li>
+									<li class="list-group-item">
+										Породообразующие минералы:
+										<a
+											class="
+												card-list__link card-list__link_disabled
+											"
+											href="#"
+											>биотит</a
+										>
+										<a class="card-list__link" href="#"> отоклаз</a>
+										<a class="card-list__link" href="#">
+											плагиоклаз</a
+										>
+										<a class="card-list__link" href="#"> шпат</a>
+									</li>
+									<li class="list-group-item">
+										Вторичные минералы:
+										<a
+											class="card-list__link card-list__text"
+											href="#"
+											>биотит</a
+										>
+										<a class="card-list__link" href="#"> актинолит</a>
+										<a class="card-list__link" href="#"> алунит</a>
+										<a class="card-list__link" href="#"> диаспор</a>
+									</li>
+								</ul>
+							</div>
+							<!-- ./ rock__details -->
+							<div class="rock__info order-sm-1 col-sm-7">
+								<h1 class="rock__title">Эпигранит</h1>
+								<p class="rock__text">
+									Этот эпигранит происходит из озера Лох-Айнорт на
+									острове Скай. Он в основном состоит из кварца,
+									щелочного полевого шпата и полевого шпата плагиоклаза.
+									Наиболее распространенным ферромагнезиальным минералом
+									является феррохеденбергит (член группы амфиболов) -
+									см. Вращение 1, вместе с оксидами Fe-Ti, алланитом,
+									апатитом и биотитом. Вторичные продукты включают
+									эпидот и хлорит (заменяющий биотит).
+								</p>
+								<p class="rock__text">
+									Этот эпигранит происходит из озера Лох-Айнорт на
+									острове Скай. Он в основном состоит из кварца,
+									щелочного полевого шпата и полевого шпата плагиоклаза.
+									Наиболее распространенным ферромагнезиальным минералом
+									является феррохеденбергит (член группы амфиболов) -
+									см. Вращение 1, вместе с оксидами Fe-Ti, алланитом,
+									апатитом и биотитом. Вторичные продукты включают
+									эпидот и хлорит (заменяющий биотит).
+								</p>
+							</div>
+						</div>
+						<!-- /. rock__main -->
+
+						<!-- accordion -->
+						<div class="accordion accordion-flush" id="accordionFlush">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingOne">
+									<button
+										id="accordion-button-gallery"
+										class="accordion-button collapsed"
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseOne"
+										aria-expanded="false"
+										aria-controls="flush-collapseOne"
+									>
+										<svg class="icon">
+											<use
+												href="/assets/sprite/sprite.svg#photo_library"
+											></use>
+										</svg>
+										Галерея
+									</button>
+								</h2>
+								<div
+									id="flush-collapseOne"
+									class="accordion-collapse collapse"
+									aria-labelledby="flush-headingOne"
+								>
+									<div class="accordion-body">
+										<!-- gallery -->
+										<div class="gallery">
+											<a
+												id="gallery-arrow-prev"
+												class="
+													gallery__arrow gallery__arrow--prev
+												"
+											>
+												<svg class="icon gallery__arrow-icon">
+													<use
+														href="/assets/sprite/sprite.svg#next"
+													></use>
+												</svg>
+											</a>
+											<a
+												id="gallery-arrow-next"
+												class="
+													gallery__arrow gallery__arrow--next
+												"
+											>
+												<svg class="icon gallery__arrow-icon">
+													<use
+														href="/assets/sprite/sprite.svg#next"
+													></use>
+												</svg>
+											</a>
+											<div class="gallery__slider" id="gallery">
+												<div>
+													<div class="gallery__item">
+														<img
+															data-lazy="/assets/img/intro-bg.png"
+															src="/assets/img/intro-bg.png"
+															alt=""
+														/>
+													</div>
+												</div>
+												<div>
+													<div class="gallery__item">
+														<img
+															data-lazy="/assets/img/firewatch.jpg"
+															src="/assets/img/intro-bg.png"
+															alt=""
+														/>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- ./ gallery -->
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item accordion-item__map">
+								<h2
+									class="accordion-header accordion-header-map"
+									id="flush-headingTwo"
+								>
+									<button
+										id="accordion-button-map"
+										class="accordion-button collapsed"
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseTwo"
+										aria-expanded="false"
+										aria-controls="flush-collapseTwo"
+									>
+										<svg class="icon">
+											<use
+												href="/assets/sprite/sprite.svg#location"
+											></use>
+										</svg>
+										Карта
+									</button>
+								</h2>
+								<div
+									id="flush-collapseTwo"
+									class="accordion-collapse collapse"
+									aria-labelledby="flush-headingTwo"
+								>
+									<div class="accordion-body">
+										<div class="map">
+											<div id="map" class="map"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingThree">
+									<button
+										class="accordion-button collapsed"
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseThree"
+										aria-expanded="false"
+										aria-controls="flush-collapseThree"
+									>
+										<svg class="icon">
+											<use
+												href="/assets/sprite/sprite.svg#video"
+											></use>
+										</svg>
+										Видео
+									</button>
+								</h2>
+								<div
+									id="flush-collapseThree"
+									class="accordion-collapse collapse"
+									aria-labelledby="flush-headingThree"
+								>
+									<div class="accordion-body">
+										<div class="video">
+											<div class="video__item">
+												<video
+													preload="metadata"
+													controls
+													src="/assets/video/smallcat.mp4"
+												>
+													<source
+														src="/assets/video/smallcat.mp4"
+														type="video/mp4"
+													/>
+												</video>
+											</div>
+											<div class="video__item">
+												<video
+													preload="metadata"
+													controls
+													src="/assets/video/smallcat.mp4"
+												>
+													<source
+														src="/assets/video/smallcat.mp4"
+														type="video/mp4"
+													/>
+												</video>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ./accordion -->
+					</div>
+					<!-- /. rock__card -->
+				</div>
+			</section>
+			<!-- ./ Rock -->
+
+			<!-- Footer -->
+			@@include('footer.html')
+		</div>
+
+		@@include('js.html')
+	</body>
+</html>
+
+{{> rock}}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		@@include('head.html', { "title": "Поиск по карте" })
+	</head>
+	<body>
+		<div class="page">
+			@@include('navbar.html')
+
+			<!-- Breadcrumb -->
+			@@include('breadcrumb.html')
+
+			<!-- Content -->
+
+			<!-- 404 -->
+			<div class="content">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 content__text text-center">
+							<h1 class="content__title">
+								<span></span>
+								Not Found (#404)
+								<span></span>
+							</h1>
+
+							<h3>Страница не найдена.</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ./404 -->
+
+			<!-- Footer -->
+			@@include('footer.html')
+		</div>
+
+		@@include('js.html')
+	</body>
+</html>

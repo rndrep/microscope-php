@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		@@include('head.html', { "title": "Обзор" })
+	</head>
+	<body>
+		<div class="page">
+			@@include('navbar.html')
+
+			<!-- Breadcrumb -->
+			@@include('breadcrumb.html')
+
+			<!-- Content -->
+
+			<!-- Rotation -->
+			<div class="main">
+				<div class="container">
+					<div class="ratio ratio-16x9">
+						<iframe
+							src="https://file.ineo.tpu.ru/EXTRA/collection/pl_nummulites1.html"
+							allowfullscreen
+							allowtransparency="true"
+						></iframe>
+					</div>
+				</div>
+			</div>
+			<!-- ./ Rotation -->
+
+			<!-- Footer -->
+			@@include('footer.html')
+		</div>
+
+		@@include('js.html')
+	</body>
+</html>
