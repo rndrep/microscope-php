@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function loginForm()
     {
-        return view('main.login');
+        return view('dist.login');
     }
 
     public function login(Request $request)

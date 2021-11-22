@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RockTypeController;
 use App\Http\Controllers\Admin\RockController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DictionaryController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,3 +75,5 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
 
 
 Route::view('testLte','admin.adminLte');
+
+Route::any('{catchall}', [PageController::class, 'notfound'])->where('catchall', '.*');

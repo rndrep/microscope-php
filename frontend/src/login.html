@@ -34,16 +34,15 @@
 												"
 											>
 												<h1 class="text-center mb-3">
-													Войти с использованием учетной записи
-													ТПУ:
+													Войти с использованием учетной записи ТПУ:
 												</h1>
-												<button class="btn">
+												<a href="{{route('login_tpu')}}" class="btn">
 													<svg class="icon">
 														<use
-															href="/assets/sprite/sprite.svg#tpu-icon"
+															href="/svg/sprite.svg#tpu-icon"
 														></use></svg
 													>Войти
-												</button>
+												</a>
 											</div>
 										</div>
 									</div>
@@ -57,17 +56,17 @@
 											<p class="text-center mb-3">
 												Пожалуйста, введите вашу почту и пароль.
 											</p>
-											<form>
+                                            {{Form::open(['route' => 'auth.login'])}}
 												<div class="mb-3">
 													<label
 														for="exampleInputEmail1"
 														class="form-label"
-														>Email
+														>Логин
 													</label>
 													<input
-														type="email"
+														type="text"
 														class="form-control"
-														id="InputEmail"
+                                                        name="login"
 														aria-describedby="emailHelp"
 													/>
 												</div>
@@ -80,7 +79,7 @@
 													<input
 														type="password"
 														class="form-control"
-														id="exampleInputPassword1"
+                                                        name="password"
 													/>
 												</div>
 
@@ -98,13 +97,13 @@
 													>
 														<svg class="icon">
 															<use
-																href="/assets/sprite/sprite.svg#login"
+																href="/svg/sprite.svg#login"
 															></use>
 														</svg>
 														Войти
 													</button>
 												</div>
-											</form>
+                                            {{Form::close()}}
 										</div>
 									</div>
 								</div>

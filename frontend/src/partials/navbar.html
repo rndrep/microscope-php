@@ -3,7 +3,7 @@
 	<div class="container">
 		<a class="navbar-brand navbar__brand" href="#">
 			<svg class="icon_logo">
-				<use href="/assets/sprite/sprite.svg#logo"></use>
+				<use href="/svg/sprite.svg#logo"></use>
 			</svg>
 		</a>
 
@@ -18,23 +18,28 @@
 		>
 			<span class="navbar-toggler-icon">
 				<svg class="icon">
-					<use href="/assets/sprite/sprite.svg#menu"></use>
+					<use href="/svg/sprite.svg#menu"></use>
 				</svg>
 			</span>
 		</button>
 
 		<div class="collapse navbar-collapse navbar__collapse" id="navbar-nav">
 			<div class="navbar-nav nav">
-				<a class="nav-link nav__link" aria-current="page" href="#">Главная</a>
-				<a class="nav-link nav__link" href="#">Изучение</a>
+				<a class="nav-link nav__link" aria-current="page" href="/">Главная</a>
+				<a class="nav-link nav__link" href="">Изучение</a>
 				<a class="nav-link nav__link" href="#">О нас</a>
-
-				<a class="btn btn_nav" href="">
-					<svg class="icon">
-						<use href="/assets/sprite/sprite.svg#login"></use>
-					</svg>
-					Войти</a
-				>
+                @if(Auth::check())
+                    <a class="btn btn_nav" href="/logout">
+                        Выйти
+                    </a>
+                @else
+                    <a class="btn btn_nav" href="/login">
+                        <svg class="icon">
+                            <use href="/svg/sprite.svg#login"></use>
+                        </svg>
+                        Войти
+                    </a>
+                @endif
 			</div>
 		</div>
 	</div>

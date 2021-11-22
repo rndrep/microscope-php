@@ -21,4 +21,9 @@ composer.phar
 frontend/node_modules
 frontend/dist/
 frontend/.env
+
 resources/views/dist/
+public/svg/sprite.svg
+public/js/bundle.js
+public/css/style.css
+public/img/dist/

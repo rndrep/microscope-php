@@ -21,10 +21,9 @@ const fileinclude = require("gulp-file-include");
 const browsersync = require("browser-sync").create();
 const svgSprite = require("gulp-svg-sprite");
 const webpack = require("webpack-stream");
-const result = require('dotenv').config();
-// if (result.error) {
-//     throw process.env.USE_BLADE;
-// }
+require('dotenv').config(); // need to load .env
+// const RevAll = require("gulp-rev-all");
+const exec = require('child_process').exec;
 
 let isDev = true;
 let isProd = !isDev;
@@ -52,10 +51,10 @@ let webConfig = {
 const path = {
 	build: {
 		html: 'true' == process.env.USE_BLADE ? "../resources/views/dist/" : "./dist/",
-		script: 'true' == process.env.USE_BLADE ? "../resources/js/dist/" : "./dist/assets/js/",
-		css:  'true' == process.env.USE_BLADE ? "../public/css/dist/" : "./dist/assets/css/",
-		images: 'true' == process.env.USE_BLADE ? "../resources/img/dist/" : "./dist/assets/img/",
-		svg: 'true' == process.env.USE_BLADE ? "../public/svg/dist/" : "./dist/assets/sprite/",
+		script: 'true' == process.env.USE_BLADE ? "../public/js/" : "./dist/assets/js/",
+		css:  'true' == process.env.USE_BLADE ? "../public/css/" : "./dist/assets/css/",
+		images: 'true' == process.env.USE_BLADE ? "../public/img/dist/" : "./dist/assets/img/",
+		svg: 'true' == process.env.USE_BLADE ? "../public/svg/" : "./dist/assets/sprite/",
 		video: "./dist/assets/video/",
 	},
 	src: {
@@ -122,6 +121,7 @@ function html() {
             )
 			.pipe(dest(path.build.html))
 			.pipe(browsersync.stream())
+            .pipe(exec('php ../artisan view:clear')) // clear cache of laravel templates
 	);
 }
 
@@ -158,6 +158,7 @@ function css() {
 				})
 			)
 		)
+        // .pipe(RevAll.revision())
 		.pipe(dest(path.build.css))
 		.pipe(browsersync.stream());
 }
@@ -197,7 +198,7 @@ function svg() {
 				dest: "./", // destination folder
 				prefix: ".svg--%s", // BEM-style prefix if styles rendered
 				sprite: "sprite.svg", //generated sprite name
-				example: true, // Build a sample page, please!
+
 			},
 		},
 	};
