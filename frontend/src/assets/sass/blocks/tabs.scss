@@ -1,0 +1,41 @@
+.tabs__nav {
+	flex-wrap: nowrap;
+
+	margin-bottom: 1.6rem;
+}
+
+.tabs__link {
+	padding: 0.8rem 1.6rem;
+
+	color: $green;
+	border-color: $nav-tabs-border-color;
+
+	font-weight: 600;
+
+	// font-size: 1.6rem;
+	@include fluidFontSize(1.5rem, 1.6rem, 480px, 1280px);
+	text-transform: uppercase;
+
+	&:hover,
+	&:focus {
+		color: $green;
+
+		border-color: $green-200;
+		// background-color: $gray-light;
+		isolation: isolate;
+
+		transition: 0.15s ease-in-out;
+	}
+
+	&.disabled {
+		color: $green;
+	}
+
+	@media (max-width: $breakpoints_xs) {
+		padding: 0.8rem 1rem;
+	}
+}
+
+.tabs__link.nav-link.active {
+	color: $gray-700;
+}

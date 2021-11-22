@@ -1,0 +1,13 @@
+.form-label {
+	display: block;
+	margin-bottom: 0.4rem;
+
+	color: $gray-700;
+	font-weight: 500;
+}
+
+.form-control,
+.form-select {
+	line-height: 1.6;
+	color: $gray-700;
+}

@@ -1,0 +1,42 @@
+.card-list {
+	font-size: 1.6rem;
+
+	*:last-child {
+		padding: 0;
+		margin: 0;
+	}
+}
+
+.card-list li {
+	padding: 0 0 0.8rem;
+	margin: 0 0 0.8rem;
+}
+
+.card-list__link, .card-list__text {
+	padding: 0.8rem 0;
+
+	font-weight: 400;
+	@include link-hover($green);
+
+	&:after {
+		content: ",";
+	}
+
+	&:last-child {
+		&:after {
+			content: "";
+		}
+	}
+}
+
+.card-list__text {
+	text-decoration: none;
+	cursor: default;
+
+	font-weight: 400;
+	@include link-hover($black, $black, none);
+}
+
+.card-list .list-group-item {
+	font-weight: 600;
+}

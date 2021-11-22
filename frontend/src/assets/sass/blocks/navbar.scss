@@ -1,0 +1,32 @@
+.navbar {
+	margin-bottom: 1.6rem;
+
+	position: fixed;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+
+	background-color: $black;
+
+	:nth-last-child(2) {
+		margin-right: 1.6rem;
+	}
+}
+
+.navbar__logo {
+	display: flex;
+
+	@media (max-width: $breakpoints_md) {
+		justify-content: center;
+		margin-bottom: 0.8rem;
+	}
+}
+
+.navbar__collapse {
+	padding: 0.4rem 0;
+	justify-content: flex-end;
+}
+
+.navbar__brand {
+	padding: 0 0.4rem;
+}

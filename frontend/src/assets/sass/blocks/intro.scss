@@ -1,0 +1,59 @@
+.intro {
+    height: 496px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: -1.6rem;
+    margin-bottom: 1rem;
+
+    background: $gradient;
+    background-image: $gradient, url("/assets/img/mount.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    background-blend-mode: hard-light;
+
+    object-fit: cover;
+}
+
+.intro__inner {
+    justify-content: center;
+    width: 100%;
+
+    padding-top: 7rem;
+    // max-width: 595px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.intro__title {
+    margin: 0 0 3.2rem;
+
+    font-size: 4.8rem;
+    color: $white;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.1;
+
+    @media (max-width: $breakpoints_xm) {
+        font-size: 3.6rem;
+    }
+}
+
+.intro__subtitle {
+    font-size: 1.6rem;
+    color: $white;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.intro__btn {
+    display: flex;
+    justify-content: center;
+
+    padding-top: 3.2rem;
+}

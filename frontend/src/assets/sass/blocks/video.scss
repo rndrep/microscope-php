@@ -1,0 +1,21 @@
+.video {
+	width: 100%;
+
+	margin: 0 auto;
+}
+
+.video__item {
+	position: relative;
+	padding: 0 0 50% 0;
+	margin: 0 0 1.6rem;
+}
+
+.video__item video,
+.video__item iframe {
+	position: absolute;
+	object-fit: cover;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}

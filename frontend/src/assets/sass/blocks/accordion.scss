@@ -1,0 +1,23 @@
+.accordion-button {
+    font-weight: 600;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: $green;
+
+    border: 1px;
+    border-radius: 0.25rem;
+}
+
+.accordion-body {
+    display: flex;
+    justify-content: center;
+
+    padding: 0.8rem 0 0;
+}
+
+.accordion-item__map > .collapse:not(.show) {
+    /* display: none; */
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}

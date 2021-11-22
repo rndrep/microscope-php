@@ -1,0 +1,13 @@
+.breadcrumb {
+    font-size: 1.6rem;
+}
+
+.breadcrumb-item {
+    a {
+        @include link-hover($green);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

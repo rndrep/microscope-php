@@ -1,0 +1,114 @@
+// Color system
+
+// gray-color-variables
+$white: #fff;
+$gray-tpu: #f0f0f0;
+
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$gray: $gray-500;
+$black: #262626;
+// gray-color-variables
+
+// gray-colors-map
+$grays: (
+	"100": $gray-100,
+	"200": $gray-200,
+	"300": $gray-300,
+	"400": $gray-400,
+	"500": $gray,
+	"600": $gray-600,
+	"700": $gray-700,
+	"800": $gray-800,
+	"900": $gray-900,
+);
+// gray-colors-map
+
+$green: #6fa53b;
+
+//  colors-map
+$colors: (
+	"green": $green,
+	"white": $white,
+	"gray": $gray-600,
+	"gray-dark": $gray-800,
+);
+//  colors-map
+
+// fusv-enable
+$green-100: tint-color($green, 80%);
+$green-200: tint-color($green, 60%);
+$green-300: tint-color($green, 40%);
+$green-400: tint-color($green, 20%);
+$green-500: $green;
+$green-600: shade-color($green, 20%);
+$green-700: shade-color($green, 40%);
+$green-800: shade-color($green, 60%);
+$green-900: shade-color($green, 80%);
+// fusv-enable
+
+$green-light: #c5eaa1;
+$lighten-gray: lighten($gray, 30%);
+$gray-light: #e9ecef;
+$radius: 4px;
+$shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$gradient: linear-gradient(76.3deg, #2c3e4e 12.6%, #456783 82.8%);
+
+// Breadcrumb
+$breadcrumb-font-size: null;
+$breadcrumb-padding-y: 0;
+$breadcrumb-padding-x: 0;
+$breadcrumb-item-padding-x: 0.5rem;
+$breadcrumb-margin-bottom: 1.6rem;
+$breadcrumb-bg: null;
+$breadcrumb-divider-color: $gray;
+$breadcrumb-active-color: $gray;
+$breadcrumb-divider: quote(">");
+$breadcrumb-divider-flipped: $breadcrumb-divider;
+$breadcrumb-border-radius: null;
+
+// Pagination
+$pagination-color: $green;
+$pagination-bg: $white;
+$pagination-active-color: $white;
+$pagination-active-bg: $green;
+$pagination-hover-color: $green;
+
+// Inputs
+$input-btn-focus-color: $green-100;
+$input-focus-border-color: $green-200;
+
+// Accordion
+$accordion-button-active-bg: $gray-light;
+$accordion-button-active-color: $green;
+$accordion-icon-color: $green;
+$accordion-icon-active-color: $green;
+$accordion-icon-width: 2.4rem;
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#{$accordion-icon-color}'><path d='M24 24H0V0h24v24z' fill='none' opacity='.87'/><path d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z'/></svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#{$accordion-icon-active-color}'><path d='M24 24H0V0h24v24z' fill='none' opacity='.87'/><path d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z'/></svg>");
+$accordion-icon-color: $green;
+
+// Tabs
+$nav-tabs-border-color: $gray-400;
+$nav-tabs-link-active-bg: $white;
+$nav-tabs-link-active-border-color: $gray-400 $gray-400 $nav-tabs-link-active-bg;
+
+// grid-breakpoints
+$breakpoints_xs: 375px; // 0-576px
+$breakpoints_xm: 432px; // 435px-576
+$breakpoints_sm: 576px; // 576px-768
+$breakpoints_md: 768px; // 768px-992
+$breakpoints_lg: 992px; // 992-1200
+$breakpoints_xl: 1200px; // 1200-...
+$breakpoints_xxl: 1400px; // 1400-...
+// grid-breakpoints
+
+$input-padding: 0.375rem 0.75rem;
