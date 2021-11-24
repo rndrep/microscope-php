@@ -20,88 +20,104 @@ const fileinclude = require("gulp-file-include");
 const browsersync = require("browser-sync").create();
 const svgSprite = require("gulp-svg-sprite");
 const webpack = require("webpack-stream");
-require('dotenv').config(); // need to load .env
+require("dotenv").config(); // need to load .env
 // const RevAll = require("gulp-rev-all");
-const exec = require('child_process').exec;
+const exec = require("child_process").exec;
 
 let isDev = true;
 let isProd = !isDev;
 
-const ser = 'true' == process.env.USE_BLADE;
+const ser = "true" == process.env.USE_BLADE;
 
 const webConfig = {
-	output: {
-		filename: "bundle.js",
-	},
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				loader: "babel-loader",
-				exclude: "/node_modules/",
-			},
-		],
-	},
-	mode: isDev ? "development" : "production",
-	devtool: isDev ? "eval" : false,
+    output: {
+        filename: "bundle.js",
+        library: "bundle",
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: "babel-loader",
+                exclude: "/node_modules/",
+            },
+        ],
+    },
+    mode: isDev ? "development" : "production",
+    devtool: isDev ? "eval" : false,
 };
 
 /* Paths */
 const path = {
-	build: {
-		html: 'true' == process.env.USE_BLADE ? "../resources/views/dist/" : "./dist/",
-		script: 'true' == process.env.USE_BLADE ? "../public/js/" : "./dist/assets/js/",
-		css:  'true' == process.env.USE_BLADE ? "../public/css/" : "./dist/assets/css/",
-		images: 'true' == process.env.USE_BLADE ? "../public/img/dist/" : "./dist/assets/img/",
-		svg: 'true' == process.env.USE_BLADE ? "../public/svg/" : "./dist/assets/sprite/",
-	},
-	src: {
-		html: "src/*.html",
-		script: "src/assets/js/dest/bundle.js",
-		css: "src/assets/sass/style.scss",
-		images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
-		svg: "src/assets/svg/**/*.svg",
-	},
-	watch: {
-		html: "src/**/*.html",
-		script: "src/assets/js/**/*.js",
-		css: "src/assets/sass/**/*.scss",
-		images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
-		svg: "src/assets/svg/**/*.svg",
-	},
-	// clean: "./dist",
+    build: {
+        html:
+            "true" == process.env.USE_BLADE
+                ? "../resources/views/dist/"
+                : "./dist/",
+        script:
+            "true" == process.env.USE_BLADE
+                ? "../public/js/"
+                : "./dist/assets/js/",
+        css:
+            "true" == process.env.USE_BLADE
+                ? "../public/css/"
+                : "./dist/assets/css/",
+        images:
+            "true" == process.env.USE_BLADE
+                ? "../public/img/dist/"
+                : "./dist/assets/img/",
+        svg:
+            "true" == process.env.USE_BLADE
+                ? "../public/svg/"
+                : "./dist/assets/sprite/",
+    },
+    src: {
+        html: "src/*.html",
+        script: "src/assets/js/dest/bundle.js",
+        css: "src/assets/sass/style.scss",
+        images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
+        svg: "src/assets/svg/**/*.svg",
+    },
+    watch: {
+        html: "src/**/*.html",
+        script: "src/assets/js/**/*.js",
+        css: "src/assets/sass/**/*.scss",
+        images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
+        svg: "src/assets/svg/**/*.svg",
+    },
+    // clean: "./dist",
 };
 
 function script() {
-	return gulp
-		.src("./src/assets/js/app.js")
-		.pipe(webpack(webConfig))
-		.pipe(gulp.dest(path.build.script))
-		.pipe(browsersync.stream());
+    return gulp
+        .src("./src/assets/js/app.js")
+        .pipe(webpack(webConfig))
+        .pipe(gulp.dest(path.build.script))
+        .pipe(browsersync.stream());
 }
 
 /* Настройка локального сервера */
 function browserSync(done) {
-	browsersync.init({
-		server: {
-			baseDir: "./dist/",
-		},
-		port: 4000,
-	});
+    browsersync.init({
+        server: {
+            baseDir: "./dist/",
+        },
+        port: 4000,
+    });
 }
 
 function browserSyncReload(done) {
-	browsersync.reload();
+    browsersync.reload();
 }
 
 /* Tasks для работы с html файлами */
 function html() {
     cleanLaravelViewCache();
-	// panini.refresh();
-	return (
-		src(path.src.html, { base: "src/" }) // считываем все html в папке src *то что считываем*
-			// подзадачи для html файлов
-			.pipe(plumber())
+    // panini.refresh();
+    return (
+        src(path.src.html, { base: "src/" }) // считываем все html в папке src *то что считываем*
+            // подзадачи для html файлов
+            .pipe(plumber())
             .pipe(
                 fileinclude({
                     prefix: "@@",
@@ -116,91 +132,100 @@ function html() {
                     })
                 )
             )
-			.pipe(dest(path.build.html))
+            .pipe(dest(path.build.html))
             // .pipe(exec('php ../artisan view:clear')) // clear cache of laravel templates
             .pipe(browsersync.stream())
-	);
+    );
 }
 
 function css() {
-	return src(path.src.css, { base: "src/assets/sass/" })
-		.pipe(plumber())
-		.pipe(sass())
-		.pipe(
-			autoprefixer({
-				Browserslist: ["last 8 versions"],
-				cascade: true,
-			})
-		)
-		.pipe(cssbeautify())
-		.pipe(dest(path.build.css))
-		.pipe(
-			gulpif(
-				isProd,
-				cssnano({
-					zindex: false,
-					discardComments: {
-						removeAll: true,
-					},
-				})
-			)
-		)
-		.pipe(removeComments())
-		.pipe(
-			gulpif(
-				isProd,
-				rename({
-					suffix: ".min",
-					extname: ".css",
-				})
-			)
-		)
-        // .pipe(RevAll.revision())
-		.pipe(dest(path.build.css))
-		.pipe(browsersync.stream());
+    return (
+        src(path.src.css, { base: "src/assets/sass/" })
+            .pipe(plumber())
+            .pipe(sass())
+            .pipe(
+                autoprefixer({
+                    Browserslist: ["last 8 versions"],
+                    cascade: true,
+                })
+            )
+            .pipe(cssbeautify())
+            .pipe(dest(path.build.css))
+            .pipe(
+                gulpif(
+                    isProd,
+                    cssnano({
+                        zindex: false,
+                        discardComments: {
+                            removeAll: true,
+                        },
+                    })
+                )
+            )
+            .pipe(removeComments())
+            .pipe(
+                gulpif(
+                    isProd,
+                    rename({
+                        suffix: ".min",
+                        extname: ".css",
+                    })
+                )
+            )
+            // .pipe(RevAll.revision())
+            .pipe(dest(path.build.css))
+            .pipe(browsersync.stream())
+    );
 }
 
 function images() {
-	return src(path.src.images).pipe(imagemin()).pipe(dest(path.build.images));
+    return src(path.src.images).pipe(imagemin()).pipe(dest(path.build.images));
 }
 
 function svg() {
-	// Basic configuration example
-	var config = {
-		mode: {
-			symbol: {
-				// symbol mode to build the SVG
-				render: {
-					css: false, // CSS output option for icon sizing
-					scss: false, // SCSS output option for icon sizing
-				},
-				dest: "./", // destination folder
-				prefix: ".svg--%s", // BEM-style prefix if styles rendered
-				sprite: "sprite.svg", //generated sprite name
-
-			},
-		},
-	};
-	return src(path.src.svg).pipe(svgSprite(config)).pipe(dest(path.build.svg));
+    // Basic configuration example
+    var config = {
+        mode: {
+            symbol: {
+                // symbol mode to build the SVG
+                render: {
+                    css: false, // CSS output option for icon sizing
+                    scss: false, // SCSS output option for icon sizing
+                },
+                dest: "./", // destination folder
+                prefix: ".svg--%s", // BEM-style prefix if styles rendered
+                sprite: "sprite.svg", //generated sprite name
+            },
+        },
+    };
+    return src(path.src.svg).pipe(svgSprite(config)).pipe(dest(path.build.svg));
 }
 
 function clean() {
-	return del([path.build.css, path.build.html, path.build.svg, path.build.images, path.build.script], {force:true});
+    return del(
+        [
+            path.build.css,
+            path.build.html,
+            path.build.svg,
+            path.build.images,
+            path.build.script,
+        ],
+        { force: true }
+    );
 }
 
 function cleanLaravelViewCache() {
     // return del("../storage/framework/views/*.php", {force:true});
-    exec('php ../artisan view:clear') // clear cache of laravel templates
-
+    exec("php ../artisan view:clear"); // clear cache of laravel templates
 }
 
 // слежка за файлами, и вызов
 function watchFiles() {
-	gulp.watch([path.watch.html], html);
-	gulp.watch([path.watch.css], css);
-	gulp.watch([path.watch.script], script);
-	gulp.watch([path.watch.images], images);
-	gulp.watch([path.watch.svg], svg);
+    gulp.watch([path.watch.html], html);
+    gulp.watch([path.watch.css], css);
+    gulp.watch([path.watch.script], script);
+    gulp.watch([path.watch.images], images);
+    gulp.watch([path.watch.svg], svg);
 }
 
 const build = gulp.series(clean, gulp.parallel(html, css, images, script, svg)); // для выполнения всех тасков
