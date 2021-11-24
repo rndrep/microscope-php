@@ -35,7 +35,7 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('login_form');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/', [RockController::class, 'home'])->name('home');
-Route::get('/info/{id}', [RockController::class, 'info'])->name('info');
+Route::get('/rock-info/{id}', [RockController::class, 'info'])->name('rock_info');
 Route::get('/mineral-info/{id}', [MineralController::class, 'info'])->name('mineral_info');
 Route::get('/fossil-info/{id}', [FossilController::class, 'info'])->name('fossil_info');
 

@@ -58,18 +58,15 @@
 								<ul class="card-list list-group list-group-flush">
 									<li class="list-group-item">
 										Породы:
-										<a class="card-list__text" href="#">биотит</a>
-										<a class="card-list__link" href="#"> отоклаз</a>
-										<a class="card-list__link" href="#">
-											плагиоклаз</a
-										>
-										<a class="card-list__link" href="#"> шпат</a>
+                                        @foreach($item->getRockLinks() as $link)
+                                            <a class="card-list__link" href="{{$link['link']}}">{{$link['name']}}</a>
+                                        @endforeach
 									</li>
                                     @foreach($fields as $field)
-                                    <li class="list-group-item">
-                                        {{$field->getCaption()}}:
-                                        <a class="card-list__text">{{$field->getValue()}}</a>
-                                    </li>
+                                        <li class="list-group-item">
+                                            {{$field->getCaption()}}:
+                                            <a class="card-list__text">{{$field->getValue()}}</a>
+                                        </li>
                                     @endforeach
 								</ul>
 							</div>

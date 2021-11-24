@@ -80,6 +80,36 @@ class Mineral extends AbstractMediaEntity
         return $result;
     }
 
+    public function getRockLinks(): array
+    {
+        $formingRocks = Rock_FormingMineral::where('mineral_id', $this->id)->get();
+        $secondRocks = Rock_SecondMineral::where(['mineral_id' => $this->id])->get();
+        $accessoryRocks = Rock_AccessoryMineral::where(['mineral_id' => $this->id])->get();
+
+        $result = $this->makeRockLinks($formingRocks);
+        $result = array_merge($result, $this->makeRockLinks($secondRocks));
+        $result = array_merge($result, $this->makeRockLinks($accessoryRocks));
+
+        return $result;
+    }
+
+    private function makeRockLinks($rockRelation)
+    {
+        $result = [];
+        foreach ($rockRelation as $record) {
+            $rock = Rock::find($record->rock_id);
+            if (empty($rock)) {
+                continue;
+            }
+            $result['rock-' . $rock->id] = [
+                'link' => route('rock_info', $rock->id),
+                'name' => $rock->name
+            ];
+        }
+        return $result;
+    }
+
+
     public function __construct(array $attributes = [])
     {
         $this->commonImgPath = '/images/minerals/';
