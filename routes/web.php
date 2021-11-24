@@ -39,12 +39,13 @@ Route::get('/rock-info/{id}', [RockController::class, 'info'])->name('rock_info'
 Route::get('/mineral-info/{id}', [MineralController::class, 'info'])->name('mineral_info');
 Route::get('/fossil-info/{id}', [FossilController::class, 'info'])->name('fossil_info');
 
-Route::group(['prefix' => '/microscope'], function () {
+// MICROSCOPE
+Route::get('/microscope', [PageController::class, 'microscope'])->name('microscope');
+Route::group(['prefix' => '/microscope-photos'], function () {
     Route::get('/rock/{id}', [RockController::class, 'getMicroPhotosJson'])->name('micro_rock');
     Route::get('/mineral/{id}', [MineralController::class, 'getMicroPhotosJson'])->name('micro_mineral');
     Route::get('/fossil/{id}', [FossilController::class, 'getMicroPhotosJson'])->name('micro_fossil');
 });
-
 
 //TODO: configure access by
 //RockController::class)->only(['index']);
@@ -65,6 +66,7 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::resource('/rock-classes', RockClassController::class);
     Route::resource('/users', UserController::class);
     Route::get('/dictionary/all/{entity}', [DictionaryController::class, 'all'])->name('get_all_dicts');
+    /** params example: /admin/dictionary/edit?entity=RockSquad&id=4 */
     Route::get('/dictionary/edit', [DictionaryController::class, 'edit'])
         ->name('dict_edit_view');
     Route::match(['post', 'put'], '/dictionary/update', [DictionaryController::class, 'update'])

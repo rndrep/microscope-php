@@ -128,8 +128,10 @@ class MineralController extends Controller
         if (empty($item)) {
             return false;
         }
-
-        return view('dist.mineral', ['item' => $item, 'fields' => $item->getInfoFields()]);
+        $microRoute = is_dir(public_path(AbstractMediaEntity::IMAGE_PATH_MINERAL_MICRO . $id . '/ppl'))
+            ? route('microscope', ['id' => $id, 'type' => 'mineral'])
+            : '';
+        return view('dist.mineral', ['item' => $item, 'fields' => $item->getInfoFields(), 'microscopeRoute' => $microRoute]);
     }
 
 }

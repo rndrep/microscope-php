@@ -24,17 +24,15 @@
 							</div>
 							<!-- launch-btns -->
 							<div class="rock__launch-btns col-12 col-sm-12 col-md-5">
-								<div class="rock__text rock__text--gray">
-									Посмотреть тонкий срез образца
-								</div>
-
-								<a class="btn btn_rock" href="">
+                                @if($microscopeRoute)
+								<a class="btn btn_rock" href="{{$microscopeRoute}}">
 									<svg class="icon">
 										<use
 											href="/svg/sprite.svg#biotech"
 										></use></svg
 									>Микроскоп</a
 								>
+                                @endif
 								<div class="rock__text rock__text--gray">
 									Посмотреть поворот образца
 								</div>

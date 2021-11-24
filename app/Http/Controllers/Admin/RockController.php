@@ -62,7 +62,10 @@ class RockController extends Controller
         if (!Auth::check() && !$rock->isPublic()) {
             abort(404);
         }
-        return view('dist.rock', ['item' => $rock]);
+        $microRoute = is_dir(public_path(AbstractMediaEntity::IMAGE_PATH_ROCK_MICRO . $id . '/ppl'))
+            ? route('microscope', ['id' => $id, 'type' => 'rock'])
+            : '';
+        return view('dist.rock', ['item' => $rock, 'microscopeRoute' => $microRoute]);
     }
 
     public function create()
