@@ -15,7 +15,7 @@
               <div class="form-group">
                 <a href="{{route('rocks.create')}}" class="btn btn-success">Добавить</a>
               </div>
-              <table id="example1" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered git config --global user.email "hoshizone@gmail.com"git config -l table-hover">
                 <thead>
                 <tr>
                   <th>ID</th>
