@@ -119,7 +119,17 @@ class MineralController extends Controller
 
     public function info($id)
     {
-        //TODO
+        if (empty($id)) {
+            return false;
+        }
+        /** @var Mineral $item */
+        $item = Mineral::find($id);
+
+        if (empty($item)) {
+            return false;
+        }
+
+        return view('dist.mineral', ['item' => $item, 'fields' => $item->getInfoFields()]);
     }
 
 }

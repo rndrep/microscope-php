@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\InfoField;
 use App\Classes\InputField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -46,6 +47,37 @@ class Mineral extends AbstractMediaEntity
             new InputField('Долгота', 'x', 'text'),
             new InputField('Широта', 'y', 'text'),
         ];
+    }
+
+    public function getInfoFields()
+    {
+        $fields = [
+            ['Химический состав', $this->composition],
+            ['Класс/подкласс', $this->class],
+            ['Разновидности', $this->varieties],
+            ['Форма выделения', $this->aggregates],
+            ['Черта', $this->feature],
+            ['Облик кристаллов', $this->crystal_form],
+            ['Твердость', $this->hardness],
+            ['Удельный вес, г/см3', $this->specific_gravity],
+            ['Цвет', $this->color],
+            ['Цвет черты', $this->feature_color],
+            ['Блеск', $this->shine],
+            ['Прозрачность', $this->transparency],
+            ['Прочие свойства', $this->other_props],
+            ['Диагностика', $this->diagnosis],
+            ['Генезис', $this->genesis],
+            ['Парагенезис', $this->paragenesis],
+            ['Сингония', $this->syngony->name ?? ''],
+            ['Спайность', $this->splitting->name ?? ''],
+        ];
+        $result = [];
+        foreach ($fields as $field) {
+            if (!empty($field[1])) {
+                $result[] = new InfoField($field[0], $field[1]);
+            }
+        }
+        return $result;
     }
 
     public function __construct(array $attributes = [])
