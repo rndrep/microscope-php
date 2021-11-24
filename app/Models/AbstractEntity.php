@@ -28,13 +28,20 @@ class AbstractEntity extends \Illuminate\Database\Eloquent\Model
      * @param string $class dictionary name (rockType, rockClass, etc.)
      * @return string
      */
-    public function getDictionaryPropName(string $class)
+    public function getDictionaryPropName(string $class, int $cutLength = null)
     {
         $relation = lcfirst($class);
         if (empty($this->$relation)) {
             return '';
         }
-        return $this->$relation->name ?? '';
+        $name = $this->$relation->name ?? '';
+        if ($cutLength) {
+            $postfix = strlen($name) > $cutLength
+                ? '...'
+                : '';
+            return mb_substr($name, 0, $cutLength) . $postfix;
+        }
+        return $name;
     }
 
 }

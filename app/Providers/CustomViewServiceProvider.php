@@ -28,5 +28,10 @@ class CustomViewServiceProvider extends ServiceProvider
         View::composer('admin.sidebar', function ($view) {
             $view->with('dictItems', Dictionary::getDicts());
         });
+
+        //TODO: add file version to all css, js, images
+        View::composer('*', function ($view) {
+            $view->with('fileVersion', time());
+        });
     }
 }

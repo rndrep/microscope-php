@@ -19,7 +19,7 @@
 						<div class="row rock__top">
 							<h1 class="rock__title">Эпигранит</h1>
 							<div class="rock__img col-sm-12 col-md-7">
-								<img class="img" src="/assets/img/stone2.png" alt="" />
+								<img class="img" src="{{$item->getPhoto()}}" alt="" />
 							</div>
 							<!-- launch-btns -->
 							<div class="rock__launch-btns col-12 col-sm-12 col-md-5">
@@ -30,7 +30,7 @@
 								<a class="btn btn_rock" href="">
 									<svg class="icon">
 										<use
-											href="/assets/sprite/sprite.svg#biotech"
+											href="/svg/sprite.svg#biotech"
 										></use></svg
 									>Микроскоп</a
 								>
@@ -40,7 +40,7 @@
 								<a class="btn btn_rock" href="">
 									<svg class="icon">
 										<use
-											href="/assets/sprite/sprite.svg#360"
+											href="/svg/sprite.svg#360"
 										></use></svg
 									>Обзор</a
 								>
@@ -57,74 +57,60 @@
 								<ul class="card-list list-group list-group-flush">
 									<li class="list-group-item">
 										Тип:
-										<a class="card-list__text">магматический</a>
+										<a class="card-list__text">{{$item->getDictionaryPropName('rockType')}}</a>
 									</li>
+                                    <li class="list-group-item">
+                                        Класс:
+                                        <a class="card-list__text">{{$item->getDictionaryPropName('rockClass')}}</a>
+                                    </li>
 									<li class="list-group-item">
 										Отряд:
-										<a class="card-list__text">основной</a>
+										<a class="card-list__text">{{$item->getDictionaryPropName('rockSquad')}}</a>
 									</li>
-									<li class="list-group-item">
-										Класс:
-										<a class="card-list__text">вулканический</a>
-									</li>
+                                    <li class="list-group-item">
+                                        Семейство:
+                                        <a class="card-list__text">{{$item->getDictionaryPropName('rockFamily')}}</a>
+                                    </li>
 									<li class="list-group-item">
 										Вид:
-										<a class="card-list__text">гранит</a>
+										<a class="card-list__text">{{$item->getDictionaryPropName('rockKind')}}</a>
 									</li>
 									<li class="list-group-item">
 										Текстура:
-										<a class="card-list__text">массивная </a>
+										<a class="card-list__text">{{$item->getDictionaryPropName('rockTexture')}} </a>
 									</li>
-									<li class="list-group-item">
-										Породообразующие минералы:
-										<a
-											class="
-												card-list__link card-list__link_disabled
-											"
-											href="#"
-											>биотит</a
-										>
-										<a class="card-list__link" href="#"> отоклаз</a>
-										<a class="card-list__link" href="#">
-											плагиоклаз</a
-										>
-										<a class="card-list__link" href="#"> шпат</a>
-									</li>
-									<li class="list-group-item">
-										Вторичные минералы:
-										<a
-											class="card-list__link card-list__text"
-											href="#"
-											>биотит</a
-										>
-										<a class="card-list__link" href="#"> актинолит</a>
-										<a class="card-list__link" href="#"> алунит</a>
-										<a class="card-list__link" href="#"> диаспор</a>
-									</li>
+                                    <li class="list-group-item">
+                                        Структура:
+                                        <a class="card-list__text">{{$item->getDictionaryPropName('rockStructure')}}</a>
+                                    </li>
+
+                                    @include('dist.minerals-section',
+                                    ['name' => 'Породообразующие минералы',
+                                    'items' => $item->getFormingMineralLinks()
+                                    ]
+                                )
+                                    @include('dist.minerals-section',
+                                        ['name' => 'Вторичные минералы',
+                                        'items' => $item->getSecondMineralLinks()
+                                        ]
+                                    )
+                                    @include('dist.minerals-section',
+                                        ['name' => 'Акцессорные минералы',
+                                        'items' => $item->getAccessoryMineralLinks()
+                                        ]
+                                    )
+                                    @include('dist.minerals-section',
+                                        ['name' => 'Окаменелости',
+                                        'items' => $item->getFossilLinks()
+                                        ]
+                                    )
 								</ul>
 							</div>
 							<!-- ./ rock__details -->
 							<div class="rock__info order-sm-1 col-sm-7">
-								<h1 class="rock__title">Эпигранит</h1>
+								<h1 class="rock__title">{{$item->name}}</h1>
 								<p class="rock__text">
-									Этот эпигранит происходит из озера Лох-Айнорт на
-									острове Скай. Он в основном состоит из кварца,
-									щелочного полевого шпата и полевого шпата плагиоклаза.
-									Наиболее распространенным ферромагнезиальным минералом
-									является феррохеденбергит (член группы амфиболов) -
-									см. Вращение 1, вместе с оксидами Fe-Ti, алланитом,
-									апатитом и биотитом. Вторичные продукты включают
-									эпидот и хлорит (заменяющий биотит).
-								</p>
-								<p class="rock__text">
-									Этот эпигранит происходит из озера Лох-Айнорт на
-									острове Скай. Он в основном состоит из кварца,
-									щелочного полевого шпата и полевого шпата плагиоклаза.
-									Наиболее распространенным ферромагнезиальным минералом
-									является феррохеденбергит (член группы амфиболов) -
-									см. Вращение 1, вместе с оксидами Fe-Ti, алланитом,
-									апатитом и биотитом. Вторичные продукты включают
-									эпидот и хлорит (заменяющий биотит).
+                                    {{$item->description}}
 								</p>
 							</div>
 						</div>
@@ -145,7 +131,7 @@
 									>
 										<svg class="icon">
 											<use
-												href="/assets/sprite/sprite.svg#photo_library"
+												href="/svg/sprite.svg#photo_library"
 											></use>
 										</svg>
 										Галерея
@@ -167,7 +153,7 @@
 											>
 												<svg class="icon gallery__arrow-icon">
 													<use
-														href="/assets/sprite/sprite.svg#next"
+														href="/svg/sprite.svg#next"
 													></use>
 												</svg>
 											</a>
@@ -179,7 +165,7 @@
 											>
 												<svg class="icon gallery__arrow-icon">
 													<use
-														href="/assets/sprite/sprite.svg#next"
+														href="/svg/sprite.svg#next"
 													></use>
 												</svg>
 											</a>
@@ -224,7 +210,7 @@
 									>
 										<svg class="icon">
 											<use
-												href="/assets/sprite/sprite.svg#location"
+												href="/svg/sprite.svg#location"
 											></use>
 										</svg>
 										Карта
@@ -254,7 +240,7 @@
 									>
 										<svg class="icon">
 											<use
-												href="/assets/sprite/sprite.svg#video"
+												href="/svg/sprite.svg#video"
 											></use>
 										</svg>
 										Видео
@@ -311,4 +297,3 @@
 	</body>
 </html>
 
-{{> rock}}

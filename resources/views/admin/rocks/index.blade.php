@@ -11,11 +11,11 @@
               <h3 class="box-title">Образцы</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <div class="form-group">
                 <a href="{{route('rocks.create')}}" class="btn btn-success">Добавить</a>
               </div>
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>ID</th>
@@ -41,14 +41,14 @@
                 <tr>
                   <td>{{$item->id}}</td>
                   <td>{{$item->name}}</td>
-                  <td>{{$item->description}}</td>
-                  <td>{{$item->getDictionaryPropName('rockType')}}</td>
-                  <td>{{$item->getDictionaryPropName('rockSquad')}}</td>
-                  <td>{{$item->getDictionaryPropName('rockClass')}}</td>
-                  <td>{{$item->getDictionaryPropName('rockFamily')}}</td>
-                  <td>{{$item->getDictionaryPropName('rockKind')}}</td>
-                  <td>{{$item->getDictionaryPropName('rockTexture')}}</td>
-                  <td>{{$item->getDictionaryPropName('rockStructure')}}</td>
+                  <td>{{mb_substr($item->description, 0, 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockType', 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockSquad', 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockClass', 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockFamily', 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockKind', 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockTexture', 30)}}</td>
+                  <td>{{$item->getDictionaryPropName('rockStructure', 30)}}</td>
                   <td>{{$item->getFormingMineralName()}}</td>
                   <td>{{$item->getSecondMineralName()}}</td>
                   <td>{{$item->getAccessoryMineralName()}}</td>

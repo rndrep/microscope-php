@@ -20,27 +20,31 @@ use Illuminate\Support\Facades\Auth;
 class RockController extends Controller
 {
 
+    const ITEMS_PER_PAGE = 1;
+
     public function home()
     {
+//        phpinfo();
 //        dump(Auth::check());
 //        dump(Auth::user());
         if (Auth::check() && Auth::user()->isUser()) {
-            return view('main.index', ['items' => Rock::orderBy('name')->get()]);
+            return view('dist.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
         }
-        return view('main.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->get()]);
+        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
     }
 
     public function index()
     {
         if (Auth::check()) {
             if (Auth::user()->isContentManager()) {
-                return view('admin.rocks.index', ['items' => Rock::orderBy('name')->get()]);
+                return view('admin.rocks.index', ['items' => Rock::orderBy('id')->get()]);
+                //return view('admin.rocks.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
             }
             if (Auth::user()->isUser()) {
-                return view('main.index', ['items' => Rock::orderBy('name')->get()]);
+                return view('dist.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
             }
         }
-        return view('main.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->get()]);
+        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
     }
 
     public function info($id)
@@ -58,7 +62,7 @@ class RockController extends Controller
         if (!Auth::check() && !$rock->isPublic()) {
             abort(404);
         }
-        return view('main.rock', ['item' => $rock]);
+        return view('dist.rock', ['item' => $rock]);
     }
 
     public function create()

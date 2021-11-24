@@ -15,7 +15,6 @@ const plumber = require("gulp-plumber");
 const imagemin = require("gulp-imagemin");
 const gulpif = require("gulp-if");
 const del = require("del");
-// const panini = require("panini");
 const htmlPartial = require("gulp-html-partial");
 const fileinclude = require("gulp-file-include");
 const browsersync = require("browser-sync").create();
@@ -30,7 +29,7 @@ let isProd = !isDev;
 
 const ser = 'true' == process.env.USE_BLADE;
 
-let webConfig = {
+const webConfig = {
 	output: {
 		filename: "bundle.js",
 	},
@@ -55,7 +54,6 @@ const path = {
 		css:  'true' == process.env.USE_BLADE ? "../public/css/" : "./dist/assets/css/",
 		images: 'true' == process.env.USE_BLADE ? "../public/img/dist/" : "./dist/assets/img/",
 		svg: 'true' == process.env.USE_BLADE ? "../public/svg/" : "./dist/assets/sprite/",
-		video: "./dist/assets/video/",
 	},
 	src: {
 		html: "src/*.html",
@@ -63,7 +61,6 @@ const path = {
 		css: "src/assets/sass/style.scss",
 		images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
 		svg: "src/assets/svg/**/*.svg",
-		video: "src/assets/video/*.mp4",
 	},
 	watch: {
 		html: "src/**/*.html",
@@ -71,9 +68,8 @@ const path = {
 		css: "src/assets/sass/**/*.scss",
 		images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
 		svg: "src/assets/svg/**/*.svg",
-		video: "src/assets/video/*.mp4",
 	},
-	clean: "./dist",
+	// clean: "./dist",
 };
 
 function script() {
@@ -100,6 +96,7 @@ function browserSyncReload(done) {
 
 /* Tasks для работы с html файлами */
 function html() {
+    cleanLaravelViewCache();
 	// panini.refresh();
 	return (
 		src(path.src.html, { base: "src/" }) // считываем все html в папке src *то что считываем*
@@ -120,8 +117,8 @@ function html() {
                 )
             )
 			.pipe(dest(path.build.html))
-			.pipe(browsersync.stream())
-            .pipe(exec('php ../artisan view:clear')) // clear cache of laravel templates
+            // .pipe(exec('php ../artisan view:clear')) // clear cache of laravel templates
+            .pipe(browsersync.stream())
 	);
 }
 
@@ -163,24 +160,6 @@ function css() {
 		.pipe(browsersync.stream());
 }
 
-// function js() {
-// 	return (
-// 		src(path.src.js, { base: "./src/assets/js/dest" })
-// 			.pipe(plumber())
-// 			// .pipe(rigger())
-// 			.pipe(gulp.dest(path.build.js))
-// 			// .pipe(uglify())
-// 			.pipe(
-// 				rename({
-// 					suffix: ".min",
-// 					extname: ".js",
-// 				})
-// 			)
-// 			.pipe(dest(path.build.js))
-// 			.pipe(browsersync.stream())
-// 	);
-// }
-
 function images() {
 	return src(path.src.images).pipe(imagemin()).pipe(dest(path.build.images));
 }
@@ -205,12 +184,14 @@ function svg() {
 	return src(path.src.svg).pipe(svgSprite(config)).pipe(dest(path.build.svg));
 }
 
-function video() {
-	return src(path.src.video).pipe(dest(path.build.video));
+function clean() {
+	return del([path.build.css, path.build.html, path.build.svg, path.build.images, path.build.script], {force:true});
 }
 
-function clean() {
-	return del(path.clean);
+function cleanLaravelViewCache() {
+    // return del("../storage/framework/views/*.php", {force:true});
+    exec('php ../artisan view:clear') // clear cache of laravel templates
+
 }
 
 // слежка за файлами, и вызов
@@ -220,10 +201,9 @@ function watchFiles() {
 	gulp.watch([path.watch.script], script);
 	gulp.watch([path.watch.images], images);
 	gulp.watch([path.watch.svg], svg);
-	gulp.watch([path.watch.video], video);
 }
 
-const build = gulp.series(clean, gulp.parallel(html, css, images, script, svg, video)); // для выполнения всех тасков
+const build = gulp.series(clean, gulp.parallel(html, css, images, script, svg)); // для выполнения всех тасков
 const watch = gulp.parallel(build, watchFiles, browserSync);
 
 /* Exports Tasks */
@@ -232,8 +212,8 @@ exports.css = css;
 exports.script = script;
 exports.images = images;
 exports.svg = svg;
-exports.video = video;
 exports.clean = clean;
+exports.cleanLaravelViewCache = cleanLaravelViewCache;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;
