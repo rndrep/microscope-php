@@ -68,8 +68,8 @@ class Mineral extends AbstractMediaEntity
             ['Диагностика', $this->diagnosis],
             ['Генезис', $this->genesis],
             ['Парагенезис', $this->paragenesis],
-            ['Сингония', $this->syngony->name ?? ''],
-            ['Спайность', $this->splitting->name ?? ''],
+            ['Сингония', $this->mineralSyngony->name ?? ''],
+            ['Спайность', $this->mineralSplitting->name ?? ''],
         ];
         $result = [];
         foreach ($fields as $field) {
@@ -192,7 +192,7 @@ class Mineral extends AbstractMediaEntity
         );
     }
 
-    public function mineralSyngony()
+    public function mineralSyngony() //Сингония
     {
         return $this->belongsTo(MineralSyngony::class, 'syngony_id');
     }
@@ -205,7 +205,7 @@ class Mineral extends AbstractMediaEntity
         $this->syngony_id = $id;
     }
 
-    public function mineralSplitting()
+    public function mineralSplitting() //Спайность
     {
         return $this->belongsTo(MineralSplitting::class, 'splitting_id');
     }
@@ -314,17 +314,6 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getSyngony() //Сингония
-    {
-        return $this->syngony;
-    }
-
-    public function setSyngony($value): self
-    {
-        $this->syngony = $value;
-        return $this;
-    }
-
     public function getCrystalForm() //Облик кристаллов
     {
         return $this->crystal_form;
@@ -399,17 +388,6 @@ class Mineral extends AbstractMediaEntity
     public function setTransparency($value): self
     {
         $this->transparency = $value;
-        return $this;
-    }
-
-    public function getSplitting() //Спайность
-    {
-        return $this->splitting;
-    }
-
-    public function setSplitting($value): self
-    {
-        $this->splitting = $value;
         return $this;
     }
 

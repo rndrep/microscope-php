@@ -92,9 +92,17 @@ class FossilController extends Controller
         //no microscope
     }
 
-    public function info()
+    public function info($id)
     {
-        //TODO
+        if (empty($id)) {
+            return false;
+        }
+        /** @var Fossil $item */
+        $item = Fossil::find($id);
+        if (empty($item)) {
+            return false;
+        }
+        return view('dist.mineral', ['item' => $item, 'fields' => $item->getInfoFields()]);
     }
 
 }

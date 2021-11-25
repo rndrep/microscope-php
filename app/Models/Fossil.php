@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\InfoField;
 use App\Classes\InputField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,9 +27,46 @@ class Fossil extends AbstractMediaEntity
             new InputField('Описание', 'description', 'text'),
             new InputField('Видео', 'video', 'text'),
             new InputField('3D', 'model_3d', 'text'),
-//            new InputField('Типы беспозвоночных животных', 'invertebrates', 'text'),
-//            new InputField('Руководящие формы', 'index_fossils', 'text'),
+//            new InputField('Типы беспозвоночных животных', 'invertebrate', 'text'),
+//            new InputField('Руководящие формы', 'index_fossil', 'text'),
         ];
+    }
+
+    public function getInfoFields()
+    {
+        $fields = [
+            ['Типы беспозвоночных животных', $this->invertebrate->name ?? ''],
+            ['Руководящие формы', $this->indexFossil->name ?? ''],
+        ];
+        $result = [];
+        foreach ($fields as $field) {
+            if (!empty($field[1])) {
+                $result[] = new InfoField($field[0], $field[1]);
+            }
+        }
+        return $result;
+    }
+
+    public function getRockLinks(): array
+    {
+        $rocks = Rock_Fossil::where('fossil_id', $this->id)->get();
+        return $this->makeRockLinks($rocks);
+    }
+
+    private function makeRockLinks($rockRelation)
+    {
+        $result = [];
+        foreach ($rockRelation as $record) {
+            $rock = Rock::find($record->rock_id);
+            if (empty($rock)) {
+                continue;
+            }
+            $result['rock-' . $rock->id] = [
+                'link' => route('rock_info', $rock->id),
+                'name' => $rock->name
+            ];
+        }
+        return $result;
     }
 
     public static function add($fields)

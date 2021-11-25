@@ -24,8 +24,8 @@
 							</div>
 							<!-- launch-btns -->
 							<div class="rock__launch-btns col-12 col-sm-12 col-md-5">
-                                @if($microscopeRoute)
-								<a class="btn btn_rock" href="{{$microscopeRoute}}">
+                                @if($microscopeRoute ?? '')
+								<a class="btn btn_rock" href="{{$microscopeRoute ?? ''}}">
 									<svg class="icon">
 										<use
 											href="/svg/sprite.svg#biotech"
