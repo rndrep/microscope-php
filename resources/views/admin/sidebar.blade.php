@@ -2,19 +2,19 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
             <a class="nav-link" href="{{route('rocks.index')}}">
-                <i class="fa nav-icon fa-gem"></i>
-                <p>Образцы</p>
+                <i class="fa nav-icon fa-database"></i>
+                <p>Породы</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{route('minerals.index')}}" class="nav-link">
-                <i class="fa nav-icon fa-cookie"></i>
+                <i class="fa nav-icon fa-database"></i>
                 <p>Минералы</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{route('fossils.index')}}" class="nav-link">
-                <i class="fa nav-icon fa-cookie"></i>
+                <i class="fa nav-icon fa-database"></i>
                 <p>Окаменелости</p>
             </a>
         </li>
