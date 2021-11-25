@@ -7,7 +7,7 @@
 			<div class="col">
 				<div class="card">
 					<!-- card__thumb -->
-					<a class="card__thumb" href="{{route('info', $item->id)}}">
+					<a class="card__thumb" href="{{route('rock_info', $item->id)}}">
 						<img class="card__img" src="{{$item->getPhoto()}}" alt="" />
 						<h3 class="card__title">{{$item->name}}</h3>
 					</a>
@@ -15,7 +15,7 @@
 					<!-- card__body -->
 					<div class="card__body">
 						<div class="btn-group card__btn-group" role="group" aria-label="Basic outlined example">
-							<a class="btn btn_group" href="{{route('info', $item->id)}}"><svg class="icon" >
+							<a class="btn btn_group" href="{{route('rock_info', $item->id)}}"><svg class="icon" >
 								<use href="/svg/sprite.svg#feed"></use>
 							</svg></a>
 							<a class="btn btn_group" href="">

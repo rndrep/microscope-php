@@ -10,4 +10,9 @@ class PageController extends Controller
         return view('dist.404');
     }
 
+    public function microscope()
+    {
+        return view('dist/microscope');
+    }
+
 }

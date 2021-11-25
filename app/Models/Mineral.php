@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\InfoField;
 use App\Classes\InputField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -47,6 +48,67 @@ class Mineral extends AbstractMediaEntity
             new InputField('Широта', 'y', 'text'),
         ];
     }
+
+    public function getInfoFields()
+    {
+        $fields = [
+            ['Химический состав', $this->composition],
+            ['Класс/подкласс', $this->class],
+            ['Разновидности', $this->varieties],
+            ['Форма выделения', $this->aggregates],
+            ['Черта', $this->feature],
+            ['Облик кристаллов', $this->crystal_form],
+            ['Твердость', $this->hardness],
+            ['Удельный вес, г/см3', $this->specific_gravity],
+            ['Цвет', $this->color],
+            ['Цвет черты', $this->feature_color],
+            ['Блеск', $this->shine],
+            ['Прозрачность', $this->transparency],
+            ['Прочие свойства', $this->other_props],
+            ['Диагностика', $this->diagnosis],
+            ['Генезис', $this->genesis],
+            ['Парагенезис', $this->paragenesis],
+            ['Сингония', $this->syngony->name ?? ''],
+            ['Спайность', $this->splitting->name ?? ''],
+        ];
+        $result = [];
+        foreach ($fields as $field) {
+            if (!empty($field[1])) {
+                $result[] = new InfoField($field[0], $field[1]);
+            }
+        }
+        return $result;
+    }
+
+    public function getRockLinks(): array
+    {
+        $formingRocks = Rock_FormingMineral::where('mineral_id', $this->id)->get();
+        $secondRocks = Rock_SecondMineral::where(['mineral_id' => $this->id])->get();
+        $accessoryRocks = Rock_AccessoryMineral::where(['mineral_id' => $this->id])->get();
+
+        $result = $this->makeRockLinks($formingRocks);
+        $result = array_merge($result, $this->makeRockLinks($secondRocks));
+        $result = array_merge($result, $this->makeRockLinks($accessoryRocks));
+
+        return $result;
+    }
+
+    private function makeRockLinks($rockRelation)
+    {
+        $result = [];
+        foreach ($rockRelation as $record) {
+            $rock = Rock::find($record->rock_id);
+            if (empty($rock)) {
+                continue;
+            }
+            $result['rock-' . $rock->id] = [
+                'link' => route('rock_info', $rock->id),
+                'name' => $rock->name
+            ];
+        }
+        return $result;
+    }
+
 
     public function __construct(array $attributes = [])
     {

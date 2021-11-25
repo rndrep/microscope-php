@@ -21,7 +21,7 @@
             @foreach($items as $item)
             <div class="col">
                 <div class="card">
-                    <a class="card__img" href="{{route('info', $item->id)}}">
+                    <a class="card__img" href="{{route('rock_info', $item->id)}}">
                         <img src="{{$item->getPhoto()}}" alt="" />
                     </a>
 
@@ -29,7 +29,7 @@
                         <h2 class="card__title">{{$item->name}}</h2>
                         <div class="btn-group btn-container" role="group" aria-label="Basic outlined example">
 {{--                            <button type="button" class="btn">Микроскоп</button>--}}
-                            <a href="{{route('info', $item->id)}}" type="button" class="btn">Информация</a>
+                            <a href="{{route('rock_info', $item->id)}}" type="button" class="btn">Информация</a>
 {{--                            <button type="button" class="btn">Поворот</button>--}}
                         </div>
                     </div>

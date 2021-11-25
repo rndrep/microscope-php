@@ -18,30 +18,28 @@
 					<div class="rock__card">
 						<!-- rock__top -->
 						<div class="row rock__top">
-							<h1 class="rock__title">Название минерала</h1>
+							<h1 class="rock__title">{{$item->name}}</h1>
 							<div class="rock__img col-sm-12 col-md-7">
-								<img class="img" src="/assets/img/stone2.png" alt="" />
+								<img class="img" src="{{$item->getPhoto()}}" alt="" />
 							</div>
 							<!-- launch-btns -->
 							<div class="rock__launch-btns col-12 col-sm-12 col-md-5">
-								<div class="rock__text rock__text--gray">
-									Посмотреть тонкий срез образца
-								</div>
-
-								<a class="btn btn_rock" href="">
+                                @if($microscopeRoute)
+								<a class="btn btn_rock" href="{{$microscopeRoute}}">
 									<svg class="icon">
 										<use
-											href="/assets/sprite/sprite.svg#biotech"
+											href="/svg/sprite.svg#biotech"
 										></use></svg
 									>Микроскоп</a
 								>
+                                @endif
 								<div class="rock__text rock__text--gray">
 									Посмотреть поворот образца
 								</div>
 								<a class="btn btn_rock" href="">
 									<svg class="icon">
 										<use
-											href="/assets/sprite/sprite.svg#360"
+											href="/svg/sprite.svg#360"
 										></use></svg
 									>Обзор</a
 								>
@@ -54,29 +52,20 @@
 						<div class="row rock__main">
 							<!-- rock__details -->
 							<div class="rock__details rock__details_large col-sm-12">
-								<h1 class="rock__title">Название минерала</h1>
+								<h1 class="rock__title">{{$item->name}}</h1>
 								<ul class="card-list list-group list-group-flush">
 									<li class="list-group-item">
 										Породы:
-										<a class="card-list__text" href="#">биотит</a>
-										<a class="card-list__link" href="#"> отоклаз</a>
-										<a class="card-list__link" href="#">
-											плагиоклаз</a
-										>
-										<a class="card-list__link" href="#"> шпат</a>
+                                        @foreach($item->getRockLinks() as $link)
+                                            <a class="card-list__link" href="{{$link['link']}}">{{$link['name']}}</a>
+                                        @endforeach
 									</li>
-									<li class="list-group-item">
-										Сингония:
-										<a class="card-list__text" href="#"
-											>пьемонтит – эпидот с высоким содержанием Mn3+
-											(до 15 %) темно-красного или красновато-бурого
-											цвета моноклинная
-										</a>
-									</li>
-									<li class="list-group-item">
-										Твердость:
-										<a class="card-list__text" href="#">8,5…8,9</a>
-									</li>
+                                    @foreach($fields as $field)
+                                        <li class="list-group-item">
+                                            {{$field->getCaption()}}:
+                                            <a class="card-list__text">{{$field->getValue()}}</a>
+                                        </li>
+                                    @endforeach
 								</ul>
 							</div>
 							<!-- ./ rock__details -->
@@ -99,7 +88,7 @@
 									>
 										<svg class="icon">
 											<use
-												href="/assets/sprite/sprite.svg#photo_library"
+												href="/svg/sprite.svg#photo_library"
 											></use>
 										</svg>
 										Галерея
@@ -121,7 +110,7 @@
 											>
 												<svg class="icon gallery__arrow-icon">
 													<use
-														href="/assets/sprite/sprite.svg#next"
+														href="/svg/sprite.svg#next"
 													></use>
 												</svg>
 											</a>
@@ -133,7 +122,7 @@
 											>
 												<svg class="icon gallery__arrow-icon">
 													<use
-														href="/assets/sprite/sprite.svg#next"
+														href="/svg/sprite.svg#next"
 													></use>
 												</svg>
 											</a>
@@ -178,7 +167,7 @@
 									>
 										<svg class="icon">
 											<use
-												href="/assets/sprite/sprite.svg#location"
+												href="/svg/sprite.svg#location"
 											></use>
 										</svg>
 										Карта
@@ -208,7 +197,7 @@
 									>
 										<svg class="icon">
 											<use
-												href="/assets/sprite/sprite.svg#video"
+												href="/svg/sprite.svg#video"
 											></use>
 										</svg>
 										Видео
