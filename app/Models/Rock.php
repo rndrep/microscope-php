@@ -229,7 +229,7 @@ class Rock extends AbstractMediaEntity
 
     /**
      * @param $entityItems
-     * @param $entityClass - Mineral or Fossil
+     * @param Mineral|Fossil $entityClass
      * @param $infoRoute
      * @return array
      */

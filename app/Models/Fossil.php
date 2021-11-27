@@ -97,7 +97,14 @@ class Fossil extends AbstractMediaEntity
 
     public static function getOptionalProps(): array
     {
-        return ['description'];
+        return [
+            'description',
+            'photo',
+            'video',
+            'model_3d',
+            'invertebrate_id',
+            'index_fossil_id',
+        ];
     }
 
     public function rocks()

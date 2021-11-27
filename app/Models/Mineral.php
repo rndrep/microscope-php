@@ -159,7 +159,32 @@ class Mineral extends AbstractMediaEntity
 
     public static function getOptionalProps()
     {
-        return ['description'];
+        return [
+            'description',
+            'composition',
+            'class',
+            'photo',
+            'video',
+            'model_3d',
+            'varieties',
+            'aggregates',
+            'feature',
+            'crystal_form',
+            'hardness',
+            'specific_gravity',
+            'color',
+            'feature_color',
+            'shine',
+            'transparency',
+            'other_props',
+            'diagnosis',
+            'genesis',
+            'paragenesis',
+            'x',
+            'y',
+            'syngony_id',
+            'splitting_id',
+        ];
     }
 
     public function formingRocks()

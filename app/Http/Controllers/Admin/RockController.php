@@ -14,13 +14,16 @@ use App\Models\RockSquad;
 use App\Models\RockStructure;
 use App\Models\RockTexture;
 use App\Models\RockType;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RockController extends Controller
 {
 
-    const ITEMS_PER_PAGE = 1;
+    const ITEMS_PER_PAGE = 12;
 
     public function home()
     {
@@ -47,6 +50,12 @@ class RockController extends Controller
         return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
     }
 
+    /**
+     * get item detail page for user
+     *
+     * @param $id
+     * @return false|Application|Factory|View
+     */
     public function info($id)
     {
         if (empty($id)) {
