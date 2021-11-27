@@ -4,6 +4,7 @@ import $ from "jquery";
 import "bootstrap";
 import slick from "./modules/slick";
 import select from "./modules/select";
+import searchCard from "./modules/searchCard";
 
 window.addEventListener("DOMContentLoaded", () => {
     // slick-carousel
@@ -12,4 +13,5 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     select();
+    searchCard();
 });
