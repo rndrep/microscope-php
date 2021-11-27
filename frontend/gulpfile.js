@@ -19,7 +19,8 @@ const htmlPartial = require("gulp-html-partial");
 const fileinclude = require("gulp-file-include");
 const browsersync = require("browser-sync").create();
 const svgSprite = require("gulp-svg-sprite");
-const webpack = require("webpack-stream");
+const webpack = require("webpack");
+const webpackStream = require("webpack-stream");
 require("dotenv").config(); // need to load .env
 // const RevAll = require("gulp-rev-all");
 const exec = require("child_process").exec;
@@ -30,9 +31,15 @@ let isProd = !isDev;
 const ser = "true" == process.env.USE_BLADE;
 
 const webConfig = {
+    entry: {
+        bundle: "./src/assets/js/app.js",
+        microscope: "./src/assets/js/modules/microscope.js",
+        map: "./src/assets/js/modules/map.js",
+    },
     output: {
-        filename: "bundle.js",
-        library: "bundle",
+        filename: "[name].js",
+        libraryTarget: "var",
+        library: "microLib",
     },
     module: {
         rules: [
@@ -91,9 +98,9 @@ const path = {
 function script() {
     return gulp
         .src("./src/assets/js/app.js")
-        .pipe(webpack(webConfig))
+        .pipe(webpackStream(webConfig), webpack)
         .pipe(gulp.dest(path.build.script))
-        .pipe(browsersync.stream());
+        .pipe(gulpif(!ser, browsersync.stream()));
 }
 
 /* Настройка локального сервера */
@@ -134,7 +141,7 @@ function html() {
             )
             .pipe(dest(path.build.html))
             // .pipe(exec('php ../artisan view:clear')) // clear cache of laravel templates
-            .pipe(browsersync.stream())
+            .pipe(gulpif(!ser, browsersync.stream()))
     );
 }
 
@@ -174,7 +181,7 @@ function css() {
             )
             // .pipe(RevAll.revision())
             .pipe(dest(path.build.css))
-            .pipe(browsersync.stream())
+            .pipe(gulpif(!ser, browsersync.stream()))
     );
 }
 
@@ -229,7 +236,7 @@ function watchFiles() {
 }
 
 const build = gulp.series(clean, gulp.parallel(html, css, images, script, svg)); // для выполнения всех тасков
-const watch = gulp.parallel(build, watchFiles, browserSync);
+const watch = gulp.parallel(build, watchFiles, browserSync); //browserSync
 
 /* Exports Tasks */
 exports.html = html;

@@ -4,56 +4,56 @@
 @import "mixins";
 
 html {
-	font-size: 10px;
+    font-size: 10px;
 }
 
 body {
-	margin: 0;
+    margin: 0;
 
-	background-color: #f0f0f0;
+    background-color: #f0f0f0;
 
-	font-size: 16px;
-	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-		"Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", "Noto Color Emoji";
-	line-height: 1.6;
+    font-size: 16px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.6;
 }
 
 /* Default styles */
 
 .page {
-	padding-top: 8.4rem;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	background-color: $gray-tpu;
+    padding-top: 8.4rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: $gray-tpu;
 }
 
 *,
 *:before,
 *:after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 * {
-	min-height: 0;
-	min-width: 0;
+    min-height: 0;
+    min-width: 0;
 }
 
 .main {
-	margin-bottom: 3.2rem;
+    margin-bottom: 3.2rem;
 }
 
 .main--white {
-	background-color: $white;
+    background-color: $white;
 }
 
 // margin and padding bootstrap (mt-3, mb-4...)
 $spacer: 1.6rem;
 
 /* Bootstrap */
-@import "../../../node_modules/bootstrap/scss/bootstrap";
+// @import "../../../node_modules/bootstrap/scss/bootstrap";
 @import "../../../node_modules/bootstrap/scss/bootstrap-grid";
 @import "../../../node_modules/bootstrap/scss/bootstrap-utilities";
 @import "../../../node_modules/bootstrap/scss/_button-group";
@@ -97,37 +97,37 @@ $spacer: 1.6rem;
 @import "vendor/slimselect";
 
 body {
-	margin: 0;
+    margin: 0;
 
-	background-color: #f0f0f0;
+    background-color: #f0f0f0;
 
-	font-size: 1.6rem;
-	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-		"Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", "Noto Color Emoji";
-	line-height: 1.6;
+    font-size: 1.6rem;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.6;
 }
 
 p {
-	margin-bottom: 0.8rem;
+    margin-bottom: 0.8rem;
 
-	font-size: 1.6rem;
+    font-size: 1.6rem;
 }
 
 a {
-	color: var(--c, $green);
+    color: var(--c, $green);
 }
 
 .placeholder {
-	background-color: $white;
-	cursor: pointer;
-	opacity: 1;
-	min-height: 0;
+    background-color: $white;
+    cursor: pointer;
+    opacity: 1;
+    min-height: 0;
 }
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
-	display: none;
+    display: none;
 }
