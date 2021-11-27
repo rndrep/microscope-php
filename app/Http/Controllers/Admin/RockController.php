@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
 use App\Models\Fossil;
+use App\Models\Rock_FormingMineral;
 use App\Models\RockClass;
 use App\Models\Mineral;
 use App\Models\Rock;
@@ -23,18 +24,54 @@ use Illuminate\Support\Facades\Auth;
 class RockController extends Controller
 {
 
-    const ITEMS_PER_PAGE = 12;
+    const ITEMS_PER_PAGE = 2;
+    const SEARCH_FIELDS = [
+        'rockName' => 'name',
+        'rockType' => 'rock_type_id',
+        'rockClass' => 'rock_class_id',
+        'rockKind' => 'rock_kind_id',
+        'rockFormingMinerals' => 'forming_mineral_id',
+    ];
 
-    public function home()
+    public function list(Request $request)
     {
+        $params = $request->json()->all();
+        $params = array_intersect_key($params, self::SEARCH_FIELDS);
+        $query = Rock::query();
+
+        foreach ($params as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            if ($key == 'rockFormingMinerals') {
+                $rockIdByFormingMineral = Rock_FormingMineral::select('rock_id')
+                    ->where('mineral_id', $value)
+                    ->pluck('rock_id')
+                    ->toArray();
+                $query->whereIn('id', $rockIdByFormingMineral);
+                continue;
+            }
+            $query->where(self::SEARCH_FIELDS[$key], $value);
+        }
+
+        if (!Auth::check()) {
+            $query->where('is_public', 1);
+        }
+
+        return json_encode($query->orderBy('name')->paginate(self::ITEMS_PER_PAGE));
+    }
+
+    //TODO: delete (moved in PageController)
+//    public function home()
+//    {
 //        phpinfo();
 //        dump(Auth::check());
 //        dump(Auth::user());
-        if (Auth::check() && Auth::user()->isUser()) {
-            return view('dist.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
-        }
-        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
-    }
+//        if (Auth::check() && Auth::user()->isUser()) {
+//            return view('dist.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
+//        }
+//        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
+//    }
 
     public function index()
     {
