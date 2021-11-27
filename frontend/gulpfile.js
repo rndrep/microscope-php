@@ -221,7 +221,7 @@ function clean() {
     );
 }
 
-function cleanLaravelViewCache() {
+async function cleanLaravelViewCache() {
     // return del("../storage/framework/views/*.php", {force:true});
     exec("php ../artisan view:clear"); // clear cache of laravel templates
 }

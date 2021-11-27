@@ -66,11 +66,13 @@
                 return urlParams;
             };
 
-            window.microLib.microscope(
-                `http://microscope.test/microscope-photos/${
-                    getUrlParams().type
-                }/${getUrlParams().id}`
-            );
+            window.addEventListener("DOMContentLoaded", () => {
+                window.microLib.microscope(
+                    `http://microscope.test/microscope-photos/${
+                        getUrlParams().type
+                    }/${getUrlParams().id}`
+                );
+            });
         </script>
     </body>
 </html>
