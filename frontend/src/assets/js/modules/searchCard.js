@@ -35,11 +35,7 @@ export function searchCard(urlResource) {
 
             console.log(object);
 
-            const json = JSON.stringify(object);
-
-            console.log(json);
-
-            postData(formData, urlResource)
+            postData(object, urlResource)
                 .then((data) => data.text())
                 .then((data) => console.log(data))
                 .then(() => (statusMessage.innerHTML = "запрос отправлен"))
