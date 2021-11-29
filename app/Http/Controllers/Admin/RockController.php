@@ -59,7 +59,8 @@ class RockController extends Controller
         }
         $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
         $result->map(function ($item) {
-            $item->microscopeUrl = Rock::getMicroscopeUrl($item->id);
+            $item->microscope_url = Rock::getMicroscopeUrl($item->id);
+            $item->info_url = route('rock_info', $item->id);
             return $item;
         });
         return $result;
