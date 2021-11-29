@@ -24,6 +24,33 @@ class Rock extends AbstractMediaEntity
         parent::__construct($attributes);
 
     }
+//
+//    public function scopePublic(Rock $query, $fields)
+//    {
+//        $query->where('is_public', 1);
+//        foreach ($fields as $key => $value) {
+//            if ($key == 'rockFormingMinerals') {
+//                $mineral = Mineral::find($value);
+//                foreach ($user->roles as $role) {
+//                    echo $role->pivot->created_at;
+//                }
+//                $query->formingMinerals()
+//                    ->wherePivot('mineral_id', $value);
+//                continue;
+//            }
+//            $query->where($key, $value);
+//        }
+//
+//        return $query;
+//    }
+//
+//    public function scopePrivate($query, $fields)
+//    {
+//        foreach ($fields as $key => $value) {
+//            $query->where($key, $value);
+//        }
+//        return $query;
+//    }
 
     public static function add($fields)
     {
