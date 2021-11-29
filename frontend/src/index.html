@@ -118,7 +118,9 @@
 
                                                 <option>метаморфический</option>
                                                 <option>осадочный</option>
-                                                <option value="1">осадоsdfчный</option>
+                                                <option value="1">
+                                                    осадоsdfчный
+                                                </option>
                                                 <option>sdfsdfsdfsdf</option>
                                             </select>
                                         </div>
@@ -422,11 +424,23 @@
             </div>
             <!-- ./ Search -->
 
-{{--            @@include('cards.html')--}}
+            <!-- Cards -->
+<section class="cards">
+	<div class="container">
+		<!-- Cards__row -->
+		<div class="cards__row row row-cols-1 row-cols-md-2 row-cols-lg-3">
+			
 
-{{--            <!-- Pagination -->--}}
-{{--            <nav aria-label="Навигация">{{ $items->links() }}</nav>--}}
-{{--            <!-- ./ Pagination -->--}}
+			<!-- ./ Cards__row -->
+	</div>
+</section> <!-- ./ Cards -->
+
+
+            {{-- @@include('cards.html')--}} {{--
+            <!-- Pagination -->--}} {{--
+            <nav aria-label="Навигация">{{ $items->links() }}</nav>
+            --}} {{--
+            <!-- ./ Pagination -->--}}
 
             <!-- Footer -->
             @@include('footer.html')

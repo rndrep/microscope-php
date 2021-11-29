@@ -33,8 +33,6 @@ const ser = "true" == process.env.USE_BLADE;
 const webConfig = {
     entry: {
         bundle: "./src/assets/js/app.js",
-        microscope: "./src/assets/js/modules/microscope.js",
-        map: "./src/assets/js/modules/map.js",
     },
     output: {
         filename: "[name].js",

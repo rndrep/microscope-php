@@ -52,3 +52,9 @@ npm install --save file-loader url-loader
 let microDeg = document.querySelector(".degrees");
 microDeg.textContent = `0°` || `${Math.round(rotation)}`;
 ```
+
+-   компиляция вебпак микс
+
+```
+npm run dev
+```
