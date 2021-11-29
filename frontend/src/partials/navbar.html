@@ -29,6 +29,9 @@
 				<a class="nav-link nav__link" href="">Изучение</a>
 				<a class="nav-link nav__link" href="#">О нас</a>
                 @if(Auth::check())
+                    @if(Auth::user()->isContentManager())
+                        <a class="nav-link nav__link" href="{{route('rocks.index')}}">Админ-панель</a>
+                    @endif
                     <a class="btn btn_nav" href="/logout">
                         Выйти
                     </a>

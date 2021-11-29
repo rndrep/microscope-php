@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Auth;
 class PageController extends Controller
 {
 
+    const ITEMS_PER_PAGE = 2;
+
     public function home()
     {
-        //        dump(RockType::orderBy('name')->pluck('name', 'id'));
-        return view('dist.index');
+        $queryBuilder = Rock::query();
+        if (!Auth::check()) {
+            $queryBuilder->where('is_public', 1);
+        }
+        return view(
+            'dist.index',
+            ['items' => $queryBuilder->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]
+        );
     }
 
     public function notfound()
