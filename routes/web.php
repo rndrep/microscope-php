@@ -62,11 +62,10 @@ Route::group(['prefix' => '/admin', 'middleware' => 'content_manager'], function
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
-    Route::resource('/rocks', RockController::class);
-    Route::resource('/rock-types', RockTypeController::class);
-    Route::resource('/minerals', MineralController::class);
-    Route::resource('/fossils', FossilController::class);
-    Route::resource('/rock-classes', RockClassController::class);
+    Route::delete('/rocks/{id}', [RockController::class, 'destroy'])->name('rocks.destroy');
+    Route::delete('/minerals/{id}', [MineralController::class, 'destroy'])->name('minerals.destroy');
+    Route::delete('/fossils/{id}', [FossilController::class, 'destroy'])->name('fossils.destroy');
+
     Route::resource('/users', UserController::class);
     Route::get('/dictionary/all/{entity}', [DictionaryController::class, 'all'])->name('get_all_dicts');
     /** params example: /admin/dictionary/edit?entity=RockSquad&id=4 */
@@ -80,5 +79,3 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
 
 
 Route::view('testLte','admin.adminLte');
-
-Route::any('{catchall}', [PageController::class, 'notfound'])->where('catchall', '.*');
