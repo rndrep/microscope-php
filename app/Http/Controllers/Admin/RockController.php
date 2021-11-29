@@ -57,8 +57,12 @@ class RockController extends Controller
         if (!Auth::check()) {
             $query->where('is_public', 1);
         }
-
-        return json_encode($query->orderBy('name')->paginate(self::ITEMS_PER_PAGE));
+        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+        $result->map(function ($item) {
+            $item->microscopeUrl = Rock::getMicroscopeUrl($item->id);
+            return $item;
+        });
+        return $result;
     }
 
     //TODO: delete (moved in PageController)
@@ -108,9 +112,7 @@ class RockController extends Controller
         if (!Auth::check() && !$rock->isPublic()) {
             abort(404);
         }
-        $microRoute = is_dir(public_path(AbstractMediaEntity::IMAGE_PATH_ROCK_MICRO . $id . '/ppl'))
-            ? route('microscope', ['id' => $id, 'type' => 'rock'])
-            : '';
+        $microRoute = Rock::getMicroscopeUrl($id);
         return view('dist.rock', ['item' => $rock, 'microscopeRoute' => $microRoute]);
     }
 
@@ -244,7 +246,7 @@ class RockController extends Controller
         if (empty($id)) {
             return json_encode([]);
         }
-        $publicPath = AbstractMediaEntity::IMAGE_PATH_ROCK_MICRO . $id . '/';
+        $publicPath = Rock::MICRO_PATH . $id . '/';
         $photos = [
             'ppl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'ppl'),
             'xpl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'xpl'),
