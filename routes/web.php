@@ -38,6 +38,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/', [PageController::class, 'home'])->name('home');
 //TODO: check auth: show public for authorizes
 Route::match(['get','post'],'/rock-list', [RockController::class, 'list'])->name('rock_list');
+Route::match(['get','post'],'/mineral-list', [MineralController::class, 'list'])->name('mineral_list');
+Route::match(['get','post'],'/fossil-list', [FossilController::class, 'list'])->name('fossil_list');
 Route::get('/rock-info/{id}', [RockController::class, 'info'])->name('rock_info');
 Route::get('/mineral-info/{id}', [MineralController::class, 'info'])->name('mineral_info');
 Route::get('/fossil-info/{id}', [FossilController::class, 'info'])->name('fossil_info');

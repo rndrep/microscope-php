@@ -33,6 +33,12 @@ class RockController extends Controller
         'rockFormingMinerals' => 'forming_mineral_id',
     ];
 
+    /**
+     * Get items for search page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function list(Request $request)
     {
         $params = $request->json()->all();

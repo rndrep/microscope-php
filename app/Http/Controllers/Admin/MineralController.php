@@ -15,14 +15,46 @@ use Illuminate\Http\Request;
 class MineralController extends Controller
 {
 
-    //TODO: replace Mineral templates by common
-    //TODO: remove old Mineral templates
+    //TODO: move ITEMS_PER_PAGE into some common place?
+    const ITEMS_PER_PAGE = 12;
+    const SEARCH_FIELDS = [
+        'mineralName' => 'name',
+        'mineralClass' => 'class',
+        'mineralCrystalForm' => 'crystal_form',
+        'mineralShine' => 'shine',
+        'mineralSplitting' => 'splitting_id',
+    ];
+
+    /**
+     * Get items for search page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function list(Request $request)
+    {
+        $params = $request->json()->all();
+        $params = array_intersect_key($params, self::SEARCH_FIELDS);
+        $query = Mineral::query();
+        foreach ($params as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            $query->where(self::SEARCH_FIELDS[$key], $value);
+        }
+        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+        $result->map(function ($item) {
+            $item->microscope_url = Mineral::getMicroscopeUrl($item->id);
+            $item->info_url = route('mineral_info', $item->id);
+            return $item;
+        });
+        return $result;
+    }
+
     public function index()
     {
         $items = Mineral::orderBy('name')->get();
         return view('admin.minerals.index', [
-//            'entityCaption' => Mineral::ENTITY_CAPTION,
-//            'entityName' => Mineral::ENTITY_NAME,
             'items' => $items,
             'fields' => Mineral::getInputs()]);
     }

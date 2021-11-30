@@ -13,6 +13,8 @@ class Fossil extends AbstractMediaEntity
     const ENTITY_CAPTION = 'Окаменелости';
     const ENTITY_NAME = 'fossils';
 
+    const MICRO_PATH = '/images/fossils/micro/';
+
     public function __construct(array $attributes = [])
     {
         $this->commonImgPath = '/images/fossils/';
