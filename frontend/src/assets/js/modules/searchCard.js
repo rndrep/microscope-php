@@ -1,12 +1,13 @@
 import { getResource } from "../services/services.js";
 import { postData } from "../services/services.js";
-import select from "./select";
+import Card from "./card";
 
 export function searchCard(urlResource) {
     const url = "/rock-list";
-    let rocksSearchBtn = document.getElementById("rocksSearchBtn");
-    let mineralsSearchBtn = document.getElementById("mineralsSearchBtn");
-    let fossilsSearchBtn = document.getElementById("fossilsSearchBtn");
+    let rocksSearchBtn = document.getElementById("rocksSearchBtn"),
+        mineralsSearchBtn = document.getElementById("mineralsSearchBtn"),
+        fossilsSearchBtn = document.getElementById("fossilsSearchBtn"),
+        cardsRow = document.querySelector(".cards__row");
 
     let rocksSearchForm = document.querySelector("#rocksSearchForm"),
         mineralsSearchForm = document.querySelector("#mineralsSearchForm"),
@@ -15,35 +16,77 @@ export function searchCard(urlResource) {
 
     statusMessage.classList.add("status");
 
-    window.addEventListener("DOMContentLoaded", () => {
-        // отобразить все карточки пород на вкладке пород
+    //получить все карточки
+    getResource(url)
+        // TODO: отрисовать все
+        .then((data) => {
+            const cards = data.data;
+            cards.forEach(
+                ({ photo, name, info_url, microscope_url, model_3d }) => {
+                    //new card
+                    // TODO: добавить 3д ссылку
+                    new Card(photo, name, info_url, microscope_url).render();
+                }
+            );
+        });
+
+    rocksSearchBtn.addEventListener("click", function (e) {
+        sendForm(rocksSearchForm, url);
     });
 
-    sendForm(rocksSearchForm, url);
+    mineralsSearchBtn.addEventListener("click", function (e) {
+        sendForm(mineralsSearchForm, url);
+    });
+
+    fossilsSearchBtn.addEventListener("click", function (e) {
+        sendForm(fossilsSearchForm, url);
+    });
 
     function sendForm(form, urlResource) {
         form.addEventListener("submit", function (event) {
             let formData = new FormData(form);
-            console.log(...formData);
 
             event.preventDefault();
 
-            const object = {};
-            formData.forEach(function (value, key) {
-                object[key] = value;
-            });
+            const jsonData = JSON.stringify(
+                Object.fromEntries(formData.entries())
+            );
 
-            console.log(object);
-
-            postData(object, urlResource)
-                .then((data) => data.text())
-                .then((data) => console.log(data))
-                .then(() => (statusMessage.innerHTML = "запрос отправлен"))
+            postData(urlResource, jsonData)
+                .then((data) => {
+                    clearCards();
+                    const cards = data.data;
+                    cards.forEach(
+                        ({
+                            photo,
+                            name,
+                            info_url,
+                            microscope_url,
+                            model_3d,
+                        }) => {
+                            //new card
+                            // TODO: добавить 3д ссылку
+                            new Card(
+                                photo,
+                                name,
+                                info_url,
+                                microscope_url
+                            ).render();
+                        }
+                    );
+                })
+                .then(() => console.log("Отправлено"))
                 .then(() => {
                     statusMessage.innerHTML = "успешно";
                 })
                 .catch(() => (statusMessage.innerHTML = "не получилось"));
         });
+    }
+
+    function clearCards() {
+        while (cardsRow.firstChild) {
+            cardsRow.removeChild(cardsRow.firstChild);
+        }
     }
 
     // после нажатия кнопки поиск с id порода/минерал/окаменелость

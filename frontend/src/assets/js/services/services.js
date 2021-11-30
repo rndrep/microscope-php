@@ -38,14 +38,20 @@ const getResource = async (urlResource) => {
 //     });
 // };
 
-const postData = async (data, urlResource) => {
-    fetch(urlResource, {
+const postData = async (urlResource, data) => {
+    const res = await fetch(urlResource, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: data,
         headers: {
             "Content-type": "application/json",
         },
     });
+
+    if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    }
+
+    return await res.json();
 };
 
 export { getResource };

@@ -1,235 +1,189 @@
-import "gsap";
-import { gsap } from "gsap";
-import { Draggable } from "gsap/Draggable";
-import { getResource } from "../services/services.js";
-gsap.registerPlugin(Draggable);
+export default class Microscope {
+    STEP5 = 5;
+    STEP10 = 10;
+    microscopeDegree = document.querySelector(".microscope__degree");
+    isShowDegree = false;
+    numberOfImg;
 
-export function microscope(urlResource) {
-	const url = urlResource;
-	const microscopePpl = document.createElement("div");
-	const microscopeXpl = document.createElement("div");
-	const ppl = document.getElementById("ppl");
-	const xpl = document.getElementById("xpl");
-	microscopePpl.className = "microscope__circle";
-	microscopeXpl.className = "microscope__circle";
+    constructor(
+        microscopeElement,
+        imgSources = [],
+        parentSelector,
+        step,
+        smooth = true,
+        rotation = 0
+    ) {
+        this.microscopeElement = microscopeElement;
+        this.imgSources = imgSources.reverse(); //TODO: убрать после переворачивания картинок
+        this.parent = document.querySelector(parentSelector);
+        this.step = step;
+        this.smooth = smooth;
+        this.rotation = rotation;
+        this.initRotation();
+        this.createImg(this.step);
+    }
 
-	ppl.append(microscopePpl);
-	xpl.append(microscopeXpl);
+    toggleShowDegree() {
+        this.isShowDegree = !this.isShowDegree;
+        return this;
+    }
 
-	getResource(url).then((data) => {
-		const step = data.shift;
-		const isSmooth = data.smooth;
-		const initRotation = 0;
+    initRotation() {
+        if (this.step == this.STEP5) {
+            this.numberOfImg = 72;
+        } else if (this.step == this.STEP10) {
+            this.numberOfImg = 36;
+        } else console.log("Задан неверный шаг");
 
-		const pplMicroscope = new Microscope(
-			microscopePpl,
-			data.ppl,
-			"#ppl",
-			step,
-			isSmooth,
-			initRotation
-		).toggleShowDegree();
+        this.sectionDeg = 360 / this.numberOfImg;
+        this.sectionPercent = (this.rotation / this.sectionDeg) % 1;
+        this.index = Math.floor(this.rotation / this.sectionDeg);
+        this.prev = 0 === this.index ? this.numberOfImg - 1 : this.index - 1;
+        this.next = this.numberOfImg - 1 === this.index ? 0 : this.index + 1;
+        this.curRot = this.getRotationStyle(this.getDegree());
+        this.nextRot = this.getRotationStyle(this.getDegree(-1));
+        this.prevRot = this.getRotationStyle(this.getDegree(1));
+    }
 
-		pplMicroscope.render(step, isSmooth, initRotation);
+    update(step, smooth, rotation) {
+        rotation = rotation - 360 * Math.floor(rotation / 360);
+        if (smooth == false && step == this.STEP10) {
+            rotation = Math.floor(rotation / 10) * 10;
+        } else if (smooth == false && step == this.STEP5) {
+            rotation = Math.floor(rotation / 5) * 5;
+        }
 
-		const xplMicroscope = new Microscope(
-			microscopeXpl,
-			data.xpl,
-			"#xpl",
-			step,
-			isSmooth,
-			initRotation
-		);
-		xplMicroscope.render(step, isSmooth, initRotation);
+        this.sectionPercent = (rotation / this.sectionDeg) % 1;
+        this.index = Math.floor(rotation / this.sectionDeg);
+        this.prev = 0 === this.index ? this.numberOfImg - 1 : this.index - 1;
+        this.next = this.numberOfImg - 1 === this.index ? 0 : this.index + 1;
+        this.curRot = this.getRotationStyle(this.getDegree());
+        this.nextRot = this.getRotationStyle(this.getDegree(-1));
+        this.prevRot = this.getRotationStyle(this.getDegree(1));
+        this.render(step, smooth, rotation);
+    }
 
-		Draggable.create(".microscope__wheel", {
-			type: "rotation",
-			minimumMovement: 1,
+    createImg() {
+        this.imgElements = this.imgSources.map((image, i, all) => {
+            let imgElement = document.createElement("img");
+            imgElement.src = image;
 
-			onDrag(e) {
-				pplMicroscope.update(step, isSmooth, this.rotation);
-				xplMicroscope.update(step, isSmooth, this.rotation);
-			},
-		});
-	});
+            return imgElement;
+        });
+        console.log(this.imgElements);
+        if (this.step == this.STEP5) {
+            let imgElementsClone = [];
+            this.imgElements.forEach((item) => {
+                imgElementsClone.push(item.cloneNode());
+            });
+            this.imgElements.push(...imgElementsClone);
+        }
 
-	class Microscope {
-		STEP5 = 5;
-		STEP10 = 10;
-		microscopeDegree = document.querySelector(".microscope__degree");
-		isShowDegree = false;
-		numberOfImg;
+        this.imgElements.forEach((item) => {
+            if (this.microscopeElement) {
+                try {
+                    this.microscopeElement.append(item);
+                } catch (error) {}
+            }
+        });
 
-		constructor(
-			microscopeElement,
-			imgSources = [],
-			parentSelector,
-			step,
-			smooth = true,
-			rotation = 0
-		) {
-			this.microscopeElement = microscopeElement;
-			this.imgSources = imgSources.reverse(); //TODO: убрать после переворачивания картинок
-			this.parent = document.querySelector(parentSelector);
-			this.step = step;
-			this.smooth = smooth;
-			this.rotation = rotation;
-			this.initRotation();
-			this.createImg(this.step);
-		}
+        if (this.parent) {
+            try {
+                this.parent.append(this.microscopeElement);
+            } catch (error) {}
+        }
+    }
 
-		toggleShowDegree() {
-			this.isShowDegree = !this.isShowDegree;
-			return this;
-		}
+    setRotation(value) {
+        this.rotation = value;
+    }
 
-		initRotation() {
-			if (this.step == this.STEP5) {
-				this.numberOfImg = 72;
-			} else if (this.step == this.STEP10) {
-				this.numberOfImg = 36;
-			} else console.log("Задан неверный шаг");
+    getRotationStyle(rotationValue) {
+        return this.sectionDeg ? `rotate(${rotationValue}deg)` : "";
+    }
 
-			this.sectionDeg = 360 / this.numberOfImg;
-			this.sectionPercent = (this.rotation / this.sectionDeg) % 1;
-			this.index = Math.floor(this.rotation / this.sectionDeg);
-			this.prev = 0 === this.index ? this.numberOfImg - 1 : this.index - 1;
-			this.next = this.numberOfImg - 1 === this.index ? 0 : this.index + 1;
-			this.curRot = this.getRotationStyle(this.getDegree());
-			this.nextRot = this.getRotationStyle(this.getDegree(-1));
-			this.prevRot = this.getRotationStyle(this.getDegree(1));
-		}
+    getDegree(delta = 0) {
+        let offset = 0;
+        if (delta > 0) {
+            offset = this.sectionDeg;
+        } else if (delta < 0) {
+            offset = this.sectionDeg * -1;
+        }
+        return this.sectionPercent * this.sectionDeg + offset;
+    }
 
-		update(step, smooth, rotation) {
-			rotation = rotation - 360 * Math.floor(rotation / 360);
-			if (smooth == false && step == this.STEP10) {
-				rotation = Math.floor(rotation / 10) * 10;
-			} else if (smooth == false && step == this.STEP5) {
-				rotation = Math.floor(rotation / 5) * 5;
-			}
+    render(step, smooth, rotation) {
+        if (this.isShowDegree) {
+            this.microscopeDegree.innerHTML = `${Math.round(rotation)}°`;
+        }
 
-			this.sectionPercent = (rotation / this.sectionDeg) % 1;
-			this.index = Math.floor(rotation / this.sectionDeg);
-			this.prev = 0 === this.index ? this.numberOfImg - 1 : this.index - 1;
-			this.next = this.numberOfImg - 1 === this.index ? 0 : this.index + 1;
-			this.curRot = this.getRotationStyle(this.getDegree());
-			this.nextRot = this.getRotationStyle(this.getDegree(-1));
-			this.prevRot = this.getRotationStyle(this.getDegree(1));
-			this.render(step, smooth, rotation);
-		}
+        this.imgElements.forEach((item, i, arr) => {
+            const isCurr = i === this.index;
+            const isPrev = i === this.prev;
+            const isNext = i === this.next;
 
-		createImg() {
-			this.imgElements = this.imgSources.map((image, i, all) => {
-				let imgElement = document.createElement("img");
-				imgElement.src = image;
+            const getVisibility = () => {
+                return isCurr || isNext ? "visible" : "hidden";
+            };
 
-				return imgElement;
-			});
+            const getOpacity = (smooth) => {
+                if (isCurr) {
+                    return 1;
+                }
+                if (this.sectionPercent === 0) {
+                    if (!isCurr) {
+                        return 0;
+                    }
+                } else {
+                    if (isNext) {
+                        return this.sectionPercent;
+                    }
+                }
+            };
 
-			if (this.step == this.STEP5) {
-				let imgElementsClone = [];
-				this.imgElements.forEach((item) => {
-					imgElementsClone.push(item.cloneNode());
-				});
-				this.imgElements.push(...imgElementsClone);
-			}
+            const getTransform = (step, smooth) => {
+                let reflection =
+                    i < arr.length / 2 ? "rotateZ(0deg)" : "rotateZ(180deg)";
+                let smoothness = () => {
+                    let rotate = "";
+                    if (isCurr) {
+                        rotate = this.curRot;
+                    }
+                    if (isPrev) {
+                        rotate = this.prevRot;
+                    }
+                    if (isNext) {
+                        rotate = this.nextRot;
+                    }
+                    return rotate;
+                };
+                if (step == this.STEP5 && smooth == false) {
+                    return reflection;
+                } else if (step == this.STEP10 && smooth == true) {
+                    return smoothness();
+                } else if (step == this.STEP5 && smooth == true) {
+                    let scale = reflection;
+                    let rotate = smoothness();
+                    return rotate + " " + scale;
+                }
+            };
 
-			this.imgElements.forEach((item) => {
-				this.microscopeElement.append(item);
-			});
+            const style = {
+                zIndex: 10 + i,
+                visibility: getVisibility(),
+                transform: getTransform(step, smooth),
+                opacity: getOpacity(smooth),
+            };
 
-			this.parent.append(this.microscopeElement);
-		}
+            item.setAttribute(
+                "class",
+                `microscope__img ${isCurr ? "yes" : ""}`
+            );
 
-		setRotation(value) {
-			this.rotation = value;
-		}
-
-		getRotationStyle(rotationValue) {
-			return this.sectionDeg ? `rotate(${rotationValue}deg)` : "";
-		}
-
-		getDegree(delta = 0) {
-			let offset = 0;
-			if (delta > 0) {
-				offset = this.sectionDeg;
-			} else if (delta < 0) {
-				offset = this.sectionDeg * -1;
-			}
-			return this.sectionPercent * this.sectionDeg + offset;
-		}
-
-		render(step, smooth, rotation) {
-			if (this.isShowDegree) {
-				this.microscopeDegree.innerHTML = `${Math.round(rotation)}°`;
-			}
-
-			this.imgElements.forEach((item, i, arr) => {
-				const isCurr = i === this.index;
-				const isPrev = i === this.prev;
-				const isNext = i === this.next;
-
-				const getVisibility = () => {
-					return isCurr || isNext ? "visible" : "hidden";
-				};
-
-				const getOpacity = (smooth) => {
-					if (isCurr) {
-						return 1;
-					}
-					if (this.sectionPercent === 0) {
-						if (!isCurr) {
-							return 0;
-						}
-					} else {
-						if (isNext) {
-							return this.sectionPercent;
-						}
-					}
-				};
-
-				const getTransform = (step, smooth) => {
-					let reflection =
-						i < arr.length / 2 ? "rotateZ(0deg)" : "rotateZ(180deg)";
-					let smoothness = () => {
-						let rotate = "";
-						if (isCurr) {
-							rotate = this.curRot;
-						}
-						if (isPrev) {
-							rotate = this.prevRot;
-						}
-						if (isNext) {
-							rotate = this.nextRot;
-						}
-						return rotate;
-					};
-					if (step == this.STEP5 && smooth == false) {
-						return reflection;
-					} else if (step == this.STEP10 && smooth == true) {
-						return smoothness();
-					} else if (step == this.STEP5 && smooth == true) {
-						let scale = reflection;
-						let rotate = smoothness();
-						return rotate + " " + scale;
-					}
-				};
-
-				const style = {
-					zIndex: 10 + i,
-					visibility: getVisibility(),
-					transform: getTransform(step, smooth),
-					opacity: getOpacity(smooth),
-				};
-
-				item.className = `microscope__img ${isCurr ? "yes" : ""}`;
-				item.style.visibility = style.visibility;
-				item.style.zIndex = style.zIndex;
-				item.style.transform = style.transform;
-				item.style.opacity = style.opacity;
-			});
-		}
-	}
+            item.style.visibility = style.visibility;
+            item.style.zIndex = style.zIndex;
+            item.style.transform = style.transform;
+            item.style.opacity = style.opacity;
+        });
+    }
 }
-
-export default microscope;

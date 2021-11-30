@@ -53,18 +53,7 @@ body {
 $spacer: 1.6rem;
 
 /* Bootstrap */
-// @import "../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../node_modules/bootstrap/scss/bootstrap-grid";
-@import "../../../node_modules/bootstrap/scss/bootstrap-utilities";
-@import "../../../node_modules/bootstrap/scss/_button-group";
-@import "../../../node_modules/bootstrap/scss/_buttons";
-@import "../../../node_modules/bootstrap/scss/_card";
-@import "../../../node_modules/bootstrap/scss/_forms";
-@import "../../../node_modules/bootstrap/scss/_dropdown";
-@import "../../../node_modules/bootstrap/scss/_nav";
-@import "../../../node_modules/bootstrap/scss/_navbar";
-@import "../../../node_modules/bootstrap/scss/_accordion";
-@import "../../../node_modules/bootstrap/scss/_breadcrumb";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 
 /* Blocks */
 @import "blocks/img";
