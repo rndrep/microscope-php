@@ -43,8 +43,11 @@
           </div>
           <div class="form-group">
             <label for="inputName">Описание</label>
-            <textarea type="text" class="editor form-control" id="inputDescription" placeholder="" name="description"
-              value="{{old('description')}}"> </textarea>
+
+            <textarea class="ck-content" name="descriptionEditor" id="descriptionEditor"></textarea>
+
+            <input type="text" class="editor form-control" id="inputDescription" placeholder="" name="description"
+              value="{{old('description')}}"> </input>
           </div>
           <div class="form-group">
             <label>Тип породы</label>

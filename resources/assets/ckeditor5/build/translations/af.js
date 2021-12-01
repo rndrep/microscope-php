@@ -1,0 +1,1 @@
+(function(e){const i=e["af"]=e["af"]||{};i.dictionary=Object.assign(i.dictionary||{},{"%0 of %1":"","Block quote":"Blok-aanhaling",Bold:"Vetgedruk",Cancel:"Kanselleer",Italic:"Skuinsgedruk",Save:"Berg","Show more items":"",Subscript:"Onderskrif",Superscript:"Boskrif"});i.getPluralForm=function(e){return e!=1}})(window.CKEDITOR_TRANSLATIONS||(window.CKEDITOR_TRANSLATIONS={}));

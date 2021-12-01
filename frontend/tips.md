@@ -58,3 +58,7 @@ microDeg.textContent = `0°` || `${Math.round(rotation)}`;
 ```
 npm run dev
 ```
+
+```
+cd frontend && gulp cleanCache &&  cd .. && npm run dev
+```

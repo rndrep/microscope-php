@@ -224,6 +224,11 @@ function cleanLaravelViewCache() {
     exec("php ../artisan view:clear"); // clear cache of laravel templates
 }
 
+async function cleanCache() {
+    // return del("../storage/framework/views/*.php", {force:true});
+    exec("php ../artisan view:clear"); // clear cache of laravel templates
+}
+
 // слежка за файлами, и вызов
 function watchFiles() {
     gulp.watch([path.watch.html], html);
@@ -244,6 +249,7 @@ exports.images = images;
 exports.svg = svg;
 exports.clean = clean;
 exports.cleanLaravelViewCache = cleanLaravelViewCache;
+exports.cleanCache = cleanCache;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;
