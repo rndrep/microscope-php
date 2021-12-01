@@ -7,7 +7,7 @@
     font-size: 1.6rem;
     text-transform: uppercase;
 
-    @media (max-width: $breakpoints_md) {
+    @media (max-width: $breakpoints_md) and ($breakpoints_md) {
         align-items: flex-end;
 
         :nth-last-child(2) {
@@ -27,7 +27,7 @@
 }
 
 .nav-link:focus {
-    color: $gray;
+    color: $gray-tpu;
 }
 
 .navbar-expand-md .navbar-nav .nav-link {
@@ -40,7 +40,7 @@
 .nav__link {
     align-self: center;
 
-    color: $gray;
+    color: $gray-tpu;
     text-decoration: none;
 
     &:hover {
@@ -48,6 +48,7 @@
 
         color: $white;
         cursor: pointer;
+        text-decoration: none;
     }
 
     &.active {

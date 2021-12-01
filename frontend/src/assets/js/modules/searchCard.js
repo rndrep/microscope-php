@@ -1,85 +1,48 @@
+import { param } from "jquery";
 import { getResource } from "../services/services.js";
 import { postData } from "../services/services.js";
 import Card from "./card";
 
 export function searchCard(urlResource) {
-    const url = "/rock-list";
-    let rocksSearchBtn = document.getElementById("rocksSearchBtn"),
-        mineralsSearchBtn = document.getElementById("mineralsSearchBtn"),
-        fossilsSearchBtn = document.getElementById("fossilsSearchBtn"),
-        cardsRow = document.querySelector(".cards__row");
+    const urlRocks = "/rock-list";
+    const urlMinerals = "/mineral-list";
+    const urlFossils = "/fossil-list";
 
-    let rocksSearchForm = document.querySelector("#rocksSearchForm"),
+    let rocksTab = document.getElementById("rocksTab"),
+        mineralsTab = document.getElementById("mineralsTab"),
+        fossilsTab = document.getElementById("fossilsTab"),
+        cardsRow = document.querySelector(".cards__row"),
+        rocksSearchForm = document.querySelector("#rocksSearchForm"),
         mineralsSearchForm = document.querySelector("#mineralsSearchForm"),
         fossilsSearchForm = document.querySelector("#fossilsSearchForm"),
         statusMessage = document.createElement("div");
 
-    statusMessage.classList.add("status");
+    //TODO: отрисовать все карточки породы и минералы
 
-    //получить все карточки
-    getResource(url)
-        // TODO: отрисовать все
-        .then((data) => {
-            const cards = data.data;
-            cards.forEach(
-                ({ photo, name, info_url, microscope_url, model_3d }) => {
-                    //new card
-                    // TODO: добавить 3д ссылку
-                    new Card(photo, name, info_url, microscope_url).render();
-                }
-            );
-        });
+    function searchCard(form, urlResource) {
+        let formData = new FormData(form);
 
-    rocksSearchBtn.addEventListener("click", function (e) {
-        sendForm(rocksSearchForm, url);
-    });
+        const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
-    mineralsSearchBtn.addEventListener("click", function (e) {
-        sendForm(mineralsSearchForm, url);
-    });
+        postData(urlResource, jsonData)
+            .then((data) => {
+                createCards(data);
+            })
+            .then(() => console.log("Отправлено"))
+            .then(() => {
+                statusMessage.innerHTML = "успешно";
+            })
+            .catch(() => (statusMessage.innerHTML = "не получилось"));
+    }
 
-    fossilsSearchBtn.addEventListener("click", function (e) {
-        sendForm(fossilsSearchForm, url);
-    });
-
-    function sendForm(form, urlResource) {
-        form.addEventListener("submit", function (event) {
-            let formData = new FormData(form);
-
-            event.preventDefault();
-
-            const jsonData = JSON.stringify(
-                Object.fromEntries(formData.entries())
-            );
-
-            postData(urlResource, jsonData)
-                .then((data) => {
-                    clearCards();
-                    const cards = data.data;
-                    cards.forEach(
-                        ({
-                            photo,
-                            name,
-                            info_url,
-                            microscope_url,
-                            model_3d,
-                        }) => {
-                            //new card
-                            // TODO: добавить 3д ссылку
-                            new Card(
-                                photo,
-                                name,
-                                info_url,
-                                microscope_url
-                            ).render();
-                        }
-                    );
-                })
-                .then(() => console.log("Отправлено"))
-                .then(() => {
-                    statusMessage.innerHTML = "успешно";
-                })
-                .catch(() => (statusMessage.innerHTML = "не получилось"));
+    function createCards(data) {
+        clearCards();
+        const cards = data.data;
+        console.log(cards);
+        cards.forEach(({ photo, name, info_url, microscope_url, model_3d }) => {
+            //new card
+            // TODO: добавить 3д ссылку
+            new Card(photo, name, info_url, microscope_url).render();
         });
     }
 
@@ -88,6 +51,29 @@ export function searchCard(urlResource) {
             cardsRow.removeChild(cardsRow.firstChild);
         }
     }
+
+    rocksSearchForm.submit = () => {
+        // e.preventDefault();
+
+        searchCard(rocksSearchForm, urlRocks);
+    };
+    // mineralsSearchForm.submit = () => {
+    //     searchCard(mineralsSearchForm, urlMinerals);
+    // };
+
+    // rocksSearchForm.addEventListener("submit", (e) => {
+    //     e.preventDefault();
+
+    //     searchCard(rocksSearchForm, urlRocks);
+    // });
+
+    rocksTab.addEventListener("show.bs.tab", () => {
+        searchCard(rocksSearchForm, urlRocks);
+    });
+
+    // mineralsTab.addEventListener("show.bs.tab", () => {
+    //     searchCard(mineralsSearchForm, urlMinerals);
+    // });
 
     // после нажатия кнопки поиск с id порода/минерал/окаменелость
     // отправить форму методом пост

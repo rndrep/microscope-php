@@ -21,7 +21,7 @@
                     <div class="tabs">
                         <ul
                             class="nav nav-tabs tabs__nav"
-                            id="myTab"
+                            id="navTabs"
                             role="tablist"
                         >
                             <!-- Rocks tab -->
@@ -209,29 +209,11 @@
                                             </select>
                                         </div>
                                         <!-- Породообразующие минералы -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Породообразующие минералы
-                                            </label>
-                                            <select
-                                                name="rockFormingMinerals"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                <option value="1">
-                                                    оливин
-                                                </option>
-                                                <option value="2">
-                                                    пироксен
-                                                </option>
-                                                <option value="3">
-                                                    ортопироксен
-                                                </option>
-                                            </select>
-                                        </div>
+                                       
                                     </div>
+                                    
+                                    <!-- <div class="d-flex justify-content-center mb-3"><a id="" href="#">Отменить выбор</a></div> -->
+
                                     <div class="search__btn">
                                         <button
                                             id="rocksSearchBtn"
@@ -252,7 +234,7 @@
                                 aria-labelledby="mineralsTab"
                             >
                                 <!-- Minerals search-form-->
-                                <form>
+                                <form id="mineralsSearchForm">
                                     <div
                                         class="
                                             search__fields
@@ -354,7 +336,7 @@
                                 aria-labelledby="fossilsTab"
                             >
                                 <!-- Fossils search-form-->
-                                <form>
+                                <form id="mineralsSearchForm">
                                     <div
                                         class="
                                             search__fields
