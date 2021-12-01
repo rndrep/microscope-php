@@ -25,6 +25,9 @@
             <div class="form-group">
               @include('admin.input-microscope')
             </div>
+            <div class="form-group">
+              @include('admin.input-gallery')
+            </div>
             @foreach($fields as $field)
               <div class="form-group">
                 <label for="inputName">{{$field->getCaption()}}</label>

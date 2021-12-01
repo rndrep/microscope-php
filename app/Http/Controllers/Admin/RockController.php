@@ -26,11 +26,11 @@ class RockController extends Controller
 
     const ITEMS_PER_PAGE = 2;
     const SEARCH_FIELDS = [
-        'rockName' => 'name',
-        'rockType' => 'rock_type_id',
-        'rockClass' => 'rock_class_id',
-        'rockKind' => 'rock_kind_id',
-        'rockFormingMinerals' => 'forming_mineral_id',
+        'rockName' => ['prop' => 'name', 'strict' => false],
+        'rockType' => ['prop' => 'rock_type_id', 'strict' => true],
+        'rockClass' => ['prop' => 'rock_class_id', 'strict' => true],
+        'rockKind' => ['prop' => 'rock_kind_id', 'strict' => true],
+        'rockFormingMinerals' => ['prop' => 'forming_mineral_id', 'strict' => true],
     ];
 
     /**
@@ -57,7 +57,11 @@ class RockController extends Controller
                 $query->whereIn('id', $rockIdByFormingMineral);
                 continue;
             }
-            $query->where(self::SEARCH_FIELDS[$key], $value);
+            if (self::SEARCH_FIELDS[$key]['strict']) {
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], $value);
+            } else {
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], 'LIKE', '%' . $value . '%');
+            }
         }
 
         if (!Auth::check()) {
@@ -120,7 +124,15 @@ class RockController extends Controller
             abort(404);
         }
         $microRoute = Rock::getMicroscopeUrl($id);
-        return view('dist.rock', ['item' => $rock, 'microscopeRoute' => $microRoute]);
+        return view('dist.rock',
+            [
+                'item' => $rock,
+//TODO: Rock::getInfoFields()
+//                'fields' => $item->getInfoFields(),
+                'microscopeRoute' => $microRoute,
+                'gallery' => $rock::getPhotoPaths(Rock::GALLERY_PATH . $rock->id),
+            ]
+        );
     }
 
     public function create()
@@ -167,6 +179,8 @@ class RockController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+
+        $item->uploadGallery($request->file('gallery') ?? []);
 
         return redirect()->route('rocks.index');
     }
@@ -238,6 +252,7 @@ class RockController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+        $item->uploadGallery($request->file('gallery') ?? []);
 
         return redirect()->route('rocks.index');
     }
@@ -255,8 +270,8 @@ class RockController extends Controller
         }
         $publicPath = Rock::MICRO_PATH . $id . '/';
         $photos = [
-            'ppl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'ppl'),
-            'xpl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'xpl'),
+            'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
             'smooth' => true,
             'shift' => 5,
         ];

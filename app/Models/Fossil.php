@@ -14,6 +14,7 @@ class Fossil extends AbstractMediaEntity
     const ENTITY_NAME = 'fossils';
 
     const MICRO_PATH = '/images/fossils/micro/';
+    const GALLERY_PATH = '/images/fossils/gallery/';
 
     public function __construct(array $attributes = [])
     {

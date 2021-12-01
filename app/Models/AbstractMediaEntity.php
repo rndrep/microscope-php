@@ -27,7 +27,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
         parent::__construct($attributes);
     }
 
-    public static function getMicroPhotoPaths(string $publicPath): array
+    public static function getPhotoPaths(string $publicPath): array
     {
         $path = $publicPath;
         if (!is_dir(public_path($path))) {
@@ -68,28 +68,11 @@ abstract class AbstractMediaEntity extends AbstractEntity
         }
 
         // TODO: check that save and remove in correct path
-        // replace Storage::delete by deleteImage()
         $this->deleteImage($this->imagePathDetail . $this->photo);
         $filename = $this->getKey() . '.' . $photo->extension();
         $photo->storeAs($this->imagePathDetail, $filename);
         $this->photo = $filename;
         return $this;
-    }
-
-    /** TODO: remove image by path param */
-    public function deleteImage($path)
-    {
-        if (!empty($path) && file_exists(public_path($path))) {
-            Storage::delete($path);
-        }
-    }
-
-    public function remove()
-    {
-        $this->deleteImage($this->imagePathDetail . $this->photo);
-        //remove gallery and microscope photos;
-        Storage::deleteDirectory($this->imagePathMicro . $this->id);
-        Storage::deleteDirectory($this->imagePathGallery . $this->id);
     }
 
     /**
@@ -112,6 +95,43 @@ abstract class AbstractMediaEntity extends AbstractEntity
         }
     }
 
+    //TODO: don't delete all photos. Need to add ability to add and remove one photo.
+
+    public function uploadGallery(array $photos)
+    {
+        $path = $this->imagePathGallery . $this->id;
+        Storage::deleteDirectory($path);
+        if (count($photos) > 0) {
+            $this->saveImages2Dir($photos, $path);
+        }
+    }
+
+    public static function getMicroscopeUrl($id): string
+    {
+        return is_dir(public_path(static::MICRO_PATH . $id . '/ppl'))
+            ? route('microscope', ['id' => $id, 'type' => 'rock'])
+            : '';
+    }
+
+    public function getGallery()
+    {
+
+    }
+
+    public function remove()
+    {
+        $this->deleteImage($this->imagePathDetail . $this->photo);
+        Storage::deleteDirectory($this->imagePathMicro . $this->id);
+        Storage::deleteDirectory($this->imagePathGallery . $this->id);
+    }
+
+    public function deleteImage($path)
+    {
+        if (!empty($path) && file_exists(public_path($path))) {
+            Storage::delete($path);
+        }
+    }
+
     /**
      * @param UploadedFile[] $items
      * @param string $path
@@ -128,16 +148,5 @@ abstract class AbstractMediaEntity extends AbstractEntity
     {
         return is_dir($dirPath) || Storage::makeDirectory($dirPath);
     }
-
-    public static function getMicroscopeUrl($id): string
-    {
-        return is_dir(public_path(static::MICRO_PATH . $id . '/ppl'))
-            ? route('microscope', ['id' => $id, 'type' => 'rock'])
-            : '';
-    }
-
-    //TODO: gallery
-
-
 
 }

@@ -37,6 +37,9 @@
             @include('admin.input-microscope')
           </div>
           <div class="form-group">
+            @include('admin.input-gallery')
+          </div>
+          <div class="form-group">
             <label for="inputName">Название *</label>
             <input type="text" class="form-control" id="inputName" placeholder="" name="name" value="{{old('name')}}"
               required oninvalid="this.setCustomValidity('Обязательное поле')" oninput="setCustomValidity('')">

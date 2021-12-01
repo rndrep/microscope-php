@@ -52,20 +52,11 @@ export function searchCard(urlResource) {
         }
     }
 
-    rocksSearchForm.submit = () => {
-        // e.preventDefault();
+    rocksSearchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
 
         searchCard(rocksSearchForm, urlRocks);
-    };
-    // mineralsSearchForm.submit = () => {
-    //     searchCard(mineralsSearchForm, urlMinerals);
-    // };
-
-    // rocksSearchForm.addEventListener("submit", (e) => {
-    //     e.preventDefault();
-
-    //     searchCard(rocksSearchForm, urlRocks);
-    // });
+    });
 
     rocksTab.addEventListener("show.bs.tab", () => {
         searchCard(rocksSearchForm, urlRocks);

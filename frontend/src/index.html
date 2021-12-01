@@ -114,14 +114,11 @@
                                                 <option
                                                     data-placeholder="true"
                                                 ></option>
-                                                <option>магматический</option>
-
-                                                <option>метаморфический</option>
-                                                <option>осадочный</option>
-                                                <option value="1">
-                                                    осадоsdfчный
-                                                </option>
-                                                <option>sdfsdfsdfsdf</option>
+                                                @foreach($rockTypes as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <!-- Класс -->
@@ -135,30 +132,11 @@
                                                 <option
                                                     data-placeholder="true"
                                                 ></option>
-                                                <option value="1">
-                                                    плутонический
-                                                </option>
-                                                <option value="2">
-                                                    вулканический
-                                                </option>
-                                                <option value="3">
-                                                    гипабиссальный
-                                                </option>
-                                                <option value="4">
-                                                    контактовый
-                                                </option>
-                                                <option value="5">
-                                                    региональный
-                                                </option>
-                                                <option value="6">
-                                                    обломочный
-                                                </option>
-                                                <option value="7">
-                                                    хемогенный
-                                                </option>
-                                                <option value="8">
-                                                    органогенный
-                                                </option>
+                                                @foreach($rockClasses as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <!-- Вид -->
@@ -173,43 +151,32 @@
                                                 <option
                                                     data-placeholder="true"
                                                 ></option>
-                                                <option value="1">
-                                                    гранит
-                                                </option>
-                                                <option value="2">
-                                                    риолит
-                                                </option>
-                                                <option value="3">
-                                                    гранит-порфир
-                                                </option>
-                                                <option value="4">
-                                                    роговик хистатолитовый
-                                                </option>
-                                                <option value="5">
-                                                    гнейс биотитовый
-                                                </option>
-                                                <option value="6">
-                                                    гнейс биотитовый
-                                                </option>
-                                                <option value="7">
-                                                    эклогит
-                                                </option>
-                                                <option value="8">
-                                                    псаммитолиты (песчаные)
-                                                </option>
-                                                <option value="9">
-                                                    пелитолиты (глинистые)
-                                                </option>
-                                                <option value="10">
-                                                    алюминиевый
-                                                </option>
-                                                <option value="11">
-                                                    карбонатный
-                                                </option>
+                                                @foreach($rockKinds as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <!-- Породообразующие минералы -->
-                                       
+                                        <div class="col">
+                                            <label class="form-label"
+                                                >Породообразующие минералы
+                                            </label>
+                                            <select
+                                                name="rockFormingMinerals"
+                                                class="select-single"
+                                            >
+                                                <option
+                                                    data-placeholder="true"
+                                                ></option>
+                                                @foreach($minerals as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     
                                     <!-- <div class="d-flex justify-content-center mb-3"><a id="" href="#">Отменить выбор</a></div> -->
@@ -255,51 +222,35 @@
                                                 class="form-control"
                                             />
                                         </div>
-
                                         <div class="col">
                                             <label class="form-label"
                                                 >Класс/подкласс </label
-                                            ><select
-                                                name="mineralClass"
-                                                class="select-single"
                                             >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                <option>
-                                                    самородные элементы
-                                                </option>
-                                            </select>
+                                            <input
+                                                name="mineralName"
+                                                type="text"
+                                                class="form-control"
+                                            />
                                         </div>
                                         <div class="col">
                                             <label class="form-label"
                                                 >Облик кристаллов </label
-                                            ><select
-                                                name="mineralCrystalForm"
-                                                class="select-single"
                                             >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                <option>
-                                                    в кристаллах встречается
-                                                    редко
-                                                </option>
-                                                <option>пластинчатый</option>
-                                            </select>
+                                            <input
+                                                name="mineralName"
+                                                type="text"
+                                                class="form-control"
+                                            />
                                         </div>
                                         <div class="col">
                                             <label class="form-label"
                                                 >Блеск</label
-                                            ><select
-                                                name="mineralShine"
-                                                class="select-single"
                                             >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                <option>металлический</option>
-                                            </select>
+                                            <input
+                                                name="mineralName"
+                                                type="text"
+                                                class="form-control"
+                                            />
                                         </div>
                                         <div class="col">
                                             <label class="form-label"
@@ -311,8 +262,11 @@
                                                 <option
                                                     data-placeholder="true"
                                                 ></option>
-                                                <option>несовершенная</option>
-                                                <option>совершенная</option>
+                                                @foreach($splitting as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -367,9 +321,11 @@
                                                 <option
                                                     data-placeholder="true"
                                                 ></option>
-                                                <option>археоциаты</option>
-                                                <option>саркодовые</option>
-                                                <option>губки</option>
+                                                @foreach($invertebrates as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col">
@@ -383,9 +339,11 @@
                                                 <option
                                                     data-placeholder="true"
                                                 ></option>
-                                                <option>Неоген</option>
-                                                <option>Палеоген</option>
-                                                <option>Мел</option>
+                                                @foreach($indexFossils as $value => $caption)
+                                                    <option value={{$value}}>
+                                                        {{$caption}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -411,7 +369,7 @@
 	<div class="container">
 		<!-- Cards__row -->
 		<div class="cards__row row row-cols-1 row-cols-md-2 row-cols-lg-3">
-			
+
 
 			<!-- ./ Cards__row -->
 	</div>
