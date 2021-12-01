@@ -18,11 +18,11 @@ class MineralController extends Controller
     //TODO: move ITEMS_PER_PAGE into some common place?
     const ITEMS_PER_PAGE = 12;
     const SEARCH_FIELDS = [
-        'mineralName' => 'name',
-        'mineralClass' => 'class',
-        'mineralCrystalForm' => 'crystal_form',
-        'mineralShine' => 'shine',
-        'mineralSplitting' => 'splitting_id',
+        'mineralName' => ['prop' => 'name', 'strict' => false],
+        'mineralClass' => ['prop' => 'class', 'strict' => false],
+        'mineralCrystalForm' => ['prop' => 'crystal_form', 'strict' => false],
+        'mineralShine' => ['prop' => 'shine', 'strict' => false],
+        'mineralSplitting' => ['prop' => 'splitting_id', 'strict' => true],
     ];
 
     /**
@@ -36,12 +36,18 @@ class MineralController extends Controller
         $params = $request->json()->all();
         $params = array_intersect_key($params, self::SEARCH_FIELDS);
         $query = Mineral::query();
+
         foreach ($params as $key => $value) {
             if (empty($value)) {
                 continue;
             }
-            $query->where(self::SEARCH_FIELDS[$key], $value);
+            if (self::SEARCH_FIELDS[$key]['strict']) {
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], $value);
+            } else {
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], 'LIKE', '%' . $value . '%');
+            }
         }
+
         $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
         $result->map(function ($item) {
             $item->microscope_url = Mineral::getMicroscopeUrl($item->id);

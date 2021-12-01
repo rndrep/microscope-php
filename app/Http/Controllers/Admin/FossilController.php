@@ -14,9 +14,9 @@ class FossilController extends Controller
 
     const ITEMS_PER_PAGE = 12;
     const SEARCH_FIELDS = [
-        'fossilName' => 'name',
-        'invertebrate' => 'invertebrate_id',
-        'indexFossil' => 'index_fossil_id',
+        'fossilName' => ['prop' => 'name', 'strict' => false],
+        'invertebrate' => ['prop' => 'invertebrate_id', 'strict' => true],
+        'indexFossil' => ['prop' => 'index_fossil_id', 'strict' => true],
     ];
 
     /**
@@ -30,12 +30,18 @@ class FossilController extends Controller
         $params = $request->json()->all();
         $params = array_intersect_key($params, self::SEARCH_FIELDS);
         $query = Fossil::query();
+
         foreach ($params as $key => $value) {
             if (empty($value)) {
                 continue;
             }
-            $query->where(self::SEARCH_FIELDS[$key], $value);
+            if (self::SEARCH_FIELDS[$key]['strict']) {
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], $value);
+            } else {
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], 'LIKE', '%' . $value . '%');
+            }
         }
+
         $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
         $result->map(function ($item) {
             $item->microscope_url = '';
