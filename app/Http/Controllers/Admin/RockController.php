@@ -124,7 +124,15 @@ class RockController extends Controller
             abort(404);
         }
         $microRoute = Rock::getMicroscopeUrl($id);
-        return view('dist.rock', ['item' => $rock, 'microscopeRoute' => $microRoute]);
+        return view('dist.rock',
+            [
+                'item' => $rock,
+//TODO: Rock::getInfoFields()
+//                'fields' => $item->getInfoFields(),
+                'microscopeRoute' => $microRoute,
+                'gallery' => $rock::getPhotoPaths(Rock::GALLERY_PATH . $rock->id),
+            ]
+        );
     }
 
     public function create()
@@ -171,6 +179,8 @@ class RockController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+
+        $item->uploadGallery($request->file('gallery') ?? []);
 
         return redirect()->route('rocks.index');
     }
@@ -242,6 +252,7 @@ class RockController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+        $item->uploadGallery($request->file('gallery') ?? []);
 
         return redirect()->route('rocks.index');
     }
@@ -259,8 +270,8 @@ class RockController extends Controller
         }
         $publicPath = Rock::MICRO_PATH . $id . '/';
         $photos = [
-            'ppl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'ppl'),
-            'xpl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'xpl'),
+            'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
             'smooth' => true,
             'shift' => 5,
         ];

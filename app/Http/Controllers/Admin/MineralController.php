@@ -90,6 +90,7 @@ class MineralController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
         return redirect()->route('minerals.index');
     }
@@ -121,6 +122,7 @@ class MineralController extends Controller
             $request->file('pplPhotos') ?? [],
             $request->file('xplPhotos') ?? []
         );
+        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
 
         return redirect()->route('minerals.index');
@@ -147,8 +149,8 @@ class MineralController extends Controller
         }
         $publicPath = AbstractMediaEntity::IMAGE_PATH_MINERAL_MICRO . $id . '/';
         $photos = [
-            'ppl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'ppl'),
-            'xpl' => AbstractMediaEntity::getMicroPhotoPaths($publicPath . 'xpl'),
+            'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
             'smooth' => false,
             'shift' => 10,
         ];
@@ -169,7 +171,14 @@ class MineralController extends Controller
         $microRoute = is_dir(public_path(AbstractMediaEntity::IMAGE_PATH_MINERAL_MICRO . $id . '/ppl'))
             ? route('microscope', ['id' => $id, 'type' => 'mineral'])
             : '';
-        return view('dist.mineral', ['item' => $item, 'fields' => $item->getInfoFields(), 'microscopeRoute' => $microRoute]);
+        return view('dist.mineral',
+            [
+                'item' => $item,
+                'fields' => $item->getInfoFields(),
+                'microscopeRoute' => $microRoute,
+                'gallery' => $item::getPhotoPaths(Mineral::GALLERY_PATH . $item->id),
+            ]
+        );
     }
 
 }

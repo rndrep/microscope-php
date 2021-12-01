@@ -79,10 +79,7 @@ class FossilController extends Controller
 
         $item = Fossil::add($request->all());
         $item->uploadPhoto($request->file('photo'));
-        $item->uploadMicroscope(
-            $request->file('pplPhotos') ?? [],
-            $request->file('xplPhotos') ?? []
-        );
+        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
         return redirect()->route('fossils.index');
     }
@@ -109,6 +106,7 @@ class FossilController extends Controller
         $item = Fossil::find($id);
         $item->update($request->all());
         $item->uploadPhoto($request->file('photo'));
+        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
         return redirect()->route('fossils.index');
     }
@@ -138,7 +136,13 @@ class FossilController extends Controller
         if (empty($item)) {
             return false;
         }
-        return view('dist.mineral', ['item' => $item, 'fields' => $item->getInfoFields()]);
+        return view('dist.mineral',
+            [
+                'item' => $item,
+                'fields' => $item->getInfoFields(),
+                'gallery' => $item::getPhotoPaths(Fossil::GALLERY_PATH . $item->id),
+            ]
+        );
     }
 
 }

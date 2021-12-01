@@ -22,6 +22,9 @@
                 <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
               </div>
             </div>
+            <div class="form-group">
+              @include('admin.input-gallery')
+            </div>
             @foreach($fields as $field)
               <div class="form-group">
                 <label for="inputName">{{$field->getCaption()}}</label>

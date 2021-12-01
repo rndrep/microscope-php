@@ -15,6 +15,7 @@ class Rock extends AbstractMediaEntity
     use HasFactory;
 
     const MICRO_PATH = '/images/rocks/micro/';
+    const GALLERY_PATH = '/images/rocks/gallery/';
 
     public function __construct(array $attributes = [])
     {
