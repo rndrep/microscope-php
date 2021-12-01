@@ -11,14 +11,44 @@ use Illuminate\Http\Request;
 
 class FossilController extends Controller
 {
-    //TODO: replace fossils templates by common
-    //TODO: remove old fossils templates
+
+    const ITEMS_PER_PAGE = 12;
+    const SEARCH_FIELDS = [
+        'fossilName' => 'name',
+        'invertebrate' => 'invertebrate_id',
+        'indexFossil' => 'index_fossil_id',
+    ];
+
+    /**
+     * Get items for search page
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function list(Request $request)
+    {
+        $params = $request->json()->all();
+        $params = array_intersect_key($params, self::SEARCH_FIELDS);
+        $query = Fossil::query();
+        foreach ($params as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            $query->where(self::SEARCH_FIELDS[$key], $value);
+        }
+        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+        $result->map(function ($item) {
+            $item->microscope_url = '';
+            $item->info_url = route('fossil_info', $item->id);
+            return $item;
+        });
+        return $result;
+    }
+
     public function index()
     {
         $items = Fossil::orderBy('name')->get();
         return view('admin.fossils.index', [
-//            'entityCaption' => Fossil::ENTITY_CAPTION,
-//            'entityName' => Fossil::ENTITY_NAME,
             'items' => $items,
             'fields' => Fossil::getInputs()]);
     }
