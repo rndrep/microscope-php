@@ -13,6 +13,7 @@ class Fossil extends AbstractMediaEntity
     const ENTITY_CAPTION = 'Окаменелости';
     const ENTITY_NAME = 'fossils';
 
+    const PHOTO_INFO_PATH = '/images/fossils/detail/';
     const MICRO_PATH = '/images/fossils/micro/';
     const GALLERY_PATH = '/images/fossils/gallery/';
 

@@ -14,6 +14,7 @@ class Rock extends AbstractMediaEntity
 {
     use HasFactory;
 
+    const PHOTO_INFO_PATH = '/images/rocks/detail/';
     const MICRO_PATH = '/images/rocks/micro/';
     const GALLERY_PATH = '/images/rocks/gallery/';
 

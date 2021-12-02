@@ -19,6 +19,7 @@ class Mineral extends AbstractMediaEntity
     const ENTITY_CAPTION = 'Минералы';
     const ENTITY_NAME = 'minerals';
 
+    const PHOTO_INFO_PATH = '/images/minerals/detail/';
     const MICRO_PATH = '/images/minerals/micro/';
     const GALLERY_PATH = '/images/minerals/gallery/';
 

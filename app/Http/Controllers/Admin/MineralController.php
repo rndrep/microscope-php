@@ -50,6 +50,7 @@ class MineralController extends Controller
 
         $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
         $result->map(function ($item) {
+            $item->photo = $item->getPhoto();
             $item->microscope_url = Mineral::getMicroscopeUrl($item->id);
             $item->info_url = route('mineral_info', $item->id);
             return $item;

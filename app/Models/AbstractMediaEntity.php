@@ -16,6 +16,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
     protected $guarded = ['photo', 'gallery', 'ppl', 'xpl'];
 
     const IMAGE_PATH_MINERAL_MICRO = '/images/rocks/micro/';
+    const PHOTO_INFO_PATH = '';
     const MICRO_PATH = '';
 
 
@@ -52,7 +53,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
         if (empty($this->photo)) {
             return '/img/no-image.png';
         }
-        return $this->imagePathDetail . $this->photo . '?' . time();
+        return env('APP_URL') . $this->imagePathDetail . $this->photo . '?' . time();
     }
 
     /**
