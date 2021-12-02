@@ -11,7 +11,7 @@
           <!-- Card -->
           <div class="card mt-3">
             <div class="card-header">
-              <h3 class=" ">Породы</h3>
+              <h3>Породы</h3>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -20,8 +20,7 @@
               <div class="dataTables_wrapper">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table id="example1"
-                      class="table table-responsive table-bordered table-hover dataTable text-center">
+                    <table class="table table-responsive table-bordered table-hover dataTable text-center">
                       <thead>
                         <tr>
                           <th>Действия</th>
@@ -80,6 +79,7 @@
                         </tr>
                         @endforeach
                         </tfoot>
+                      </tbody>
                     </table>
                   </div>
                 </div>

@@ -25,7 +25,8 @@ class InputField
      */
     public function getCaption()
     {
-        return $this->caption . ($this->required ? ' *' : '');
+        // TODO: сделать нормально
+        return $this->caption . ($this->required ? ' <span class="required-field">*</span>' : '');
     }
 
     /**
@@ -73,7 +74,4 @@ class InputField
         $this->isDict = !$this->isDict;
         return $this;
     }
-
-
-
 }

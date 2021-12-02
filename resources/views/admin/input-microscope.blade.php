@@ -1,10 +1,11 @@
-<label>Микроскоп</label>
 <div class="row">
-  <div class="col-sm-6">
+  <label class="card-title">Микроскоп</label>
+
+  <div class="col">
     <div>PPL</div>
     <input type="file" name="pplPhotos[]" multiple>
   </div>
-  <div class="col-sm-6">
+  <div class="col">
     <div>XPL</div>
     <input type="file" name="xplPhotos[]" multiple>
   </div>

@@ -17,6 +17,23 @@ export function searchCard(urlResource) {
         fossilsSearchForm = document.querySelector("#fossilsSearchForm"),
         statusMessage = document.createElement("div");
 
+    if (cardsRow) {
+        try {
+            rocksSearchForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                searchCard(rocksSearchForm, urlRocks);
+            });
+        } catch (error) {}
+    }
+
+    if (cardsRow) {
+        try {
+            rocksTab.addEventListener("show.bs.tab", () => {
+                searchCard(rocksSearchForm, urlRocks);
+            });
+        } catch (error) {}
+    }
     //TODO: отрисовать все карточки породы и минералы
 
     function searchCard(form, urlResource) {
@@ -51,16 +68,6 @@ export function searchCard(urlResource) {
             cardsRow.removeChild(cardsRow.firstChild);
         }
     }
-
-    rocksSearchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        searchCard(rocksSearchForm, urlRocks);
-    });
-
-    rocksTab.addEventListener("show.bs.tab", () => {
-        searchCard(rocksSearchForm, urlRocks);
-    });
 
     // mineralsTab.addEventListener("show.bs.tab", () => {
     //     searchCard(mineralsSearchForm, urlMinerals);

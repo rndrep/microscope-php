@@ -11,7 +11,6 @@ class InfoField
     {
         $this->caption = $caption;
         $this->value = $value;
-
     }
 
     /**
@@ -29,5 +28,4 @@ class InfoField
     {
         return $this->value;
     }
-
 }

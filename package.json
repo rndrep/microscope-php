@@ -23,6 +23,6 @@
     },
     "dependencies": {
         "admin-lte": "^3.1.0",
-        "bootstrap": "^4.0.0"
+        "bootstrap": "^4.6.1"
     }
 }

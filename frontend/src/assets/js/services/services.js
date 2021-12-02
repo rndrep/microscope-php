@@ -44,6 +44,7 @@ const postData = async (urlResource, data) => {
         body: data,
         headers: {
             "Content-type": "application/json",
+            Accept: "application/json",
         },
     });
 
