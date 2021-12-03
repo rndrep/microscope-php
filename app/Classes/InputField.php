@@ -2,42 +2,25 @@
 
 namespace App\Classes;
 
-class InputField
+use App\View\Input\AbstractField;
+
+class InputField extends AbstractField
 {
-    private $caption;
-    private $prop;
-    private $type;
-    private $required;
-    private $requiredTip;
-    private $isDict = false;
+
+    protected $type;
+//    private $isDict = false;
 
     public function __construct($caption, $property, $type, $required = false, $requiredTip = 'Обязательное поле')
     {
-        $this->caption = $caption;
-        $this->prop = $property;
         $this->type = $type;
-        $this->required = $required;
-        $this->requiredTip = $requiredTip;
+        parent::__construct($caption, $property, $required, $requiredTip);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCaption()
+    protected function init()
     {
-        // TODO: сделать нормально
-        return $this->caption . ($this->required ? ' <span class="required-field">*</span>' : '');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProp()
-    {
-        if ($this->isDict) {
-            return sprintf('getDictionaryPropName(\'%s\')', $this->prop);
-        }
-        return $this->prop;
+        $this->viewName = 'admin.inputs.input';
+        $this->viewVars['type'] = $this->type;
+        parent::init();
     }
 
     /**
@@ -48,30 +31,17 @@ class InputField
         return $this->type;
     }
 
-    /**
-     * @return false|mixed
-     */
-    public function getRequired()
-    {
-        return $this->required;
-    }
 
-    /**
-     * @return string
-     */
-    public function getRequiredTip(): string
-    {
-        return $this->requiredTip;
-    }
-
-    public function isDict(): bool
-    {
-        return $this->isDict;
-    }
-
-    public function toggleDict(): self
-    {
-        $this->isDict = !$this->isDict;
-        return $this;
-    }
+//    methods maybe for dropdown
+//
+//    public function isDict(): bool
+//    {
+//        return $this->isDict;
+//    }
+//
+//    public function toggleDict(): self
+//    {
+//        $this->isDict = !$this->isDict;
+//        return $this;
+//    }
 }

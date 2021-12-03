@@ -35,17 +35,7 @@
                   @include('admin.input-gallery')
                 </div>
                 @foreach($fields as $field)
-                <div class="form-group">
-                  <label for="inputName">{{$field->getCaption()}}</label>
-                  <input type="{{$field->getType()}}" class="form-control" id="inputName" placeholder=""
-                    name="{{$field->getProp()}}" @if($field->getRequired())
-                  required
-                  oninvalid="this.setCustomValidity('{{ $field->getRequiredTip() }}')"
-                  oninput="setCustomValidity('')"
-                  @endif
-                  {{$field->getType() == 'number' ? 'step=any' : ''}}
-                  >
-                </div>
+                  {!! $field->getHtml() !!}
                 @endforeach
                 <div class="form-group">
                   <label>Сингония</label>
