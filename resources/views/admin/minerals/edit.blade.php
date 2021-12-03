@@ -21,25 +21,62 @@
             <!-- Card-body -->
             <div class="card-body">
               <div class="row">
-                <div class="col-6">
+                <!-- Photo -->
+                <div class="col-4">
                   <div class="form-group">
-                    <label class="card-title" for="inputPhoto">Картинка</label>
-                    <img src="{{$item->getPhoto()}}" alt="" class="row card-img img-responsive" width="200">
-                    <input type="file" id="inputPhoto" name="photo">
+                    <label for="inputPhoto">Картинка</label>
+                    <!-- <img src="{{$item->getPhoto()}}" alt="" class="card-img img-responsive"> -->
+                    <div type="file" class="dropzone" id="photoDropzone" name="photo">
+                      <div class="dz-message needsclick">
+                        <div <p>Перенесите файл сюда или нажмите для загрузки
+                          </p>
+                          <span>Загрузите 1 файл</span>
+                        </div>
+                      </div>
+                    </div>
+
                     {{-- <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto" name="photo"
                         style="display:none"></label>--}}
-                    <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
+                    </input>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="form-group">
-                    @include('admin.input-microscope')
-                  </div>
-                </div>
-                <div class="col">
+                <!-- ./ Photo -->
+
+                <!-- Gallery -->
+                <div class="col-8">
                   <div class="form-group">
                     @include('admin.input-gallery')
+                    <div type="file" class="dropzone" id="galleryDropzone" name="gallery">
+                      <div class="d-flex justify-content-center"> <a
+                          class="dropzone-remove-all btn btn-sm btn-outline-dark">
+                          Удалить все
+                        </a></div>
+                      <div class="dz-message needsclick">
+                        <div <p>Перенесите файлы сюда или нажмите для загрузки
+                          </p>
+                          <span>Загрузите до 10 файлов</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </div>
+                <!-- ./ Gallery -->
+              </div>
+
+
+              <div class="row justify-content-center">
+                <div class="col">
+                  <!-- Micro-photos -->
+                  <div class="form-group">
+                    @include('admin.input-microscope')
+                    <p>PPL</p>
+                    <div type="file" class="dropzone microDropzone" name="photo">
+                    </div>
+                    <p>XPL</p>
+                    <div type="file" class="dropzone microDropzone" name="photo">
+                    </div>
+                  </div>
+                  <!-- ./ Micro-photos -->
                 </div>
               </div>
 
@@ -85,17 +122,17 @@
               </div>
               <!-- Card-body -->
             </div>
-            <!-- Card-footer -->
-            <div class="card-footer">
-              <a href="{{ url()->previous() }}" class="btn btn-default">Назад</a>
-              <button class="btn btn-warning pull-right">Изменить</button>
-            </div>
-            <!-- ./ Card-footer -->
-            {!! Form::close() !!}
-
-            <!-- ./ Card -->
           </div>
+          <!-- Card-footer -->
+          <div class="card-footer">
+            <a href="{{ url()->previous() }}" class="btn btn-default">Назад</a>
+            <button class="btn btn-warning pull-right">Изменить</button>
+          </div>
+          <!-- ./ Card-footer -->
+          {!! Form::close() !!}
         </div>
+        <!-- ./ Card -->
+
       </div>
   </section>
   <!-- ./ Main content -->
