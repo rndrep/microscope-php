@@ -19,22 +19,25 @@ export function searchCard(urlResource) {
 
     if (cardsRow) {
         try {
-            rocksSearchForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-
-                searchCard(rocksSearchForm, urlRocks);
-            });
+            addFormListener(rocksSearchForm, rocksTab, urlRocks);
+            addFormListener(mineralsSearchForm, mineralsTab, urlMinerals);
+            addFormListener(fossilsSearchForm, fossilsTab, urlFossils);
         } catch (error) {}
     }
 
-    if (cardsRow) {
-        try {
-            rocksTab.addEventListener("show.bs.tab", () => {
-                searchCard(rocksSearchForm, urlRocks);
-            });
-        } catch (error) {}
+    function addFormListener(form, tab, url) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            searchCard(form, url);
+        });
+
+        tab.addEventListener("show.bs.tab", () => {
+            searchCard(form, url);
+        });
     }
-    //TODO: отрисовать все карточки породы и минералы
+
+    //TODO: отрисовать все карточки породы и минералы при загрузке
 
     function searchCard(form, urlResource) {
         let formData = new FormData(form);
@@ -42,22 +45,21 @@ export function searchCard(urlResource) {
         const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
         postData(urlResource, jsonData)
+            .then(clearCards())
             .then((data) => {
                 createCards(data);
             })
             .then(() => console.log("Отправлено"))
             .then(() => {
-                statusMessage.innerHTML = "успешно";
+                statusMessage.innerHTML = "Успешно";
             })
-            .catch(() => (statusMessage.innerHTML = "не получилось"));
+            .catch(() => (statusMessage.innerHTML = "Не отправлено"));
     }
 
     function createCards(data) {
-        clearCards();
         const cards = data.data;
-        console.log(cards);
+
         cards.forEach(({ photo, name, info_url, microscope_url, model_3d }) => {
-            //new card
             // TODO: добавить 3д ссылку
             new Card(photo, name, info_url, microscope_url).render();
         });
