@@ -7,21 +7,25 @@ abstract class AbstractField
 
     protected $caption;
     protected $prop;
+    protected $value;
     protected $required;
     protected $requiredTip;
     protected $viewName = '';
     protected $html = '';
     protected $viewVars = [];
 
-    public function __construct($caption, $property, $required = false, $requiredTip = 'Обязательное поле')
+    public function __construct($caption, $property, $value = '', $required = false, $requiredTip = 'Обязательное поле')
     {
         $this->caption = $caption;
         $this->prop = $property;
+        $this->value = $value;
         $this->required = $required;
         $this->requiredTip = $requiredTip;
+
         $this->viewVars = [
             'caption' => $this->caption,
             'prop' => $this->prop,
+            'value' => $this->value,
             'isRequired' => $this->required,
             'requiredTip' => $this->requiredTip,
         ];
@@ -54,6 +58,11 @@ abstract class AbstractField
     public function getProp()
     {
         return $this->prop;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 
     public function isRequired(): bool

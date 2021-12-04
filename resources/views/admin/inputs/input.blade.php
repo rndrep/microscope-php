@@ -7,6 +7,7 @@
     oninvalid="this.setCustomValidity('{{ $requiredTip }}')"
     oninput="setCustomValidity('')"
   @endif
+  value="{{ $value }}"
   {{$type == 'number' ? 'step=any' : ''}}
 >
 @endsection
