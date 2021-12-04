@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Classes\InfoField;
 use App\Classes\InputField;
+use App\Classes\TextareaField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -27,8 +28,8 @@ class Mineral extends AbstractMediaEntity
     {
         return [
             new InputField('Название', 'name', 'text', TRUE),
-            new InputField('Описание', 'description', 'text'),
-            new InputField('Химический состав', 'composition', 'text'),
+            new TextareaField('Описание', 'description'),
+            new TextareaField('Химический состав', 'composition'),
             new InputField('Класс/подкласс', 'class', 'text'),
             new InputField('Видео', 'video', 'text'),
             new InputField('3D', 'model_3d', 'text'),

@@ -35,7 +35,7 @@
                 <div class="form-group">
                   <label for="inputName">{{$field->getCaption()}}</label>
                   <input type="{{$field->getType()}}" class="form-control" placeholder="" name="{{$field->getProp()}}"
-                    @if($field->getRequired())
+                    @if($field->isRequired())
                   required
                   oninvalid="this.setCustomValidity('{{ $field->getRequiredTip() }}')"
                   oninput="setCustomValidity('')"
