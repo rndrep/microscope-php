@@ -13,3 +13,40 @@
 .card-img {
     margin-bottom: 16px;
 }
+
+// .dz-remove {
+//     display: inline-block !important;
+//     width: 1.2em;
+//     height: 1.2em;
+
+//     position: absolute;
+//     top: 5px;
+//     right: 5px;
+//     z-index: 1000;
+
+//     font-size: 1.2em !important;
+//     line-height: 1em;
+
+//     text-align: center;
+//     font-weight: bold;
+//     border: 1px solid gray !important;
+//     border-radius: 1.2em;
+//     color: gray;
+//     background-color: white;
+//     opacity: 0.5;
+
+//     &:hover {
+//         text-decoration: none !important;
+//         opacity: 1;
+//     }
+// }
+
+.dropzone {
+    min-height: auto;
+    padding: 1.5rem 1.75rem;
+    text-align: center;
+    cursor: pointer;
+    border: 1px dashed #00a3ff;
+    background-color: #f1faff;
+    border-radius: 0.475rem !important;
+}

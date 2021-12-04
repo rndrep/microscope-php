@@ -1,5 +1,4 @@
-<div class="row">
-  <label class="card-title">Микроскоп</label>
+  <label>Микроскоп</label>
 
   <div class="col">
     <div>PPL</div>
@@ -9,5 +8,4 @@
     <div>XPL</div>
     <input type="file" name="xplPhotos[]" multiple>
   </div>
-</div>
-<p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
+  <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
