@@ -24,33 +24,37 @@ class Mineral extends AbstractMediaEntity
     const MICRO_PATH = '/images/minerals/micro/';
     const GALLERY_PATH = '/images/minerals/gallery/';
 
-    public static function getInputs()
+    public static function getInputs($item = false)
     {
+        $item = $item ?: new class() {
+            public function __get($key) {return '';}
+        };
+
         return [
-            new InputField('Название', 'name', 'text', TRUE),
-            new TextareaField('Описание', 'description'),
-            new TextareaField('Химический состав', 'composition'),
-            new InputField('Класс/подкласс', 'class', 'text'),
-            new InputField('Видео', 'video', 'text'),
-            new InputField('3D', 'model_3d', 'text'),
-            new InputField('Разновидности', 'varieties', 'text'),
-            new InputField('Форма выделения', 'aggregates', 'text'),
-            new InputField('Черта', 'feature', 'text'),
+            new InputField('Название', 'name', 'text', $item->name, TRUE),
+            new TextareaField('Описание', 'description', $item->description),
+            new TextareaField('Химический состав', 'composition', $item->composition),
+            new InputField('Класс/подкласс', 'class', 'text', $item->class),
+            new InputField('Видео', 'video', 'text', $item->video),
+            new InputField('3D', 'model_3d', 'text', $item->model_3d),
+            new InputField('Разновидности', 'varieties', 'text', $item->varieties),
+            new InputField('Форма выделения', 'aggregates', 'text', $item->aggregates),
+            new InputField('Черта', 'feature', 'text', $item->feature),
 //            new InputField('Сингония', 'syngony', 'text'),
-            new InputField('Облик кристаллов', 'crystal_form', 'text'),
-            new InputField('Твердость', 'hardness', 'number'),
-            new InputField('Удельный вес, г/см3', 'specific_gravity', 'number'),
-            new InputField('Цвет', 'color', 'text'),
-            new InputField('Цвет черты', 'feature_color', 'text'),
-            new InputField('Блеск', 'shine', 'text'),
-            new InputField('Прозрачность', 'transparency', 'text'),
+            new InputField('Облик кристаллов', 'crystal_form', 'text', $item->crystal_form),
+            new InputField('Твердость', 'hardness', 'number', $item->hardness),
+            new InputField('Удельный вес, г/см3', 'specific_gravity', 'number', $item->specific_gravity),
+            new InputField('Цвет', 'color', 'text', $item->color),
+            new InputField('Цвет черты', 'feature_color', 'text', $item->feature_color),
+            new InputField('Блеск', 'shine', 'text', $item->shine),
+            new InputField('Прозрачность', 'transparency', 'text', $item->transparency),
 //            new InputField('Спайность', 'splitting', 'text'),
-            new InputField('Прочие свойства', 'other_props', 'text'),
-            new InputField('Диагностика', 'diagnosis', 'text'),
-            new InputField('Генезис', 'genesis', 'text'),
-            new InputField('Парагенезис', 'paragenesis', 'text'),
-            new InputField('Долгота', 'x', 'text'),
-            new InputField('Широта', 'y', 'text'),
+            new InputField('Прочие свойства', 'other_props', 'text', $item->other_props),
+            new InputField('Диагностика', 'diagnosis', 'text', $item->diagnosis),
+            new InputField('Генезис', 'genesis', 'text', $item->genesis),
+            new InputField('Парагенезис', 'paragenesis', 'text', $item->paragenesis),
+            new InputField('Долгота', 'x', 'text', $item->x),
+            new InputField('Широта', 'y', 'text', $item->y),
         ];
     }
 

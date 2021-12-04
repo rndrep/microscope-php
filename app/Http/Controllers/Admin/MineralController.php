@@ -103,7 +103,7 @@ class MineralController extends Controller
             'admin.minerals.edit',
             [
                 'item' => $item,
-                'fields' => Mineral::getInputs(),
+                'fields' => Mineral::getInputs($item),
                 'syngonyItems' => MineralSyngony::orderBy('name')->pluck('name', 'id'),
                 'splittingItems' => MineralSplitting::orderBy('name')->pluck('name', 'id'),
             ]

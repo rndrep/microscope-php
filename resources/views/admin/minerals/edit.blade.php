@@ -46,21 +46,7 @@
               <div class="row row-cols-1 row-cols-lg-2">
                 <!-- TODO: Где шаблон?? -->
                 @foreach($fields as $field)
-                <div class="col">
-                  <div class="form-group">
-                    <label class="card-title" for="inputName">{{$field->getCaption()}}</label>
-                    <input type="{{$field->getType()}}" class="form-control" id="inputName" placeholder=""
-                      name="{{$field->getProp()}}" @if($field->isRequired())
-                    required
-                    oninvalid="this.setCustomValidity('{{ $field->getRequiredTip() }}')"
-                    oninput="setCustomValidity('')"
-                    @endif
-                    value="{{$item->{$field->getProp()} }}"
-                    {{$field->getType() == 'number' ? 'step=any' : ''}}
-                    >
-
-                  </div>
-                </div>
+                  {!! $field->getHtml() !!}
                 @endforeach
                 <div class="col">
                   <div class="form-group">

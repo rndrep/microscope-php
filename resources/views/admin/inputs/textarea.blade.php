@@ -8,5 +8,6 @@
     oninput="setCustomValidity('')"
   @endif
 >
+  {!! $value !!}
 </textarea>
 @endsection

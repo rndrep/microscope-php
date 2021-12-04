@@ -10,10 +10,10 @@ class InputField extends AbstractField
     protected $type;
 //    private $isDict = false;
 
-    public function __construct($caption, $property, $type, $required = false, $requiredTip = 'Обязательное поле')
+    public function __construct($caption, $property, $type, $value = '', $required = false, $requiredTip = 'Обязательное поле')
     {
         $this->type = $type;
-        parent::__construct($caption, $property, $required, $requiredTip);
+        parent::__construct($caption, $property, $value, $required, $requiredTip);
     }
 
     protected function init()
