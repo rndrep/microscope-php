@@ -13,5 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/rock-list',
+        '/mineral-list',
+        '/fossil-list',
     ];
 }
