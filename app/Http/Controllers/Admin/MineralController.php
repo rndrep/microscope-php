@@ -148,7 +148,7 @@ class MineralController extends Controller
         if (empty($id)) {
             return json_encode([]);
         }
-        $publicPath = AbstractMediaEntity::IMAGE_PATH_MINERAL_MICRO . $id . '/';
+        $publicPath = Mineral::MICRO_PATH . $id . '/';
         $photos = [
             'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
             'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
@@ -169,14 +169,12 @@ class MineralController extends Controller
         if (empty($item)) {
             return false;
         }
-        $microRoute = is_dir(public_path(AbstractMediaEntity::IMAGE_PATH_MINERAL_MICRO . $id . '/ppl'))
-            ? route('microscope', ['id' => $id, 'type' => 'mineral'])
-            : '';
+
         return view('dist.mineral',
             [
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
-                'microscopeRoute' => $microRoute,
+                'microscopeRoute' => Mineral::getMicroscopeUrl($id),
                 'gallery' => $item::getPhotoPaths(Mineral::GALLERY_PATH . $item->id),
             ]
         );

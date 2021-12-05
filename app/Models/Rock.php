@@ -366,4 +366,12 @@ class Rock extends AbstractMediaEntity
         return $this;
     }
 
+    public static function getMicroscopeUrl($id): string
+    {
+        return is_dir(public_path(static::MICRO_PATH . $id . '/ppl'))
+            ? route('microscope', ['id' => $id, 'type' => 'rock'])
+            : '';
+    }
+
+
 }

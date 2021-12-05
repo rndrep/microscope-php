@@ -118,6 +118,13 @@ class Mineral extends AbstractMediaEntity
         return $result;
     }
 
+    public static function getMicroscopeUrl($id): string
+    {
+        return is_dir(public_path(static::MICRO_PATH . $id . '/ppl'))
+            ? route('microscope', ['id' => $id, 'type' => 'mineral'])
+            : '';
+    }
+
 
     public function __construct(array $attributes = [])
     {

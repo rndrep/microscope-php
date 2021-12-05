@@ -15,7 +15,6 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     protected $guarded = ['photo', 'gallery', 'ppl', 'xpl'];
 
-    const IMAGE_PATH_MINERAL_MICRO = '/images/rocks/micro/';
     const PHOTO_INFO_PATH = '';
     const MICRO_PATH = '';
 
@@ -109,9 +108,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     public static function getMicroscopeUrl($id): string
     {
-        return is_dir(public_path(static::MICRO_PATH . $id . '/ppl'))
-            ? route('microscope', ['id' => $id, 'type' => 'rock'])
-            : '';
+        return '';
     }
 
     public function getGallery()
