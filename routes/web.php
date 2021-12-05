@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\FossilController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\RockClassController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MineralController;
@@ -52,15 +53,19 @@ Route::group(['prefix' => '/microscope-photos'], function () {
     Route::get('/fossil/{id}', [FossilController::class, 'getMicroPhotosJson'])->name('micro_fossil');
 });
 
+// gallery and microscope photos
+Route::get('/media-get', [MediaController::class, 'getPhotos'])->name('media_get');
+
+
 //TODO: configure access by
 //RockController::class)->only(['index']);
 //RockController::class)->except(['destroy']);
 Route::group(['prefix' => '/admin', 'middleware' => 'content_manager'], function () {
     Route::resource('/rocks', RockController::class)->except(['destroy']);
-    Route::resource('/rock-types', RockTypeController::class)->except(['destroy']);
     Route::resource('/minerals', MineralController::class)->except(['destroy']);
     Route::resource('/fossils', FossilController::class)->except(['destroy']);
-    Route::resource('/rock-classes', RockClassController::class)->except(['destroy']);
+    Route::post('/media-save', [MediaController::class, 'savePhoto'])->name('media_save');
+    Route::delete('/media-delete', [MediaController::class, 'deletePhoto'])->name('media_delete');
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
@@ -70,7 +75,11 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
 
     Route::resource('/users', UserController::class);
     Route::get('/dictionary/all/{entity}', [DictionaryController::class, 'all'])->name('get_all_dicts');
-    /** params example: /admin/dictionary/edit?entity=RockSquad&id=4 */
+
+    /**
+     * params: string entity; int id;
+     * example: /admin/dictionary/edit?entity=RockSquad&id=4
+     */
     Route::get('/dictionary/edit', [DictionaryController::class, 'edit'])
         ->name('dict_edit_view');
     Route::match(['post', 'put'], '/dictionary/update', [DictionaryController::class, 'update'])

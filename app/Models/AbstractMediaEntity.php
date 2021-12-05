@@ -17,6 +17,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     const PHOTO_INFO_PATH = '';
     const MICRO_PATH = '';
+    const GALLERY_PATH = '';
 
 
     public function __construct(array $attributes = [])
@@ -29,15 +30,14 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     public static function getPhotoPaths(string $publicPath): array
     {
-        $path = $publicPath;
-        if (!is_dir(public_path($path))) {
+        if (!is_dir(public_path($publicPath))) {
             return [];
         }
         $photos = array_values(array_diff(
-            scandir(public_path($path)), ['.', '..']
+            scandir(public_path($publicPath)), ['.', '..']
         ));
-        return array_map(function ($item) use ($path) {
-                return env('APP_URL') . $path . '/' . $item;
+        return array_map(function ($item) use ($publicPath) {
+                return env('APP_URL') . $publicPath . '/' . $item;
             },
             $photos
         );
