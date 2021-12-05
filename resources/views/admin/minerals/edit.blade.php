@@ -8,6 +8,56 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
+          <div class="card">
+            <!--begin::Dropzone-->
+            <div class="dropzone dropzone-queue mb-2" id="kt_dropzonejs_example_2">
+              <!--begin::Controls-->
+              <div class="dropzone-panel mb-lg-0 mb-2">
+                <a class="dropzone-select btn btn-sm btn-primary me-2">Attach files</a>
+                <a class="dropzone-upload btn btn-sm btn-light-primary me-2">Upload All</a>
+                <a class="dropzone-remove-all btn btn-sm btn-light-primary">Remove All</a>
+              </div>
+              <!--end::Controls-->
+
+              <!--begin::Items-->
+              <div class="dropzone-items wm-200px">
+                <div class="dropzone-item" style="display:none">
+                  <!--begin::File-->
+                  <div class="dropzone-file">
+                    <div class="dropzone-filename" title="some_image_file_name.jpg">
+                      <span data-dz-name>some_image_file_name.jpg</span>
+                      <strong>(<span data-dz-size>340kb</span>)</strong>
+                    </div>
+
+                    <div class="dropzone-error" data-dz-errormessage></div>
+                  </div>
+                  <!--end::File-->
+
+                  <!--begin::Progress-->
+                  <div class="dropzone-progress">
+                    <div class="progress">
+                      <div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                        aria-valuenow="0" data-dz-uploadprogress>
+                      </div>
+                    </div>
+                  </div>
+                  <!--end::Progress-->
+
+                  <!--begin::Toolbar-->
+                  <div class="dropzone-toolbar">
+                    <span class="dropzone-start"><i class="bi bi-play-fill fs-3"></i></span>
+                    <span class="dropzone-cancel" data-dz-remove style="display: none;"><i
+                        class="bi bi-x fs-3"></i></span>
+                    <span class="dropzone-delete" data-dz-remove><i class="bi bi-x fs-1"></i></span>
+                  </div>
+                  <!--end::Toolbar-->
+                </div>
+              </div>
+              <!--end::Items-->
+            </div>
+            <!--end::Dropzone-->
+
+          </div>
           <!-- Card -->
           <div class="card mt-3">
             {{Form::open(['route'=>['minerals.update',$item->id], 'method'=>'put', 'enctype' =>
@@ -69,12 +119,7 @@
                   <!-- Micro-photos -->
                   <div class="form-group">
                     @include('admin.input-microscope')
-                    <p>PPL</p>
-                    <div type="file" class="dropzone microDropzone" name="photo">
-                    </div>
-                    <p>XPL</p>
-                    <div type="file" class="dropzone microDropzone" name="photo">
-                    </div>
+
                   </div>
                   <!-- ./ Micro-photos -->
                 </div>
@@ -83,7 +128,7 @@
               <div class="row row-cols-1 row-cols-lg-2">
                 <!-- TODO: Где шаблон?? -->
                 @foreach($fields as $field)
-                  {!! $field->getHtml() !!}
+                {!! $field->getHtml() !!}
                 @endforeach
                 <div class="col">
                   <div class="form-group">

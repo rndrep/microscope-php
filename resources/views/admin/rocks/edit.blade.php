@@ -49,8 +49,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Описание</label>
-                                    <div type="text" class="form-control" id="inputDescription" placeholder=""
-                                        name="description" value="{{$rock->description}}"></div>
+                                    <textarea type="text" class="editor ck-content" name="description"
+                                        id="inputDescription" value="{{$rock->description}}"></textarea>
+
                                 </div>
                                 <div class="form-group">
                                     <label>Тип</label>

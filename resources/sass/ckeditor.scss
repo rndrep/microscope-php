@@ -5,6 +5,7 @@
  */
 
 :root {
+    --ck-border-radius: 0.25rem;
     --ck-color-image-caption-background: hsl(0, 0%, 97%);
     --ck-color-image-caption-text: hsl(0, 0%, 20%);
     --ck-color-mention-background: hsla(341, 100%, 30%, 0.1);
@@ -22,9 +23,15 @@
     --ck-todo-list-checkmark-size: 16px;
 }
 
+.ck.ck-editor__editable_inline > :last-child {
+    margin-bottom: 6px;
+}
+.ck.ck-editor__editable_inline > :first-child {
+    margin-top: 6px;
+}
+
 .ck.ck-editor__editable_inline {
     border: 1px solid #ced4da;
-    border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 

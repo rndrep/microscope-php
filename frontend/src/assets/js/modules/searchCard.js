@@ -1,5 +1,4 @@
 import { param } from "jquery";
-import { getResource } from "../services/services.js";
 import { postData } from "../services/services.js";
 import Card from "./card";
 

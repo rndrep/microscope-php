@@ -44,8 +44,9 @@
                   <label for="inputName">Описание</label>
 
 
-                  <input type="text" class="editor ck-content form-control" id="inputDescription" placeholder=""
-                    name="description" value="{{old('description')}}"> </input>
+                  <div class="editor ck-content" id="inputDescription" placeholder="" name="description"
+                    value="{{old('description')}}"> </div>
+
                 </div>
                 <div class="form-group">
                   <label>Тип породы</label>

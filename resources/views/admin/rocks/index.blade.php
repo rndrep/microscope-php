@@ -61,7 +61,7 @@
                           </td>
                           <td>{{$item->id}}</td>
                           <td>{{$item->name}}</td>
-                          <td>{{mb_substr($item->description, 0, 30)}}</td>
+                          <td>{!! mb_substr($item->description, 0, 30) !!}</td>
                           <td>{{$item->getDictionaryPropName('rockType', 30)}}</td>
                           <td>{{$item->getDictionaryPropName('rockSquad', 30)}}</td>
                           <td>{{$item->getDictionaryPropName('rockClass', 30)}}</td>
