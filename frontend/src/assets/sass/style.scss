@@ -49,6 +49,12 @@ body {
     background-color: $white;
 }
 
+a {
+    color: var(--c, $green);
+    @include link-hover($green);
+    cursor: pointer;
+}
+
 /* Bootstrap */
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
@@ -92,12 +98,6 @@ body {
         Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     line-height: 1.6;
-}
-
-a {
-    color: var(--c, $green);
-    @include link-hover($green);
-    cursor: pointer;
 }
 
 p {

@@ -22,6 +22,12 @@
     --ck-todo-list-checkmark-size: 16px;
 }
 
+.ck.ck-editor__editable_inline {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 /* ckeditor5-image/theme/imagecaption.css */
 .ck-content .image > figcaption {
     display: table-caption;
@@ -161,10 +167,10 @@
 /* ckeditor5-image/theme/image.css */
 .ck-content .image-inline {
     /*
-   * Normally, the .image-inline would have "display: inline-block" and "img { width: 100% }" (to follow the wrapper while resizing).;
-   * Unfortunately, together with "srcset", it gets automatically stretched up to the width of the editing root.
-   * This strange behavior does not happen with inline-flex.
-   */
+	 * Normally, the .image-inline would have "display: inline-block" and "img { width: 100% }" (to follow the wrapper while resizing).;
+	 * Unfortunately, together with "srcset", it gets automatically stretched up to the width of the editing root.
+	 * This strange behavior does not happen with inline-flex.
+	 */
     display: inline-flex;
     max-width: 100%;
     align-items: flex-start;

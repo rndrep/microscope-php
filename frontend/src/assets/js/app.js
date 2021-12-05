@@ -10,14 +10,15 @@ import map from "./modules/map";
 
 window.addEventListener("DOMContentLoaded", () => {
     const microscopeWrap = document.querySelector(".microscope__wrap"),
-        mapWrap = document.querySelector(".map");
+        mapWrap = document.querySelector(".map"),
+        selectSingle = document.querySelectorAll(".select-single"),
+        selectMultiple = document.querySelectorAll(".select-multiple");
 
     // slick-carousel
     $("#accordion-button-gallery").on("click", function (event) {
         slick();
     });
 
-    select();
     searchCard();
 
     function getUrlParams() {
@@ -44,6 +45,12 @@ window.addEventListener("DOMContentLoaded", () => {
     if (mapWrap) {
         try {
             map();
+        } catch (error) {}
+    }
+
+    if (selectSingle.length != 0 || selectMultiple.length != 0) {
+        try {
+            select();
         } catch (error) {}
     }
 });
