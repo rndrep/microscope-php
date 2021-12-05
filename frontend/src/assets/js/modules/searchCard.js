@@ -19,6 +19,7 @@ export function searchCard(urlResource) {
 
     if (cardsRow) {
         try {
+            searchCard(rocksSearchForm, urlRocks);
             addFormListener(rocksSearchForm, rocksTab, urlRocks);
             addFormListener(mineralsSearchForm, mineralsTab, urlMinerals);
             addFormListener(fossilsSearchForm, fossilsTab, urlFossils);

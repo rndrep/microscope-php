@@ -10,7 +10,6 @@ try {
     window.$ = window.jQuery = require("jquery").default;
 
     require("bootstrap");
-    require("admin-lte");
 } catch (e) {}
 
 window.axios = require("axios");

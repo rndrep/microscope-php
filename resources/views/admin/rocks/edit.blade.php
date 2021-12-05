@@ -49,8 +49,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Описание</label>
-                                    <textarea type="text" class="form-control" id="inputDescription" placeholder=""
-                                        name="description" value="{{$rock->description}}"></textarea>
+                                    <div type="text" class="form-control" id="inputDescription" placeholder=""
+                                        name="description" value="{{$rock->description}}"></div>
                                 </div>
                                 <div class="form-group">
                                     <label>Тип</label>
