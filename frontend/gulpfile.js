@@ -209,11 +209,11 @@ function svg() {
 function clean() {
     return del(
         [
-            path.build.css,
+            path.build.css, '!../public/css/', '!../public/css/admin.css',
             path.build.html,
             path.build.svg,
             path.build.images,
-            path.build.script,
+            path.build.script, '!../public/js/', '!../public/js/admin.js',
         ],
         { force: true }
     );
