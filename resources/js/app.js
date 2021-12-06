@@ -1,6 +1,6 @@
 import "bootstrap";
 import initDropzone from "./dropzone";
-import ckeditor from "../assets/ckeditor5/build/ckeditor";
+import "../assets/ckeditor5/build/ckeditor";
 import adminLte from "../../node_modules/admin-lte/build/js/AdminLTE";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -14,7 +14,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 .then((editor) => {
                     window.editor = editor;
                     let myEditor = editor;
-                    myEditor.setData(element.getAttribute("value"));
+                    // TODO: в каком-то элементе нет value??
+                    if (element.getAttribute("value")) {
+                        myEditor.setData(element.getAttribute("value"));
+                    }
                 });
         });
     }

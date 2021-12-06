@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Main content -->
@@ -16,7 +17,7 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <a href="{{route('minerals.create')}}" class="btn btn-success">Добавить</a>
+                <a href="{{ route('minerals.create') }}" class="btn btn-success">Добавить</a>
               </div>
               <div class="dataTables_wrapper">
                 <div class="row">
@@ -70,4 +71,5 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
 @endsection
