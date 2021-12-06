@@ -41,6 +41,7 @@ class DictionaryController extends Controller
     {
         $this->abortIfNoModel(class_basename($modelClass));
 
+        /** @var AbstractDictionary $modelClass */
         $modelClass = 'App\Models\\' . $modelClass;
         $items = $modelClass::orderBy('name')->get();
         return view('admin.entity.index', [

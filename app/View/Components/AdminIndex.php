@@ -8,7 +8,7 @@ class AdminIndex extends Component
 {
     public $title;
     public $hrefCreate;
-    public $hrefEdit;
+    public $model;
     public $fields;
     public $items;
 
@@ -17,11 +17,11 @@ class AdminIndex extends Component
      *
      * @return void
      */
-    public function __construct($title, $hrefCreate, $hrefEdit, $fields, $items)
+    public function __construct($title, $hrefCreate, $model, $fields, $items)
     {
         $this->title = $title;
         $this->hrefCreate = $hrefCreate;
-        $this->hrefEdit = $hrefEdit;
+        $this->model = $model;
         $this->fields = $fields;
         $this->items = $items;
     }
