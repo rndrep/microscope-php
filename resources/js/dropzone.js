@@ -12,8 +12,12 @@ export function initDropzone() {
                 uploadMultiple: false,
                 maxFiles: 1,
                 maxFilesize: 1, // Max filesize in MB
+                acceptedFiles: "image/*",
+                dictInvalidFileType: "Нельзя загрузить файлы этого типа",
+                dictFileTooBig:
+                    "Файл слишком большой ({{filesize}}MB). Максимальный размер: {{maxFilesize}}MB.",
+                dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",
                 addRemoveLinks: true,
-                dictRemoveFile: "×",
             });
 
             photoDropzone.on("addedfile", (file) => {
@@ -30,10 +34,6 @@ export function initDropzone() {
                     const errorMessage = element.querySelectorAll(
                         ".dz-error-message span"
                     )[0];
-                    if (filename === file.name) {
-                        errorMessage.textContent =
-                            "Нельзя загрузить больше одного файла";
-                    }
                 }
             });
         } catch (error) {}
@@ -44,42 +44,19 @@ export function initDropzone() {
             const galleryDropzone = new Dropzone(galleryField, {
                 url: "http://microscope.test/admin/minerals/1",
                 method: "put",
-                uploadMultiple: false,
-                maxFiles: 5,
-                maxFilesize: 1, // Max filesize in MB
+                uploadMultiple: false, //Следует ли отправлять несколько файлов в одном запросе
                 parallelUploads: 2,
+                maxFiles: 10,
+                maxFilesize: 1, // Max filesize in MB
+                acceptedFiles: "image/*",
+                dictInvalidFileType: "Нельзя загрузить файлы этого типа",
+                dictFileTooBig:
+                    "Файл слишком большой ({{filesize}}MB). Максимальный размер: {{maxFilesize}}MB.",
+                dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",
                 addRemoveLinks: true,
-                dictRemoveFile: "×",
-                removedfile: function (file) {
-                    // удаление только что загруженных
-                    file.previewElement.remove();
-                },
             });
 
-            galleryDropzone.on("addedfile", function (file) {
-                galleryField.querySelector(
-                    ".dropzone-remove-all"
-                ).style.display = "inline-block";
-            });
-
-            // Setup the button for remove all files
-            galleryField
-                .querySelector(".dropzone-remove-all")
-                .addEventListener("click", function () {
-                    galleryField.querySelector(
-                        ".dropzone-remove-all"
-                    ).style.display = "none";
-                    galleryDropzone.removeAllFiles(true);
-                });
-
-            // On all files removed
-            galleryDropzone.on("removedfile", function (file) {
-                if (galleryDropzone.files.length < 1) {
-                    galleryField.querySelector(
-                        ".dropzone-remove-all"
-                    ).style.display = "none";
-                }
-            });
+            galleryDropzone.on("addedfile", function (file) {});
         } catch (error) {}
     }
 
@@ -106,6 +83,8 @@ export function initDropzone() {
             previewTemplate: previewTemplate,
             maxFiles: 36,
             maxFilesize: 1, // Max filesize in MB
+            acceptedFiles: "image/*",
+            dictInvalidFileType: "Нельзя загрузить файлы этого типа",
             dictFileTooBig:
                 "Файл слишком большой ({{filesize}}MB). Максимальный размер: {{maxFilesize}}MB.",
             dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",

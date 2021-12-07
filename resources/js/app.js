@@ -1,6 +1,7 @@
 import "bootstrap";
 import initDropzone from "./dropzone";
 import "../assets/ckeditor5/build/ckeditor";
+import "../sass/ckeditor.scss";
 import adminLte from "../../node_modules/admin-lte/build/js/AdminLTE";
 
 window.addEventListener("DOMContentLoaded", () => {

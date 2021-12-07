@@ -1,5 +1,10 @@
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
 .required-field {
-    color: red;
+    color: var(--red);
 }
 
 .wrapper {
@@ -7,11 +12,93 @@
 }
 
 .nav-link {
+    display: flex;
+    align-items: center;
     font-weight: 600;
+
+    &:hover {
+        .admin-icon {
+            color: #f8f9fa;
+        }
+        .admin-icon.bars-icon {
+            color: var(--gray);
+        }
+    }
 }
 
 .card-img {
     margin-bottom: 16px;
+}
+
+.btn.btn_i {
+    padding: 4px;
+}
+
+.admin-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 1rem;
+    max-width: 1.2rem;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.admin-icon.edit-icon {
+    transition: color 0.15s ease-in-out;
+    &:hover {
+        color: darker(#007bff, 15%);
+    }
+}
+
+.admin-icon.trash-icon {
+    color: var(--gray);
+    transition: color 0.15s ease-in-out;
+    &:hover {
+        color: var(--red);
+    }
+}
+
+.admin-icon.bars-icon {
+    color: var(--gray);
+    transition: color 0.15s ease-in-out;
+    // &:hover {
+    //     color: var(--red);
+    // }
+}
+
+.nav-icon {
+    margin-left: 0.05rem;
+    margin-right: 0.4rem !important;
+    text-align: center;
+    min-height: 1.1rem;
+    min-width: 1.6rem;
+    line-height: 1;
+}
+
+.right {
+    position: absolute;
+    transform: rotateY(180deg);
+    right: 2.2rem;
+    top: 0.7rem;
+}
+
+.nav-sidebar .menu-open > .nav-link .right,
+.nav-sidebar .menu-is-opening > .nav-link .right {
+    transform: rotateY(180deg) rotate(90deg);
+}
+
+.nav-sidebar .nav-item > .nav-link .right {
+    transition: transform ease-in-out 0.3s;
+}
+
+.sidebar-mini .main-sidebar .nav-link,
+.sidebar-mini-md .main-sidebar .nav-link,
+.sidebar-mini-xs .main-sidebar .nav-link {
+    // width: 250px - 16rem;
+    width: 234px;
+    transition: width ease-in-out 0.3s;
 }
 
 .dropzone {
@@ -19,9 +106,9 @@
     padding: 1.5rem 1.75rem;
     text-align: center;
     cursor: pointer;
-    border: 1px dashed #00a3ff;
-    background-color: #ffffff;
-    border-radius: 0.475rem !important;
+    border: 1px dashed var(--blue);
+    background-color: #f1faff;
+    border-radius: 0.475rem;
 }
 
 .dropzone.dropzone-queue .dropzone-item {
@@ -30,11 +117,20 @@
     margin-top: 0.75rem;
     border-radius: 0.475rem;
     padding: 0.5rem 1rem;
-    background-color: #f5f8fa;
+    background-color: #f1faff;
 }
 
 .dropzone.dropzone-queue .dropzone-item .dropzone-file {
     flex-grow: 1;
+}
+.dropzone .dz-message {
+    margin: 0;
+    display: flex;
+    text-align: left;
+
+    .text-muted {
+        margin-bottom: 2px;
+    }
 }
 
 .dropzone.dropzone-queue {
@@ -59,17 +155,6 @@
     flex-wrap: nowrap;
 }
 
-.dropzone.dropzone-queue .dropzone-item .dropzone-toolbar .dropzone-delete {
-    margin-top: 2px;
-    height: 25px;
-    width: 25px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: color 0.2s ease, background-color 0.2s ease;
-}
-
 .dropzone .dz-message .dz-button {
     background: 0 0;
     color: inherit;
@@ -84,8 +169,11 @@
     color: var(--gray);
 }
 
+.text-primary {
+    color: var(--blue);
+}
+
 .form-text {
-    margin-top: 0.5rem;
     font-size: 0.8rem;
     color: var(--gray);
 }
@@ -107,4 +195,44 @@
 .dropzone-error {
     color: var(--red);
     font-size: 0.8rem;
+}
+
+.dropzone .dz-preview .dz-remove {
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    border: none;
+}
+
+.dropzone .dz-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.65rem;
+    width: 1.65rem;
+    font-size: 1rem;
+    text-indent: -9999px;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 2;
+    background-size: 40%;
+    box-shadow: 0 0.1rem 1rem 0.25rem rgb(0 0 0 / 5%);
+    border-radius: 100%;
+    top: -0.825rem;
+    right: -0.825rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='times' class='svg-inline--fa fa-times fa-w-11' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 352 512'%3E%3Cpath fill='%236c757d' d='M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z'%3E%3C/path%3E%3C/svg%3E");
+
+    &:hover {
+        background-color: hsl(354deg 70% 54% / 20%);
+    }
+}
+
+.dropzone .dz-remove.dropzone-delete {
+    top: 0;
+    right: 0;
+    position: relative;
 }

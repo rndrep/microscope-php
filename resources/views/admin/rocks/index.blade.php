@@ -45,16 +45,23 @@
                         @foreach($items as $item)
                         <tr>
                           <td>
-                            <div class="btn">
-                              <a href="{{route('rocks.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
+                            <div class="btn btn_i">
+                              <a href="{{route('rocks.edit', $item->id)}}">
+                                <svg class="admin-icon edit-icon">
+                                  <use href="/svg/sprite.svg#edit"></use>
+                                </svg>
+                              </a>
                             </div>
                             {{-- Move delete button in separated template, add if user has rights --}}
                             @if(Auth::user()->isAdmin())
                             {{Form::open(['route'=>['rocks.destroy', $item->id], 'method'=>'delete', 'class' =>
                             'd-inline'])}}
-                            <button class="btn" onclick="return confirm('Вы действительно хотите удалить образец?')"
-                              type="submit" class="delete">
-                              <i class="fa fa-trash-alt"></i>
+                            <button class="btn btn_i"
+                              onclick="return confirm('Вы действительно хотите удалить образец?')" type="submit"
+                              class="delete">
+                              <svg class="admin-icon trash-icon">
+                                <use href="/svg/sprite.svg#trash"></use>
+                              </svg>
                             </button>
                             {{Form::close()}}
                             @endif

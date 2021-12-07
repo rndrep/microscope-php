@@ -38,14 +38,22 @@
                         @foreach($items as $item)
                         <tr>
                           <td>
-                            <div class="btn">
-                              <a href="{{route('minerals.edit', $item->id)}}" class="fa fa-pencil-alt"></a>
+                            <div class="btn btn_i">
+                              <a href="{{route('minerals.edit', $item->id)}}">
+                                <svg class="admin-icon edit-icon">
+                                  <use href="/svg/sprite.svg#edit"></use>
+                                </svg>
+                              </a>
                             </div>
                             @if(Auth::user()->isAdmin())
                             {{Form::open(['route'=>['minerals.destroy', $item->id], 'method'=>'delete', 'class' =>
                             'd-inline'])}}
-                            <button class="btn" onclick="return confirm('are you sure?')" type="submit" class="delete">
-                              <i class="fa fa-trash-alt"></i>
+                            <button class="btn btn_i"
+                              onclick="return confirm('Вы уверены, что хотите удалить образец?')" type="submit"
+                              class="delete">
+                              <svg class="admin-icon trash-icon">
+                                <use href="/svg/sprite.svg#trash"></use>
+                              </svg>
                             </button>
                             {{Form::close()}}
                             @endif
