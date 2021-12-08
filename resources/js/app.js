@@ -1,11 +1,40 @@
 import "bootstrap";
+import $ from "jquery";
 import initDropzone from "./dropzone";
 import "../assets/ckeditor5/build/ckeditor";
 import "../sass/ckeditor.scss";
 import adminLte from "../../node_modules/admin-lte/build/js/AdminLTE";
+import "../../node_modules/admin-lte/plugins/select2/js/select2";
 
 window.addEventListener("DOMContentLoaded", () => {
     const editors = document.querySelectorAll(".editor");
+    // adminSelects = document.querySelectorAll(".select2");
+
+    if ($(".select2")) {
+        try {
+            $(".select2").select2({
+                theme: "bootstrap4",
+                width: "100%",
+            });
+        } catch (error) {}
+    }
+
+    if ($(".select2")) {
+        try {
+            $(".select2").select2({
+                theme: "bootstrap4",
+            });
+        } catch (error) {}
+    }
+
+    // $('.js-example-basic-multiple').select2();
+
+    // console.log(adminSelects);
+    // adminSelects.forEach((element) => {
+    //     element.select2();
+    // });
+    // adminSelects.select2();
+
     if (editors.length != 0) {
         editors.forEach((element) => {
             ClassicEditor.create(element)

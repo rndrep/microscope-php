@@ -1,6 +1,27 @@
+@import "./ckeditor.scss";
+@import "./select2.scss";
+
 .table th,
 .table td {
     vertical-align: middle;
+}
+
+td > p {
+    margin: 0;
+}
+
+td > img {
+    display: block;
+    height: 10%;
+    height: 70px;
+    width: auto;
+    margin: auto;
+}
+
+.form-control:focus {
+    border-color: $form-control-border-color;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+    border-radius: 0.25rem;
 }
 
 .required-field {
@@ -106,7 +127,7 @@
     padding: 1.5rem 1.75rem;
     text-align: center;
     cursor: pointer;
-    border: 1px dashed var(--blue);
+    border: 1px dashed $form-control-border-color;
     background-color: #f1faff;
     border-radius: 0.475rem;
 }

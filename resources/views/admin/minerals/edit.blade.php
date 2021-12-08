@@ -17,7 +17,6 @@
             </div>
 
             <div class="card-body">
-
               <!-- Form add img -->
               <div class="row">
                 <div class="col-lg-6">

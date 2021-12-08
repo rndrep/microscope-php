@@ -68,7 +68,7 @@
             <!-- Card-footer -->
             <div class="card-footer">
               <a href="{{ url()->previous() }}" class="btn btn-default">Назад</a>
-              <button class="btn btn-success pull-right">Изменить</button>
+              <button class="btn btn-warning pull-right">Изменить</button>
             </div>
             <!-- ./ Card-footer -->
             {!! Form::close() !!}
