@@ -1,10 +1,5 @@
-
-<x-admin-index title="Минералы"
-               :hrefCreate="route('minerals.create')"
-               :model="'minerals'"
-               :fields="$fields"
-               :items="$items"
-/>
+<x-admin-index title="Минералы" :hrefCreate="route('minerals.create')" :model="'minerals'" :fields="$fields"
+    :items="$items" />
 
 
 <div class="content-wrapper">
@@ -44,7 +39,7 @@
                                                 <tr>
                                                     <div class="btn">
                                                         <a href="{{ route($model . '.edit', $item->id) }}"
-                                                            class="fa fa-pencil-alt"></a>
+                                                            class="admin-icon edit-icon"></a>
                                                     </div>
                                                     <td>{{$item->id}}</td>
 

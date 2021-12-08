@@ -77,8 +77,10 @@
                                     "
                                 >
                                     <li class="list-group-item">
-                                        Породы: @foreach($item->getRockLinks()
-                                        as $link)
+                                        <div class="card-list__caption">
+                                            Породы:
+                                        </div>
+                                        @foreach($item->getRockLinks() as $link)
                                         <a
                                             class="card-list__link"
                                             href="{{$link['link']}}"
@@ -88,7 +90,9 @@
                                     </li>
                                     @foreach($fields as $field)
                                     <li class="list-group-item">
-                                        {{$field->getCaption()}}:
+                                        <div class="card-list__caption">
+                                            {{$field->getCaption()}}:
+                                        </div>
                                         <a class="card-list__text"
                                             >{{$field->getValue()}}</a
                                         >

@@ -43,10 +43,12 @@ export function searchCard(urlResource) {
         let formData = new FormData(form);
 
         const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
-
+        console.log(jsonData);
         postData(urlResource, jsonData)
             .then(clearCards())
             .then((data) => {
+                console.log(data);
+
                 createCards(data);
             })
             .then(() => console.log("Отправлено"))

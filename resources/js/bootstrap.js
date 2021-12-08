@@ -7,7 +7,7 @@ window._ = require("lodash");
  */
 
 try {
-    window.$ = window.jQuery = require("jquery").default;
+    // window.$ = window.jQuery = require("jquery").default;
 
     require("bootstrap");
 } catch (e) {}

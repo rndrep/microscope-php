@@ -1,5 +1,24 @@
-@import "../../node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css";
+// Vars
+$green: #6fa53b;
+
+// fusv-enable
+$green-100: tint-color($green, 80%);
+$green-200: tint-color($green, 60%);
+$green-300: tint-color($green, 40%);
+$green-400: tint-color($green, 20%);
+$green-500: $green;
+$green-600: shade-color($green, 20%);
+$green-700: shade-color($green, 40%);
+$green-800: shade-color($green, 60%);
+$green-900: shade-color($green, 80%);
+// fusv-enable
+$input-btn-focus-color: $green-100;
+$input-focus-border-color: $green-200;
+$form-control-border-color: #80bdff;
+
+// Imports
 @import "../../node_modules/dropzone/src/dropzone.scss";
-@import "./admin-style.scss";
 @import "../../node_modules/admin-lte/dist/css/adminlte.css";
-@import "./ckeditor.scss";
+@import "../../node_modules/select2/dist/css/select2";
+@import "../../node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4";
+@import "./admin-style.scss";

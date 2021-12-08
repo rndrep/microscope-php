@@ -12,13 +12,6 @@ const mix = require("laravel-mix");
  */
 
 mix.sass("resources/sass/app.scss", "public/css/admin.css");
+// mix.postCss("public/css/admin.css", "public/css/admin.css");
 
 mix.js("resources/js/app.js", "public/js/admin.js");
-
-// mix.copy("resources/assets/admin/bootstrap/fonts", "public/fonts");
-// mix.copy("resources/assets/admin/dist/fonts", "public/fonts");
-// mix.copy("resources/assets/admin/dist/img", "public/img");
-// mix.copy(
-//     "resources/assets/admin/plugins/iCheck/minimal/blue.png",
-//     "public/css"
-// );
