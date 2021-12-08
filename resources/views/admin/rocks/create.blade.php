@@ -82,7 +82,7 @@
                 </div>
                 <div class="form-group">
                   <label>Вид</label>
-                  {{Form::select('rock_family_id',
+                  {{Form::select('rock_kind_id',
                   $rockKinds,
                   null,
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
@@ -90,7 +90,7 @@
                 </div>
                 <div class="form-group">
                   <label>Текстура</label>
-                  {{Form::select('rock_family_id',
+                  {{Form::select('rock_texture_id',
                   $rockTextures,
                   null,
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
@@ -98,7 +98,7 @@
                 </div>
                 <div class="form-group">
                   <label>Структура</label>
-                  {{Form::select('rock_family_id',
+                  {{Form::select('rock_structure_id',
                   $rockStructures,
                   null,
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
