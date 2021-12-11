@@ -5,14 +5,14 @@ export default class Card {
         infoUrl = "",
         microUrl = "",
         turnUrl = "",
-        parentSelector = ".cards__row"
+        parentSelector
     ) {
         this.imgSrc = imgSrc;
         this.title = title;
         this.infoUrl = infoUrl;
         this.microUrl = microUrl;
         this.turnUrl = turnUrl;
-        this.parent = document.querySelector(parentSelector);
+        this.parent = parentSelector;
         //ссылки на инфо/микро/3д для карточки
     }
 
