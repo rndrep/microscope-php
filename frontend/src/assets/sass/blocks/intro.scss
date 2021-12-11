@@ -1,5 +1,6 @@
 .intro {
-    height: 496px;
+    // height: 496px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,10 +20,14 @@
 }
 
 .intro__inner {
+    display: flex;
     justify-content: center;
+    align-content: center;
+
+    min-height: 100vh;
     width: 100%;
 
-    padding-top: 7rem;
+    // padding-top: 7rem;
     // max-width: 595px;
     margin: 0 auto;
 

@@ -135,7 +135,9 @@
                             <!-- ./ rock__details -->
                             <div class="rock__info order-sm-1 col-sm-7">
                                 <h1 class="rock__title">{{$item->name}}</h1>
-                                <p class="rock__text">{{$item->description}}</p>
+                                <p class="rock__text">
+                                    {!!$item->description!!}
+                                </p>
                             </div>
                         </div>
                         <!-- /. rock__main -->

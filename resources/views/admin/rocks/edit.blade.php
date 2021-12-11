@@ -176,15 +176,14 @@
 
                             <!-- Checkbox -->
                             <div class="form-group">
-                                <label>
+                                <div class="form-check">
                                     {{Form::checkbox('is_public', '1', $rock->isPublic(),
-                                    ['class'=>'minimal'])}}
-                                    {{-- <input type="checkbox" class="minimal" name="is_public"
-                                        value="{{$rock->isPublic()}}">--}}
-                                </label>
-                                <label>
-                                    Публичный
-                                </label>
+                                    ['class'=>'form-check-input', 'id'=>'checkPublic'])}}
+                                    <label class="form-check-label" for="checkPublic">
+                                        Публичный
+                                    </label>
+                                </div>
+
                             </div>
                             <!-- ./ Checkbox -->
 

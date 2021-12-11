@@ -140,12 +140,13 @@
 
                 <!-- checkbox -->
                 <div class="form-group">
-                  <label>
-                    <input type="checkbox" class="minimal" name="is_public">
-                  </label>
-                  <label>
-                    Публичный
-                  </label>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public">
+
+                    <label class="form-check-label" for="checkPublic">
+                      Публичный
+                    </label>
+                  </div>
                 </div>
                 <!-- ./ checkbox -->
               </div>

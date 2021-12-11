@@ -12,7 +12,23 @@ window.addEventListener("DOMContentLoaded", () => {
     const microscopeWrap = document.querySelector(".microscope__wrap"),
         mapWrap = document.querySelector(".map"),
         selectSingle = document.querySelectorAll(".select-single"),
-        selectMultiple = document.querySelectorAll(".select-multiple");
+        selectMultiple = document.querySelectorAll(".select-multiple"),
+        searchBtn = document.querySelector("#searchBtn"),
+        mapBtn = document.querySelector("#mapBtn");
+
+    (function () {
+        if ((searchBtn && mapBtn) != undefined) {
+            let currentUrl = window.location;
+
+            if (currentUrl.pathname === "/") {
+                searchBtn.setAttribute("href", "#search");
+                mapBtn.setAttribute("href", "/map");
+            } else if (currentUrl.href === "/map") {
+                searchBtn.setAttribute("href", "/");
+                mapBtn.setAttribute("href", "#map");
+            }
+        }
+    })();
 
     // slick-carousel
     $("#accordion-button-gallery").on("click", function (event) {
@@ -22,11 +38,11 @@ window.addEventListener("DOMContentLoaded", () => {
     searchCard();
 
     function getUrlParams() {
-        let urlSearch = window.location.search;
+        let searchUrl = window.location.search;
         let urlParams = {};
-        urlSearch = urlSearch.substring(1).split("&");
-        for (let i = 0; i < urlSearch.length; i++) {
-            let c = urlSearch[i].split("=");
+        searchUrl = searchUrl.substring(1).split("&");
+        for (let i = 0; i < searchUrl.length; i++) {
+            let c = searchUrl[i].split("=");
             urlParams[c[0]] = c[1];
         }
         return urlParams;

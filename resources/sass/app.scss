@@ -17,8 +17,11 @@ $input-focus-border-color: $green-200;
 $form-control-border-color: #80bdff;
 
 // Imports
+@import "./normalize";
 @import "../../node_modules/dropzone/src/dropzone.scss";
 @import "../../node_modules/admin-lte/dist/css/adminlte.css";
-@import "../../node_modules/select2/dist/css/select2";
+@import "../../node_modules/admin-lte/plugins/select2/css/select2";
 @import "../../node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4";
+@import "./ckeditor.scss";
+@import "./select2.scss";
 @import "./admin-style.scss";
