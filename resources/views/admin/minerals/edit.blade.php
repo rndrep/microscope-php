@@ -46,25 +46,29 @@
               <!-- ./Form gallery img-->
               <div class="row">
                 <div class="col">
-                  <form class="form" action="#" method="post">
+{{--                  <form class="form" action="#" method="post">--}}
                     <div class="form-group">
                       <label class="col-form-label text-lg-right">Загрузка изображений для галереи</label>
-                      <div class="dropzone" id="galleryDropzone">
-                        <div class="dz-message needsclick">
-                          <i class="far fa-images fa-3x text-primary"></i>
-                          <!-- Info -->
-                          <div class="ml-3">
-                            <p class="fs-5 text-muted">Перенесите файл сюда или нажмите
-                              для
-                              загрузки.
-                            </p>
-                            <span class="fs-7 mt-0 text-primary form-text opacity-75">Загрузите до 10 файлов</span>
+                      <form action="{{ route('media_save', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'gallery']) }}"
+                            class="dropzone dz-clickable" id="galleryDropzone"
+                            data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'gallery']) }}"
+                      >
+                          <div class="dz-message needsclick">
+                            <i class="far fa-images fa-3x text-primary"></i>
+                            <!-- Info -->
+                            <div class="ml-3">
+                              <p class="fs-5 text-muted">Перенесите файл сюда или нажмите
+                                для
+                                загрузки.
+                              </p>
+                              <span class="fs-7 mt-0 text-primary form-text opacity-75">Загрузите до 10 файлов</span>
+                            </div>
+                            <!-- ./Info -->
                           </div>
-                          <!-- ./Info -->
-                        </div>
-                      </div>
+
+                      </form>
                     </div>
-                  </form>
+{{--                  </form>--}}
                 </div>
               </div>
               <!-- ./Form add gallery img-->

@@ -1,9 +1,11 @@
 import Dropzone from "../../node_modules/dropzone";
+import {getResource, postData, deleteData} from './services';
 
 export function initDropzone() {
     const photoField = document.querySelector("#photoDropzone"),
         galleryField = document.querySelector("#galleryDropzone"),
-        microField = document.querySelector("#microPplDropzone");
+        microField = document.querySelector("#microPplDropzone"),
+        csrfToken = document.head.querySelector('meta[name="csrf-token"]');
 
     if (photoField) {
         try {
@@ -18,6 +20,9 @@ export function initDropzone() {
                     "Файл слишком большой ({{filesize}}MB). Максимальный размер: {{maxFilesize}}MB.",
                 dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",
                 addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken.content
+                }
             });
 
             photoDropzone.on("addedfile", (file) => {
@@ -42,8 +47,9 @@ export function initDropzone() {
     if (galleryField) {
         try {
             const galleryDropzone = new Dropzone(galleryField, {
-                url: "http://microscope.test/admin/minerals/1",
-                method: "put",
+                url: galleryField.getAttribute('action'),
+                // laravel doesn't see file when use PUT
+                // method: "put",
                 uploadMultiple: false, //Следует ли отправлять несколько файлов в одном запросе
                 parallelUploads: 2,
                 maxFiles: 10,
@@ -54,10 +60,26 @@ export function initDropzone() {
                     "Файл слишком большой ({{filesize}}MB). Максимальный размер: {{maxFilesize}}MB.",
                 dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",
                 addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken.content
+                }
             });
+            fillServerPhotos(galleryDropzone, galleryField.getAttribute('data-url'));
 
-            galleryDropzone.on("addedfile", function (file) {});
-        } catch (error) {}
+            galleryDropzone.on("removedfile", function (file) {
+                let formData = new FormData();
+                formData.append('_method', 'delete')
+                deleteData(
+                    galleryField.getAttribute('action') + '&filename=' + file.name,
+                    formData,
+                    {'X-CSRF-TOKEN': csrfToken.content}
+                ).then((data) => {
+                    // console.log(data)
+                });
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     if (microField) {
@@ -168,6 +190,15 @@ export function initDropzone() {
                     "none";
                 dropzone.querySelector(".dropzone-remove-all").style.display =
                     "none";
+            }
+        });
+    }
+
+    function fillServerPhotos(dropzone, url) {
+        getResource(url).then((photos) => {
+            for (let i in photos) {
+                let mockFile = { name: photos[i].name, size: photos[i].size };
+                dropzone.displayExistingFile(mockFile, photos[i].url);
             }
         });
     }

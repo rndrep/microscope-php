@@ -20,12 +20,12 @@ class MediaController extends Controller
              */
                 [$id, $modelClass, $type] = $this->getCommonParams($request);
             $this->getModelInstance($modelClass, $id);
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
-
-        return $modelClass::getPhotoUrls($modelClass::getPhotoPath($id, $modelClass, $type));
-
+        return response()->json(
+            $modelClass::getDropzonePhotos($modelClass::getPhotoPath($id, $modelClass, $type))
+        );
     }
 
     public function savePhotos(Request $request)
@@ -40,17 +40,17 @@ class MediaController extends Controller
              */
             [$id, $modelClass, $type] = $this->getCommonParams($request);
             $this->getModelInstance($modelClass, $id);
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
-        $files = $request->file('files');
+        $files = $request->file('file');
         if (empty($files)) {
             return 'no files to save';
         }
 
         switch ($type) {
             case AbstractMediaEntity::CONTENT_TYPE_GALLERY:
-                // upload gallery
+                $modelClass::uploadGallery($id, $files);
                 break;
             case AbstractMediaEntity::CONTENT_TYPE_PPL:
             case AbstractMediaEntity::CONTENT_TYPE_XPL:
@@ -58,17 +58,36 @@ class MediaController extends Controller
                 break;
             default:
         }
-
+        return response('ok', 200);
     }
 
     public function deletePhoto(Request $request)
     {
-        //TODO: implement deleting
         try {
-            list($id, $entity, $type) = $this->getCommonParams($request);
+            /**
+             * @var int $id
+             * @var AbstractMediaEntity $modelClass
+             * @var string $type
+             */
+            list($id, $modelClass, $type) = $this->getCommonParams($request);
+            $this->getModelInstance($modelClass, $id);
 
+            switch ($type) {
+                case AbstractMediaEntity::CONTENT_TYPE_GALLERY:
+                    $path = $modelClass::GALLERY_PATH . $id . '/' . $request->query('filename');
+                    break;
+                case AbstractMediaEntity::CONTENT_TYPE_PPL:
+                case AbstractMediaEntity::CONTENT_TYPE_XPL:
+                    $path = $modelClass::MICRO_PATH . $id . '/' . $request->query('filename') . '/' . $type;
+                    break;
+                default:
+                    $path = '';
+            }
+            $modelClass::deleteImage($path);
         } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
+        return response('ok', 200);
     }
 
     /**

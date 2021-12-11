@@ -47,6 +47,26 @@ abstract class AbstractMediaEntity extends AbstractEntity
         );
     }
 
+    public static function getDropzonePhotos(string $publicPath): array
+    {
+        if (!is_dir(public_path($publicPath))) {
+            return [];
+        }
+        $photos = array_values(array_diff(
+            scandir(public_path($publicPath)), ['.', '..']
+        ));
+        $folder = public_path($publicPath);
+        return array_map(function ($item) use ($publicPath, $folder) {
+                $tmpObj = new \stdClass();
+                $tmpObj->name = $item;
+                $tmpObj->url = env('APP_URL') . $publicPath . '/' . $item;
+                $tmpObj->size = filesize($folder . '/' . $item);
+                return $tmpObj;
+            },
+            $photos
+        );
+    }
+
     public static function getPhotoPath(int $id, $modelClass, string $type): string
     {
         switch ($type) {
@@ -88,7 +108,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
         }
 
         // TODO: check that save and remove in correct path
-        $this->deleteImage($this->imagePathDetail . $this->photo);
+        static::deleteImage($this->imagePathDetail . $this->photo);
         $filename = $this->getKey() . '.' . $photo->extension();
         $photo->storeAs($this->imagePathDetail, $filename);
         $this->photo = $filename;
@@ -134,10 +154,13 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     //TODO: don't delete all photos. Need to add ability to add and remove one photo.
 
-    public function uploadGallery(array $photos)
+    public static function uploadGallery($id, $photos)
     {
-        $path = $this->imagePathGallery . $this->id;
-        Storage::deleteDirectory($path);
+        $path = static::GALLERY_PATH . $id;
+//        Storage::deleteDirectory($path);
+        if (!is_array($photos)) {
+            $photos = [$photos];
+        }
         if (count($photos) > 0) {
             self::saveImages2Dir($photos, $path);
         }
@@ -156,12 +179,12 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     public function remove()
     {
-        $this->deleteImage($this->imagePathDetail . $this->photo);
+        static::deleteImage($this->imagePathDetail . $this->photo);
         Storage::deleteDirectory($this->imagePathMicro . $this->id);
         Storage::deleteDirectory($this->imagePathGallery . $this->id);
     }
 
-    public function deleteImage($path)
+    public static function deleteImage($path)
     {
         if (!empty($path) && file_exists(public_path($path))) {
             Storage::delete($path);

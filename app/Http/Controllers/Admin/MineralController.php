@@ -27,7 +27,7 @@ class MineralController extends Controller
 
     const VALIDATE_RULES = [
         'name' => 'required',
-        'hardness' => 'integer|min:0|max:10', //|regex:/^\d{1,2}$/
+        'hardness' => 'nullable|integer|min:0|max:10', //|regex:/^\d{1,2}$/
     ];
 
     /**
