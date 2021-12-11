@@ -131,7 +131,7 @@ class RockController extends Controller
 //TODO: Rock::getInfoFields()
 //                'fields' => $item->getInfoFields(),
                 'microscopeRoute' => $microRoute,
-                'gallery' => $rock::getPhotoPaths(Rock::GALLERY_PATH . $rock->id),
+                'gallery' => $rock::getPhotoUrls(Rock::GALLERY_PATH . $rock->id),
             ]
         );
     }
@@ -271,8 +271,8 @@ class RockController extends Controller
         }
         $publicPath = Rock::MICRO_PATH . $id . '/';
         $photos = [
-            'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
-            'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
+            'ppl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'xpl'),
             'smooth' => true,
             'shift' => 5,
         ];

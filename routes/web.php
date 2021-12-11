@@ -54,6 +54,13 @@ Route::group(['prefix' => '/microscope-photos'], function () {
 });
 
 // gallery and microscope photos
+/**
+ * params:
+ * int id
+ * string entity
+ * string type
+ * example: /media-get?id=1&entity=mineral&type=gallery
+ */
 Route::get('/media-get', [MediaController::class, 'getPhotos'])->name('media_get');
 
 
@@ -64,7 +71,7 @@ Route::group(['prefix' => '/admin', 'middleware' => 'content_manager'], function
     Route::resource('/rocks', RockController::class)->except(['destroy']);
     Route::resource('/minerals', MineralController::class)->except(['destroy']);
     Route::resource('/fossils', FossilController::class)->except(['destroy']);
-    Route::post('/media-save', [MediaController::class, 'savePhoto'])->name('media_save');
+    Route::post('/media-save', [MediaController::class, 'savePhotos'])->name('media_save');
     Route::delete('/media-delete', [MediaController::class, 'deletePhoto'])->name('media_delete');
 });
 

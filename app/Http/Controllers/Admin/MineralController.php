@@ -25,6 +25,11 @@ class MineralController extends Controller
         'mineralSplitting' => ['prop' => 'splitting_id', 'strict' => true],
     ];
 
+    const VALIDATE_RULES = [
+        'name' => 'required',
+        'hardness' => 'integer|min:0|max:10', //|regex:/^\d{1,2}$/
+    ];
+
     /**
      * Get items for search page
      *
@@ -80,9 +85,7 @@ class MineralController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'	=>	'required' //обязательно
-        ]);
+        $this->validate($request, self::VALIDATE_RULES);
 
         /** @var Mineral $item */
         $item = Mineral::add($request->all());
@@ -112,9 +115,8 @@ class MineralController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name'	=>	'required' //обязательно
-        ]);
+        $this->validate($request, self::VALIDATE_RULES);
+
         /** @var Mineral $item */
         $item = Mineral::find($id);
         $item->update($request->all());
@@ -150,8 +152,8 @@ class MineralController extends Controller
         }
         $publicPath = Mineral::MICRO_PATH . $id . '/';
         $photos = [
-            'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
-            'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
+            'ppl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'xpl'),
             'smooth' => false,
             'shift' => 10,
         ];
@@ -175,7 +177,7 @@ class MineralController extends Controller
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'microscopeRoute' => Mineral::getMicroscopeUrl($id),
-                'gallery' => $item::getPhotoPaths(Mineral::GALLERY_PATH . $item->id),
+                'gallery' => $item::getPhotoUrls(Mineral::GALLERY_PATH . $item->id),
             ]
         );
     }

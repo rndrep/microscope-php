@@ -141,7 +141,7 @@ class FossilController extends Controller
             [
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
-                'gallery' => $item::getPhotoPaths(Fossil::GALLERY_PATH . $item->id),
+                'gallery' => $item::getPhotoUrls(Fossil::GALLERY_PATH . $item->id),
             ]
         );
     }
