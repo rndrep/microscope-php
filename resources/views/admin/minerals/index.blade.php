@@ -22,7 +22,8 @@
               <div class="dataTables_wrapper">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table class="table table-responsive table-bordered table-hover dataTable text-center">
+                    <table id="dataTable"
+                      class="table table-responsive table-bordered table-hover dataTable text-center">
                       <thead>
                         <tr>
                           <th>Действия</th>

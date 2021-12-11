@@ -18,7 +18,7 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                    <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" shref="#" role="button">
                         <svg class="admin-icon bars-icon">
                             <use href="/svg/sprite.svg#bars"></use>
                         </svg>

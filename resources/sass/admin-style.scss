@@ -1,3 +1,24 @@
+td {
+    max-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table__search,
+.table__info {
+    float: left !important;
+}
+.table__length-menu,
+.table__pagination {
+    float: right !important;
+}
+
+table.dataTable td.dataTables_empty,
+table.dataTable th.dataTables_empty {
+    text-align: left;
+}
+
 .table th,
 .table td {
     vertical-align: middle;
