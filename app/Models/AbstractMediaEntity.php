@@ -11,13 +11,17 @@ abstract class AbstractMediaEntity extends AbstractEntity
     protected $imagePathDetail;
     protected $imagePathGallery;
     protected $imagePathMicro;
-    protected $commonImgPath;
+    protected $commonImgPath; // duplicated logic of path constants (PHOTO_INFO_PATH, MICRO_PATH, GALLERY_PATH)
 
     protected $guarded = ['photo', 'gallery', 'ppl', 'xpl'];
 
     const PHOTO_INFO_PATH = '';
     const MICRO_PATH = '';
     const GALLERY_PATH = '';
+
+    const CONTENT_TYPE_GALLERY = 'gallery';
+    const CONTENT_TYPE_PPL = 'ppl';
+    const CONTENT_TYPE_XPL = 'xpl';
 
 
     public function __construct(array $attributes = [])
@@ -28,7 +32,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
         parent::__construct($attributes);
     }
 
-    public static function getPhotoPaths(string $publicPath): array
+    public static function getPhotoUrls(string $publicPath): array
     {
         if (!is_dir(public_path($publicPath))) {
             return [];
@@ -41,6 +45,42 @@ abstract class AbstractMediaEntity extends AbstractEntity
             },
             $photos
         );
+    }
+
+    public static function getDropzonePhotos(string $publicPath): array
+    {
+        if (!is_dir(public_path($publicPath))) {
+            return [];
+        }
+        $photos = array_values(array_diff(
+            scandir(public_path($publicPath)), ['.', '..']
+        ));
+        $folder = public_path($publicPath);
+        return array_map(function ($item) use ($publicPath, $folder) {
+                $tmpObj = new \stdClass();
+                $tmpObj->name = $item;
+                $tmpObj->url = env('APP_URL') . $publicPath . '/' . $item;
+                $tmpObj->size = filesize($folder . '/' . $item);
+                return $tmpObj;
+            },
+            $photos
+        );
+    }
+
+    public static function getPhotoPath(int $id, $modelClass, string $type): string
+    {
+        switch ($type) {
+            case self::CONTENT_TYPE_GALLERY:
+                $path = $modelClass::GALLERY_PATH . $id;
+                break;
+            case self::CONTENT_TYPE_PPL:
+            case self::CONTENT_TYPE_XPL:
+                $path = $modelClass::MICRO_PATH . $id . '/' . $type;
+                break;
+            default:
+                $path = '';
+        }
+        return $path;
     }
 
     /**
@@ -68,7 +108,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
         }
 
         // TODO: check that save and remove in correct path
-        $this->deleteImage($this->imagePathDetail . $this->photo);
+        static::deleteImage($this->imagePathDetail . $this->photo);
         $filename = $this->getKey() . '.' . $photo->extension();
         $photo->storeAs($this->imagePathDetail, $filename);
         $this->photo = $filename;
@@ -83,27 +123,48 @@ abstract class AbstractMediaEntity extends AbstractEntity
     {
         $pplPath = $this->imagePathMicro . $this->id . '/ppl';
         $xplPath = $this->imagePathMicro . $this->id . '/xpl';
-        Storage::deleteDirectory($pplPath);
-        Storage::deleteDirectory($xplPath);
+//        Storage::deleteDirectory($pplPath);
+//        Storage::deleteDirectory($xplPath);
         // TODO: count($pplPhotos) == 36
         // TODO: flags: плавный переход, 5 или 10 градусов
         if (count($pplPhotos) > 0) {
-            $this->saveImages2Dir($pplPhotos, $pplPath);
+            self::saveImages2Dir($pplPhotos, $pplPath);
         }
         if (count($xplPhotos) > 0) {
-            $this->saveImages2Dir($xplPhotos, $xplPath);
+            self::saveImages2Dir($xplPhotos, $xplPath);
         }
     }
 
+    /**
+     * Upload microscope PPL or XPL photos
+     */
+    public static function uploadMicroscopeByType(int $id, $photos, $photosType): bool
+    {
+        // path like /images/{rocks|minerals|fossils}/micro/{id}/{ppl|xpl}
+        $photosPath = static::MICRO_PATH . $id . '/' . $photosType;
+        if (!is_array($photos)) {
+            $photos = [$photos];
+        }
+        if (count($photos) > 0) {
+            self::saveImages2Dir($photos, $photosPath);
+        }
+        return true;
+    }
+
+
     //TODO: don't delete all photos. Need to add ability to add and remove one photo.
 
-    public function uploadGallery(array $photos)
+    public static function uploadGallery($id, $photos)
     {
-        $path = $this->imagePathGallery . $this->id;
-        Storage::deleteDirectory($path);
-        if (count($photos) > 0) {
-            $this->saveImages2Dir($photos, $path);
+        $path = static::GALLERY_PATH . $id;
+//        Storage::deleteDirectory($path);
+        if (!is_array($photos)) {
+            $photos = [$photos];
         }
+        if (count($photos) > 0) {
+            self::saveImages2Dir($photos, $path);
+        }
+        return true;
     }
 
     public static function getMicroscopeUrl($id): string
@@ -118,12 +179,12 @@ abstract class AbstractMediaEntity extends AbstractEntity
 
     public function remove()
     {
-        $this->deleteImage($this->imagePathDetail . $this->photo);
+        static::deleteImage($this->imagePathDetail . $this->photo);
         Storage::deleteDirectory($this->imagePathMicro . $this->id);
         Storage::deleteDirectory($this->imagePathGallery . $this->id);
     }
 
-    public function deleteImage($path)
+    public static function deleteImage($path)
     {
         if (!empty($path) && file_exists(public_path($path))) {
             Storage::delete($path);
@@ -134,15 +195,15 @@ abstract class AbstractMediaEntity extends AbstractEntity
      * @param UploadedFile[] $items
      * @param string $path
      */
-    private function saveImages2Dir(array $items, string $path)
+    private static function saveImages2Dir(array $items, string $path)
     {
-        $this->createDirIfNotExist($path);
+        self::createDirIfNotExist($path);
         foreach ($items as $item) {
             $item->storeAs($path, $item->getClientOriginalName());
         }
     }
 
-    private function createDirIfNotExist($dirPath)
+    private static function createDirIfNotExist($dirPath)
     {
         return is_dir($dirPath) || Storage::makeDirectory($dirPath);
     }

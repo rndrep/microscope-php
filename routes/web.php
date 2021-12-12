@@ -54,7 +54,14 @@ Route::group(['prefix' => '/microscope-photos'], function () {
 });
 
 // gallery and microscope photos
-Route::get('/media-get', [MediaController::class, 'getPhotos'])->name('media_get');
+/**
+ * params:
+ * int id
+ * string entity
+ * string type
+ * example: /media?id=1&entity=mineral&type=gallery
+ */
+Route::get('/media', [MediaController::class, 'getPhotos'])->name('media_get');
 
 
 //TODO: configure access by
@@ -64,8 +71,8 @@ Route::group(['prefix' => '/admin', 'middleware' => 'content_manager'], function
     Route::resource('/rocks', RockController::class)->except(['destroy']);
     Route::resource('/minerals', MineralController::class)->except(['destroy']);
     Route::resource('/fossils', FossilController::class)->except(['destroy']);
-    Route::post('/media-save', [MediaController::class, 'savePhoto'])->name('media_save');
-    Route::delete('/media-delete', [MediaController::class, 'deletePhoto'])->name('media_delete');
+    Route::post('/media', [MediaController::class, 'savePhotos'])->name('media_save');
+    Route::delete('/media', [MediaController::class, 'deletePhoto'])->name('media_delete');
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {

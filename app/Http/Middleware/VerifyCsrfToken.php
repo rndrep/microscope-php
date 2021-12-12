@@ -15,8 +15,6 @@ class VerifyCsrfToken extends Middleware
         '/rock-list',
         '/mineral-list',
         '/fossil-list',
-        '/media-get',
-        '/media-save',
-        '/media-delete',
+//        '/media',
     ];
 }

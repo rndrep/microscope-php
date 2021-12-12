@@ -25,11 +25,13 @@ class MineralController extends Controller
         'mineralSplitting' => ['prop' => 'splitting_id', 'strict' => true],
     ];
 
+    const VALIDATE_RULES = [
+        'name' => 'required',
+        'hardness' => 'nullable|integer|min:0|max:10', //|regex:/^\d{1,2}$/
+    ];
+
     /**
      * Get items for search page
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function list(Request $request)
     {
@@ -48,14 +50,15 @@ class MineralController extends Controller
             }
         }
 
-        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+//        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+        $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
             $item->photo = $item->getPhoto();
             $item->microscope_url = Mineral::getMicroscopeUrl($item->id);
             $item->info_url = route('mineral_info', $item->id);
             return $item;
         });
-        return $result;
+        return ['data' => $result];
     }
 
     public function index()
@@ -80,9 +83,7 @@ class MineralController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'	=>	'required' //обязательно
-        ]);
+        $this->validate($request, self::VALIDATE_RULES);
 
         /** @var Mineral $item */
         $item = Mineral::add($request->all());
@@ -112,9 +113,8 @@ class MineralController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name'	=>	'required' //обязательно
-        ]);
+        $this->validate($request, self::VALIDATE_RULES);
+
         /** @var Mineral $item */
         $item = Mineral::find($id);
         $item->update($request->all());
@@ -150,8 +150,8 @@ class MineralController extends Controller
         }
         $publicPath = Mineral::MICRO_PATH . $id . '/';
         $photos = [
-            'ppl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'ppl'),
-            'xpl' => AbstractMediaEntity::getPhotoPaths($publicPath . 'xpl'),
+            'ppl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'ppl'),
+            'xpl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'xpl'),
             'smooth' => false,
             'shift' => 10,
         ];
@@ -175,7 +175,7 @@ class MineralController extends Controller
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'microscopeRoute' => Mineral::getMicroscopeUrl($id),
-                'gallery' => $item::getPhotoPaths(Mineral::GALLERY_PATH . $item->id),
+                'gallery' => $item::getPhotoUrls(Mineral::GALLERY_PATH . $item->id),
             ]
         );
     }
