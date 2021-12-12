@@ -77,8 +77,6 @@ class FossilController extends Controller
         ]);
 
         $item = Fossil::add($request->all());
-//        $item->uploadPhoto($request->file('photo'));
-//        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
         return redirect()->route('fossils.index');
     }
@@ -104,8 +102,6 @@ class FossilController extends Controller
         /** @var Fossil $item */
         $item = Fossil::find($id);
         $item->update($request->all());
-//        $item->uploadPhoto($request->file('photo'));
-//        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
         return redirect()->route('fossils.index');
     }

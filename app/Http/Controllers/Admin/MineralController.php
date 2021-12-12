@@ -87,12 +87,6 @@ class MineralController extends Controller
 
         /** @var Mineral $item */
         $item = Mineral::add($request->all());
-//        $item->uploadPhoto($request->file('photo'));
-//        $item->uploadMicroscope(
-//            $request->file('pplPhotos') ?? [],
-//            $request->file('xplPhotos') ?? []
-//        );
-//        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
         return redirect()->route('minerals.index');
     }
@@ -118,12 +112,6 @@ class MineralController extends Controller
         /** @var Mineral $item */
         $item = Mineral::find($id);
         $item->update($request->all());
-//        $item->uploadPhoto($request->file('photo'));
-//        $item->uploadMicroscope(
-//            $request->file('pplPhotos') ?? [],
-//            $request->file('xplPhotos') ?? []
-//        );
-//        $item->uploadGallery($request->file('gallery') ?? []);
         $item->save();
 
         return redirect()->route('minerals.index');

@@ -25,21 +25,6 @@
 
                         <!-- Card-body -->
                         <div class="card-body">
-
-                            <div class="form-group">
-                                <label for="inputPhoto">Картинка</label>
-                                <img src="{{$rock->getPhoto()}}" alt="" class="row img-responsive" width="200">
-                                <input type="file" id="inputPhoto" name="photo">
-                                {{-- <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto"
-                                        name="photo" style="display:none"></label>--}}
-                                <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
-                            </div>
-                            <div class="form-group">
-                                @include('admin.input-microscope')
-                            </div>
-                            <div class="form-group">
-                                @include('admin.input-gallery')
-                            </div>
                             <div class="row row-cols-1 row-cols-lg-2">
                                 <div class="col">
                                     <div class="form-group">

@@ -225,40 +225,6 @@
 
             <!-- Card-body -->
             <div class="card-body">
-              <div class="row">
-                <!-- Photo -->
-                <div class="col-4">
-                  <div class="form-group">
-                    <label for="inputPhoto">Картинка</label>
-                    <!-- <img src="{{$item->getPhoto()}}" alt="" class="card-img img-responsive"> -->
-
-                  </div>
-
-                  {{-- <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto" name="photo"
-                      style="display:none"></label>--}}
-                  </input>
-                </div>
-              </div>
-              <!-- ./ Photo -->
-
-              <!-- Gallery -->
-              <div class="form-group">
-                @include('admin.input-gallery')
-              </div>
-              <!-- ./ Gallery -->
-
-
-              <div class="row justify-content-center">
-                <div class="col">
-                  <!-- Micro-photos -->
-                  <div class="form-group">
-                    @include('admin.input-microscope')
-
-                  </div>
-                  <!-- ./ Micro-photos -->
-                </div>
-              </div>
-
               <div class="row row-cols-1 row-cols-lg-2">
                 <!-- TODO: Где шаблон?? -->
                 @foreach($fields as $field)

@@ -19,21 +19,6 @@
 
             <div class="card-body">
               <div class="col-md-6">
-                <div class="form-group">
-                  <label for="inputPhoto">Картинка</label>
-                  <div>
-                    <input type="file" id="inputPhoto" name="photo">
-                    {{-- <label class="btn btn-primary">Выбрать файл<input type="file" id="inputPhoto" name="photo"
-                        style="display:none"></label>--}}
-                    <p class="help-block">(jpg, jpeg, png, bmp, gif, svg или webp)</p>
-                  </div>
-                </div>
-                <div class="form-group">
-                  @include('admin.input-microscope')
-                </div>
-                <div class="form-group">
-                  @include('admin.input-gallery')
-                </div>
                 @foreach($fields as $field)
                   {!! $field->getHtml() !!}
                 @endforeach
