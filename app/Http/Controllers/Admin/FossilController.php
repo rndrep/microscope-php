@@ -8,6 +8,7 @@ use App\Models\IndexFossil;
 use App\Models\Invertebrate;
 use App\Models\Rock_Fossil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FossilController extends Controller
 {
@@ -38,7 +39,9 @@ class FossilController extends Controller
                 $query->where(self::SEARCH_FIELDS[$key]['prop'], 'LIKE', '%' . $value . '%');
             }
         }
-
+        if (!Auth::check()) {
+            $query->where('is_public', 1);
+        }
 //        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
         $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
@@ -77,6 +80,7 @@ class FossilController extends Controller
         ]);
 
         $item = Fossil::add($request->all());
+        $item->toggleStatus($request->get('is_public'));
         $item->save();
         return redirect()->route('fossils.index');
     }
@@ -101,8 +105,9 @@ class FossilController extends Controller
         ]);
         /** @var Fossil $item */
         $item = Fossil::find($id);
+        $item->toggleStatus($request->get('is_public'));
         $item->update($request->all());
-        $item->save();
+//        $item->save();
         return redirect()->route('fossils.index');
     }
 

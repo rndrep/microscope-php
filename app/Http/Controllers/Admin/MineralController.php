@@ -11,6 +11,7 @@ use App\Models\Rock_AccessoryMineral;
 use App\Models\Rock_FormingMineral;
 use App\Models\Rock_SecondMineral;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MineralController extends Controller
 {
@@ -49,7 +50,9 @@ class MineralController extends Controller
                 $query->where(self::SEARCH_FIELDS[$key]['prop'], 'LIKE', '%' . $value . '%');
             }
         }
-
+        if (!Auth::check()) {
+            $query->where('is_public', 1);
+        }
 //        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
         $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
@@ -87,6 +90,7 @@ class MineralController extends Controller
 
         /** @var Mineral $item */
         $item = Mineral::add($request->all());
+        $item->toggleStatus($request->get('is_public'));
         $item->save();
         return redirect()->route('minerals.index');
     }
@@ -111,8 +115,9 @@ class MineralController extends Controller
 
         /** @var Mineral $item */
         $item = Mineral::find($id);
+        $item->toggleStatus($request->get('is_public'));
         $item->update($request->all());
-        $item->save();
+//        $item->save();
 
         return redirect()->route('minerals.index');
     }

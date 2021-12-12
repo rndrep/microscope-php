@@ -129,7 +129,6 @@
                 <div class="form-group">
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public">
-
                     <label class="form-check-label" for="checkPublic">
                       Публичный
                     </label>
