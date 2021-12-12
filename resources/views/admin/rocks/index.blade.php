@@ -17,17 +17,19 @@
               <div class="form-group">
                 <a href="{{route('rocks.create')}}" class="btn btn-success">Добавить</a>
               </div>
-              <div class="dataTables_wrapper">
+              <div class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table id="dataTable" class="table table-responsive table-bordered table-hover dataTable text-center">
+                    <table id="dataTable"
+                      class="display dtr-inline collapsed nowrap table table-responsive dt-responsive table-hover dataTable text-center"
+                      style="width:100%">
                       <thead>
                         <tr>
                           <th>Действия</th>
                           <th>ID</th>
                           <th>Название</th>
                           <th>Картинка</th>
-                          <th>Описание</th>
+                          <th>Публичный</th>
                           <th>Тип</th>
                           <th>Отряд</th>
                           <th>Класс</th>
@@ -38,7 +40,7 @@
                           <th>Породообразующий минерал</th>
                           <th>Вторичный минерал</th>
                           <th>Акцессорный минерал</th>
-                          <th>Публичный</th>
+                          <th>Описание</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -71,7 +73,8 @@
                           <td>
                             <img src="{{$item->getPhoto()}}" alt="" width="100">
                           </td>
-                          <td>{!! mb_substr($item->description, 0, 30) !!}</td>
+                          <td>{{$item->is_public ? 'Да' : 'Нет'}}</td>
+
                           <td>{{$item->getDictionaryPropName('rockType', 30)}}</td>
                           <td>{{$item->getDictionaryPropName('rockSquad', 30)}}</td>
                           <td>{{$item->getDictionaryPropName('rockClass', 30)}}</td>
@@ -83,12 +86,14 @@
                           <td>{{$item->getSecondMineralName()}}</td>
                           <td>{{$item->getAccessoryMineralName()}}</td>
 
-                          <td>{{$item->is_public ? 'Да' : 'Нет'}}</td>
+                          <td>{!! mb_substr($item->description, 0, 30) !!}</td>
+
                         </tr>
                         @endforeach
                         </tfoot>
                       </tbody>
                     </table>
+
                   </div>
                 </div>
               </div>

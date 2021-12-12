@@ -19,11 +19,12 @@
               <div class="form-group">
                 <a href="{{ route('minerals.create') }}" class="btn btn-success">Добавить</a>
               </div>
-              <div class="dataTables_wrapper">
+              <div class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                   <div class="col-sm-12">
                     <table id="dataTable"
-                      class="table table-responsive table-bordered table-hover dataTable text-center">
+                      class="display dtr-inline collapsed nowrap table table-responsive dt-responsive table-hover dataTable text-center"
+                      style="width:100%">
                       <thead>
                         <tr>
                           <th>Действия</th>
