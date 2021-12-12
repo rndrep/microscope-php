@@ -51,21 +51,19 @@ abstract class AbstractMediaEntity extends AbstractEntity
     public static function getDropzonePhotos(string $publicPath, $type): array
     {
         $path = public_path($publicPath);
-//        dump($path);
-//        if (!file_exists($path)) {
-//            return [];
-//        }
         if ($type === self::PHOTO_TYPE_INFO) {
-            if (is_file($path)) {
-                $tmpObj = new \stdClass();
-                $tmpObj->name = basename($path);
-                $tmpObj->url = env('APP_URL') . $publicPath;
-                $tmpObj->size = filesize($path);
-                $photos = [$tmpObj];
-            } else {
-                $photos = [];
+            if (!is_file($path)) {
+                return [];
             }
+            $tmpObj = new \stdClass();
+            $tmpObj->name = basename($path);
+            $tmpObj->url = env('APP_URL') . $publicPath;
+            $tmpObj->size = filesize($path);
+            $photos = [$tmpObj];
         } else {
+            if (!is_dir($path)) {
+                return [];
+            }
             $photos = array_values(array_diff(
                 scandir($path), ['.', '..']
             ));
@@ -89,8 +87,8 @@ abstract class AbstractMediaEntity extends AbstractEntity
                 /** @var AbstractMediaEntity $instance */
                 $instance = $modelClass::find($id);
                 $path = '';
-                if (empty($instance)) {
-                    $path = $instance::PHOTO_INFO_PATH . $instance->getPhoto();
+                if (!empty($instance) && !empty($instance->photo)) {
+                    $path = $instance::PHOTO_INFO_PATH . $instance->photo;
                 }
                 break;
             case self::PHOTO_TYPE_GALLERY:
@@ -131,6 +129,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
         $filename = $instance->getKey() . '.' . $photo->extension();
         $photo->storeAs(static::PHOTO_INFO_PATH, $filename);
         $instance->photo = $filename;
+        $instance->save();
         return $instance;
     }
 
@@ -212,9 +211,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
     {
         if (!empty($path) && file_exists(public_path($path))) {
             Storage::delete($path);
-            return true;
         }
-        throw new \Exception('no file ' . $path);
     }
 
     /**

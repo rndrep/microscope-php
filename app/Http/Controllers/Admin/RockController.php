@@ -195,7 +195,7 @@ class RockController extends Controller
         return view(
             'admin.rocks.edit',
             [
-                'rock' => $rock,
+                'item' => $rock,
                 'rockTypes' => RockType::orderBy('name')->pluck('name', 'id'),
                 'minerals' => Mineral::orderBy('name')->pluck('name', 'id'),
                 'fossils' => Fossil::orderBy('name')->pluck('name', 'id'),
