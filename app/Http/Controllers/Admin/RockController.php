@@ -35,9 +35,6 @@ class RockController extends Controller
 
     /**
      * Get items for search page
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function list(Request $request)
     {
@@ -67,14 +64,14 @@ class RockController extends Controller
         if (!Auth::check()) {
             $query->where('is_public', 1);
         }
-        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+        $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
             $item->photo = $item->getPhoto();
             $item->microscope_url = Rock::getMicroscopeUrl($item->id);
             $item->info_url = route('rock_info', $item->id);
             return $item;
         });
-        return $result;
+        return ['data' => $result];
     }
 
     //TODO: delete (moved in PageController)
@@ -97,10 +94,12 @@ class RockController extends Controller
                 //return view('admin.rocks.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
             }
             if (Auth::user()->isUser()) {
-                return view('dist.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
+//                return view('dist.index', ['items' => Rock::orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
+                return view('dist.index', ['items' => Rock::orderBy('name')->get()]);
             }
         }
-        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
+//        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->paginate(self::ITEMS_PER_PAGE)]);
+        return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->get()]);
     }
 
     /**

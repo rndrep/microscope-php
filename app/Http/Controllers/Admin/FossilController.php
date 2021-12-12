@@ -21,9 +21,6 @@ class FossilController extends Controller
 
     /**
      * Get items for search page
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function list(Request $request)
     {
@@ -42,14 +39,15 @@ class FossilController extends Controller
             }
         }
 
-        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+//        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+        $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
             $item->photo = $item->getPhoto();
             $item->microscope_url = '';
             $item->info_url = route('fossil_info', $item->id);
             return $item;
         });
-        return $result;
+        return ['data' => $result];
     }
 
     public function index()
