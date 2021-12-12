@@ -240,7 +240,7 @@ function watchFiles() {
 }
 
 const build = gulp.series(clean, gulp.parallel(html, css, images, script, svg)); // для выполнения всех тасков
-const watch = gulp.parallel(build, watchFiles, browserSync); //browserSync
+const watch = gulp.parallel(build, watchFiles, browserSync, cleanLaravelViewCache); //browserSync
 
 /* Exports Tasks */
 exports.html = html;

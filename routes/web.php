@@ -53,12 +53,12 @@ Route::group(['prefix' => '/microscope-photos'], function () {
     Route::get('/fossil/{id}', [FossilController::class, 'getMicroPhotosJson'])->name('micro_fossil');
 });
 
+Route::get('/rotation', [PageController::class, 'rotation'])->name('rotation');
+
 // gallery and microscope photos
 /**
  * params:
- * int id
- * string entity
- * string type
+ * int id; string entity; string type
  * example: /media?id=1&entity=mineral&type=gallery
  */
 Route::get('/media', [MediaController::class, 'getPhotos'])->name('media_get');

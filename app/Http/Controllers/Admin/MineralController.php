@@ -163,6 +163,7 @@ class MineralController extends Controller
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'microscopeRoute' => Mineral::getMicroscopeUrl($id),
+                'rotationRoute' => Mineral::getRotationUrl($id),
                 'gallery' => $item::getPhotoUrls(Mineral::GALLERY_PATH . $item->id),
             ]
         );

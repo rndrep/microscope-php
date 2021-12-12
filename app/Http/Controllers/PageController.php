@@ -10,6 +10,7 @@ use App\Models\MineralSyngony;
 use App\Models\RockClass;
 use App\Models\RockKind;
 use App\Models\RockType;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -30,6 +31,12 @@ class PageController extends Controller
     public function microscope()
     {
         return view('dist/microscope');
+    }
+
+    public function rotation(Request $request)
+    {
+        $src = $request->query('src');
+        return view('dist/rotation', ['src' => $src]);
     }
 
     private function rockSelectFields()

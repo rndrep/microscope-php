@@ -102,39 +102,6 @@ class RockController extends Controller
         return view('dist.index', ['items' => Rock::where('is_public', 1)->orderBy('name')->get()]);
     }
 
-    /**
-     * get item detail page for user
-     *
-     * @param $id
-     * @return false|Application|Factory|View
-     */
-    public function info($id)
-    {
-        if (empty($id)) {
-            return false;
-        }
-        /** @var Rock $rock */
-        $rock = Rock::find($id);
-
-        if (empty($rock)) {
-            return false;
-        }
-
-        if (!Auth::check() && !$rock->isPublic()) {
-            abort(404);
-        }
-        $microRoute = Rock::getMicroscopeUrl($id);
-        return view('dist.rock',
-            [
-                'item' => $rock,
-//TODO: Rock::getInfoFields()
-//                'fields' => $item->getInfoFields(),
-                'microscopeRoute' => $microRoute,
-                'gallery' => $rock::getPhotoUrls(Rock::GALLERY_PATH . $rock->id),
-            ]
-        );
-    }
-
     public function create()
     {
         return view(
@@ -257,6 +224,40 @@ class RockController extends Controller
             'shift' => 5,
         ];
         return json_encode($photos);
+    }
+
+    /**
+     * get item detail page for user
+     *
+     * @param $id
+     * @return false|Application|Factory|View
+     */
+    public function info($id)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        /** @var Rock $rock */
+        $rock = Rock::find($id);
+
+        if (empty($rock)) {
+            return false;
+        }
+
+        if (!Auth::check() && !$rock->isPublic()) {
+            abort(404);
+        }
+        $microRoute = Rock::getMicroscopeUrl($id);
+        return view('dist.rock',
+            [
+                'item' => $rock,
+//TODO: Rock::getInfoFields()
+//                'fields' => $item->getInfoFields(),
+                'microscopeRoute' => $microRoute,
+                'rotationRoute' => Rock::getRotationUrl($id),
+                'gallery' => $rock::getPhotoUrls(Rock::GALLERY_PATH . $rock->id),
+            ]
+        );
     }
 
 }

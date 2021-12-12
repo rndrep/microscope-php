@@ -190,6 +190,15 @@ abstract class AbstractMediaEntity extends AbstractEntity
         return '';
     }
 
+    public static function getRotationUrl($id): string
+    {
+        $model = static::class;
+        $item = $model::find($id);
+        return ($item && !empty($item->model_3d))
+            ? route('rotation', ['src' => $item->model_3d])
+            : '';
+    }
+
     public function getGallery()
     {
 

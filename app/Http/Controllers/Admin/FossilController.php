@@ -136,6 +136,7 @@ class FossilController extends Controller
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'gallery' => $item::getPhotoUrls(Fossil::GALLERY_PATH . $item->id),
+                'rotationRoute' => $item::getRotationUrl($id),
             ]
         );
     }

@@ -32,12 +32,7 @@
                                     col-12 col-sm-12 col-md-5
                                 "
                             >
-                                @if($microscopeRoute) {{--
-                                <div class="rock__text rock__text--gray">
-                                    --}} {{-- Посмотреть круглые фоточки--}}
-                                    {{--
-                                </div>
-                                --}}
+                                @if($microscopeRoute)
                                 <a
                                     class="btn btn_rock"
                                     href="{{$microscopeRoute}}"
@@ -49,16 +44,18 @@
                                     >Микроскоп</a
                                 >
                                 @endif
+                                @if($rotationRoute ?? '')
                                 <div class="rock__text rock__text--gray">
                                     Посмотреть поворот образца
                                 </div>
-                                <a class="btn btn_rock" href="">
+                                <a class="btn btn_rock" href=" {{ $rotationRoute }}">
                                     <svg class="icon">
                                         <use
                                             href="/svg/sprite.svg#360"
                                         ></use></svg
                                     >Обзор</a
                                 >
+                                @endif
                             </div>
                             <!-- ./ launch-btns -->
                         </div>
