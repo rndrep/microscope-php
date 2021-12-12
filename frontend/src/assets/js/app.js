@@ -4,7 +4,7 @@ import $ from "jquery";
 import "bootstrap";
 import slick from "./modules/slick";
 import select from "./modules/select";
-import searchCard from "./modules/searchCard";
+import createCards from "./modules/searchCard";
 import createMicroscope from "./modules/createMicroscope";
 import map from "./modules/map";
 
@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", () => {
         slick();
     });
 
-    searchCard();
+    createCards();
 
     function getUrlParams() {
         let searchUrl = window.location.search;

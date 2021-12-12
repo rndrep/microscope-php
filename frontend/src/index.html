@@ -1,391 +1,283 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        @@include('head.html', { "title": "Цифровой микроскоп" })
-    </head>
-    <body>
-        <div class="page">
-            @@include('navbar.html')
 
-            <!-- Intro -->
-            @@include('intro.html')
+<head>
+    @@include('head.html', { "title": "Цифровой микроскоп" })
+</head>
 
-            <!-- Breadcrumb -->
-            @@include('breadcrumb.html')
+<body>
+    <div class="page">
+        @@include('navbar.html')
 
-            <!-- Content -->
-            <!-- Search -->
-            <div class="search" id="search">
-                <div class="container">
-                    <h1 class="search__title">Поиск по фильтрам</h1>
-                    <div class="tabs">
-                        <ul
-                            class="nav nav-tabs tabs__nav"
-                            id="navTabs"
-                            role="tablist"
-                        >
-                            <!-- Rocks tab -->
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="tabs__link nav-link active"
-                                    id="rocksTab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#rocksTabContent"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="rocksTabContent"
-                                    aria-selected="true"
-                                >
-                                    Породы
-                                </button>
-                            </li>
+        <!-- Intro -->
+        @@include('intro.html')
 
-                            <!-- Minerals tab -->
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="tabs__link nav-link"
-                                    id="mineralsTab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#mineralsTabContent"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="mineralsTabContent"
-                                    aria-selected="false"
-                                >
-                                    Минералы
-                                </button>
-                            </li>
+        <!-- Breadcrumb -->
+        @@include('breadcrumb.html')
 
-                            <!-- Fossils tab -->
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="tabs__link nav-link"
-                                    id="fossilsTab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#fossilsTabContent"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="fossilsTabContent"
-                                    aria-selected="false"
-                                >
-                                    Окаменелости
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <!-- Rocks tab content -->
-                            <div
-                                class="tab-pane fade show active"
-                                id="rocksTabContent"
-                                role="tabpanel"
-                                aria-labelledby="rocksTab"
-                            >
-                                <!-- Rock search-form-->
-                                <form id="rocksSearchForm">
-                                    <div
-                                        class="
+        <!-- Content -->
+        <!-- Search -->
+        <div class="search" id="search">
+            <div class="container">
+                <h1 class="search__title">Поиск по фильтрам</h1>
+                <div class="tabs">
+                    <ul class="nav nav-tabs tabs__nav" id="navTabs" role="tablist">
+                        <!-- Rocks tab -->
+                        <li class="nav-item" role="presentation">
+                            <button class="tabs__link nav-link active" id="rocksTab" data-card-target="#rockCards"
+                                data-bs-toggle="tab" data-bs-target="#rocksTabContent" type="button" role="tab"
+                                aria-controls="rocksTabContent" aria-selected="true">
+                                Породы
+                            </button>
+                        </li>
+
+                        <!-- Minerals tab -->
+                        <li class="nav-item" role="presentation">
+                            <button class="tabs__link nav-link" id="mineralsTab" data-card-target="#mineralCards"
+                                data-bs-toggle="tab" data-bs-target="#mineralsTabContent" type="button" role="tab"
+                                aria-controls="mineralsTabContent" aria-selected="false">
+                                Минералы
+                            </button>
+                        </li>
+
+                        <!-- Fossils tab -->
+                        <li class="nav-item" role="presentation">
+                            <button class="tabs__link nav-link" id="fossilsTab" data-card-target="#fossilCards"
+                                data-bs-toggle="tab" data-bs-target="#fossilsTabContent" type="button" role="tab"
+                                aria-controls="fossilsTabContent" aria-selected="false">
+                                Окаменелости
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Rocks tab content -->
+                        <div class="tab-pane fade show active" id="rocksTabContent" role="tabpanel"
+                            aria-labelledby="rocksTab">
+                            <!-- Rock search-form-->
+                            <form id="rocksSearchForm" data-url="/rock-list" data-card-target="#rockCards">
+                                <div class="
                                             search__fields
                                             row
                                             row-cols-1
                                             row-cols-md-2
                                             row-cols-lg-3
-                                        "
-                                    >
-                                        <!-- Отряд -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Название
-                                            </label>
-                                            <input
-                                                name="rockName"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </div>
-
-                                        <!-- Тип -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Тип </label
-                                            ><select
-                                                name="rockType"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($rockTypes as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <!-- Класс -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Класс </label
-                                            ><select
-                                                name="rockClass"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($rockClasses as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <!-- Вид -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Вид
-                                            </label>
-                                            <select
-                                                name="rockKind"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($rockKinds as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <!-- Породообразующие минералы -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Породообразующие минералы
-                                            </label>
-                                            <select
-                                                name="rockFormingMinerals"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($minerals as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        ">
+                                    <!-- Отряд -->
+                                    <div class="col">
+                                        <label class="form-label">Название
+                                        </label>
+                                        <input name="rockName" type="text" class="form-control" />
                                     </div>
-                                    
-                                    <!-- <div class="d-flex justify-content-center mb-3"><a id="" href="#">Отменить выбор</a></div> -->
 
-                                    <div class="search__btn">
-                                        <button
-                                            id="rocksSearchBtn"
-                                            class="btn"
-                                            type="submit"
-                                        >
-                                            Найти
-                                        </button>
+                                    <!-- Тип -->
+                                    <div class="col">
+                                        <label class="form-label">Тип
+                                        </label>
+                                        <select name="rockType" class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($rockTypes as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                </form>
-                            </div>
+                                    <!-- Класс -->
+                                    <div class="col">
+                                        <label class="form-label">Класс </label><select name="rockClass"
+                                            class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($rockClasses as $value
+                                            => $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- Вид -->
+                                    <div class="col">
+                                        <label class="form-label">Вид
+                                        </label>
+                                        <select name="rockKind" class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($rockKinds as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- Породообразующие минералы -->
+                                    <div class="col">
+                                        <label class="form-label">Породообразующие минералы
+                                        </label>
+                                        <select name="rockFormingMinerals" class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($minerals as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <!-- Fossils tab content -->
-                            <div
-                                class="tab-pane fade"
-                                id="mineralsTabContent"
-                                role="tabpanel"
-                                aria-labelledby="mineralsTab"
-                            >
-                                <!-- Fossils search-form-->
-                                <form id="mineralsSearchForm">
-                                    <div
-                                        class="
+                                <!-- <div class="d-flex justify-content-center mb-3"><a id="" href="#">Отменить выбор</a></div> -->
+
+                                <div class="search__btn">
+                                    <button id="rocksSearchBtn" class="btn" type="submit">
+                                        Найти
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Fossils tab content -->
+                        <div class="tab-pane fade" id="mineralsTabContent" role="tabpanel"
+                            aria-labelledby="mineralsTab">
+                            <!-- Fossils search-form-->
+                            <form id="mineralsSearchForm" data-url="/mineral-list" data-card-target="#mineralCards">
+                                <div class="
                                             search__fields
                                             row
                                             row-cols-1
                                             row-cols-md-2
                                             row-cols-lg-3
-                                        "
-                                    >
-                                        <!-- Название минерала -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Название
-                                            </label>
-                                            <input
-                                                name="mineralName"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Класс/подкласс </label
-                                            >
-                                            <input
-                                                name="mineralClass"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Облик кристаллов </label
-                                            >
-                                            <input
-                                                name="mineralCrystalForm"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Блеск</label
-                                            >
-                                            <input
-                                                name="mineralShine"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Спайность</label
-                                            ><select
-                                                name="mineralSplitting"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($splitting as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        ">
+                                    <!-- Название минерала -->
+                                    <div class="col">
+                                        <label class="form-label">Название
+                                        </label>
+                                        <input name="mineralName" type="text" class="form-control" />
                                     </div>
-                                    <div class="search__btn">
-                                        <button
-                                            id="mineralsSearchBtn"
-                                            class="btn"
-                                            type="submit"
-                                        >
-                                            Найти
-                                        </button>
+                                    <div class="col">
+                                        <label class="form-label">Класс/подкласс
+                                        </label>
+                                        <input name="mineralClass" type="text" class="form-control" />
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col">
+                                        <label class="form-label">Облик кристаллов
+                                        </label>
+                                        <input name="mineralCrystalForm" type="text" class="form-control" />
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Блеск</label>
+                                        <input name="mineralShine" type="text" class="form-control" />
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Спайность</label><select name="mineralSplitting"
+                                            class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($splitting as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search__btn">
+                                    <button id="mineralsSearchBtn" class="btn" type="submit">
+                                        Найти
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
-                            <!-- Fossils tab content -->
-                            <div
-                                class="tab-pane fade"
-                                id="fossilsTabContent"
-                                role="tabpanel"
-                                aria-labelledby="fossilsTab"
-                            >
-                                <!-- Fossils search-form-->
-                                <form id="fossilsSearchForm">
-                                    <div
-                                        class="
+                        <!-- Fossils tab content -->
+                        <div class="tab-pane fade" id="fossilsTabContent" role="tabpanel" aria-labelledby="fossilsTab">
+                            <!-- Fossils search-form-->
+                            <form id="fossilsSearchForm" data-url="/fossil-list" data-card-target="#fossilCards">
+                                <div class="
                                             search__fields
                                             row
                                             row-cols-1
                                             row-cols-md-2
                                             row-cols-lg-3
-                                        "
-                                    >
-                                        <!-- Название окаменелости -->
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Название </label
-                                            ><input
-                                                name="fossilName"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Типы беспозвоночных животных
-                                            </label>
-                                            <select
-                                                name="invertebrate"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($invertebrates as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label"
-                                                >Руководящие формы
-                                            </label>
-                                            <select
-                                                name="indexFossil"
-                                                class="select-single"
-                                            >
-                                                <option
-                                                    data-placeholder="true"
-                                                ></option>
-                                                @foreach($indexFossils as $value => $caption)
-                                                    <option value={{$value}}>
-                                                        {{$caption}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        ">
+                                    <!-- Название окаменелости -->
+                                    <div class="col">
+                                        <label class="form-label">Название </label><input name="fossilName" type="text"
+                                            class="form-control" />
                                     </div>
-                                    <div class="search__btn">
-                                        <button
-                                            id="fossilsSearchBtn"
-                                            class="btn"
-                                            type="submit"
-                                        >
-                                            Найти
-                                        </button>
+                                    <div class="col">
+                                        <label class="form-label">Типы беспозвоночных животных
+                                        </label>
+                                        <select name="invertebrate" class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($invertebrates as
+                                            $value => $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col">
+                                        <label class="form-label">Руководящие формы
+                                        </label>
+                                        <select name="indexFossil" class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($indexFossils as $value
+                                            => $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="search__btn">
+                                    <button id="fossilsSearchBtn" class="btn" type="submit">
+                                        Найти
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ./ Search -->
+        </div>
+        <!-- ./ Search -->
 
-            <!-- Cards -->
-<section class="cards">
-	<div class="container">
-		<!-- Cards__row -->
-		<div class="cards__row row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <!-- Cards -->
+        <section class="cards">
+            <div class="container">
+                <div class="
+                            cards__row
+                            
+                            row row-cols-1 row-cols-md-2 row-cols-lg-3
+                        " id="rockCards"></div>
+                <div class="
+                            cards__row
+                            
+                            row row-cols-1 row-cols-md-2 row-cols-lg-3
+                        " id="mineralCards"></div>
+                <div class="
+                            cards__row
+                            
+                            row row-cols-1 row-cols-md-2 row-cols-lg-3
+                        " id="fossilCards"></div>
+            </div>
+        </section>
+        <!-- ./ Cards -->
 
-
-			<!-- ./ Cards__row -->
-	</div>
-</section> <!-- ./ Cards -->
-
-
-            {{-- @@include('cards.html')--}} {{--
+        {{-- @@include('cards.html')--}} {{--
             <!-- Pagination -->--}} {{--
             <nav aria-label="Навигация">{{ $items->links() }}</nav>
-            --}} {{--
+        --}} {{--
             <!-- ./ Pagination -->--}}
 
-            <!-- Footer -->
-            @@include('footer.html')
-        </div>
+        <!-- Footer -->
+        @@include('footer.html')
+    </div>
 
-        @@include('js.html')
-    </body>
+    @@include('js.html')
+</body>
+
 </html>

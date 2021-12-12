@@ -20,12 +20,13 @@
               <div class="dataTables_wrapper">
                 <div class="row">
                   <div class="col-sm-12">
-                    <table class="table table-responsive table-bordered table-hover dataTable text-center">
+                    <table id="dataTable" class="table table-responsive table-bordered table-hover dataTable text-center">
                       <thead>
                         <tr>
                           <th>Действия</th>
                           <th>ID</th>
                           <th>Название</th>
+                          <th>Картинка</th>
                           <th>Описание</th>
                           <th>Тип</th>
                           <th>Отряд</th>
@@ -37,7 +38,6 @@
                           <th>Породообразующий минерал</th>
                           <th>Вторичный минерал</th>
                           <th>Акцессорный минерал</th>
-                          <th>Картинка</th>
                           <th>Публичный</th>
                         </tr>
                       </thead>
@@ -68,6 +68,9 @@
                           </td>
                           <td>{{$item->id}}</td>
                           <td>{{$item->name}}</td>
+                          <td>
+                            <img src="{{$item->getPhoto()}}" alt="" width="100">
+                          </td>
                           <td>{!! mb_substr($item->description, 0, 30) !!}</td>
                           <td>{{$item->getDictionaryPropName('rockType', 30)}}</td>
                           <td>{{$item->getDictionaryPropName('rockSquad', 30)}}</td>
@@ -79,9 +82,7 @@
                           <td>{{$item->getFormingMineralName()}}</td>
                           <td>{{$item->getSecondMineralName()}}</td>
                           <td>{{$item->getAccessoryMineralName()}}</td>
-                          <td>
-                            <img src="{{$item->getPhoto()}}" alt="" width="100">
-                          </td>
+
                           <td>{{$item->is_public ? 'Да' : 'Нет'}}</td>
                         </tr>
                         @endforeach

@@ -6,10 +6,40 @@ import initDropzone from "./dropzone";
 import "../assets/ckeditor5/build/ckeditor";
 import "../sass/ckeditor.scss";
 import adminLte from "../../node_modules/admin-lte/build/js/AdminLTE";
+import "../../node_modules/admin-lte/plugins/datatables/jquery.dataTables.min";
+import "../../node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min";
+import "../../node_modules/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min";
+import "../../node_modules/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min";
+import "../../node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
+import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
+import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min";
 
 window.addEventListener("DOMContentLoaded", () => {
-    const editors = document.querySelectorAll(".editor");
-    // adminSelects = document.querySelectorAll(".select2");
+    const editors = document.querySelectorAll(".editor"),
+        dataTable = document.getElementById("dataTable");
+
+    if (dataTable) {
+        try {
+            $("#dataTable").DataTable({
+                dom: `<"table__search"f><"table__length-menu"l>t<"table__info"i><"table__pagination"p>`,
+                stateSave: true,
+                responsive: true,
+
+                buttons: ["colvis"],
+                language: {
+                    lengthMenu: "Показывать _MENU_ записей на странице",
+                    zeroRecords: "Ничего не найдено",
+                    info: "Страница _PAGE_ из _PAGES_",
+                    search: "Поиск",
+                    infoEmpty: "Нет записей",
+                    paginate: {
+                        previous: "Предыдущая",
+                        next: "Следующая",
+                    },
+                },
+            });
+        } catch (error) {}
+    }
 
     if ($(".select2")) {
         try {
@@ -47,17 +77,4 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     initDropzone();
-    // if()initDropzone()
-
-    let navbar = document.querySelector(".nav-link");
-
-    if (localStorage.getItem("sidebar-collapse") === "true") {
-        document
-            .querySelector(".sidebar-mini")
-            .classList.add("sidebar-collapse");
-    }
-
-    let isOpen = localStorage.getItem("sidebar-collapse");
-
-    // localStorage.setItem("sidebar-collapse", isOpen);
 });
