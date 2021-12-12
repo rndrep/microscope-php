@@ -1,223 +1,157 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        @@include('head.html', { "title": "Минерал" })
-    </head>
-    <body>
-        <div class="page">
-            @@include('navbar.html')
 
-            <!-- Breadcrumb -->
-            @@include('breadcrumb.html')
+<head>
+    @@include('head.html', { "title": "Минерал" })
+</head>
 
-            <!-- Content -->
-            <!-- Mineral -->
-            <section class="rock">
-                <div class="container">
-                    <!-- rock__card -->
-                    <div class="rock__card">
-                        <!-- rock__top -->
-                        <div class="row rock__top">
-                            <h1 class="rock__title">{{$item->name}}</h1>
-                            <div class="rock__img col-sm-12 col-md-7">
-                                <img
-                                    class="img"
-                                    src="{{$item->getPhoto()}}"
-                                    alt=""
-                                />
-                            </div>
-                            <!-- launch-btns -->
-                            <div
-                                class="
+<body>
+    <div class="page">
+        @@include('navbar.html')
+
+        <!-- Breadcrumb -->
+        @@include('breadcrumb.html')
+
+        <!-- Content -->
+        <!-- Mineral -->
+        <section class="rock">
+            <div class="container">
+                <!-- rock__card -->
+                <div class="rock__card">
+                    <!-- rock__top -->
+                    <div class="row rock__top">
+                        <h1 class="rock__title">{{$item->name}}</h1>
+                        <div class="rock__img col-sm-12 col-md-7">
+                            <img class="img" src="{{$item->getPhoto()}}" alt="" />
+                        </div>
+                        <!-- launch-btns -->
+                        <div class="
                                     rock__launch-btns
                                     col-12 col-sm-12 col-md-5
-                                "
-                            >
-                                @if($microscopeRoute ?? '')
-                                <a
-                                    class="btn btn_rock"
-                                    href="{{$microscopeRoute ?? ''}}"
-                                >
-                                    <svg class="icon">
-                                        <use
-                                            href="/svg/sprite.svg#biotech"
-                                        ></use></svg
-                                    >Микроскоп</a
-                                >
-                                @endif
-                                @if($rotationRoute ?? '')
-                                <div class="rock__text rock__text--gray">
-                                    Посмотреть поворот образца
-                                </div>
-                                <a class="btn btn_rock" href=" {{ $rotationRoute }}">
-                                    <svg class="icon">
-                                        <use
-                                            href="/svg/sprite.svg#360"
-                                        ></use></svg
-                                    >Обзор</a
-                                >
-                                @endif
+                                ">
+                            @if($microscopeRoute ?? '')
+                            <a class="btn btn_rock" href="{{$microscopeRoute ?? ''}}">
+                                <svg class="icon">
+                                    <use href="/svg/sprite.svg#biotech"></use>
+                                </svg>Микроскоп</a>
+                            @endif
+                            @if($rotationRoute ?? '')
+                            <div class="rock__text rock__text--gray">
+                                Посмотреть поворот образца
                             </div>
-                            <!-- ./ launch-btns -->
+                            <a class="btn btn_rock" href=" {{ $rotationRoute }}">
+                                <svg class="icon">
+                                    <use href="/svg/sprite.svg#360"></use>
+                                </svg>Обзор</a>
+                            @endif
                         </div>
-                        <!-- /. rock__top -->
+                        <!-- ./ launch-btns -->
+                    </div>
+                    <!-- /. rock__top -->
 
-                        <!-- rock__main -->
-                        <div class="row rock__main">
-                            <!-- rock__details -->
-                            <div
-                                class="
+                    <!-- rock__main -->
+                    <div class="row rock__main">
+                        <!-- rock__details -->
+                        <div class="
                                     rock__details rock__details_large
                                     col-sm-12
-                                "
-                            >
-                                <h1 class="rock__title">{{$item->name}}</h1>
-                                <ul
-                                    class="
+                                ">
+                            <h1 class="rock__title">{{$item->name}}</h1>
+                            <ul class="
                                         card-list
                                         list-group list-group-flush
-                                    "
-                                >
-                                    <li class="list-group-item">
-                                        <div class="card-list__caption">
-                                            Породы:
-                                        </div>
-                                        @foreach($item->getRockLinks() as $link)
-                                        <a
-                                            class="card-list__link"
-                                            href="{{$link['link']}}"
-                                            >{{$link['name']}}</a
-                                        >
-                                        @endforeach
-                                    </li>
-                                    @foreach($fields as $field)
-                                    <li class="list-group-item">
-                                        <div class="card-list__caption">
-                                            {{$field->getCaption()}}:
-                                        </div>
-                                        <a class="card-list__text"
-                                            >{{$field->getValue()}}</a
-                                        >
-                                    </li>
+                                    ">
+                                <li class="list-group-item">
+                                    <div class="card-list__caption">
+                                        Породы:
+                                    </div>
+                                    @foreach($item->getRockLinks() as $link)
+                                    <a class="card-list__link" href="{{$link['link']}}">{{$link['name']}}</a>
                                     @endforeach
-                                </ul>
-                            </div>
-                            <!-- ./ rock__details -->
-                            <div class="col"></div>
-                        </div>
-                        <!-- /. rock__main -->
-
-                        <!-- accordion -->
-                        <div
-                            class="accordion accordion-flush"
-                            id="accordionFlush"
-                        >
-                            @@include('gallery.html')
-
-                            <div class="accordion-item accordion-item__map">
-                                <h2
-                                    class="
-                                        accordion-header accordion-header-map
-                                    "
-                                    id="flush-headingTwo"
-                                >
-                                    <button
-                                        id="accordion-button-map"
-                                        class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseTwo"
-                                        aria-expanded="false"
-                                        aria-controls="flush-collapseTwo"
-                                    >
-                                        <svg class="icon">
-                                            <use
-                                                href="/svg/sprite.svg#location"
-                                            ></use>
-                                        </svg>
-                                        Карта
-                                    </button>
-                                </h2>
-                                <div
-                                    id="flush-collapseTwo"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="flush-headingTwo"
-                                >
-                                    <div class="accordion-body">
-                                        <div class="map">
-                                            <div id="map" class="map"></div>
-                                        </div>
+                                </li>
+                                @foreach($fields as $field)
+                                <li class="list-group-item">
+                                    <div class="card-list__caption">
+                                        {{$field->getCaption()}}:
                                     </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2
-                                    class="accordion-header"
-                                    id="flush-headingThree"
-                                >
-                                    <button
-                                        class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseThree"
-                                        aria-expanded="false"
-                                        aria-controls="flush-collapseThree"
-                                    >
-                                        <svg class="icon">
-                                            <use
-                                                href="/svg/sprite.svg#video"
-                                            ></use>
-                                        </svg>
-                                        Видео
-                                    </button>
-                                </h2>
-                                <div
-                                    id="flush-collapseThree"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="flush-headingThree"
-                                >
-                                    <div class="accordion-body">
-                                        <div class="video">
-                                            <div class="video__item">
-                                                <video
-                                                    preload="metadata"
-                                                    controls
-                                                    src="/assets/video/smallcat.mp4"
-                                                >
-                                                    <source
-                                                        src="/assets/video/smallcat.mp4"
-                                                        type="video/mp4"
-                                                    />
-                                                </video>
-                                            </div>
-                                            <div class="video__item">
-                                                <video
-                                                    preload="metadata"
-                                                    controls
-                                                    src="/assets/video/smallcat.mp4"
-                                                >
-                                                    <source
-                                                        src="/assets/video/smallcat.mp4"
-                                                        type="video/mp4"
-                                                    />
-                                                </video>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <a class="card-list__text">{!!$field->getValue()!!}</a>
+                                </li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <!-- ./accordion -->
+                        <!-- ./ rock__details -->
+                        <div class="col"></div>
                     </div>
-                    <!-- /. rock__card -->
+                    <!-- /. rock__main -->
+
+                    <!-- accordion -->
+                    <div class="accordion accordion-flush" id="accordionFlush">
+                        @@include('gallery.html')
+
+                        <div class="accordion-item accordion-item__map">
+                            <h2 class="
+                                        accordion-header accordion-header-map
+                                    " id="flush-headingTwo">
+                                <button id="accordion-button-map" class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                    <svg class="icon">
+                                        <use href="/svg/sprite.svg#location"></use>
+                                    </svg>
+                                    Карта
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingTwo">
+                                <div class="accordion-body">
+                                    <div class="map">
+                                        <div id="map" class="map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                    <svg class="icon">
+                                        <use href="/svg/sprite.svg#video"></use>
+                                    </svg>
+                                    Видео
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingThree">
+                                <div class="accordion-body">
+                                    <div class="video">
+                                        <div class="video__item">
+                                            <video preload="metadata" controls src="/assets/video/smallcat.mp4">
+                                                <source src="/assets/video/smallcat.mp4" type="video/mp4" />
+                                            </video>
+                                        </div>
+                                        <div class="video__item">
+                                            <video preload="metadata" controls src="/assets/video/smallcat.mp4">
+                                                <source src="/assets/video/smallcat.mp4" type="video/mp4" />
+                                            </video>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./accordion -->
                 </div>
-            </section>
-            <!-- ./ Mineral -->
+                <!-- /. rock__card -->
+            </div>
+        </section>
+        <!-- ./ Mineral -->
 
-            <!-- Footer -->
-            @@include('footer.html')
-        </div>
+        <!-- Footer -->
+        @@include('footer.html')
+    </div>
 
-        @@include('js.html')
-    </body>
+    @@include('js.html')
+</body>
+
 </html>

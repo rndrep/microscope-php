@@ -102,6 +102,10 @@
     transition: width ease-in-out 0.3s;
 }
 
+.dropzone .dz-preview.dz-image-preview {
+    background: #f1faff;
+}
+
 .dropzone {
     min-height: auto;
     padding: 1.5rem 1.75rem;
@@ -112,10 +116,15 @@
     border-radius: 0.475rem;
 }
 
+.dropzone-items {
+    max-height: 200px;
+    overflow: auto;
+}
+
 .dropzone.dropzone-queue .dropzone-item {
     display: flex;
     align-items: center;
-    margin-top: 0.75rem;
+    margin-top: 0.35rem;
     border-radius: 0.475rem;
     padding: 0.5rem 1rem;
     background-color: #f1faff;

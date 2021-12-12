@@ -30,12 +30,22 @@
     }
 }
 
+.card-list__link_disabled {
+    cursor: default;
+    text-decoration: none;
+    @include link-hover($black, $black, none);
+}
+
 .card-list__text {
     text-decoration: none;
     cursor: default;
 
     font-weight: 400;
     @include link-hover($black, $black, none);
+}
+
+.card-list__text p {
+    display: inline;
 }
 
 .card-list .list-group-item {
