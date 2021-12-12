@@ -255,6 +255,17 @@
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
                   }}
                 </div>
+                <!-- Checkbox -->
+                <div class="form-group">
+                  <div class="form-check">
+                    {{Form::checkbox('is_public', '1', $item->isPublic(),
+                    ['class'=>'form-check-input', 'id'=>'checkPublic'])}}
+                    <label class="form-check-label" for="checkPublic">
+                      Публичный
+                    </label>
+                  </div>
+                </div>
+                <!-- ./ Checkbox -->
               </div>
             </div>
             <!-- ./ Card-body -->

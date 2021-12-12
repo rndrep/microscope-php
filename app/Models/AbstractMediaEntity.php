@@ -13,7 +13,7 @@ abstract class AbstractMediaEntity extends AbstractEntity
     protected $imagePathMicro;
     protected $commonImgPath; // duplicated logic of path constants (PHOTO_INFO_PATH, MICRO_PATH, GALLERY_PATH)
 
-    protected $guarded = ['photo', 'gallery', 'ppl', 'xpl'];
+    protected $guarded = ['photo', 'gallery', 'ppl', 'xpl', 'is_public'];
 
     const PHOTO_INFO_PATH = '';
     const MICRO_PATH = '';
@@ -31,6 +31,31 @@ abstract class AbstractMediaEntity extends AbstractEntity
         $this->imagePathGallery = $this->commonImgPath . 'gallery/';
         $this->imagePathMicro = $this->commonImgPath . 'micro/';
         parent::__construct($attributes);
+    }
+
+    public function isPublic()
+    {
+        return $this->is_public;
+    }
+
+    public function toggleStatus($value)
+    {
+        if(empty($value))
+        {
+            $this->unpublish();
+        } else {
+            $this->publish();
+        }
+    }
+
+    public function publish()
+    {
+        $this->is_public = 1;
+    }
+
+    public function unpublish()
+    {
+        $this->is_public = 0;
     }
 
     public static function getPhotoUrls(string $publicPath): array
