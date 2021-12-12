@@ -19,9 +19,10 @@ abstract class AbstractMediaEntity extends AbstractEntity
     const MICRO_PATH = '';
     const GALLERY_PATH = '';
 
-    const CONTENT_TYPE_GALLERY = 'gallery';
-    const CONTENT_TYPE_PPL = 'ppl';
-    const CONTENT_TYPE_XPL = 'xpl';
+    const PHOTO_TYPE_INFO = 'info';
+    const PHOTO_TYPE_GALLERY = 'gallery';
+    const PHOTO_TYPE_PPL = 'ppl';
+    const PHOTO_TYPE_XPL = 'xpl';
 
 
     public function __construct(array $attributes = [])
@@ -47,34 +48,56 @@ abstract class AbstractMediaEntity extends AbstractEntity
         );
     }
 
-    public static function getDropzonePhotos(string $publicPath): array
+    public static function getDropzonePhotos(string $publicPath, $type): array
     {
-        if (!is_dir(public_path($publicPath))) {
-            return [];
-        }
-        $photos = array_values(array_diff(
-            scandir(public_path($publicPath)), ['.', '..']
-        ));
-        $folder = public_path($publicPath);
-        return array_map(function ($item) use ($publicPath, $folder) {
+        $path = public_path($publicPath);
+//        dump($path);
+//        if (!file_exists($path)) {
+//            return [];
+//        }
+        if ($type === self::PHOTO_TYPE_INFO) {
+            if (is_file($path)) {
+                $tmpObj = new \stdClass();
+                $tmpObj->name = basename($path);
+                $tmpObj->url = env('APP_URL') . $publicPath;
+                $tmpObj->size = filesize($path);
+                $photos = [$tmpObj];
+            } else {
+                $photos = [];
+            }
+        } else {
+            $photos = array_values(array_diff(
+                scandir($path), ['.', '..']
+            ));
+            $photos = array_map(function ($item) use ($publicPath, $path) {
                 $tmpObj = new \stdClass();
                 $tmpObj->name = $item;
                 $tmpObj->url = env('APP_URL') . $publicPath . '/' . $item;
-                $tmpObj->size = filesize($folder . '/' . $item);
+                $tmpObj->size = filesize($path . '/' . $item);
                 return $tmpObj;
             },
-            $photos
-        );
+                $photos
+            );
+        }
+        return $photos;
     }
 
     public static function getPhotoPath(int $id, $modelClass, string $type): string
     {
         switch ($type) {
-            case self::CONTENT_TYPE_GALLERY:
+            case self::PHOTO_TYPE_INFO:
+                /** @var AbstractMediaEntity $instance */
+                $instance = $modelClass::find($id);
+                $path = '';
+                if (empty($instance)) {
+                    $path = $instance::PHOTO_INFO_PATH . $instance->getPhoto();
+                }
+                break;
+            case self::PHOTO_TYPE_GALLERY:
                 $path = $modelClass::GALLERY_PATH . $id;
                 break;
-            case self::CONTENT_TYPE_PPL:
-            case self::CONTENT_TYPE_XPL:
+            case self::PHOTO_TYPE_PPL:
+            case self::PHOTO_TYPE_XPL:
                 $path = $modelClass::MICRO_PATH . $id . '/' . $type;
                 break;
             default:
@@ -90,29 +113,25 @@ abstract class AbstractMediaEntity extends AbstractEntity
     public function getPhoto()
     {
         if (empty($this->photo)) {
-            return '/img/no-image.png';
+            return env('APP_URL') . '/img/no-image.png';
         }
         return env('APP_URL') . $this->imagePathDetail . $this->photo . '?' . time();
     }
 
-    /**
-     * Upload detail page photo
-     *
-     * @param UploadedFile|null $photo
-     * @return $this|false
-     */
-    public function uploadPhoto($photo)
+
+    public static function uploadPhoto($instance, $photo)
     {
         if (empty($photo)) {
             return false;
         }
-
-        // TODO: check that save and remove in correct path
-        static::deleteImage($this->imagePathDetail . $this->photo);
-        $filename = $this->getKey() . '.' . $photo->extension();
-        $photo->storeAs($this->imagePathDetail, $filename);
-        $this->photo = $filename;
-        return $this;
+        if (is_array($photo)) {
+            $photo = $photo[0];
+        }
+        static::deleteImage(static::PHOTO_INFO_PATH. $instance->photo);
+        $filename = $instance->getKey() . '.' . $photo->extension();
+        $photo->storeAs(static::PHOTO_INFO_PATH, $filename);
+        $instance->photo = $filename;
+        return $instance;
     }
 
     /**
@@ -184,11 +203,18 @@ abstract class AbstractMediaEntity extends AbstractEntity
         Storage::deleteDirectory($this->imagePathGallery . $this->id);
     }
 
+    /**
+     * @param $path
+     * @return bool
+     * @throws \Exception
+     */
     public static function deleteImage($path)
     {
         if (!empty($path) && file_exists(public_path($path))) {
             Storage::delete($path);
+            return true;
         }
+        throw new \Exception('no file ' . $path);
     }
 
     /**

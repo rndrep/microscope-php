@@ -24,7 +24,7 @@ class MediaController extends Controller
             return $exception->getMessage();
         }
         return response()->json(
-            $modelClass::getDropzonePhotos($modelClass::getPhotoPath($id, $modelClass, $type))
+            $modelClass::getDropzonePhotos($modelClass::getPhotoPath($id, $modelClass, $type), $type)
         );
     }
 
@@ -39,7 +39,7 @@ class MediaController extends Controller
              * @var string $type
              */
             [$id, $modelClass, $type] = $this->getCommonParams($request);
-            $this->getModelInstance($modelClass, $id);
+            $instance = $this->getModelInstance($modelClass, $id);
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
@@ -49,11 +49,14 @@ class MediaController extends Controller
         }
 
         switch ($type) {
-            case AbstractMediaEntity::CONTENT_TYPE_GALLERY:
+            case AbstractMediaEntity::PHOTO_TYPE_INFO:
+                $modelClass::uploadPhoto($instance, $files);
+                break;
+            case AbstractMediaEntity::PHOTO_TYPE_GALLERY:
                 $modelClass::uploadGallery($id, $files);
                 break;
-            case AbstractMediaEntity::CONTENT_TYPE_PPL:
-            case AbstractMediaEntity::CONTENT_TYPE_XPL:
+            case AbstractMediaEntity::PHOTO_TYPE_PPL:
+            case AbstractMediaEntity::PHOTO_TYPE_XPL:
                 $modelClass::uploadMicroscopeByType($id, $files, $type);
                 break;
             default:
@@ -61,7 +64,7 @@ class MediaController extends Controller
         return response('ok', 200);
     }
 
-    public function deletePhoto(Request $request)
+    public function deletePhoto(Request $request): array
     {
         try {
             /**
@@ -70,24 +73,28 @@ class MediaController extends Controller
              * @var string $type
              */
             list($id, $modelClass, $type) = $this->getCommonParams($request);
-            $this->getModelInstance($modelClass, $id);
-
+            $instance = $this->getModelInstance($modelClass, $id);
+            $filename = $request->query('filename');
             switch ($type) {
-                case AbstractMediaEntity::CONTENT_TYPE_GALLERY:
-                    $path = $modelClass::GALLERY_PATH . $id . '/' . $request->query('filename');
+                case AbstractMediaEntity::PHOTO_TYPE_INFO:
+                    $instance->photo = null;
+                    $path = $modelClass::PHOTO_INFO_PATH . $filename;
                     break;
-                case AbstractMediaEntity::CONTENT_TYPE_PPL:
-                case AbstractMediaEntity::CONTENT_TYPE_XPL:
-                    $path = $modelClass::MICRO_PATH . $id . '/' . $request->query('filename') . '/' . $type;
+                case AbstractMediaEntity::PHOTO_TYPE_GALLERY:
+                    $path = $modelClass::GALLERY_PATH . $id . '/' . $filename;
+                    break;
+                case AbstractMediaEntity::PHOTO_TYPE_PPL:
+                case AbstractMediaEntity::PHOTO_TYPE_XPL:
+                    $path = $modelClass::MICRO_PATH . $id . '/' . $type . '/' . $filename;
                     break;
                 default:
                     $path = '';
             }
             $modelClass::deleteImage($path);
         } catch (\Exception $exception) {
-            return $exception->getMessage();
+            return ['status' => 'error', 'message' => $exception->getMessage()];
         }
-        return response('ok', 200);
+        return ['status' => 'ok'];
     }
 
     /**
@@ -135,9 +142,10 @@ class MediaController extends Controller
     {
         return in_array($type,
             [
-                AbstractMediaEntity::CONTENT_TYPE_GALLERY,
-                AbstractMediaEntity::CONTENT_TYPE_PPL,
-                AbstractMediaEntity::CONTENT_TYPE_XPL
+                AbstractMediaEntity::PHOTO_TYPE_INFO,
+                AbstractMediaEntity::PHOTO_TYPE_GALLERY,
+                AbstractMediaEntity::PHOTO_TYPE_PPL,
+                AbstractMediaEntity::PHOTO_TYPE_XPL
             ]
         )
             ? $type

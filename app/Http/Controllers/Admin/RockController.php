@@ -160,7 +160,7 @@ class RockController extends Controller
             'photo' => 'nullable|image',
         ]);
         $item = Rock::add($request->all());
-        $item->uploadPhoto($request->file('photo'));
+//        $item->uploadPhoto($request->file('photo'));
         $item->setRockType($request->get('rock_type_id'));
         $item->setRockClass($request->get('rock_class_id'));
         $item->setRockSquad($request->get('rock_squad_id'));
@@ -175,12 +175,12 @@ class RockController extends Controller
         $item->toggleStatus($request->get('is_public'));
         $item->save();
 
-        $item->uploadMicroscope(
-            $request->file('pplPhotos') ?? [],
-            $request->file('xplPhotos') ?? []
-        );
-
-        $item->uploadGallery($request->file('gallery') ?? []);
+//        $item->uploadMicroscope(
+//            $request->file('pplPhotos') ?? [],
+//            $request->file('xplPhotos') ?? []
+//        );
+//
+//        $item->uploadGallery($request->file('gallery') ?? []);
 
         return redirect()->route('rocks.index');
     }
@@ -233,7 +233,7 @@ class RockController extends Controller
         /** @var Rock $item */
         $item = Rock::find($id);
         $item->edit($request->all());
-        $item->uploadPhoto($request->file('photo'));
+//        $item->uploadPhoto($request->file('photo'));
         $item->setRockType($request->get('rock_type_id'));
         $item->setRockClass($request->get('rock_class_id'));
         $item->setRockSquad($request->get('rock_squad_id'));
@@ -248,11 +248,11 @@ class RockController extends Controller
         $item->toggleStatus($request->get('is_public'));
         $item->save();
 
-        $item->uploadMicroscope(
-            $request->file('pplPhotos') ?? [],
-            $request->file('xplPhotos') ?? []
-        );
-        $item->uploadGallery($request->file('gallery') ?? []);
+//        $item->uploadMicroscope(
+//            $request->file('pplPhotos') ?? [],
+//            $request->file('xplPhotos') ?? []
+//        );
+//        $item->uploadGallery($request->file('gallery') ?? []);
 
         return redirect()->route('rocks.index');
     }

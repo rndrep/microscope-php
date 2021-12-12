@@ -1,6 +1,6 @@
 import { param } from "jquery";
 import { postData } from "../services/services.js";
-import Card from "./Card";
+import Card from "./card";
 
 export function createCards(urlResource) {
     let tabs = document.querySelectorAll(".tabs__link"),

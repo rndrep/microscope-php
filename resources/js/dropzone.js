@@ -4,13 +4,14 @@ import {getResource, postData, deleteData} from './services';
 export function initDropzone() {
     const photoField = document.querySelector("#photoDropzone"),
         galleryField = document.querySelector("#galleryDropzone"),
-        microField = document.querySelector("#microPplDropzone"),
+        microPplField = document.querySelector("#microPplDropzone"),
+        microXplField = document.querySelector("#microXplDropzone"),
         csrfToken = document.head.querySelector('meta[name="csrf-token"]');
 
     if (photoField) {
         try {
             const photoDropzone = new Dropzone(photoField, {
-                url: "http://microscope.test/admin/minerals/1",
+                url: photoField.getAttribute('action'),
                 uploadMultiple: false,
                 maxFiles: 1,
                 maxFilesize: 1, // Max filesize in MB
@@ -24,9 +25,14 @@ export function initDropzone() {
                     'X-CSRF-TOKEN': csrfToken.content
                 }
             });
+            fillServerPhotos(photoDropzone, photoField.getAttribute('data-url'));
 
             photoDropzone.on("addedfile", (file) => {
                 console.log(`File added: ${file.name}`);
+            });
+
+            photoDropzone.on("removedfile", function (file) {
+                removeFile(photoField, file)
             });
 
             photoDropzone.on("error", (file, error) => {
@@ -67,22 +73,14 @@ export function initDropzone() {
             fillServerPhotos(galleryDropzone, galleryField.getAttribute('data-url'));
 
             galleryDropzone.on("removedfile", function (file) {
-                let formData = new FormData();
-                formData.append('_method', 'delete')
-                deleteData(
-                    galleryField.getAttribute('action') + '&filename=' + file.name,
-                    formData,
-                    {'X-CSRF-TOKEN': csrfToken.content}
-                ).then((data) => {
-                    // console.log(data)
-                });
+                removeFile(galleryField, file)
             });
         } catch (error) {
             console.log(error)
         }
     }
 
-    if (microField) {
+    if (microPplField && microXplField) {
         try {
             createMicroDropzone("#microPplDropzone");
             createMicroDropzone("#microXplDropzone");
@@ -100,7 +98,7 @@ export function initDropzone() {
 
         const myDropzone = new Dropzone(id, {
             // Make the whole body a dropzone
-            url: "http://microscope.test/", // Set the url for your upload script location
+            url: dropzone.getAttribute('action'), // Set the url for your upload script location
             parallelUploads: 20,
             previewTemplate: previewTemplate,
             maxFiles: 36,
@@ -113,7 +111,11 @@ export function initDropzone() {
             autoQueue: false, // Make sure the files aren't queued until manually added
             previewsContainer: id + " .dropzone-items", // Define the container to display the previews
             clickable: id + " .dropzone-select", // Define the element that should be used as click trigger to select files.
+            headers: {
+                'X-CSRF-TOKEN': csrfToken.content
+            }
         });
+        fillServerPhotos(myDropzone, dropzone.getAttribute('data-url'));
 
         myDropzone.on("addedfile", function (file) {
             const dropzoneItems = dropzone.querySelectorAll(".dropzone-item");
@@ -183,8 +185,15 @@ export function initDropzone() {
             });
         });
 
+        myDropzone.on("success", function (file) {
+            file.uploaded = true;
+        });
+
         // On all files removed
         myDropzone.on("removedfile", function (file) {
+            if (file.uploaded) {
+                removeFile(dropzone, file);
+            }
             if (myDropzone.files.length < 1) {
                 dropzone.querySelector(".dropzone-upload").style.display =
                     "none";
@@ -197,9 +206,21 @@ export function initDropzone() {
     function fillServerPhotos(dropzone, url) {
         getResource(url).then((photos) => {
             for (let i in photos) {
-                let mockFile = { name: photos[i].name, size: photos[i].size };
+                let mockFile = { name: photos[i].name, size: photos[i].size , uploaded: true};
                 dropzone.displayExistingFile(mockFile, photos[i].url);
             }
+        });
+    }
+
+    function removeFile(dropzoneForm, file) {
+        let formData = new FormData();
+        formData.append('_method', 'delete')
+        deleteData(
+            dropzoneForm.getAttribute('action') + '&filename=' + file.name,
+            formData,
+            {'X-CSRF-TOKEN': csrfToken.content}
+        ).then((data) => {
+            // console.log(data)
         });
     }
 }

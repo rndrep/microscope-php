@@ -20,10 +20,13 @@
               <!-- Form add img -->
               <div class="row">
                 <div class="col-lg-6">
-                  <form class="form" action="#" method="post">
+{{--                  <form class="form" action="#" method="post">--}}
                     <div class="form-group">
                       <label class="col-form-label text-lg-right">Загрузка изображения для минерала</label>
-                      <div class="dropzone" id="photoDropzone">
+                      <form class="dropzone" id="photoDropzone"
+                            action="{{ route('media_save', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'info']) }}"
+                            data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'info']) }}"
+                      >
                         <div class="dz-message needsclick">
                           <i class="far fa-image fa-3x text-primary"></i>
                           <!-- Info -->
@@ -36,9 +39,9 @@
                           </div>
                           <!-- ./Info -->
                         </div>
-                      </div>
+                      </form>
                     </div>
-                  </form>
+{{--                  </form>--}}
                 </div>
               </div>
               <!-- ./Form add img-->
@@ -49,8 +52,8 @@
 {{--                  <form class="form" action="#" method="post">--}}
                     <div class="form-group">
                       <label class="col-form-label text-lg-right">Загрузка изображений для галереи</label>
-                      <form action="{{ route('media_save', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'gallery']) }}"
-                            class="dropzone dz-clickable" id="galleryDropzone"
+                      <form class="dropzone dz-clickable" id="galleryDropzone"
+                            action="{{ route('media_save', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'gallery']) }}"
                             data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'gallery']) }}"
                       >
                           <div class="dz-message needsclick">
@@ -76,7 +79,7 @@
               <!-- Form micro photos -->
               <div class="row">
                 <div class="col">
-                  <form class="form" action="#" method="post">
+{{--                  <form class="form" action="#" method="post">--}}
                     <!-- Micro photos -->
                     <div class="row">
                       <div class="col-lg-6 form-group">
@@ -84,7 +87,10 @@
                           анализатором</label>
 
                         <!-- PplDropzone -->
-                        <div class="dropzone dropzone-queue mb-2" id="microPplDropzone">
+                        <form class="dropzone dropzone-queue mb-2" id="microPplDropzone"
+                              action="{{ route('media_save', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'ppl']) }}"
+                              data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'ppl']) }}"
+                        >
                           <div class="dz-message" style="display:none"></div>
 
                           <!-- Controls -->
@@ -129,7 +135,7 @@
                           </div>
                           <!-- ./Items -->
 
-                        </div>
+                        </form>
                         <!-- ./PplDropzone-->
                         <span class="form-text text-muted"> Максимальный размер файла 1MB, максимальное количество
                           36.</span>
@@ -139,7 +145,10 @@
                         <label class="col-form-label text-lg-right">Загрузка изображений микроскопа без
                           анализатора</label>
                         <!-- XplDropzone -->
-                        <div class="dropzone dropzone-queue mb-2" id="microXplDropzone">
+                        <form class="dropzone dropzone-queue mb-2" id="microXplDropzone"
+                              action="{{ route('media_save', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'xpl']) }}"
+                              data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'mineral', 'type' => 'xpl']) }}"
+                        >
                           <div class="dz-message" style="display:none"></div>
 
                           <!-- Controls -->
@@ -183,14 +192,14 @@
                           </div>
                           <!-- ./Items -->
 
-                        </div>
+                        </form>
                         <!-- ./XplDropzone-->
                         <span class="form-text text-muted"> Максимальный размер файла 1MB, максимальное количество
                           36.</span>
                       </div>
                     </div>
                     <!-- ./Micro photos -->
-                  </form>
+{{--                  </form>--}}
                 </div>
               </div>
               <!-- ./Form micro photos -->
