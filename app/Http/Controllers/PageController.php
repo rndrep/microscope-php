@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbstractMediaEntity;
 use App\Models\Fossil;
 use App\Models\IndexFossil;
 use App\Models\Invertebrate;
@@ -47,7 +48,7 @@ class PageController extends Controller
         return view('dist/map');
     }
 
-    public function mapItems(): string
+    public function mapItems()
     {
         $result = [];
         //TODO: use is_public
@@ -56,11 +57,12 @@ class PageController extends Controller
         $items = $isAuth
             ? Rock::all()
             : Rock::where('is_public', 1)->get();
-        $result = $items->map(function ($item) {
+        $result = $items->map(function (AbstractMediaEntity $item) {
                 $tmpObj = new \stdClass();
                 $tmpObj->type = 'Порода';
                 $tmpObj->name = $item->name;
                 $tmpObj->url = route('rock_info', $item->id);
+                $tmpObj->point = $item->getPoint();
                 return $tmpObj;
             }
         )->toArray();
@@ -70,11 +72,12 @@ class PageController extends Controller
             : Mineral::where('is_public', 1)->get();
         $result = array_merge(
             $result,
-            $items->map(function ($item) {
+            $items->map(function (AbstractMediaEntity $item) {
                 $tmpObj = new \stdClass();
                 $tmpObj->type = 'Минерал';
                 $tmpObj->name = $item->name;
                 $tmpObj->url = route('mineral_info', $item->id);
+                $tmpObj->point = $item->getPoint();
                 return $tmpObj;
             })->toArray()
         );
@@ -84,11 +87,12 @@ class PageController extends Controller
             : Fossil::where('is_public', 1)->get();
         $result = array_merge(
             $result,
-            $items->map(function ($item) {
+            $items->map(function (AbstractMediaEntity $item) {
                 $tmpObj = new \stdClass();
                 $tmpObj->type = 'Окаменелость';
                 $tmpObj->name = $item->name;
                 $tmpObj->url = route('fossil_info', $item->id);
+                $tmpObj->point = $item->getPoint();
                 return $tmpObj;
             })->toArray()
         );

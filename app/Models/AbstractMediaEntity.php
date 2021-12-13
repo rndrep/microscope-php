@@ -33,6 +33,13 @@ abstract class AbstractMediaEntity extends AbstractEntity
         parent::__construct($attributes);
     }
 
+    public function getPoint()
+    {
+        return (empty($this->x) || empty($this->y))
+            ? ''
+            : $this->x . ',' . $this->y;
+    }
+
     public function isPublic()
     {
         return $this->is_public;
