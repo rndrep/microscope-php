@@ -70,7 +70,7 @@ export default class Microscope {
 
             return imgElement;
         });
-        console.log(this.imgElements);
+
         if (this.step == this.STEP5) {
             let imgElementsClone = [];
             this.imgElements.forEach((item) => {

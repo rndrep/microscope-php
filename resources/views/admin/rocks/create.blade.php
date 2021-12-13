@@ -1,6 +1,4 @@
-@extends('admin.layout')
-
-@section('content')
+@extends('admin.layout') @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Main content -->
@@ -24,16 +22,14 @@
                 <div class="form-group">
                   <label for="inputName">Название <span class="required-field">*</span></label>
                   <input type="text" class="form-control" id="inputName" placeholder="" name="name"
-                    value="{{old('name')}}" required oninvalid="this.setCustomValidity('Обязательное поле')"
-                    oninput="setCustomValidity('')">
+                    value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Обязательное поле')"
+                    oninput="setCustomValidity('')" />
                 </div>
                 <div class="form-group">
                   <label for="inputName">Описание</label>
 
-
                   <div class="editor ck-content" id="inputDescription" placeholder="" name="description"
-                    value="{{old('description')}}"> </div>
-
+                    value="{{ old('description') }}"></div>
                 </div>
                 <div class="form-group">
                   <label>Тип породы</label>
@@ -120,15 +116,19 @@
                   {{Form::select('fossils[]',
                   $fossils,
                   null,
-                  ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите
-                  окаменелости'])
+                  ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите окаменелости'])
                   }}
                 </div>
 
                 <!-- checkbox -->
                 <div class="form-group">
                   <div class="form-check">
+<<<<<<< HEAD
+                    <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public" />
+
+=======
                     <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public">
+>>>>>>> 1dce38d772438bb664e46b2536e094754359669e
                     <label class="form-check-label" for="checkPublic">
                       Публичный
                     </label>

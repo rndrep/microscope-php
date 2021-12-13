@@ -1,5 +1,5 @@
 td {
-    max-width: 300px;
+    max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -10,17 +10,20 @@ td {
     float: left;
 }
 
+.dropzone-items::-webkit-scrollbar,
 .table::-webkit-scrollbar,
 .dataTables_scrollBody::-webkit-scrollbar {
     width: 0.2rem;
     height: 0.2rem;
 }
 
+.dropzone-items::-webkit-scrollbar-track,
 .table::-webkit-scrollbar-track,
 .dataTables_scrollBody::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(167, 155, 155, 0.3);
 }
 
+.dropzone-items::-webkit-scrollbar-thumb,
 .table::-webkit-scrollbar-thumb,
 .dataTables_scrollBody::-webkit-scrollbar-thumb {
     background-color: var(--gray);

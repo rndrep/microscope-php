@@ -14,6 +14,7 @@ import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/dataTable
 import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.min";
 import "../../node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
 import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
+import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min";
 
 window.addEventListener("DOMContentLoaded", () => {
     const editors = document.querySelectorAll(".editor"),
@@ -23,8 +24,8 @@ window.addEventListener("DOMContentLoaded", () => {
         try {
             const table = $("#dataTable").dataTable({
                 autoWidth: true,
-                dom: `<"table__search"f><"table__length-menu"l>t<"table__info"i><"table__pagination"p>`,
                 stateSave: true,
+                dom: `<"table__search"f><"table__length-menu"l>t<"table__info"i><"table__pagination"p>`,
 
                 responsive: {
                     details: {
@@ -40,10 +41,10 @@ window.addEventListener("DOMContentLoaded", () => {
                     { orderable: false, targets: [0, 3] },
                 ],
 
-                sScrollY: 0.6 * $(window).height(),
+                sScrollY: 0.4 * $(window).height(),
                 sScrollX: "100%",
                 bScrollCollapse: true,
-                sScrollXInner: "110%",
+                // sScrollXInner: "110%",
                 fixedHeader: true,
 
                 language: {
