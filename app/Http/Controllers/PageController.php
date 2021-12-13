@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fossil;
 use App\Models\IndexFossil;
 use App\Models\Invertebrate;
 use App\Models\Mineral;
 use App\Models\MineralSplitting;
 use App\Models\MineralSyngony;
+use App\Models\Rock;
 use App\Models\RockClass;
 use App\Models\RockKind;
 use App\Models\RockType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -37,6 +40,59 @@ class PageController extends Controller
     {
         $src = $request->query('src');
         return view('dist/rotation', ['src' => $src]);
+    }
+
+    public function map()
+    {
+        return view('dist/map');
+    }
+
+    public function mapItems(): string
+    {
+        $result = [];
+        //TODO: use is_public
+        $isAuth = Auth::check();
+
+        $items = $isAuth
+            ? Rock::all()
+            : Rock::where('is_public', 1)->get();
+        $result = $items->map(function ($item) {
+                $tmpObj = new \stdClass();
+                $tmpObj->type = 'Порода';
+                $tmpObj->name = $item->name;
+                $tmpObj->url = route('rock_info', $item->id);
+                return $tmpObj;
+            }
+        )->toArray();
+
+        $items = $isAuth
+            ? Mineral::all()
+            : Mineral::where('is_public', 1)->get();
+        $result = array_merge(
+            $result,
+            $items->map(function ($item) {
+                $tmpObj = new \stdClass();
+                $tmpObj->type = 'Минерал';
+                $tmpObj->name = $item->name;
+                $tmpObj->url = route('mineral_info', $item->id);
+                return $tmpObj;
+            })->toArray()
+        );
+
+        $items = $isAuth
+            ? Fossil::all()
+            : Fossil::where('is_public', 1)->get();
+        $result = array_merge(
+            $result,
+            $items->map(function ($item) {
+                $tmpObj = new \stdClass();
+                $tmpObj->type = 'Окаменелость';
+                $tmpObj->name = $item->name;
+                $tmpObj->url = route('fossil_info', $item->id);
+                return $tmpObj;
+            })->toArray()
+        );
+        return response()->json($result);
     }
 
     private function rockSelectFields()

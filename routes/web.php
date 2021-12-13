@@ -55,6 +55,9 @@ Route::group(['prefix' => '/microscope-photos'], function () {
 
 Route::get('/rotation', [PageController::class, 'rotation'])->name('rotation');
 
+Route::get('/map', [PageController::class, 'map'])->name('map');
+Route::get('/map-items', [PageController::class, 'mapItems'])->name('map_items');
+
 // gallery and microscope photos
 /**
  * params:
