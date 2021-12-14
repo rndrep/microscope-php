@@ -10,6 +10,7 @@ export function initMap() {
             "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
             {
                 maxZoom: 18,
+                minZoom: 2,
                 id: "mapbox/streets-v11",
                 tileSize: 512,
                 zoomOffset: -1,
@@ -28,21 +29,26 @@ export function initMap() {
 
     if (mainMap) {
         try {
-            const fullMap = L.map(mainMap).setView([0, 0], 2); // показывать при первой загрузке
+            const fullMap = L.map(mainMap).setView([62, 88], 1); // показывать при первой загрузке
 
             tileLayer.addTo(fullMap);
 
-            const createMarker = function (latitude, longitude, type, url) {
-                let marker = L.marker([latitude, longitude]).addTo(fullMap);
-                marker.bindPopup(`${type} <a href="${url}">Ссылка</a>`);
+            const createMarker = function (longitude, latitude, name, url) {
+                let marker = L.marker([longitude, latitude]).addTo(fullMap);
+                marker.bindPopup(
+                    `${name} [${longitude}, ${latitude}] <a href="${url}">Ссылка</a>`
+                );
             };
 
             // TODO: добавить фото
             const showAllMArkers = function () {
                 getResource(api_url).then((data) => {
-                    data.forEach(({ type, name, url, lat, lng }) => {
-                        console.log(lat + " " + Number(lat) + " " + typeof lat);
-                        createMarker(Number(lat), Number(lng), type, url);
+                    data.forEach(({ type, name, url, lng, lat }) => {
+                        console.log("1." + lat + " " + lng);
+                        console.log("2." + Number(lat) + " " + Number(lng));
+                        if (lat && lng != "") {
+                            createMarker(Number(lng), Number(lat), name, url);
+                        }
                     });
                 });
             };

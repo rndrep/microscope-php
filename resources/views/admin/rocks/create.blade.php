@@ -18,132 +18,171 @@
             </div>
             <!-- Card-body -->
             <div class="card-body">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="inputName">Название <span class="required-field">*</span></label>
-                  <input type="text" class="form-control" id="inputName" placeholder="" name="name"
-                    value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Обязательное поле')"
-                    oninput="setCustomValidity('')" />
+              <div class="row row-cols-1 row-cols-lg-2">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="inputName">Название <span class="required-field">*</span></label>
+                    <input type="text" class="form-control" id="inputName" placeholder="" name="name"
+                      value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Обязательное поле')"
+                      oninput="setCustomValidity('')" />
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="inputName">Описание</label>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="inputName">Описание</label>
 
-                  <div class="editor ck-content" id="inputDescription" placeholder="" name="description"
-                    value="{{ old('description') }}"></div>
+                    <div class="editor ck-content" id="inputDescription" placeholder="" name="description"
+                      value="{{ old('description') }}"></div>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Тип породы</label>
-                  {{Form::select('rock_type_id',
-                  $rockTypes,
-                  null,
-                  ['class' => 'form-control select2', 'placeholder'=>'-'])
-                  }}
+                <div class="col">
+                  <div class="form-group">
+                    <label>Тип породы</label>
+                    {{Form::select('rock_type_id',
+                    $rockTypes,
+                    null,
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
+                    }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Класс</label>
-                  {{Form::select('rock_class_id',
-                  $rockClasses,
-                  null,
-                  ['class' => 'form-control select2', 'placeholder'=>'-'])
-                  }}
+                <div class="col">
+                  <div class="form-group">
+                    <label>Класс</label>
+                    {{Form::select('rock_class_id',
+                    $rockClasses,
+                    null,
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
+                    }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Отряд</label>
-                  {{Form::select('rock_squad_id',
-                  $rockSquads,
-                  null,
-                  ['class' => 'form-control select2', 'placeholder'=>'-'])
-                  }}
+                <div class="col">
+                  <div class="form-group">
+                    <label>Отряд</label>
+                    {{Form::select('rock_squad_id',
+                    $rockSquads,
+                    null,
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
+                    }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Семейство</label>
-                  {{Form::select('rock_family_id',
-                  $rockFamilies,
-                  null,
-                  ['class' => 'form-control select2', 'placeholder'=>'-'])
-                  }}
+                <div class="col">
+                  <div class="form-group">
+                    <label>Семейство</label>
+                    {{Form::select('rock_family_id',
+                    $rockFamilies,
+                    null,
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
+                    }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Вид</label>
-                  {{Form::select('rock_kind_id',
-                  $rockKinds,
-                  null,
-                  ['class' => 'form-control select2', 'placeholder'=>'-'])
-                  }}
+                <div class="col">
+                  <div class="form-group">
+                    <label>Вид</label>
+                    {{Form::select('rock_kind_id',
+                    $rockKinds,
+                    null,
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
+                    }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Текстура</label>
-                  {{Form::select('rock_texture_id',
-                  $rockTextures,
-                  null,
-                  ['class' => 'form-control select2', 'placeholder'=>'-'])
-                  }}
+                <div class="col">
+                  <div class="form-group">
+                    <label>Текстура</label>
+                    {{Form::select('rock_texture_id',
+                    $rockTextures,
+                    null,
+                    ['class' => 'form-control select2', 'placeholder'=>'-'])
+                    }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Структура</label>
-                  {{Form::select('rock_structure_id',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Структура</label>
+                    {{Form::select('rock_structure_id',
                   $rockStructures,
                   null,
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
                   }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Породообразующие минералы</label>
-                  {{Form::select('forming_minerals[]',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Породообразующие минералы</label>
+                    {{Form::select('forming_minerals[]',
                   $minerals,
                   null,
                   ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите минералы'])
                   }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Вторичные минералы</label>
-                  {{Form::select('second_minerals[]',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Вторичные минералы</label>
+                    {{Form::select('second_minerals[]',
                   $minerals,
                   null,
                   ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите минералы'])
                   }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Акцессорные минералы</label>
-                  {{Form::select('accessory_minerals[]',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Акцессорные минералы</label>
+                    {{Form::select('accessory_minerals[]',
                   $minerals,
                   null,
                   ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите минералы'])
                   }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Окаменелости</label>
-                  {{Form::select('fossils[]',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Окаменелости</label>
+                    {{Form::select('fossils[]',
                   $fossils,
                   null,
                   ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите окаменелости'])
                   }}
-                </div>
-                <div class="form-group">
-                  <label>Местоположение</label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend"> <span class="input-group-text">Координаты </span></div>
-                    <input type="text" id="lat" name="y" class="form-control" placeholder="Широта" />
-                    <input type="text" id="lng" name="x" class="form-control" placeholder="Долгота" />
-                  </div>
-
-
-                  <div id="adminMap" class="map">
-
                   </div>
                 </div>
-
-                <!-- checkbox -->
-                <div class="form-group">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public" />
-                    <label class="form-check-label" for="checkPublic">
-                      Публичный
-                    </label>
-                  </div>
-                </div>
-                <!-- ./ checkbox -->
               </div>
+              <!-- Map and checkbox -->
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label>Местоположение</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend"> <span class="input-group-text">Координаты </span></div>
+                        <input type="text" id="lat" name="y" class="form-control" placeholder="Широта" />
+                        <input type="text" id="lng" name="x" class="form-control" placeholder="Долгота" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div id="adminMap" class="map mb-3">
+                  </div>
+                </div>
+                <div class="col">
+                  <!-- Checkbox -->
+                  <div class="form-group">
+                    <label>Доступ</label>
+                    <div class="input-group mb-3">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public" <label
+                          class="form-check-label" for="checkPublic">
+                        Публичный
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- ./ Checkbox -->
+                </div>
+
+              </div>
+              <!-- ./ Map and checkbox -->
             </div>
             <!-- ./ Card-body -->
             <!-- Card-footer -->

@@ -351,36 +351,48 @@
                                         }}
                   </div>
                 </div>
+              </div>
 
-                <div class="col">
+              <!-- Map and checkbox -->
+              <div class="row">
+                <div class="col-6">
                   <div class="form-group">
                     <div class="form-group">
                       <label>Местоположение</label>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend"> <span class="input-group-text">Координаты </span></div>
-                        <input type="text" id="lat" name="y" class="form-control" placeholder="Широта" />
-                        <input type="text" id="lng" name="x" class="form-control" placeholder="Долгота" />
-                      </div>
-                      <div id="adminMap" class="map">
-
+                        <input type="text" id="lat" name="y" value="{{$item->y}}" class="form-control"
+                          placeholder="Широта" />
+                        <input type="text" id="lng" name="x" value="{{$item->x}}" class="form-control"
+                          placeholder="Долгота" />
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <!-- Checkbox -->
-              <div class="form-group">
-                <div class="form-check">
-                  {{Form::checkbox('is_public', '1', $item->isPublic(),
-                                    ['class'=>'form-check-input', 'id'=>'checkPublic'])}}
-                  <label class="form-check-label" for="checkPublic">
-                    Публичный
-                  </label>
+                <div class="col-12">
+                  <div id="adminMap" class="map mb-3">
+                  </div>
                 </div>
 
+                <div class="col">
+                  <!-- Checkbox -->
+                  <div class="form-group">
+                    <label>Доступ</label>
+                    <div class="input-group mb-3">
+                      <div class="form-check">
+                        {{Form::checkbox('is_public', '1', $item->isPublic(),
+                        ['class'=>'form-check-input', 'id'=>'checkPublic'])}}
+                        <label class="form-check-label" for="checkPublic">
+                          Публичный
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- ./ Checkbox -->
+                </div>
               </div>
-              <!-- ./ Checkbox -->
+              <!-- ./ Map and checkbox -->
 
             </div>
             <!-- ./ Card-body -->

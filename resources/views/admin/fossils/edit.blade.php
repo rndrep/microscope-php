@@ -24,9 +24,8 @@
                   <div class="form-group">
                     <label class="col-form-label text-lg-right">Загрузка изображения для окаменелости</label>
                     <form class="dropzone" id="photoDropzone"
-                          action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'info']) }}"
-                          data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'info']) }}"
-                    >
+                      action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'info']) }}"
+                      data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'info']) }}">
                       <div class="dz-message needsclick">
                         <i class="far fa-image fa-3x text-primary"></i>
                         <!-- Info -->
@@ -53,9 +52,8 @@
                   <div class="form-group">
                     <label class="col-form-label text-lg-right">Загрузка изображений для галереи</label>
                     <form class="dropzone dz-clickable" id="galleryDropzone"
-                          action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'gallery']) }}"
-                          data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'gallery']) }}"
-                    >
+                      action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'gallery']) }}"
+                      data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'gallery']) }}">
                       <div class="dz-message needsclick">
                         <i class="far fa-images fa-3x text-primary"></i>
                         <!-- Info -->
@@ -79,8 +77,8 @@
               <!-- Form micro photos -->
               <div class="row">
                 <div class="col">
-                {{--                  <form class="form" action="#" method="post">--}}
-                <!-- Micro photos -->
+                  {{--                  <form class="form" action="#" method="post">--}}
+                  <!-- Micro photos -->
                   <div class="row">
                     <div class="col-lg-6 form-group">
                       <label class=" col-form-label text-lg-right">Загрузка изображений микроскопа с
@@ -88,9 +86,8 @@
 
                       <!-- PplDropzone -->
                       <form class="dropzone dropzone-queue mb-2" id="microPplDropzone"
-                            action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'ppl']) }}"
-                            data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'ppl']) }}"
-                      >
+                        action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'ppl']) }}"
+                        data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'ppl']) }}">
                         <div class="dz-message" style="display:none"></div>
 
                         <!-- Controls -->
@@ -119,7 +116,7 @@
                             <div class="dropzone-progress">
                               <div class="progress">
                                 <div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0"
-                                     aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
+                                  aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
                                 </div>
                               </div>
                             </div>
@@ -138,7 +135,7 @@
                       </form>
                       <!-- ./PplDropzone-->
                       <span class="form-text text-muted"> Максимальный размер файла 1MB, максимальное количество
-                          36.</span>
+                        36.</span>
 
                     </div>
                     <div class="col-lg-6 form-group">
@@ -146,9 +143,8 @@
                         анализатора</label>
                       <!-- XplDropzone -->
                       <form class="dropzone dropzone-queue mb-2" id="microXplDropzone"
-                            action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'xpl']) }}"
-                            data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'xpl']) }}"
-                      >
+                        action="{{ route('media_save', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'xpl']) }}"
+                        data-url="{{ route('media_get', ['id' => $item->id, 'entity' => 'fossil', 'type' => 'xpl']) }}">
                         <div class="dz-message" style="display:none"></div>
 
                         <!-- Controls -->
@@ -177,7 +173,7 @@
                             <div class="dropzone-progress">
                               <div class="progress">
                                 <div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0"
-                                     aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
+                                  aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
                                 </div>
                               </div>
                             </div>
@@ -195,7 +191,7 @@
                       </form>
                       <!-- ./XplDropzone-->
                       <span class="form-text text-muted"> Максимальный размер файла 1MB, максимальное количество
-                          36.</span>
+                        36.</span>
                     </div>
                   </div>
                   <!-- ./Micro photos -->
@@ -224,49 +220,85 @@
 
             <!-- Card-body -->
             <div class="card-body">
-              <div class="col-md-6">
+              <div class="row row-cols-1 row-cols-lg-2">
                 @foreach($fields as $field)
-                <div class="form-group">
-                  <label for="inputName">{{$field->getCaption()}}</label>
-                  <input type="{{$field->getType()}}" class="form-control" placeholder="" name="{{$field->getProp()}}"
-                    @if($field->isRequired())
-                  required
-                  oninvalid="this.setCustomValidity('{{ $field->getRequiredTip() }}')"
-                  oninput="setCustomValidity('')"
-                  @endif
-                  value="{{$item->{$field->getProp()} }}"
-                  {{$field->getType() == 'number' ? 'step=any' : ''}}
-                  >
+                <div class="col">
+                  <div class="form-group">
+                    <label for="inputName">{{$field->getCaption()}}</label>
+                    <input type="{{$field->getType()}}" class="form-control" placeholder="" name="{{$field->getProp()}}"
+                      @if($field->isRequired())
+                    required
+                    oninvalid="this.setCustomValidity('{{ $field->getRequiredTip() }}')"
+                    oninput="setCustomValidity('')"
+                    @endif
+                    value="{{$item->{$field->getProp()} }}"
+                    {{$field->getType() == 'number' ? 'step=any' : ''}}
+                    >
+                  </div>
                 </div>
                 @endforeach
-                <div class="form-group">
-                  <label>Типы беспозвоночных животных</label>
-                  {{Form::select('invertebrate_id',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Типы беспозвоночных животных</label>
+                    {{Form::select('invertebrate_id',
                   $invertebrates,
                   $item->getDictionaryPropId('invertebrate'),
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
                   }}
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Руководящие формы</label>
-                  {{Form::select('index_fossil_id',
+                <div class="col">
+                  <div class="form-group">
+                    <label>Руководящие формы</label>
+                    {{Form::select('index_fossil_id',
                   $indexFossils,
                   $item->getDictionaryPropId('indexFossil'),
                   ['class' => 'form-control select2', 'placeholder'=>'-'])
                   }}
-                </div>
-                <!-- Checkbox -->
-                <div class="form-group">
-                  <div class="form-check">
-                    {{Form::checkbox('is_public', '1', $item->isPublic(),
-                    ['class'=>'form-check-input', 'id'=>'checkPublic'])}}
-                    <label class="form-check-label" for="checkPublic">
-                      Публичный
-                    </label>
                   </div>
                 </div>
-                <!-- ./ Checkbox -->
               </div>
+
+              <!-- Map and checkbox -->
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label>Местоположение</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend"> <span class="input-group-text">Координаты </span></div>
+                        <input type="text" id="lat" name="y" value="{{$item->y}}" class="form-control"
+                          placeholder="Широта" />
+                        <input type="text" id="lng" name="x" value="{{$item->x}}" class="form-control"
+                          placeholder="Долгота" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div id="adminMap" class="map mb-3">
+                  </div>
+                </div>
+
+                <div class="col">
+                  <!-- Checkbox -->
+                  <div class="form-group">
+                    <label>Доступ</label>
+                    <div class="input-group mb-3">
+                      <div class="form-check">
+                        {{Form::checkbox('is_public', '1', $item->isPublic(),
+                          ['class'=>'form-check-input', 'id'=>'checkPublic'])}}
+                        <label class="form-check-label" for="checkPublic">
+                          Публичный
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- ./ Checkbox -->
+                </div>
+              </div>
+              <!-- ./ Map and checkbox -->
             </div>
             <!-- ./ Card-body -->
 
