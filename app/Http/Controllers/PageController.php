@@ -62,7 +62,8 @@ class PageController extends Controller
                 $tmpObj->type = 'Порода';
                 $tmpObj->name = $item->name;
                 $tmpObj->url = route('rock_info', $item->id);
-                $tmpObj->point = $item->getPoint();
+                $tmpObj->lat = $item->x;
+                $tmpObj->lng = $item->y;
                 return $tmpObj;
             }
         )->toArray();
@@ -93,7 +94,8 @@ class PageController extends Controller
                 $tmpObj->type = 'Окаменелость';
                 $tmpObj->name = $item->name;
                 $tmpObj->url = route('fossil_info', $item->id);
-                $tmpObj->point = $item->getPoint();
+                $tmpObj->lat = $item->x;
+                $tmpObj->lng = $item->y;
                 return $tmpObj;
             })->toArray()
         );
