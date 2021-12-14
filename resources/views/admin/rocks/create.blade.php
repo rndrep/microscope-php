@@ -121,8 +121,13 @@
                 </div>
                 <div class="form-group">
                   <label>Местоположение</label>
-                  <input type="text">
-                  <input type="text">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend"> <span class="input-group-text">Координаты </span></div>
+                    <input type="text" id="lat" name="y" class="form-control" placeholder="Широта" />
+                    <input type="text" id="lng" name="x" class="form-control" placeholder="Долгота" />
+                  </div>
+
+
                   <div id="adminMap" class="map">
 
                   </div>

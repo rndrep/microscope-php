@@ -22,13 +22,14 @@ export function initMap() {
         container._leaflet_id = null;
     }
 
-    L.map = function (id, options) {
-        return new L.Map(id, options);
-    };
+    // L.map = function (id, options) {
+    //     return new L.Map(id, options);
+    // };
 
     if (mainMap) {
         try {
             const fullMap = L.map(mainMap).setView([0, 0], 2); // показывать при первой загрузке
+
             tileLayer.addTo(fullMap);
 
             const createMarker = function (latitude, longitude, type, url) {
@@ -39,13 +40,9 @@ export function initMap() {
             // TODO: добавить фото
             const showAllMArkers = function () {
                 getResource(api_url).then((data) => {
-                    data.forEach(({ type, name, url, latitude, longitude }) => {
-                        createMarker(
-                            Number(latitude),
-                            Number(longitude),
-                            type,
-                            url
-                        );
+                    data.forEach(({ type, name, url, lat, lng }) => {
+                        console.log(lat + " " + Number(lat) + " " + typeof lat);
+                        createMarker(Number(lat), Number(lng), type, url);
                     });
                 });
             };
@@ -95,10 +92,6 @@ export function initMap() {
     data.forEach((el) => {
         const latitude = Number(el.latitude);
         const longitude = Number(el.longitude);
-    });
-
-    $("#accordion-button-map").on("click", function (event) {
-        map();
     });
 }
 

@@ -6,7 +6,7 @@ import slick from "./modules/slick";
 import select from "./modules/select";
 import createCards from "./modules/searchCard";
 import createMicroscope from "./modules/createMicroscope";
-import initMap from "./modules/map";
+import initMap from "./modules/initMap";
 
 window.addEventListener("DOMContentLoaded", () => {
     const microscopeWrap = document.querySelector(".microscope__wrap"),
@@ -57,6 +57,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     initMap();
+
+    $("#accordion-button-map").on("click", function (event) {
+        initMap();
+    });
 
     if (selectSingle.length != 0 || selectMultiple.length != 0) {
         try {
