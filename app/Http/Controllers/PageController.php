@@ -77,7 +77,8 @@ class PageController extends Controller
                 $tmpObj->type = 'Минерал';
                 $tmpObj->name = $item->name;
                 $tmpObj->url = route('mineral_info', $item->id);
-                $tmpObj->point = $item->getPoint();
+                $tmpObj->lat = $item->x;
+                $tmpObj->lng = $item->y;
                 return $tmpObj;
             })->toArray()
         );
