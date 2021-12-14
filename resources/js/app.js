@@ -1,10 +1,11 @@
 import "bootstrap";
-import $ from "jquery";
+import $, { map } from "jquery";
 import "../../node_modules/admin-lte/plugins/select2/js/select2";
 import "./select-ru";
 import initDropzone from "./dropzone";
 import "../assets/ckeditor5/build/ckeditor";
 import "../sass/ckeditor.scss";
+import initMap from "./map";
 import adminLte from "../../node_modules/admin-lte/build/js/AdminLTE";
 import "../../node_modules/admin-lte/plugins/datatables/jquery.dataTables.min";
 import "../../node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min";
@@ -96,6 +97,8 @@ window.addEventListener("DOMContentLoaded", () => {
                 });
         });
     }
+
+    initMap();
 
     initDropzone();
 });
