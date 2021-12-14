@@ -123,12 +123,7 @@
                 <!-- checkbox -->
                 <div class="form-group">
                   <div class="form-check">
-<<<<<<< HEAD
                     <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public" />
-
-=======
-                    <input type="checkbox" class="form-check-input" id="checkPublic" name="is_public">
->>>>>>> 1dce38d772438bb664e46b2536e094754359669e
                     <label class="form-check-label" for="checkPublic">
                       Публичный
                     </label>
