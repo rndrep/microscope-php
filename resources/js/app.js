@@ -13,9 +13,9 @@ import "../../node_modules/admin-lte/plugins/datatables-responsive/js/dataTables
 import "../../node_modules/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min";
 import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/dataTables.fixedHeader.min";
 import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.min";
-import "../../node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
-import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
-import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min";
+// import "../../node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
+// import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
+// import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min";
 
 window.addEventListener("DOMContentLoaded", () => {
     const editors = document.querySelectorAll(".editor"),
