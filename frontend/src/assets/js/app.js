@@ -6,11 +6,10 @@ import slick from "./modules/slick";
 import select from "./modules/select";
 import createCards from "./modules/searchCard";
 import createMicroscope from "./modules/createMicroscope";
-import map from "./modules/map";
+import initMap from "./modules/map";
 
 window.addEventListener("DOMContentLoaded", () => {
     const microscopeWrap = document.querySelector(".microscope__wrap"),
-        mapWrap = document.querySelector(".map"),
         selectSingle = document.querySelectorAll(".select-single"),
         selectMultiple = document.querySelectorAll(".select-multiple"),
         searchBtn = document.querySelector("#searchBtn"),
@@ -19,12 +18,11 @@ window.addEventListener("DOMContentLoaded", () => {
     (function () {
         if ((searchBtn && mapBtn) != undefined) {
             let currentUrl = window.location;
-
             if (currentUrl.pathname === "/") {
                 searchBtn.setAttribute("href", "#search");
-                mapBtn.setAttribute("href", "/map");
-            } else if (currentUrl.href === "/map") {
-                searchBtn.setAttribute("href", "/");
+                mapBtn.setAttribute("href", "/map#map");
+            } else if (currentUrl.pathname === "/map") {
+                searchBtn.setAttribute("href", "/#search");
                 mapBtn.setAttribute("href", "#map");
             }
         }
@@ -58,11 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
         } catch (error) {}
     }
 
-    if (mapWrap) {
-        try {
-            map();
-        } catch (error) {}
-    }
+    initMap();
 
     if (selectSingle.length != 0 || selectMultiple.length != 0) {
         try {

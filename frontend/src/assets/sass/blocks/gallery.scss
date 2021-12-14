@@ -79,8 +79,15 @@
     transition: fill 0.1s linear;
 }
 
+.sc {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .sc img {
-    height: calc(50vh - 100px);
-    width: auto;
-    margin: 0 auto; /* it centers any block level element */
+    margin: auto;
+}
+
+.slick-list {
+    padding: 0 0% !important;
 }

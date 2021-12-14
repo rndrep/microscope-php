@@ -119,6 +119,14 @@
                   ['class' => 'form-control select2', 'multiple'=>'multiple', 'data-placeholder'=>'Выберите окаменелости'])
                   }}
                 </div>
+                <div class="form-group">
+                  <label>Местоположение</label>
+                  <input type="text">
+                  <input type="text">
+                  <div id="adminMap" class="map">
+
+                  </div>
+                </div>
 
                 <!-- checkbox -->
                 <div class="form-group">
