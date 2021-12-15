@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (microscopeWrap) {
         try {
             createMicroscope(
-                `http://microscope.test/microscope-photos/${
+                `/microscope-photos/${
                     getUrlParams().type
                 }/${getUrlParams().id}`
             );
