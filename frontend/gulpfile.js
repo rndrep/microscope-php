@@ -25,7 +25,7 @@ require("dotenv").config(); // need to load .env
 // const RevAll = require("gulp-rev-all");
 const exec = require("child_process").exec;
 
-let isDev = true;
+let isDev = "true" == process.env.IS_DEV;
 let isProd = !isDev;
 
 const ser = "true" == process.env.USE_BLADE;
