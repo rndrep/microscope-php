@@ -27,6 +27,6 @@ frontend/.env
 
 resources/views/dist/
 public/svg/sprite.svg
-public/js/bundle.js
-public/css/style.css
+public/js/
+public/css/
 public/img/dist/
