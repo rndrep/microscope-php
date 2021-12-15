@@ -2,7 +2,7 @@ import "leaflet";
 import { getResource } from "../services/services";
 
 export function initMap() {
-    const api_url = "http://microscope.test/map-items",
+    const api_url = "/map-items",
         mainMap = document.getElementById("mainMap"),
         cardMap = document.getElementById("cardMap"),
         container = L.DomUtil.get("map"),
