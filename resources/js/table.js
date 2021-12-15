@@ -13,7 +13,7 @@ export function initTable() {
 
     if (dataTable) {
         try {
-            const table = new DataTable("#dataTable", {
+            const table = $("#dataTable").DataTable({
                 autoWidth: true,
                 stateSave: true,
                 dom: `<"table__search"f><"table__length-menu"l>t<"table__info"i><"table__pagination"p>`,
@@ -21,13 +21,13 @@ export function initTable() {
                 responsive: {
                     details: {
                         type: "column",
-                        target: document.getElementById("#dataTable"),
+                        target: $("#dataTable"),
                     },
                 },
                 columnDefs: [
                     {
                         className: "dtr-control",
-                        targets: document.getElementById("#dataTable"),
+                        targets: $("#dataTable"),
                     },
                     { orderable: false, targets: [0, 3] },
                 ],

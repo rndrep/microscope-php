@@ -24,14 +24,16 @@ export function initMap() {
             Спутник: initLayer("mapbox/satellite-v9"),
             Улицы: initLayer("mapbox/streets-v11"),
         },
-        createIcon = function (iconColor = "blue") {
+        createIcon = function (iconColor) {
             let customIcon;
             if (iconColor === "orange") {
                 customIcon = "/img/dist/marker-icon-orange.png";
-            } else if (iconColor === "blue") {
-                customIcon = "/img/dist/marker-icon-blue.png";
+            } else if (iconColor === "violet") {
+                customIcon = "/img/dist/marker-icon-violet.png";
             } else if (iconColor === "green") {
                 customIcon = "/img/dist/marker-icon-green.png";
+            } else {
+                customIcon = "/img/dist/marker-icon-blue.png";
             }
 
             return new L.Icon({
@@ -48,7 +50,7 @@ export function initMap() {
             longitude,
             latitude,
             name,
-            url,
+            url = "",
             popup = true
         ) {
             let customIcon;
@@ -56,9 +58,11 @@ export function initMap() {
             if (type === "Порода") {
                 customIcon = createIcon("orange");
             } else if (type === "Минерал") {
-                customIcon = createIcon("blue");
+                customIcon = createIcon("violet");
             } else if (type === "Окаменелость") {
                 customIcon = createIcon("green");
+            } else {
+                customIcon = createIcon("blue");
             }
 
             const marker = L.marker([longitude, latitude], {
@@ -132,35 +136,30 @@ export function initMap() {
 
     if (cardMap) {
         try {
-            const specificMap = L.map(cardMap);
+            const specificMap = L.map(cardMap),
+                lng = cardMap.getAttribute("data-lng"),
+                lat = cardMap.getAttribute("data-lat"),
+                name = cardMap.getAttribute("data-name");
 
-            getResource(api_url).then((data) => {
-                data.forEach(({ type, name, url, lng, lat }) => {
-                    if (name === cardMap.getAttribute("data-name")) {
-                        if (lat && lng != "") {
-                            specificMap.setView([lng, lat], 2);
+            console.log(lng + " " + lat + " " + name);
 
-                            initLayer("mapbox/streets-v11").addTo(specificMap);
+            if (lat && lng != "") {
+                specificMap.setView([lng, lat], 2);
 
-                            createMarker(
-                                type,
-                                Number(lng),
-                                Number(lat),
-                                name,
-                                url,
-                                false
-                            ).addTo(specificMap);
+                initLayer("mapbox/streets-v11").addTo(specificMap);
 
-                            L.control
-                                .layers(baseMaps, null, {
-                                    collapsed: false,
-                                    hideSingleBase: true,
-                                })
-                                .addTo(specificMap);
-                        }
-                    }
-                });
-            });
+                // TODO: добавить тип
+                createMarker("", Number(lng), Number(lat), name, "").addTo(
+                    specificMap
+                );
+
+                L.control
+                    .layers(baseMaps, null, {
+                        collapsed: false,
+                        hideSingleBase: true,
+                    })
+                    .addTo(specificMap);
+            }
         } catch (error) {}
     }
 }

@@ -255,9 +255,9 @@
                     <div class="form-group">
                       <label>Местоположение</label>
                       <div class="input-group mb-3">
-                        <input type="text" id="lat" name="y" value="{{$item->y}}" class="form-control"
+                        <input type="number" step="any" id="lat" name="y" value="{{$item->y}}" class="form-control"
                           placeholder="Широта" />
-                        <input type="text" id="lng" name="x" value="{{$item->x}}" class="form-control"
+                        <input type="number" step="any" id="lng" name="x" value="{{$item->x}}" class="form-control"
                           placeholder="Долгота" />
                         <div class="input-group-append">
                           <button class="btn btn-outline-secondary" type="button" id="btnMap">Показать</button>

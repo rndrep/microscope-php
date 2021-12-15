@@ -1,5 +1,5 @@
 import Dropzone from "../../node_modules/dropzone";
-import {getResource, postData, deleteData} from './services';
+import { getResource, postData, deleteData } from "./services";
 
 export function initDropzone() {
     const photoField = document.querySelector("#photoDropzone"),
@@ -11,7 +11,7 @@ export function initDropzone() {
     if (photoField) {
         try {
             const photoDropzone = new Dropzone(photoField, {
-                url: photoField.getAttribute('action'),
+                url: photoField.getAttribute("action"),
                 uploadMultiple: false,
                 maxFiles: 1,
                 maxFilesize: 1, // Max filesize in MB
@@ -22,17 +22,20 @@ export function initDropzone() {
                 dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",
                 addRemoveLinks: true,
                 headers: {
-                    'X-CSRF-TOKEN': csrfToken.content
-                }
+                    "X-CSRF-TOKEN": csrfToken.content,
+                },
             });
-            fillServerPhotos(photoDropzone, photoField.getAttribute('data-url'));
+            fillServerPhotos(
+                photoDropzone,
+                photoField.getAttribute("data-url")
+            );
 
             photoDropzone.on("addedfile", (file) => {
                 console.log(`File added: ${file.name}`);
             });
 
             photoDropzone.on("removedfile", function (file) {
-                removeFile(photoField, file)
+                removeFile(photoField, file);
             });
 
             photoDropzone.on("error", (file, error) => {
@@ -53,7 +56,7 @@ export function initDropzone() {
     if (galleryField) {
         try {
             const galleryDropzone = new Dropzone(galleryField, {
-                url: galleryField.getAttribute('action'),
+                url: galleryField.getAttribute("action"),
                 // laravel doesn't see file when use PUT
                 // method: "put",
                 uploadMultiple: false, //Следует ли отправлять несколько файлов в одном запросе
@@ -67,16 +70,19 @@ export function initDropzone() {
                 dictMaxFilesExceeded: "Вы не можете загрузить больше файлов",
                 addRemoveLinks: true,
                 headers: {
-                    'X-CSRF-TOKEN': csrfToken.content
-                }
+                    "X-CSRF-TOKEN": csrfToken.content,
+                },
             });
-            fillServerPhotos(galleryDropzone, galleryField.getAttribute('data-url'));
+            fillServerPhotos(
+                galleryDropzone,
+                galleryField.getAttribute("data-url")
+            );
 
             galleryDropzone.on("removedfile", function (file) {
-                removeFile(galleryField, file)
+                removeFile(galleryField, file);
             });
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -98,7 +104,7 @@ export function initDropzone() {
 
         const myDropzone = new Dropzone(id, {
             // Make the whole body a dropzone
-            url: dropzone.getAttribute('action'), // Set the url for your upload script location
+            url: dropzone.getAttribute("action"), // Set the url for your upload script location
             parallelUploads: 20,
             previewTemplate: previewTemplate,
             maxFiles: 36,
@@ -112,10 +118,10 @@ export function initDropzone() {
             previewsContainer: id + " .dropzone-items", // Define the container to display the previews
             clickable: id + " .dropzone-select", // Define the element that should be used as click trigger to select files.
             headers: {
-                'X-CSRF-TOKEN': csrfToken.content
-            }
+                "X-CSRF-TOKEN": csrfToken.content,
+            },
         });
-        fillServerPhotos(myDropzone, dropzone.getAttribute('data-url'));
+        fillServerPhotos(myDropzone, dropzone.getAttribute("data-url"));
 
         myDropzone.on("addedfile", function (file) {
             const dropzoneItems = dropzone.querySelectorAll(".dropzone-item");
@@ -206,7 +212,11 @@ export function initDropzone() {
     function fillServerPhotos(dropzone, url) {
         getResource(url).then((photos) => {
             for (let i in photos) {
-                let mockFile = { name: photos[i].name, size: photos[i].size , uploaded: true};
+                let mockFile = {
+                    name: photos[i].name,
+                    size: photos[i].size,
+                    uploaded: true,
+                };
                 dropzone.displayExistingFile(mockFile, photos[i].url);
             }
         });
@@ -214,14 +224,12 @@ export function initDropzone() {
 
     function removeFile(dropzoneForm, file) {
         let formData = new FormData();
-        formData.append('_method', 'delete')
+        formData.append("_method", "delete");
         deleteData(
-            dropzoneForm.getAttribute('action') + '&filename=' + file.name,
+            dropzoneForm.getAttribute("action") + "&filename=" + file.name,
             formData,
-            {'X-CSRF-TOKEN': csrfToken.content}
-        ).then((data) => {
-            // console.log(data)
-        });
+            { "X-CSRF-TOKEN": csrfToken.content }
+        ).then((data) => {});
     }
 }
 
