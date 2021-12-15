@@ -4,52 +4,125 @@ import { getResource } from "../services/services";
 export function initMap() {
     const api_url = "http://microscope.test/map-items",
         mainMap = document.getElementById("mainMap"),
-        mapWrapper = document.getElementsByClassName("map"),
+        cardMap = document.getElementById("cardMap"),
         container = L.DomUtil.get("map"),
-        tileLayer = L.tileLayer(
-            "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-            {
-                maxZoom: 18,
-                minZoom: 2,
-                id: "mapbox/streets-v11",
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken:
-                    "pk.eyJ1IjoidnZrNjEiLCJhIjoiY2tzNXgyMTZrMDViaTJ1cHNxbDhsbXhzcyJ9.me3r1SBREWSOPn_A3Nx5yQ",
+        initLayer = function (id) {
+            return L.tileLayer(
+                "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+                {
+                    maxZoom: 18,
+                    minZoom: 2,
+                    id: id,
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken:
+                        "pk.eyJ1IjoidnZrNjEiLCJhIjoiY2tzNXgyMTZrMDViaTJ1cHNxbDhsbXhzcyJ9.me3r1SBREWSOPn_A3Nx5yQ",
+                }
+            );
+        },
+        baseMaps = {
+            Спутник: initLayer("mapbox/satellite-v9"),
+            Улицы: initLayer("mapbox/streets-v11"),
+        },
+        createIcon = function (iconColor = "blue") {
+            let customIcon;
+            if (iconColor === "orange") {
+                customIcon = "/img/dist/marker-icon-orange.png";
+            } else if (iconColor === "blue") {
+                customIcon = "/img/dist/marker-icon-blue.png";
+            } else if (iconColor === "green") {
+                customIcon = "/img/dist/marker-icon-green.png";
             }
-        );
 
-    if (container != null) {
-        container._leaflet_id = null;
-    }
+            return new L.Icon({
+                iconUrl: customIcon,
+                shadowUrl: "/img/dist/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41],
+            });
+        },
+        createMarker = function (
+            type,
+            longitude,
+            latitude,
+            name,
+            url,
+            popup = true
+        ) {
+            let customIcon;
 
-    // L.map = function (id, options) {
-    //     return new L.Map(id, options);
-    // };
+            if (type === "Порода") {
+                customIcon = createIcon("orange");
+            } else if (type === "Минерал") {
+                customIcon = createIcon("blue");
+            } else if (type === "Окаменелость") {
+                customIcon = createIcon("green");
+            }
+
+            const marker = L.marker([longitude, latitude], {
+                icon: customIcon,
+                riseOnHover: true,
+            });
+
+            popup === true
+                ? marker.bindPopup(`<a href="${url}">${name}</a>`)
+                : marker.bindPopup(`${name}`);
+
+            return marker;
+        };
 
     if (mainMap) {
         try {
-            const fullMap = L.map(mainMap).setView([62, 88], 1); // показывать при первой загрузке
-
-            tileLayer.addTo(fullMap);
-
-            const createMarker = function (longitude, latitude, name, url) {
-                let marker = L.marker([longitude, latitude]).addTo(fullMap);
-                marker.bindPopup(
-                    `${name} [${longitude}, ${latitude}] <a href="${url}">Ссылка</a>`
-                );
-            };
+            const fullMap = L.map(mainMap).setView([40, 5], 1); // показывать при первой загрузке
+            initLayer("mapbox/streets-v11").addTo(fullMap);
 
             // TODO: добавить фото
             const showAllMArkers = function () {
                 getResource(api_url).then((data) => {
+                    let rocksGroup = [],
+                        mineralsGroup = [],
+                        fossilsGroup = [];
+
                     data.forEach(({ type, name, url, lng, lat }) => {
-                        console.log("1." + lat + " " + lng);
-                        console.log("2." + Number(lat) + " " + Number(lng));
                         if (lat && lng != "") {
-                            createMarker(Number(lng), Number(lat), name, url);
+                            const marker = createMarker(
+                                type,
+                                Number(lng),
+                                Number(lat),
+                                name,
+                                url
+                            );
+
+                            if (type === "Порода") {
+                                rocksGroup.push(marker);
+                            } else if (type === "Минерал") {
+                                mineralsGroup.push(marker);
+                            } else if (type === "Окаменелость") {
+                                fossilsGroup.push(marker);
+                            }
                         }
                     });
+
+                    const overlayMaps = {
+                        Породы: L.layerGroup(rocksGroup),
+                        Минералы: L.layerGroup(mineralsGroup),
+                        Окаменелости: L.layerGroup(fossilsGroup),
+                    };
+
+                    L.control
+                        .layers(baseMaps, overlayMaps, {
+                            collapsed: false,
+                            hideSingleBase: true,
+                        })
+                        .addTo(fullMap);
+
+                    L.layerGroup([
+                        overlayMaps.Породы,
+                        overlayMaps.Минералы,
+                        overlayMaps.Окаменелости,
+                    ]).addTo(fullMap);
                 });
             };
 
@@ -57,48 +130,39 @@ export function initMap() {
         } catch (error) {}
     }
 
-    if (mapWrapper) {
+    if (cardMap) {
         try {
-            const cardMap = L.map(mapWrapper).setView([0, 0], 1); // TODO: Передавать сюда координаты камня
-            tileLayer.addTo(cardMap);
+            const specificMap = L.map(cardMap);
 
-            getResource(url).then((data) => {
-                const latitude = data.latitude,
-                    longitude = data.longitude;
+            getResource(api_url).then((data) => {
+                data.forEach(({ type, name, url, lng, lat }) => {
+                    if (name === cardMap.getAttribute("data-name")) {
+                        if (lat && lng != "") {
+                            specificMap.setView([lng, lat], 2);
 
-                let marker = L.marker([latitude, longitude]).addTo(cardMap);
+                            initLayer("mapbox/streets-v11").addTo(specificMap);
+
+                            createMarker(
+                                type,
+                                Number(lng),
+                                Number(lat),
+                                name,
+                                url,
+                                false
+                            ).addTo(specificMap);
+
+                            L.control
+                                .layers(baseMaps, null, {
+                                    collapsed: false,
+                                    hideSingleBase: true,
+                                })
+                                .addTo(specificMap);
+                        }
+                    }
+                });
             });
         } catch (error) {}
     }
-
-    let data = [
-        {
-            type: "Порода",
-            name: "Poroda",
-            url: "http://microscope.test/rock-info/1",
-            latitude: "56.471",
-            longitude: "84.957",
-        },
-        {
-            type: "Минерал",
-            name: "test",
-            url: "http://microscope.test/mineral-info/12",
-            latitude: "20.471",
-            longitude: "30.957",
-        },
-        {
-            type: "Окаменелость",
-            name: "фул",
-            url: "http://microscope.test/fossil-info/2",
-            latitude: "100.471",
-            longitude: "12.957",
-        },
-    ];
-
-    data.forEach((el) => {
-        const latitude = Number(el.latitude);
-        const longitude = Number(el.longitude);
-    });
 }
 
 export default initMap;

@@ -36,9 +36,6 @@
                                 </svg>Микроскоп</a>
                             @endif
                             @if($rotationRoute ?? '')
-                            <div class="rock__text rock__text--gray">
-                                Посмотреть поворот образца
-                            </div>
                             <a class="btn btn_rock" href=" {{ $rotationRoute }}">
                                 <svg class="icon">
                                     <use href="/svg/sprite.svg#360"></use>
@@ -105,7 +102,7 @@
                                 aria-labelledby="flush-headingTwo">
                                 <div class="accordion-body">
                                     <div class="map">
-                                        <div id="map" class="map"></div>
+                                        <div id="cardMap" data-name="{{$item->name}}" class="map"></div>
                                     </div>
                                 </div>
                             </div>

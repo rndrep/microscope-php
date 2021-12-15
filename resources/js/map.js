@@ -1,4 +1,5 @@
 import "leaflet";
+import leafletControlGeocoder from "./Control.Geocoder";
 
 export function initMap() {
     const mapWrapper = document.querySelector(".map"),
@@ -26,6 +27,7 @@ export function initMap() {
             let marker;
 
             tileLayer.addTo(adminMap);
+            L.Control.geocoder().addTo(adminMap);
 
             if (initialLat && initialLng != "") {
                 console.log(Number(initialLat));

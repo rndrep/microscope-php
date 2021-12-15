@@ -42,9 +42,9 @@ window.addEventListener("DOMContentLoaded", () => {
                     { orderable: false, targets: [0, 3] },
                 ],
 
-                sScrollY: 0.4 * $(window).height(),
-                sScrollX: "100%",
-                bScrollCollapse: true,
+                // sScrollY: 0.4 * $(window).height(),
+                // sScrollX: "100%",
+                // bScrollCollapse: true,
                 // sScrollXInner: "110%",
                 fixedHeader: true,
 
@@ -72,14 +72,6 @@ window.addEventListener("DOMContentLoaded", () => {
             });
         } catch (error) {}
     }
-
-    // $('.js-example-basic-multiple').select2();
-
-    // console.log(adminSelects);
-    // adminSelects.forEach((element) => {
-    //     element.select2();
-    // });
-    // adminSelects.select2();
 
     if (editors.length != 0) {
         editors.forEach((element) => {

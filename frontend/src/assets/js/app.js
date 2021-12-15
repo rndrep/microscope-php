@@ -20,10 +20,10 @@ window.addEventListener("DOMContentLoaded", () => {
             let currentUrl = window.location;
             if (currentUrl.pathname === "/") {
                 searchBtn.setAttribute("href", "#search");
-                mapBtn.setAttribute("href", "/map#map");
+                mapBtn.setAttribute("href", "/map#searchMap");
             } else if (currentUrl.pathname === "/map") {
                 searchBtn.setAttribute("href", "/#search");
-                mapBtn.setAttribute("href", "#map");
+                mapBtn.setAttribute("href", "#searchMap");
             }
         }
     })();
