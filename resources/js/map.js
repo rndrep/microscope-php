@@ -15,7 +15,17 @@ export function initMap() {
                 accessToken:
                     "pk.eyJ1IjoidnZrNjEiLCJhIjoiY2tzNXgyMTZrMDViaTJ1cHNxbDhsbXhzcyJ9.me3r1SBREWSOPn_A3Nx5yQ",
             }
-        );
+        ),
+        createIcon = function () {
+            return new L.Icon({
+                iconUrl: "/img/dist/marker-icon-blue.png",
+                shadowUrl: "/img/dist/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41],
+            });
+        };
 
     if (mapWrapper) {
         try {
@@ -41,22 +51,25 @@ export function initMap() {
                 lat.value = e.latlng.lat;
                 lng.value = e.latlng.lng;
 
+                createMarker();
+            });
+
+            function createMarker() {
                 if (marker != undefined) {
                     adminMap.removeLayer(marker);
                 }
+                marker = L.marker([Number(lat.value), Number(lng.value)], {
+                    icon: createIcon(),
+                }).addTo(adminMap);
+            }
 
-                marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(adminMap);
-            });
+            if (lat.value && lng.value != "") {
+                createMarker();
+            }
 
             btnMap.addEventListener("click", () => {
                 if (lat.value && lng.value != "") {
-                    if (marker != undefined) {
-                        adminMap.removeLayer(marker);
-                    }
-                    marker = L.marker([
-                        Number(lat.value),
-                        Number(lng.value),
-                    ]).addTo(adminMap);
+                    createMarker();
                 }
             });
         } catch (error) {}

@@ -9,10 +9,10 @@ import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/fixedHead
 // import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min";
 
 export function initTable() {
+    const dataTable = document.getElementById("dataTable");
+
     if (dataTable) {
         try {
-            const dataTable = document.getElementById("dataTable");
-
             const table = new DataTable("#dataTable", {
                 autoWidth: true,
                 stateSave: true,
