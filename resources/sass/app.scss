@@ -19,9 +19,9 @@ $form-control-border-color: #80bdff;
 // Imports
 @import "./normalize";
 @import "../../node_modules/dropzone/src/dropzone.scss";
-@import "../../node_modules/admin-lte/dist/css/adminlte.css";
-@import "../../node_modules/admin-lte/plugins/select2/css/select2";
-@import "../../node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4";
+@import "../../node_modules/admin-lte/dist/css/adminlte.min.css";
+@import "../../node_modules/admin-lte/plugins/select2/css/select2.min";
+@import "../../node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min";
 
 @import "../../node_modules/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css";
 @import "../../node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min";

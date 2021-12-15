@@ -1,5 +1,5 @@
 <nav class="mt-2">
-  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+  <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu">
     <li class="nav-item">
       <a class="nav-link" href="{{route('rocks.index')}}">
         <svg class="admin-icon nav-icon">
@@ -36,7 +36,7 @@
           </svg>
         </p>
       </a>
-      <ul class="nav nav-treeview">
+      <ul class="nav nav-pills flex-column nav-treeview">
         @foreach($dictItems as $dictItem)
         <li class="nav-item">
           <a href="{{route('get_all_dicts', $dictItem->class)}}" class="nav-link">

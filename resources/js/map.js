@@ -3,6 +3,7 @@ import leafletControlGeocoder from "./Control.Geocoder";
 
 export function initMap() {
     const mapWrapper = document.querySelector(".map"),
+        btnMap = document.querySelector("#btnMap"),
         tileLayer = L.tileLayer(
             "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
             {
@@ -30,23 +31,33 @@ export function initMap() {
             L.Control.geocoder().addTo(adminMap);
 
             if (initialLat && initialLng != "") {
-                console.log(Number(initialLat));
                 marker = L.marker([
                     Number(initialLat),
                     Number(initialLng),
                 ]).addTo(adminMap);
             }
 
-            // TODO: поиск по карте
             adminMap.on("click", function (e) {
-                console.log(e.latlng);
-                lat.value = Math.round(e.latlng.lat * 1000) / 1000;
-                lng.value = Math.round(e.latlng.lng * 1000) / 1000;
+                lat.value = e.latlng.lat;
+                lng.value = e.latlng.lng;
 
                 if (marker != undefined) {
                     adminMap.removeLayer(marker);
                 }
+
                 marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(adminMap);
+            });
+
+            btnMap.addEventListener("click", () => {
+                if (lat.value && lng.value != "") {
+                    if (marker != undefined) {
+                        adminMap.removeLayer(marker);
+                    }
+                    marker = L.marker([
+                        Number(lat.value),
+                        Number(lng.value),
+                    ]).addTo(adminMap);
+                }
             });
         } catch (error) {}
     }
