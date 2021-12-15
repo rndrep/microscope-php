@@ -16,8 +16,7 @@ import initMap from "./map";
 import initTable from "./table";
 
 window.addEventListener("DOMContentLoaded", () => {
-    const editors = document.querySelectorAll(".editor"),
-        dataTable = document.getElementById("dataTable");
+    const editors = document.querySelectorAll(".editor");
 
     if ($(".select2")) {
         try {

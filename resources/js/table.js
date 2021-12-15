@@ -11,7 +11,8 @@ import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/fixedHead
 export function initTable() {
     if (dataTable) {
         try {
-            //$("#dataTable").dataTable
+            const dataTable = document.getElementById("dataTable");
+
             const table = new DataTable("#dataTable", {
                 autoWidth: true,
                 stateSave: true,
