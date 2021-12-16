@@ -6,14 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "~7.3.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "davejamesmiller/laravel-breadcrumbs": "5.x",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "laravelcollective/html": "^6.2",
-        "ext-curl": "*",
-        "ext-json": "*"
+        "laravelcollective/html": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

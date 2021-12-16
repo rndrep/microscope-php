@@ -50,8 +50,8 @@ export function initMap() {
             longitude,
             latitude,
             name,
-            url = "",
-            popup = true
+            url,
+            popup = false
         ) {
             let customIcon;
 
@@ -96,7 +96,8 @@ export function initMap() {
                                 Number(lng),
                                 Number(lat),
                                 name,
-                                url
+                                url,
+                                true
                             );
 
                             if (type === "Порода") {
@@ -149,7 +150,8 @@ export function initMap() {
                 initLayer("mapbox/streets-v11").addTo(specificMap);
 
                 // TODO: добавить тип
-                createMarker("", Number(lng), Number(lat), name, "").addTo(
+                debugger;
+                createMarker(null, Number(lng), Number(lat), name).addTo(
                     specificMap
                 );
 
