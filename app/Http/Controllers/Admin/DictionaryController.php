@@ -37,6 +37,15 @@ class DictionaryController extends Controller
         IndexFossil::class => ['class' => Fossil::class, 'prop' => 'index_fossil_id'],
     ];
 
+    const ROCK_TYPE_MAGMATIC = 1;
+    const ROCK_TYPE_METAMORPHIC = 2;
+    const ROCK_TYPE_SEDIMENTARY = 3;
+    const ROCK_TYPE_TO_ROCK_CLASS = [
+        self::ROCK_TYPE_MAGMATIC => [['value' => 10], ['value' => 1], ['value' => 2]],
+        self::ROCK_TYPE_METAMORPHIC => [['value' => 3], ['value' => 4], ['value' => 5], ['value' => 12], ['value' => 13]],
+        self::ROCK_TYPE_SEDIMENTARY => [['value' => 6], ['value' => 7], ['value' => 8], ['value' => 9]]
+    ];
+
     public function all($modelClass)
     {
         $this->abortIfNoModel(class_basename($modelClass));
@@ -131,6 +140,24 @@ class DictionaryController extends Controller
         $relatedTable = self::DICTIONARY_TO_RELATED_TABLE[$modelClass]['class'];
         $foreignKeyProp = self::DICTIONARY_TO_RELATED_TABLE[$modelClass]['prop'];
         return empty($relatedTable::where($foreignKeyProp, $id)->count());
+    }
+
+    public function matchDict(Request $request)
+    {
+        $entity = $request->query('entity');
+        $id = $request->query('id');
+        if ('App\Models\\' . $entity == RockType::class && isset(self::ROCK_TYPE_TO_ROCK_CLASS[$id])) {
+            $items = self::ROCK_TYPE_TO_ROCK_CLASS[$id];
+            return array_map(function ($item) {
+                $item['text'] = RockClass::find($item['value'])->name;
+                return $item;
+            }, $items);
+        }
+        return array_map(function ($item) {
+            $item['value'] = $item['id'];
+            $item['text'] = $item['name'];
+            return $item;
+        }, RockClass::all()->toArray());
     }
 
 }

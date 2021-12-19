@@ -65,7 +65,7 @@ Route::get('/map-items', [PageController::class, 'mapItems'])->name('map_items')
  * example: /media?id=1&entity=mineral&type=gallery
  */
 Route::get('/media', [MediaController::class, 'getPhotos'])->name('media_get');
-
+Route::get('/match-dict', [DictionaryController::class, 'matchDict'])->name('match_dict');
 
 //TODO: configure access by
 //RockController::class)->only(['index']);
