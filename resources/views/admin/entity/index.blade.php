@@ -17,7 +17,9 @@
 
             <div class="card-body">
               <div class="form-group">
+              <!-- commented because of filter dependency - DictionaryController::matchDict
                 <a href="{{route('dict_edit_view', ['entity' => $entityName])}}" class="btn btn-success">Добавить</a>
+                -->
               </div>
               <table class="table table-responsive table-hover dataTable text-center">
                 <thead>
@@ -40,6 +42,7 @@
                           </svg>
                         </a>
                       </div>
+                      <!-- commented because of filter dependency - DictionaryController::matchDict
                       {{Form::open(['route'=>['dict_destroy', ['entity' => $entityName, 'id' => $item->id]],
                       'method'=>'delete', 'class' => 'd-inline'])}}
                       <button class="btn btn_i" onclick="return confirm('Вы уверены?')" type="submit" class="delete">
@@ -48,6 +51,7 @@
                         </svg>
                       </button>
                       {{Form::close()}}
+                      -->
                     </td>
                     <td>{{$item->id}}</td>
                     @foreach($fields as $field)
