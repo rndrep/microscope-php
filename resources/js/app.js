@@ -1,67 +1,22 @@
 import "bootstrap";
-import $, { map } from "jquery";
+import $ from "jquery";
+window.$ = $;
+import {
+    ControlSidebar,
+    Dropdown,
+    ExpandableTable,
+    Layout,
+} from "../../node_modules/admin-lte/build/js/AdminLTE";
 import "../../node_modules/admin-lte/plugins/select2/js/select2";
 import "./select-ru";
-import initDropzone from "./dropzone";
 import "../assets/ckeditor5/build/ckeditor";
 import "../sass/ckeditor.scss";
+import initDropzone from "./dropzone";
 import initMap from "./map";
-import adminLte from "../../node_modules/admin-lte/build/js/AdminLTE";
-import "../../node_modules/admin-lte/plugins/datatables/jquery.dataTables.min";
-import "../../node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min";
-import "../../node_modules/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min";
-import "../../node_modules/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min";
-import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/dataTables.fixedHeader.min";
-import "../../node_modules/admin-lte/plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.min";
-// import "../../node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
-// import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
-// import "../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min";
+import initTable from "./table";
 
 window.addEventListener("DOMContentLoaded", () => {
-    const editors = document.querySelectorAll(".editor"),
-        dataTable = document.getElementById("dataTable");
-
-    if (dataTable) {
-        try {
-            const table = $("#dataTable").dataTable({
-                autoWidth: true,
-                stateSave: true,
-                dom: `<"table__search"f><"table__length-menu"l>t<"table__info"i><"table__pagination"p>`,
-
-                responsive: {
-                    details: {
-                        type: "column",
-                        target: $("#dataTable"),
-                    },
-                },
-                columnDefs: [
-                    {
-                        className: "dtr-control",
-                        targets: $("#dataTable"),
-                    },
-                    { orderable: false, targets: [0, 3] },
-                ],
-
-                // sScrollY: 0.4 * $(window).height(),
-                // sScrollX: "100%",
-                // bScrollCollapse: true,
-                // sScrollXInner: "110%",
-                fixedHeader: true,
-
-                language: {
-                    lengthMenu: "Показывать _MENU_ записей на странице",
-                    zeroRecords: "Ничего не найдено",
-                    info: "Страница _PAGE_ из _PAGES_",
-                    search: "Поиск",
-                    infoEmpty: "Нет записей",
-                    paginate: {
-                        previous: "Предыдущая",
-                        next: "Следующая",
-                    },
-                },
-            });
-        } catch (error) {}
-    }
+    const editors = document.querySelectorAll(".editor");
 
     if ($(".select2")) {
         try {
@@ -89,6 +44,8 @@ window.addEventListener("DOMContentLoaded", () => {
                 });
         });
     }
+
+    initTable();
 
     initMap();
 

@@ -11,7 +11,12 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.sass("resources/sass/app.scss", "public/css/admin.css");
-// mix.postCss("public/css/admin.css", "public/css/admin.css");
+mix.sass("resources/sass/app.scss", "public/css/admin.css").js(
+    "resources/js/app.js",
+    "public/js/admin.js"
+);
 
-mix.js("resources/js/app.js", "public/js/admin.js");
+if (!mix.inProduction()) {
+    mix.sourceMaps();
+    mix.webpackConfig({ devtool: "inline-source-map" });
+}

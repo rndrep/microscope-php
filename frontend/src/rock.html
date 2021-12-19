@@ -113,6 +113,7 @@
                     <div class="accordion accordion-flush" id="accordionFlush">
                         @@include('gallery.html')
 
+                        @if($item->y && $item->x ?? '')
                         <div class="accordion-item accordion-item__map">
                             <h2 class="
                                         accordion-header accordion-header-map
@@ -130,11 +131,14 @@
                                 aria-labelledby="flush-headingTwo">
                                 <div class="accordion-body">
                                     <div class="map">
-                                        <div id="cardMap" data-name="{{$item->name}}" class="map"></div>
+                                        <div id="cardMap" data-name="{{$item->name}}" data-lng="{{$item->y}}"
+                                            data-lat="{{$item->x}}" class="map">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingThree">

@@ -14,17 +14,6 @@ export function createCards(urlResource) {
 
         const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
-        postData(urlResource, jsonData)
-            // .then(clearCards())
-            .then((data) => {
-                return data;
-            })
-            // .then(() => console.log("Отправлено"))
-            .then(() => {
-                statusMessage.innerHTML = "Успешно";
-            })
-            .catch(() => (statusMessage.innerHTML = "Не отправлено"));
-
         return postData(urlResource, jsonData);
     };
 
@@ -32,13 +21,13 @@ export function createCards(urlResource) {
         const cards = data.data;
 
         // TODO: добавить 3д
-        cards.forEach(({ photo, name, info_url, microscope_url }) => {
+        cards.forEach(({ photo, name, info_url, microscope_url, model_3d }) => {
             new Card(
                 photo,
                 name,
                 info_url,
                 microscope_url,
-                "",
+                model_3d,
                 parantElement
             ).render();
         });

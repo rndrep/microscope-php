@@ -32,15 +32,13 @@ export default class Card {
         `;
         }
 
-        console.log(microBtn);
-
-        if (this.turnUrl === "") {
+        if (this.turnUrl === "" || this.turnUrl === null) {
             turnBtn = "";
         } else {
             turnBtn = `
             <a class="btn btn_group" href="${this.turnUrl}" aria-label="Микроскоп">
             <svg class="icon" >
-                <use href="/svg/sprite.svg#biotech"></use>
+                <use href="/svg/sprite.svg#360"></use>
             </svg>
             </a>
         `;

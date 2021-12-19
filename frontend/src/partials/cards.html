@@ -1,39 +1,38 @@
 <!-- Cards -->
 <section class="cards">
-	<div class="container">
-		<!-- cards__row -->
-		<div class="cards__row row row-cols-1 row-cols-md-2 row-cols-lg-3">
+    <div class="container">
+        <!-- cards__row -->
+        <div class="cards__row row row-cols-1 row-cols-md-2 row-cols-lg-3">
             @foreach($items as $item)
-			<div class="col">
-				<div class="card">
-					<!-- card__thumb -->
-					<a class="card__thumb" href="{{route('rock_info', $item->id)}}">
-						<img class="card__img" src="{{$item->getPhoto()}}" alt="" />
-						<h3 class="card__title">{{$item->name}}</h3>
-					</a>
-					<!-- ./ card__thumb -->
-					<!-- card__body -->
-					<div class="card__body">
-						<div class="btn-group card__btn-group" role="group" aria-label="Basic outlined example">
-							<a class="btn btn_group" href="{{route('rock_info', $item->id)}}"><svg class="icon" >
-								<use href="/svg/sprite.svg#feed"></use>
-							</svg></a>
-							<a class="btn btn_group" href="">
-							<svg class="icon" >
-								<use href="/svg/sprite.svg#biotech"></use>
-							</svg>
-							</a>
-							<a class="btn btn_group" href=""><svg class="icon" >
-								<use href="/svg/sprite.svg#360"></use>
-							</svg></a>
-						</div>
-					</div>
-					<!-- ./ card__body -->
-				</div>
-			</div>
+            <div class="col">
+                <div class="card">
+                    <!-- card__thumb -->
+                    <a class="card__thumb" href="{{route('rock_info', $item->id)}}">
+                        <img class="card__img" src="{{$item->getPhoto()}}" alt="" />
+                        <h3 class="card__title">{{$item->name}}</h3>
+                    </a>
+                    <!-- ./ card__thumb -->
+                    <!-- card__body -->
+                    <div class="card__body">
+                        <div class="btn-group card__btn-group" role="group" aria-label="Basic outlined example">
+                            <a class="btn btn_group" href="{{route('rock_info', $item->id)}}"><svg class="icon">
+                                    <use href="/svg/sprite.svg#feed"></use>
+                                </svg></a>
+                            <a class="btn btn_group" href="">
+                                <svg class="icon">
+                                    <use href="/svg/sprite.svg#biotech"></use>
+                                </svg>
+                            </a>
+                            <a class="btn btn_group" href=""><svg class="icon">
+                                    <use href="/svg/sprite.svg#360"></use>
+                                </svg></a>
+                        </div>
+                    </div>
+                    <!-- ./ card__body -->
+                </div>
+            </div>
             @endforeach
 
-			<!-- ./ Cards__row -->
-	</div>
+            <!-- ./ Cards__row -->
+        </div>
 </section> <!-- ./ Cards -->
-

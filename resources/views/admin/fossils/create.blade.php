@@ -62,9 +62,11 @@
                     <div class="form-group">
                       <label>Местоположение</label>
                       <div class="input-group mb-3">
-                        <div class="input-group-prepend"> <span class="input-group-text">Координаты </span></div>
-                        <input type="text" id="lat" name="y" class="form-control" placeholder="Широта" />
-                        <input type="text" id="lng" name="x" class="form-control" placeholder="Долгота" />
+                        <input type="number" step="any" id="lat" name="y" class="form-control" placeholder="Широта" />
+                        <input type="number" step="any" id="lng" name="x" class="form-control" placeholder="Долгота" />
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button" id="btnMap">Показать</button>
+                        </div>
                       </div>
                     </div>
                   </div>
