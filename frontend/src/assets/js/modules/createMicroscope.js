@@ -14,9 +14,6 @@ export function createMicroscope(urlResource) {
     const microscopeXpl = document.createElement("div");
     microscopePpl.className = "microscope__circle";
     microscopeXpl.className = "microscope__circle";
-    // debugger;
-    // ppl.append(microscopePpl);
-    // xpl.append(microscopeXpl);
 
     getResource(url).then((data) => {
         const step = data.shift;

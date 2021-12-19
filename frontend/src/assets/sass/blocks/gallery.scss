@@ -38,7 +38,6 @@
 .gallery__item img {
     display: block;
     max-width: 100%;
-    height: auto;
 }
 
 .gallery__arrow {
@@ -86,6 +85,7 @@
 
 .sc img {
     margin: auto;
+    max-height: 500px;
 }
 
 .slick-list {

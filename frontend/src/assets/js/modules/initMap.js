@@ -142,15 +142,12 @@ export function initMap() {
                 lat = cardMap.getAttribute("data-lat"),
                 name = cardMap.getAttribute("data-name");
 
-            console.log(lng + " " + lat + " " + name);
-
             if (lat && lng != "") {
                 specificMap.setView([lng, lat], 2);
 
                 initLayer("mapbox/streets-v11").addTo(specificMap);
 
                 // TODO: добавить тип
-                debugger;
                 createMarker(null, Number(lng), Number(lat), name).addTo(
                     specificMap
                 );
