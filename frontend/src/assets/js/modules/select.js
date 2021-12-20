@@ -36,18 +36,18 @@ export function select() {
 
     slimSelects['rockClass'].onChange = function () {
         getResource('/match-dict?entity=RockClass&id=' + this.selected())
-            .then((data) => {
-                slimSelects['rockKind'].setData(data);
+        .then((data) => {
+            slimSelects['rockKind'].setData(data);
+            slimSelects['rockKind'].set([]);
+        })
+        .then(() => {
+            let crossElement = slimSelects['rockKind'].slim.singleSelected.deselect;
+            crossElement.classList.add('ss-hide');
+            crossElement.addEventListener('click', function (e) {
                 slimSelects['rockKind'].set([]);
-            })
-            .then(() => {
-                let crossElement = slimSelects['rockKind'].slim.singleSelected.deselect;
-                crossElement.classList.add('ss-hide');
-                crossElement.addEventListener('click', function (e) {
-                    slimSelects['rockKind'].set([]);
-                    this.classList.add('ss-hide');
-                });
+                this.classList.add('ss-hide');
             });
+        });
     };
 
     document.querySelectorAll(".select-multiply").forEach((element) => {
