@@ -37,39 +37,40 @@ export function initMap() {
 
             let marker;
 
-            tileLayer.addTo(adminMap);
-            L.Control.geocoder().addTo(adminMap);
+            const createMarker = function (lat, lng) {
+                if (marker !== undefined) {
+                    adminMap.removeLayer(marker);
+                }
 
-            if (initialLat && initialLng != "") {
-                marker = L.marker([
-                    Number(initialLat),
-                    Number(initialLng),
-                ]).addTo(adminMap);
+                marker = L.marker([Number(lat), Number(lng)], {
+                    icon: createIcon(),
+                }).addTo(adminMap);
+            };
+
+            if (initialLat && initialLng !== "") {
+                createMarker(initialLat, initialLng);
             }
+
+            tileLayer.addTo(adminMap);
+
+            L.Control.geocoder({ defaultMarkGeocode: false })
+                .on("markgeocode", function (e) {
+                    let bbox = e.geocode.bbox;
+
+                    createMarker(bbox._northEast.lat, bbox._northEast.lng);
+                })
+                .addTo(adminMap);
 
             adminMap.on("click", function (e) {
                 lat.value = e.latlng.lat;
                 lng.value = e.latlng.lng;
 
-                createMarker();
+                createMarker(lat.value, lng.value);
             });
 
-            function createMarker() {
-                if (marker != undefined) {
-                    adminMap.removeLayer(marker);
-                }
-                marker = L.marker([Number(lat.value), Number(lng.value)], {
-                    icon: createIcon(),
-                }).addTo(adminMap);
-            }
-
-            if (lat.value && lng.value != "") {
-                createMarker();
-            }
-
             btnMap.addEventListener("click", () => {
-                if (lat.value && lng.value != "") {
-                    createMarker();
+                if (lat.value && lng.value !== "") {
+                    createMarker(lat.value, lng.value);
                 }
             });
         } catch (error) {}

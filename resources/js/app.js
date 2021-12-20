@@ -37,7 +37,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 .then((editor) => {
                     window.editor = editor;
                     let myEditor = editor;
-                    // TODO: в каком-то элементе нет value??
                     if (element.getAttribute("value")) {
                         myEditor.setData(element.getAttribute("value"));
                     }

@@ -6,8 +6,10 @@ export function createCards(urlResource) {
     let tabs = document.querySelectorAll(".tabs__link"),
         cardsWrapper = document.querySelector(".cards"),
         cardsRows = document.querySelectorAll(".cards__row"),
+        cardContainer = document.querySelector(".cards .container"),
         forms = document.getElementsByTagName("form"),
-        statusMessage = document.createElement("div");
+        messageFail = document.createElement("div"),
+        searchMessage = document.createElement("div");
 
     const searchCard = function (form, urlResource) {
         let formData = new FormData(form);
@@ -51,6 +53,9 @@ export function createCards(urlResource) {
 
     const addTabListener = function (tab) {
         tab.addEventListener("shown.bs.tab", (event) => {
+            messageFail.innerHTML = ``;
+            cardContainer.insertBefore(messageFail, cardsRows[0]);
+
             document
                 .querySelector(event.target.getAttribute("data-card-target"))
                 .classList.toggle("active");
@@ -68,12 +73,22 @@ export function createCards(urlResource) {
             event.preventDefault();
 
             const url = form.getAttribute("data-url");
+
             searchCard(form, url).then((data) => {
                 const parantElement = document.querySelector(
                     form.getAttribute("data-card-target")
                 );
 
                 clearCards(parantElement);
+
+                if (data.data.length === 0) {
+                    messageFail.innerHTML = `<p class="form-label text-center mb-3">Ничего не найдено</p>`;
+                    cardContainer.insertBefore(messageFail, cardsRows[0]);
+                } else {
+                    messageFail.innerHTML = `<p class="form-label text-center mb-3">Найдено ${data.data.length}</p>`;
+                    cardContainer.insertBefore(messageFail, cardsRows[0]);
+                }
+
                 createCards(data, parantElement);
             });
         });
