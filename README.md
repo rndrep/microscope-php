@@ -1,62 +1,162 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# PREPARE VIRTUAL MACHINE
+## official docs https://laravel.com/docs/8.x/homestead#first-steps
+## INSTALL VIRTUALBOX
+sudo apt update
+sudo apt install virtualbox
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Check that installed
+virtualbox --help | head -n 1
 
-## About Laravel
+my output:
+Oracle VM VirtualBox VM Selector v6.1.16_Ubuntu
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## The Extension Pack enhances VirtualBox by adding USB 2.0 and 3.0 support, remote desktop, and encryption.
+## when licence text - press ESC, then agree license
+sudo apt install virtualbox—ext–pack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## INSTALL VAGRANT
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt update
+sudo apt install vagrant
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Check that installed
+vagrant --version
+# my output
+# Vagrant 2.2.16
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# install git
+sudo apt install git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#install composer
+manaual: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-20-04-ru
+sudo apt update
+sudo apt install php-cli unzip
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
 
-## Laravel Sponsors
+HASH=`curl -sS https://composer.github.io/installer.sig`
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Output: Installer verified
 
-### Premium Partners
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+Check in terminal:
+composer
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+# get project: run in folder where you want the project to be
+git clone https://github.com/rndrep/microscope-php.git
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#install some php extensions
+sudp apt install php-curl
+sudp apt install php-dom
 
-## Code of Conduct
+#go to microscope-php folder
+composer require --dev laravel/homestead 11.2.4
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+if you see error like:
+```
+Problem 1
+    - phpunit/phpunit[9.3.3, ..., 9.5.x-dev] require ext-dom * -> it is missing from your system. Install or enable PHP's dom extension.
+```
+you need to install php extension ("dom" in this case)
 
-## Security Vulnerabilities
+# In project folder:
+copy Homestead-example.yaml as Homestead.yaml
+add Homestead.yaml in .gitignore
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+copy .env-example as .env
+add .env in .gitignore
+update APP_URL= in .env
 
-## License
+copy frontend/.env-example as frontend/.env
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# add to hosts /etc/hosts (ip from Homestead.yaml):
+192.168.10.10 microscope.test
+
+# prepare homestead
+php vendor/bin/homestead make
+
+# set your project folder in Homestead.yaml
+map: {YOUR_PATH}/microscope-php
+
+# run virtual machine and server:
+vagrant up
+
+# Go to vagrant VM
+vagrant ssh
+cd ~/code
+
+# change php version
+php73
+
+# install packages
+## php
+composer update
+
+## node
+sudo npm install -g npm@8.2.0
+
+
+### in folder /frontend
+npm install
+gulp
+
+### in project folder
+npm install
+npm run dev (for development)
+
+# prepare db
+php artisan migrate
+php artisan db:seed
+
+
+###################################################
+	SERVER SETTINGS
+###################################################
+# Set in nginx config /etc/nginx/nginx.conf or /etc/nginx/sites-available/..
+	server {
+		...
+		client_max_body_size 100M;
+		...
+	}
+Then run:
+sudo service nginx reload
+
+# change php.ini (in /etc/php/7.3/fpm?)
+post_max_size = 100M
+upload_max_filesize = 100M
+max_file_uploads = 200
+
+Then run:
+sudo systemctl restart php7.3-fpm
+###################################################
+	END SERVER SETTINGS
+###################################################
+
+# SITE URL
+http://microscope.test/
+
+
+# NOTE:
+
+## turn off the VM
+vagrant halt
+
+## After change "sites" in Homestead.yaml run:
+vagrant reload --provision
+
+## Remove virtual machine (DATABASE WILL BE REMOVED!!!)
+vagrant destroy
+
+## Accesss to VM
+vagrant ssh
+
+SSH address: 127.0.0.1:2222
+SSH login/pass: vagrant/vagrant
+
+## database access
+127.0.0.1:54320
+homestead / secret
