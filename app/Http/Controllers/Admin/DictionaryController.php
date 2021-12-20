@@ -146,9 +146,9 @@ class DictionaryController extends Controller
     public function matchDict(Request $request)
     {
         $entity = $request->query('entity');
-        $id = $request->query('id');
+        $id = intval($request->query('id'));
         if ('App\Models\\' . $entity == RockType::class) {
-            if (empty($id) || !is_int($id)) {
+            if (empty($id)) {
                 return array_map(function ($item) {
                     $item['value'] = $item['id'];
                     $item['text'] = $item['name'];
@@ -162,7 +162,7 @@ class DictionaryController extends Controller
             }, $items);
         }
         if ('App\Models\\' . $entity == RockClass::class) {
-            if (empty($id) || !is_int($id)) {
+            if (empty($id)) {
                 return array_map(function ($item) {
                     $item['value'] = $item['id'];
                     $item['text'] = $item['name'];
