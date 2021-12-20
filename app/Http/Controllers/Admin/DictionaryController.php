@@ -11,6 +11,7 @@ use App\Models\Mineral;
 use App\Models\MineralSplitting;
 use App\Models\MineralSyngony;
 use App\Models\Rock;
+use App\Models\RockClass_Kind;
 use App\Models\RockType;
 use App\Models\RockClass;
 use App\Models\RockFamily;
@@ -152,6 +153,17 @@ class DictionaryController extends Controller
                 $item['text'] = RockClass::find($item['value'])->name;
                 return $item;
             }, $items);
+        }
+        if ('App\Models\\' . $entity == RockClass::class) {
+            $items = RockClass_Kind::where('rock_class_id', $id)->get()->toArray();
+            $result = [];
+            foreach ($items as $item) {
+                $res = [];
+                $res['value'] = $item['rock_kind_id'];
+                $res['text'] = RockKind::find($item['rock_kind_id'])->name;
+                $result[] = $res;
+            }
+            return $result;
         }
         return array_map(function ($item) {
             $item['value'] = $item['id'];
