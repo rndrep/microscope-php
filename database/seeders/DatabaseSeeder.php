@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             IndexFossilSeeder::class,
             MineralSyngonySeeder::class,
             MineralSplittingSeeder::class,
+            RockClass2KindSeeder::class
         ]);
     }
 }

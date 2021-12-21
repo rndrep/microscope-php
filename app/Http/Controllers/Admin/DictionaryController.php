@@ -11,6 +11,7 @@ use App\Models\Mineral;
 use App\Models\MineralSplitting;
 use App\Models\MineralSyngony;
 use App\Models\Rock;
+use App\Models\RockClass_Kind;
 use App\Models\RockType;
 use App\Models\RockClass;
 use App\Models\RockFamily;
@@ -145,19 +146,40 @@ class DictionaryController extends Controller
     public function matchDict(Request $request)
     {
         $entity = $request->query('entity');
-        $id = $request->query('id');
-        if ('App\Models\\' . $entity == RockType::class && isset(self::ROCK_TYPE_TO_ROCK_CLASS[$id])) {
+        $id = intval($request->query('id'));
+        if ('App\Models\\' . $entity == RockType::class) {
+            if (empty($id)) {
+                return array_map(function ($item) {
+                    $item['value'] = $item['id'];
+                    $item['text'] = $item['name'];
+                    return $item;
+                }, RockClass::all()->toArray());
+            }
             $items = self::ROCK_TYPE_TO_ROCK_CLASS[$id];
             return array_map(function ($item) {
                 $item['text'] = RockClass::find($item['value'])->name;
                 return $item;
             }, $items);
         }
-        return array_map(function ($item) {
-            $item['value'] = $item['id'];
-            $item['text'] = $item['name'];
-            return $item;
-        }, RockClass::all()->toArray());
+        if ('App\Models\\' . $entity == RockClass::class) {
+            if (empty($id)) {
+                return array_map(function ($item) {
+                    $item['value'] = $item['id'];
+                    $item['text'] = $item['name'];
+                    return $item;
+                }, RockKind::all()->toArray());
+            }
+            $items = RockClass_Kind::where('rock_class_id', $id)->get()->toArray();
+            $result = [];
+            foreach ($items as $item) {
+                $res = [];
+                $res['value'] = $item['rock_kind_id'];
+                $res['text'] = RockKind::find($item['rock_kind_id'])->name;
+                $result[] = $res;
+            }
+            return $result;
+        }
+        return [];
     }
 
 }
