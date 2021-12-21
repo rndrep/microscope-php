@@ -20,10 +20,24 @@ window.addEventListener("DOMContentLoaded", () => {
             let currentUrl = window.location;
             if (currentUrl.pathname === "/") {
                 searchBtn.setAttribute("href", "#search");
+                searchBtn.classList.add("btn_active");
                 mapBtn.setAttribute("href", "/map#searchMap");
+                mapBtn.addEventListener("mouseenter", function (event) {
+                    searchBtn.className = "btn btn_intro ";
+                });
+                mapBtn.addEventListener("mouseout", function (event) {
+                    searchBtn.className = "btn btn_intro btn_active";
+                });
             } else if (currentUrl.pathname === "/map") {
                 searchBtn.setAttribute("href", "/#search");
                 mapBtn.setAttribute("href", "#searchMap");
+                mapBtn.classList.add("btn_active");
+                searchBtn.addEventListener("mouseenter", function (event) {
+                    mapBtn.className = "btn btn_intro ";
+                });
+                searchBtn.addEventListener("mouseout", function (event) {
+                    mapBtn.className = "btn btn_intro btn_active";
+                });
             }
         }
     })();
@@ -49,9 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (microscopeWrap) {
         try {
             createMicroscope(
-                `/microscope-photos/${
-                    getUrlParams().type
-                }/${getUrlParams().id}`
+                `/microscope-photos/${getUrlParams().type}/${getUrlParams().id}`
             );
         } catch (error) {}
     }

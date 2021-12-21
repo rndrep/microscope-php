@@ -86,20 +86,21 @@
         border-left: none;
     }
 
-    &:hover {
-        background-color: $white;
-        color: $green;
-        .icon {
-            fill: $green;
-        }
-    }
-
     @media (min-width: 425px) {
         min-width: 190px;
     }
 
     @media (max-width: 425px) {
         width: 100%;
+    }
+}
+
+.btn_active,
+.btn_intro:hover {
+    background-color: $white;
+    color: $green;
+    .icon {
+        fill: $green;
     }
 }
 

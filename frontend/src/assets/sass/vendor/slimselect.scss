@@ -14,7 +14,7 @@ $ss-background-color: $gray-400;
     display: flex;
     cursor: pointer;
     width: 100%;
-    padding: $input-padding;
+    padding: 0.35rem 0.75rem;
     border: 1px solid $ss-border-color;
     border-radius: 0.25rem;
     background-color: #fff;
@@ -70,8 +70,7 @@ $ss-background-color: $gray-400;
     color: $ss-arrow-color;
 }
 
-.ss-deselect::after {
-    content: "\274c"; /* use the hex value here... */
+.ss-deselect.ss-deselect_cross {
     font-size: 10px;
     color: $ss-arrow-color;
     line-height: 10px;
@@ -96,7 +95,7 @@ $ss-background-color: $gray-400;
 }
 .ss-main .ss-single-selected .ss-arrow span.arrow-up {
     transform: rotate(-135deg);
-    margin: 3px 0 0 0;
+    margin: 6px 0 0 0;
 }
 .ss-main .ss-single-selected .ss-arrow span.arrow-down {
     transform: rotate(45deg);
