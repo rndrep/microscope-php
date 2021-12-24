@@ -58,6 +58,9 @@ export function initMap() {
                     let bbox = e.geocode.bbox;
 
                     createMarker(bbox._northEast.lat, bbox._northEast.lng);
+
+                    lat.value = bbox._northEast.lat;
+                    lng.value = bbox._northEast.lng;
                 })
                 .addTo(adminMap);
 
