@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 class RockController extends Controller
 {
 
-    const ITEMS_PER_PAGE = 2;
+    const ITEMS_PER_PAGE = 12;
     const SEARCH_FIELDS = [
         'rockName' => ['prop' => 'name', 'strict' => false],
         'rockType' => ['prop' => 'rock_type_id', 'strict' => true],
@@ -64,14 +64,16 @@ class RockController extends Controller
         if (!Auth::check()) {
             $query->where('is_public', 1);
         }
-        $result = $query->orderBy('name')->get();
+        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+//        $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
             $item->photo = $item->getPhoto();
             $item->microscope_url = Rock::getMicroscopeUrl($item->id);
             $item->info_url = route('rock_info', $item->id);
             return $item;
         });
-        return ['data' => $result];
+//        return ['data' => $result];
+        return $result;
     }
 
     //TODO: delete (moved in PageController)

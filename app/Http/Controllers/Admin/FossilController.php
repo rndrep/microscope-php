@@ -42,15 +42,16 @@ class FossilController extends Controller
         if (!Auth::check()) {
             $query->where('is_public', 1);
         }
-//        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
-        $result = $query->orderBy('name')->get();
+        $result = $query->orderBy('name')->paginate(self::ITEMS_PER_PAGE);
+//        $result = $query->orderBy('name')->get();
         $result->map(function ($item) {
             $item->photo = $item->getPhoto();
             $item->microscope_url = '';
             $item->info_url = route('fossil_info', $item->id);
             return $item;
         });
-        return ['data' => $result];
+        //        return ['data' => $result];
+        return $result;
     }
 
     public function index()
