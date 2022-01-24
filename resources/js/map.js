@@ -9,7 +9,7 @@ export function initMap() {
             {
                 maxZoom: 18,
                 minZoom: 2,
-                id: "mapbox/streets-v11",
+                id: "mapbox/outdoors-v11",
                 tileSize: 512,
                 zoomOffset: -1,
                 accessToken:

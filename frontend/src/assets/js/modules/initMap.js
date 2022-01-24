@@ -22,7 +22,7 @@ export function initMap() {
         },
         baseMaps = {
             Спутник: initLayer("mapbox/satellite-v9"),
-            Улицы: initLayer("mapbox/streets-v11"),
+            Улицы: initLayer("mapbox/outdoors-v11"),
         },
         createIcon = function (iconColor) {
             let customIcon;
