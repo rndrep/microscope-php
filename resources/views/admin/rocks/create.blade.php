@@ -37,6 +37,13 @@
                 </div>
                 <div class="col">
                   <div class="form-group">
+                    <label>3D обзор</label>
+                    <input type="text" class="form-control" placeholder="" name="model_3d"
+                      oninput="setCustomValidity('')" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
                     <label>Тип породы</label>
                     {{Form::select('rock_type_id',
                     $rockTypes,

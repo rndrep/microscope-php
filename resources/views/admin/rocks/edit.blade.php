@@ -234,7 +234,13 @@
                     <label for="inputName">Описание</label>
                     <textarea type="text" class="editor ck-content" name="description" id="inputDescription"
                       value="{{$item->description}}"></textarea>
-
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="inputName">3D обзор</label>
+                    <input type="text" class="form-control" placeholder="" name="model_3d" value="{{$item->model_3d}}"
+                      oninput="setCustomValidity('')">
                   </div>
                 </div>
                 <div class="col">
