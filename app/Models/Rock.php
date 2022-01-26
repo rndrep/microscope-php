@@ -87,8 +87,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockType::find($id))) {
             $this->rock_type_id = null;
+            return $this;
         }
         $this->rock_type_id = $id;
+        return $this;
     }
 
     public function rockClass()
@@ -100,8 +102,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockClass::find($id))) {
             $this->rock_class_id = null;
+            return $this;
         }
         $this->rock_class_id = $id;
+        return $this;
     }
 
     public function rockSquad()
@@ -113,8 +117,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockSquad::find($id))) {
             $this->rock_squad_id = null;
+            return $this;
         }
         $this->rock_squad_id = $id;
+        return $this;
     }
 
     public function rockFamily()
@@ -126,8 +132,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockFamily::find($id))) {
             $this->rock_family_id = null;
+            return $this;
         }
         $this->rock_family_id = $id;
+        return $this;
     }
 
     public function rockKind()
@@ -139,8 +147,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockKind::find($id))) {
             $this->rock_kind_id = null;
+            return $this;
         }
         $this->rock_kind_id = $id;
+        return $this;
     }
 
     public function rockTexture()
@@ -152,8 +162,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockTexture::find($id))) {
             $this->rock_texture_id = null;
+            return $this;
         }
         $this->rock_texture_id = $id;
+        return $this;
     }
 
     public function rockStructure()
@@ -165,8 +177,10 @@ class Rock extends AbstractMediaEntity
     {
         if (empty($id) || empty(RockStructure::find($id))) {
             $this->rock_structure_id = null;
+            return $this;
         }
         $this->rock_structure_id = $id;
+        return $this;
     }
 
     public function formingMinerals()

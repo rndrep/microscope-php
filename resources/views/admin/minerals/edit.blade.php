@@ -226,6 +226,38 @@
                 @foreach($fields as $field)
                 {!! $field->getHtml() !!}
                 @endforeach
+
+                <div class="col">
+                  <div class="form-group">
+                    <label>Класс/подкласс</label>
+                    {{Form::select('mineral_class_id',
+                  $classItems,
+                  $item->getDictionaryPropId('mineralClass'),
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+                  }}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Облик кристаллов</label>
+                    {{Form::select('mineral_crystal_form_id',
+                  $crystalFormItems,
+                  $item->getDictionaryPropId('mineralCrystalForm'),
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+                  }}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Блеск</label>
+                    {{Form::select('mineral_shine_id',
+                  $shineItems,
+                  $item->getDictionaryPropId('mineralShine'),
+                  ['class' => 'form-control select2', 'placeholder'=>'-'])
+                  }}
+                  </div>
+                </div>
+
                 <div class="col">
                   <div class="form-group">
                     <label>Сингония</label>

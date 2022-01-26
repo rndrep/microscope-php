@@ -157,19 +157,47 @@
                                     <div class="col">
                                         <label class="form-label">Класс/подкласс
                                         </label>
-                                        <input name="mineralClass" type="text" class="form-control" />
+                                        <select name="mineralClass"
+                                                class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($mineralClass as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col">
                                         <label class="form-label">Облик кристаллов
                                         </label>
-                                        <input name="mineralCrystalForm" type="text" class="form-control" />
+                                        <select name="mineralCrystalForm"
+                                                class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($mineralCrystalForm as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col">
                                         <label class="form-label">Блеск</label>
-                                        <input name="mineralShine" type="text" class="form-control" />
+                                        <select name="mineralShine"
+                                                class="select-single">
+                                            <option data-placeholder="true"></option>
+                                            @foreach($mineralShine as $value =>
+                                            $caption)
+                                            <option value="{{$value}}">
+                                                {{$caption}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col">
-                                        <label class="form-label">Спайность</label><select name="mineralSplitting"
+                                        <label class="form-label">Спайность</label>
+                                        <select name="mineralSplitting"
                                             class="select-single">
                                             <option data-placeholder="true"></option>
                                             @foreach($splitting as $value =>

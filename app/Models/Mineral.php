@@ -34,22 +34,22 @@ class Mineral extends AbstractMediaEntity
             new InputField('Название', 'name', 'text', $item->name, TRUE),
             new TextareaField('Описание', 'description', $item->description),
             new TextareaField('Химический состав', 'composition', $item->composition),
-            new InputField('Класс/подкласс', 'class', 'text', $item->class),
+//            new InputField('Класс/подкласс', 'class', 'text', $item->class),
             new InputField('Видео', 'video', 'text', $item->video),
             new InputField('3D', 'model_3d', 'text', $item->model_3d),
-            new InputField('Разновидности', 'varieties', 'text', $item->varieties),
+            new TextareaField('Разновидности', 'varieties', $item->varieties),
             new InputField('Форма выделения', 'aggregates', 'text', $item->aggregates),
             new InputField('Черта', 'feature', 'text', $item->feature),
 //            new InputField('Сингония', 'syngony', 'text'),
-            new InputField('Облик кристаллов', 'crystal_form', 'text', $item->crystal_form),
+//            new InputField('Облик кристаллов', 'crystal_form', 'text', $item->crystal_form),
             new InputField('Твердость', 'hardness', 'number', $item->hardness),
             new InputField('Удельный вес, г/см3', 'specific_gravity', 'number', $item->specific_gravity),
             new InputField('Цвет', 'color', 'text', $item->color),
             new InputField('Цвет черты', 'feature_color', 'text', $item->feature_color),
-            new InputField('Блеск', 'shine', 'text', $item->shine),
+//            new InputField('Блеск', 'shine', 'text', $item->shine),
             new InputField('Прозрачность', 'transparency', 'text', $item->transparency),
 //            new InputField('Спайность', 'splitting', 'text'),
-            new InputField('Прочие свойства', 'other_props', 'text', $item->other_props),
+            new TextareaField('Прочие свойства', 'other_props', $item->other_props),
             new InputField('Диагностика', 'diagnosis', 'text', $item->diagnosis),
             new InputField('Генезис', 'genesis', 'text', $item->genesis),
             new InputField('Парагенезис', 'paragenesis', 'text', $item->paragenesis),
@@ -62,16 +62,19 @@ class Mineral extends AbstractMediaEntity
     {
         $fields = [
             ['Химический состав', $this->composition],
-            ['Класс/подкласс', $this->class],
+//            ['Класс/подкласс', $this->class],
+            ['Класс/подкласс', $this->mineralClass->name ?? ''],
             ['Разновидности', $this->varieties],
             ['Форма выделения', $this->aggregates],
             ['Черта', $this->feature],
-            ['Облик кристаллов', $this->crystal_form],
+//            ['Облик кристаллов', $this->crystal_form],
+            ['Облик кристаллов', $this->mineralCrystalForm->name ?? ''],
             ['Твердость', $this->hardness],
             ['Удельный вес, г/см3', $this->specific_gravity],
             ['Цвет', $this->color],
             ['Цвет черты', $this->feature_color],
-            ['Блеск', $this->shine],
+//            ['Блеск', $this->shine],
+            ['Блеск', $this->mineralShine->name ?? ''],
             ['Прозрачность', $this->transparency],
             ['Прочие свойства', $this->other_props],
             ['Диагностика', $this->diagnosis],
@@ -242,8 +245,10 @@ class Mineral extends AbstractMediaEntity
     {
         if (empty($id) || empty(MineralSyngony::find($id))) {
             $this->syngony_id = null;
+            return $this;
         }
         $this->syngony_id = $id;
+        return $this;
     }
 
     public function mineralSplitting() //Спайность
@@ -255,8 +260,55 @@ class Mineral extends AbstractMediaEntity
     {
         if (empty($id) || empty(MineralSplitting::find($id))) {
             $this->splitting_id = null;
+            return $this;
         }
         $this->splitting_id = $id;
+        return $this;
+    }
+
+    public function mineralClass()
+    {
+        return $this->belongsTo(MineralClass::class, 'mineral_class_id');
+    }
+
+    public function setMineraClass($id)
+    {
+        if (empty($id) || empty(MineralClass::find($id))) {
+            $this->mineral_class_id = null;
+            return $this;
+        }
+        $this->mineral_class_id = $id;
+        return $this;
+    }
+
+    public function mineralCrystalForm()
+    {
+        return $this->belongsTo(MineralCrystalForm::class, 'mineral_crystal_form_id');
+    }
+
+    public function setMineralCrystalForm($id)
+    {
+        if (empty($id) || empty(MineralCrystalForm::find($id))) {
+            $this->mineral_crystal_form_id = null;
+            return $this;
+        }
+        $this->mineral_crystal_form_id = $id;
+        return $this;
+    }
+
+    public function mineralShine()
+    {
+        return $this->belongsTo(MineralShine::class, 'mineral_shine_id');
+    }
+
+    public function setMineralShine($id)
+    {
+        if (empty($id) || empty(MineralShine::find($id))) {
+            $this->mineral_shine_id = null;
+            return $this;
+        }
+        $this->mineral_shine_id = $id;
+        return $this;
     }
 
     public function getLocation()

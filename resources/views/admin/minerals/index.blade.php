@@ -32,6 +32,9 @@
                           @foreach($fields as $field)
                           <th>{{$field->getCaption()}}</th>
                           @endforeach
+                          <th>Класс/подкласс</th>
+                          <th>Облик кристаллов</th>
+                          <th>Блеск</th>
                           <th>Сингония</th>
                           <th>Спайность</th>
                         </tr>
@@ -64,6 +67,9 @@
                           @foreach($fields as $field)
                           <td>{!! $item->{$field->getProp()} !!}</td>
                           @endforeach
+                          <td>{{$item->getDictionaryPropName('mineralClass')}}</td>
+                          <td>{{$item->getDictionaryPropName('mineralCrystalForm')}}</td>
+                          <td>{{$item->getDictionaryPropName('mineralShine')}}</td>
                           <td>{{$item->getDictionaryPropName('mineralSyngony')}}</td>
                           <td>{{$item->getDictionaryPropName('mineralSplitting')}}</td>
                         </tr>
