@@ -17,7 +17,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     (function () {
         if ((searchBtn && mapBtn) !== undefined) {
-            debugger;
             let currentUrl = window.location;
             if (currentUrl.pathname === "/") {
                 searchBtn.setAttribute("href", "#search");

@@ -3,13 +3,14 @@ import { postData } from "../services/services.js";
 import Card from "./card";
 
 export function createCards(urlResource) {
-    let tabs = document.querySelectorAll(".tabs__link"),
+    const tabs = document.querySelectorAll(".tabs__link"),
         cardsWrapper = document.querySelector(".cards"),
         cardsRows = document.querySelectorAll(".cards__row"),
         cardContainer = document.querySelector(".cards .container"),
         forms = document.getElementsByTagName("form"),
         messageFail = document.createElement("div"),
-        searchMessage = document.createElement("div");
+        searchMessage = document.createElement("div"),
+        paginationElement = document.getElementById("pagination");
 
     const searchCard = function (form, urlResource) {
         let formData = new FormData(form);
@@ -22,7 +23,6 @@ export function createCards(urlResource) {
     const createCards = function (data, parentElement) {
         const cards = data.data;
 
-        // TODO: добавить 3д
         cards.forEach(({ photo, name, info_url, microscope_url, model_3d }) => {
             new Card(
                 photo,
@@ -33,6 +33,36 @@ export function createCards(urlResource) {
                 parentElement
             ).render();
         });
+    };
+
+    const createPagination = function (data, parentElement) {
+        let pag = document.createElement("ul");
+
+        pag.classList.add("pagination");
+        parentElement.append(pag);
+
+        let currentPage = data.current_page,
+            cardPerPage = data.per_page,
+            pageCount = data.last_page;
+        console.log(data);
+        console.log(parentElement);
+        // parentElement.append(btn);
+
+        for (let i = 1; i < data.last_page + 1; i++) {
+            let btn = createPaginationButton(i);
+            pag.append(btn);
+        }
+
+        function createPaginationButton(page) {
+            let button = document.createElement("li");
+            button.classList.add("page-item");
+
+            if (currentPage === page) button.classList.add("active");
+
+            button.innerHTML = `<a class="page-link" href="#">${page}</a>`;
+
+            return button;
+        }
     };
 
     const clearCards = function (selector) {
@@ -47,6 +77,7 @@ export function createCards(urlResource) {
                 parentElement.classList.toggle("active");
 
             createCards(data, parentElement);
+            createPagination(data, parentElement);
         });
     };
 
@@ -102,7 +133,7 @@ export function createCards(urlResource) {
                     form.getAttribute("data-card-target")
                 );
 
-                searchAllCards(form, url, parentElement);
+                searchAllCards(form, url, parentElement, paginationElement);
             }
 
             tabs.forEach((tab) => {

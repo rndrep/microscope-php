@@ -136,10 +136,10 @@
                             </form>
                         </div>
 
-                        <!-- Fossils tab content -->
+                        <!-- Minerals tab content -->
                         <div class="tab-pane fade" id="mineralsTabContent" role="tabpanel"
                             aria-labelledby="mineralsTab">
-                            <!-- Fossils search-form-->
+                            <!-- Minerals search-form-->
                             <form id="mineralsSearchForm" data-url="/mineral-list" data-card-target="#mineralCards">
                                 <div class="
                                             search__fields
@@ -267,11 +267,23 @@
         </section>
         <!-- ./ Cards -->
 
-        {{-- @@include('cards.html')--}} {{--
-            <!-- Pagination -->--}} {{--
-            <nav aria-label="Навигация">{{ $items->links() }}</nav>
-        --}} {{--
-            <!-- ./ Pagination -->--}}
+        <!-- Pagination -->
+        <ul class="pagination" id="pagination">
+            <!-- <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li> -->
+
+            <!-- 
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li> -->
+        </ul>
+
+        <!-- ./ Pagination -->
 
         <!-- Footer -->
         @@include('footer.html')
