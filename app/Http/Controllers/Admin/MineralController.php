@@ -23,9 +23,9 @@ class MineralController extends Controller
     const ITEMS_PER_PAGE = 12;
     const SEARCH_FIELDS = [
         'mineralName' => ['prop' => 'name', 'strict' => false],
-        'mineralClass' => ['prop' => 'class', 'strict' => false],
-        'mineralCrystalForm' => ['prop' => 'crystal_form', 'strict' => false],
-        'mineralShine' => ['prop' => 'shine', 'strict' => false],
+        'mineralClass' => ['prop' => 'mineral_class_id', 'strict' => true],
+        'mineralCrystalForm' => ['prop' => 'mineral_crystal_form_id', 'strict' => true],
+        'mineralShine' => ['prop' => 'mineral_shine_id', 'strict' => true],
         'mineralSplitting' => ['prop' => 'splitting_id', 'strict' => true],
     ];
 
