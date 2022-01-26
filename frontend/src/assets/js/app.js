@@ -4,7 +4,7 @@ import $ from "jquery";
 import "bootstrap";
 import slick from "./modules/slick";
 import select from "./modules/select";
-import createCards from "./modules/searchCard";
+import createCards from "./modules/displayCards";
 import createMicroscope from "./modules/createMicroscope";
 import initMap from "./modules/initMap";
 
@@ -16,7 +16,8 @@ window.addEventListener("DOMContentLoaded", () => {
         mapBtn = document.querySelector("#mapBtn");
 
     (function () {
-        if ((searchBtn && mapBtn) != undefined) {
+        if ((searchBtn && mapBtn) !== undefined) {
+            debugger;
             let currentUrl = window.location;
             if (currentUrl.pathname === "/") {
                 searchBtn.setAttribute("href", "#search");
