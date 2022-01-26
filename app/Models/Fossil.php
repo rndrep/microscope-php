@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Classes\InfoField;
 use App\Classes\InputField;
+use App\Classes\TextareaField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Fossil extends AbstractMediaEntity
@@ -24,13 +25,17 @@ class Fossil extends AbstractMediaEntity
         parent::__construct($attributes);
     }
 
-    public static function getInputs()
+    public static function getInputs($item = false)
     {
+        $item = $item ?: new class() {
+            public function __get($key) {return '';}
+        };
+
         return [
-            new InputField('Название', 'name', 'text', 'true'),
-            new InputField('Описание', 'description', 'text'),
-            new InputField('Видео', 'video', 'text'),
-            new InputField('3D', 'model_3d', 'text'),
+            new InputField('Название', 'name', 'text', $item->name, true),
+            new TextareaField('Описание', 'description', $item->description),
+            new InputField('Видео', 'video', 'text', $item->video),
+            new InputField('3D', 'model_3d', 'text', $item->model_3d),
 //            new InputField('Типы беспозвоночных животных', 'invertebrate', 'text'),
 //            new InputField('Руководящие формы', 'index_fossil', 'text'),
         ];

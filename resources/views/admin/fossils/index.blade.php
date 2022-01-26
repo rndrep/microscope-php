@@ -62,7 +62,7 @@
                           </td>
                           <td>{{$item->id}}</td>
                           @foreach($fields as $field)
-                          <td>{{$item->{$field->getProp()} }}</td>
+                          <td>{!! $item->{$field->getProp()} !!}</td>
                           @endforeach
                           <td>{{ $item->getDictionaryPropName('invertebrate') }}</td>
                           <td>{{ $item->getDictionaryPropName('indexFossil') }}</td>

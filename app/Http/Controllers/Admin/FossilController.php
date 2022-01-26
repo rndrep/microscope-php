@@ -88,11 +88,12 @@ class FossilController extends Controller
 
     public function edit($id)
     {
+        $item = Fossil::find($id);
         return view(
             'admin.fossils.edit',
             [
-                'item' => Fossil::find($id),
-                'fields' => Fossil::getInputs(),
+                'item' => $item,
+                'fields' => Fossil::getInputs($item),
                 'invertebrates' => Invertebrate::orderBy('name')->pluck('name', 'id'),
                 'indexFossils' => IndexFossil::orderBy('name')->pluck('name', 'id')
             ]
