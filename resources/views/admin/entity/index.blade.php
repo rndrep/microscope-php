@@ -17,9 +17,18 @@
 
             <div class="card-body">
               <div class="form-group">
-              <!-- commented because of filter dependency - DictionaryController::matchDict
-                <a href="{{route('dict_edit_view', ['entity' => $entityName])}}" class="btn btn-success">Добавить</a>
-                -->
+              <!-- Add and remove buttons are hidden because of filter dependency - DictionaryController::matchDict
+                 Dict matching is hardcoded, so the added dict will not be matched
+               -->
+                <a href="{{route('dict_edit_view', ['entity' => $entityName])}}"
+                   class="btn btn-success"
+                   @if($isAddHidden)
+                    style="display: none"
+                   @endif
+                >
+                  Добавить
+                </a>
+              <!-- -->
               </div>
               <table class="table table-responsive table-hover dataTable text-center">
                 <thead>

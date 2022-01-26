@@ -46,6 +46,7 @@ class DictionaryController extends Controller
         self::ROCK_TYPE_METAMORPHIC => [['value' => 3], ['value' => 4], ['value' => 5], ['value' => 12], ['value' => 13]],
         self::ROCK_TYPE_SEDIMENTARY => [['value' => 6], ['value' => 7], ['value' => 8], ['value' => 9]]
     ];
+    const DICTS_WITH_ADD_ACTION = [RockTexture::class, RockStructure::class];
 
     public function all($modelClass)
     {
@@ -58,7 +59,9 @@ class DictionaryController extends Controller
             'entityCaption' => $modelClass::ENTITY_CAPTION,
             'entityName' => class_basename($modelClass),
             'items' => $items,
-            'fields' => $modelClass::getInputs()]);
+            'fields' => $modelClass::getInputs(),
+            'isAddHidden' => !in_array($modelClass, self::DICTS_WITH_ADD_ACTION),
+        ]);
     }
 
     public function index($modelClass)
@@ -143,7 +146,12 @@ class DictionaryController extends Controller
         return empty($relatedTable::where($foreignKeyProp, $id)->count());
     }
 
-    public function matchDict(Request $request)
+    /**
+     * Match one dictionary to another to update the dropdowns in filter
+     * @param Request $request
+     * @return array
+     */
+    public function matchDict(Request $request): array
     {
         $entity = $request->query('entity');
         $id = intval($request->query('id'));
