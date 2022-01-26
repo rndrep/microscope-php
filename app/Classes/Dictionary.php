@@ -5,6 +5,9 @@ namespace App\Classes;
 use App\Models\AbstractDictionary;
 use App\Models\IndexFossil;
 use App\Models\Invertebrate;
+use App\Models\MineralClass;
+use App\Models\MineralCrystalForm;
+use App\Models\MineralShine;
 use App\Models\MineralSplitting;
 use App\Models\MineralSyngony;
 use App\Models\RockClass;
@@ -28,6 +31,9 @@ class Dictionary
         RockStructure::class,
         MineralSyngony::class,
         MineralSplitting::class,
+        MineralClass::class,
+        MineralCrystalForm::class,
+        MineralShine::class,
         Invertebrate::class,
         IndexFossil::class,
     ];

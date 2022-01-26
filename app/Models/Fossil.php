@@ -130,8 +130,10 @@ class Fossil extends AbstractMediaEntity
     {
         if (empty($id) || empty(Invertebrate::find($id))) {
             $this->invertebrate_id = null;
+            return $this;
         }
         $this->invertebrate_id = $id;
+        return $this;
     }
 
     public function indexFossil()
@@ -143,8 +145,10 @@ class Fossil extends AbstractMediaEntity
     {
         if (empty($id) || empty(Invertebrate::find($id))) {
             $this->index_fossil_id = null;
+            return $this;
         }
         $this->index_fossil_id = $id;
+        return $this;
     }
 
 }

@@ -8,6 +8,9 @@ use App\Models\Fossil;
 use App\Models\IndexFossil;
 use App\Models\Invertebrate;
 use App\Models\Mineral;
+use App\Models\MineralClass;
+use App\Models\MineralCrystalForm;
+use App\Models\MineralShine;
 use App\Models\MineralSplitting;
 use App\Models\MineralSyngony;
 use App\Models\Rock;
@@ -46,7 +49,13 @@ class DictionaryController extends Controller
         self::ROCK_TYPE_METAMORPHIC => [['value' => 3], ['value' => 4], ['value' => 5], ['value' => 12], ['value' => 13]],
         self::ROCK_TYPE_SEDIMENTARY => [['value' => 6], ['value' => 7], ['value' => 8], ['value' => 9]]
     ];
-    const DICTS_WITH_ADD_ACTION = [RockTexture::class, RockStructure::class];
+    const DICTS_WITH_ADD_ACTION = [
+        RockTexture::class,
+        RockStructure::class,
+        MineralClass::class,
+        MineralCrystalForm::class,
+        MineralShine::class,
+    ];
 
     public function all($modelClass)
     {

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
 use App\Models\Mineral;
+use App\Models\MineralClass;
+use App\Models\MineralCrystalForm;
+use App\Models\MineralShine;
 use App\Models\MineralSplitting;
 use App\Models\MineralSyngony;
 use App\Models\Rock_AccessoryMineral;
@@ -79,6 +82,9 @@ class MineralController extends Controller
             'admin.minerals.create',
             [
                 'fields' => Mineral::getInputs(),
+                'classItems' => MineralClass::orderBy('name')->pluck('name', 'id'),
+                'crystalFormItems' => MineralCrystalForm::orderBy('name')->pluck('name', 'id'),
+                'shineItems' => MineralShine::orderBy('name')->pluck('name', 'id'),
                 'syngonyItems' => MineralSyngony::orderBy('name')->pluck('name', 'id'),
                 'splittingItems' => MineralSplitting::orderBy('name')->pluck('name', 'id'),
             ]
@@ -104,6 +110,9 @@ class MineralController extends Controller
             [
                 'item' => $item,
                 'fields' => Mineral::getInputs($item),
+                'classItems' => MineralClass::orderBy('name')->pluck('name', 'id'),
+                'crystalFormItems' => MineralCrystalForm::orderBy('name')->pluck('name', 'id'),
+                'shineItems' => MineralShine::orderBy('name')->pluck('name', 'id'),
                 'syngonyItems' => MineralSyngony::orderBy('name')->pluck('name', 'id'),
                 'splittingItems' => MineralSplitting::orderBy('name')->pluck('name', 'id'),
             ]
