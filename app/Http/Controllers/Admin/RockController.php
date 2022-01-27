@@ -23,8 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RockController extends Controller
 {
-
-    const ITEMS_PER_PAGE = 12;
+    const ITEMS_PER_PAGE = 6;
     const SEARCH_FIELDS = [
         'rockName' => ['prop' => 'name', 'strict' => false],
         'rockType' => ['prop' => 'rock_type_id', 'strict' => true],
@@ -250,7 +249,8 @@ class RockController extends Controller
             abort(404);
         }
         $microRoute = Rock::getMicroscopeUrl($id);
-        return view('dist.rock',
+        return view(
+            'dist.rock',
             [
                 'item' => $rock,
 //TODO: Rock::getInfoFields()
@@ -261,5 +261,4 @@ class RockController extends Controller
             ]
         );
     }
-
 }

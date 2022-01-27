@@ -20,7 +20,7 @@ class MineralController extends Controller
 {
 
     //TODO: move ITEMS_PER_PAGE into some common place?
-    const ITEMS_PER_PAGE = 12;
+    const ITEMS_PER_PAGE = 6;
     const SEARCH_FIELDS = [
         'mineralName' => ['prop' => 'name', 'strict' => false],
         'mineralClass' => ['prop' => 'mineral_class_id', 'strict' => true],
@@ -173,7 +173,8 @@ class MineralController extends Controller
             return false;
         }
 
-        return view('dist.mineral',
+        return view(
+            'dist.mineral',
             [
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
@@ -183,5 +184,4 @@ class MineralController extends Controller
             ]
         );
     }
-
 }

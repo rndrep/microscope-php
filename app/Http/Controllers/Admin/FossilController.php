@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FossilController extends Controller
 {
-
-    const ITEMS_PER_PAGE = 12;
+    const ITEMS_PER_PAGE = 6;
     const SEARCH_FIELDS = [
         'fossilName' => ['prop' => 'name', 'strict' => false],
         'invertebrate' => ['prop' => 'invertebrate_id', 'strict' => true],
@@ -138,7 +137,8 @@ class FossilController extends Controller
         if (empty($item)) {
             return false;
         }
-        return view('dist.mineral',
+        return view(
+            'dist.mineral',
             [
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
@@ -147,5 +147,4 @@ class FossilController extends Controller
             ]
         );
     }
-
 }
