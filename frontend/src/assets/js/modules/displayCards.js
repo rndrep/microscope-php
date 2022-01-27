@@ -97,14 +97,27 @@ export function renderCards(urlResource) {
             cardContainer.insertBefore(messageFail, cardsRows[0]);
 
             document
+                .querySelector(
+                    event.target.getAttribute(`data-card-target`) + "Pagination"
+                )
+                .classList.toggle("cards__pagination_active");
+
+            document
+                .querySelector(
+                    event.relatedTarget.getAttribute(`data-card-target`) +
+                        "Pagination"
+                )
+                .classList.toggle("cards__pagination_active");
+
+            document
                 .querySelector(event.target.getAttribute("data-card-target"))
-                .classList.toggle("active");
+                .classList.toggle("cards__row_active");
 
             document
                 .querySelector(
                     event.relatedTarget.getAttribute("data-card-target")
                 )
-                .classList.toggle("active");
+                .classList.toggle("cards__row_active");
         });
     };
 
