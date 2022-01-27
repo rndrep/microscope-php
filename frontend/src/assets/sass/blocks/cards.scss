@@ -11,7 +11,7 @@
     overflow: hidden;
 }
 
-.cards__row.active {
+.cards__row_active {
     opacity: 1;
     height: auto;
 }
@@ -23,4 +23,29 @@
     text-align: center;
     font-weight: 500;
     line-height: 100%;
+}
+
+.cards__pagination {
+    justify-content: center;
+
+    font-size: inherit;
+}
+
+.cards__pagination {
+    margin: 0;
+    transition: opacity 0.15s linear;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+
+    .page-link:hover {
+        text-decoration: none;
+    }
+}
+
+.cards__pagination_active {
+    opacity: 1;
+    height: auto;
+
+    padding: 0.8rem 1.6rem;
 }

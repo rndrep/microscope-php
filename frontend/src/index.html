@@ -157,8 +157,7 @@
                                     <div class="col">
                                         <label class="form-label">Класс/подкласс
                                         </label>
-                                        <select name="mineralClass"
-                                                class="select-single">
+                                        <select name="mineralClass" class="select-single">
                                             <option data-placeholder="true"></option>
                                             @foreach($mineralClass as $value =>
                                             $caption)
@@ -171,8 +170,7 @@
                                     <div class="col">
                                         <label class="form-label">Облик кристаллов
                                         </label>
-                                        <select name="mineralCrystalForm"
-                                                class="select-single">
+                                        <select name="mineralCrystalForm" class="select-single">
                                             <option data-placeholder="true"></option>
                                             @foreach($mineralCrystalForm as $value =>
                                             $caption)
@@ -184,8 +182,7 @@
                                     </div>
                                     <div class="col">
                                         <label class="form-label">Блеск</label>
-                                        <select name="mineralShine"
-                                                class="select-single">
+                                        <select name="mineralShine" class="select-single">
                                             <option data-placeholder="true"></option>
                                             @foreach($mineralShine as $value =>
                                             $caption)
@@ -197,8 +194,7 @@
                                     </div>
                                     <div class="col">
                                         <label class="form-label">Спайность</label>
-                                        <select name="mineralSplitting"
-                                            class="select-single">
+                                        <select name="mineralSplitting" class="select-single">
                                             <option data-placeholder="true"></option>
                                             @foreach($splitting as $value =>
                                             $caption)
@@ -280,7 +276,8 @@
                             cards__row
 
                             row row-cols-1 row-cols-md-2 row-cols-lg-3
-                        " id="rockCards"></div>
+                        " id="rockCards">
+                </div>
                 <div class="
                             cards__row
 
@@ -292,26 +289,29 @@
                             row row-cols-1 row-cols-md-2 row-cols-lg-3
                         " id="fossilCards"></div>
             </div>
-        </section>
-        <!-- ./ Cards -->
 
-        <!-- Pagination -->
-        <ul class="pagination" id="pagination">
-            <!-- <li class="page-item">
+            <!-- Pagination -->
+            <ul class="cards__pagination pagination" id="rockCardsPagination">
+                <!-- <li class="page-item">
                 <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li> -->
 
-            <!-- 
+                <!-- 
             <li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li> -->
-        </ul>
+            </ul>
+            <ul class="cards__pagination pagination" id="mineralCardsPagination"></ul>
+            <ul class="cards__pagination pagination" id="fossilCardsPagination"></ul>
+            <!-- ./ Pagination -->
+        </section>
+        <!-- ./ Cards -->
 
-        <!-- ./ Pagination -->
+
 
         <!-- Footer -->
         @@include('footer.html')

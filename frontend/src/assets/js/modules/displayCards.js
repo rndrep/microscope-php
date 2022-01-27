@@ -1,8 +1,9 @@
 import { param } from "jquery";
 import { postData } from "../services/services.js";
+import { getResource } from "../services/services.js";
 import Card from "./card";
 
-export function createCards(urlResource) {
+export function renderCards(urlResource) {
     const tabs = document.querySelectorAll(".tabs__link"),
         cardsWrapper = document.querySelector(".cards"),
         cardsRows = document.querySelectorAll(".cards__row"),
@@ -10,9 +11,9 @@ export function createCards(urlResource) {
         forms = document.getElementsByTagName("form"),
         messageFail = document.createElement("div"),
         searchMessage = document.createElement("div"),
-        paginationElement = document.getElementById("pagination");
+        $pagination = document.getElementById("pagination");
 
-    const searchCard = function (form, urlResource) {
+    const searchCards = function (form, urlResource) {
         let formData = new FormData(form);
 
         const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
@@ -20,7 +21,7 @@ export function createCards(urlResource) {
         return postData(urlResource, jsonData);
     };
 
-    const createCards = function (data, parentElement) {
+    const renderCards = function (data, $parent) {
         const cards = data.data;
 
         cards.forEach(({ photo, name, info_url, microscope_url, model_3d }) => {
@@ -30,27 +31,19 @@ export function createCards(urlResource) {
                 info_url,
                 microscope_url,
                 model_3d,
-                parentElement
+                $parent
             ).render();
         });
     };
 
-    const createPagination = function (data, parentElement) {
-        let pag = document.createElement("ul");
-
-        pag.classList.add("pagination");
-        parentElement.append(pag);
-
+    const renderPagination = function (data, $parent, $pagination) {
         let currentPage = data.current_page,
             cardPerPage = data.per_page,
             pageCount = data.last_page;
-        console.log(data);
-        console.log(parentElement);
-        // parentElement.append(btn);
 
         for (let i = 1; i < data.last_page + 1; i++) {
             let btn = createPaginationButton(i);
-            pag.append(btn);
+            $pagination.append(btn);
         }
 
         function createPaginationButton(page) {
@@ -59,7 +52,22 @@ export function createCards(urlResource) {
 
             if (currentPage === page) button.classList.add("active");
 
-            button.innerHTML = `<a class="page-link" href="#">${page}</a>`;
+            button.innerHTML = `<a class="page-link">${page}</a>`;
+
+            button.addEventListener("click", function () {
+                currentPage = page;
+
+                getResource(data.links[currentPage].url).then((data) => {
+                    clearCards($parent);
+
+                    renderCards(data, $parent);
+                });
+
+                let currentButton = document.querySelector(".page-item.active");
+                currentButton.classList.remove("active");
+
+                this.classList.add("active");
+            });
 
             return button;
         }
@@ -71,13 +79,15 @@ export function createCards(urlResource) {
         }
     };
 
-    const searchAllCards = function (form, url, parentElement) {
-        searchCard(form, url).then((data) => {
-            if (parentElement === cardsRows[0])
-                parentElement.classList.toggle("active");
+    const searchAllCards = function (form, url, $parent, $pagination) {
+        searchCards(form, url).then((data) => {
+            if ($parent === cardsRows[0]) {
+                $parent.classList.toggle("cards__row_active");
+                $pagination.classList.toggle("cards__pagination_active");
+            }
 
-            createCards(data, parentElement);
-            createPagination(data, parentElement);
+            renderCards(data, $parent);
+            renderPagination(data, $parent, $pagination);
         });
     };
 
@@ -104,12 +114,12 @@ export function createCards(urlResource) {
 
             const url = form.getAttribute("data-url");
 
-            searchCard(form, url).then((data) => {
-                const parentElement = document.querySelector(
+            searchCards(form, url).then((data) => {
+                const $parent = document.querySelector(
                     form.getAttribute("data-card-target")
                 );
 
-                clearCards(parentElement);
+                clearCards($parent);
 
                 if (data.data.length === 0) {
                     messageFail.innerHTML = `<p class="form-label text-center mb-3">Ничего не найдено</p>`;
@@ -119,7 +129,7 @@ export function createCards(urlResource) {
                     cardContainer.insertBefore(messageFail, cardsRows[0]);
                 }
 
-                createCards(data, parentElement);
+                renderCards(data, $parent);
             });
         });
     };
@@ -129,11 +139,15 @@ export function createCards(urlResource) {
             for (const form of forms) {
                 const url = form.getAttribute("data-url");
 
-                const parentElement = document.querySelector(
+                const $parent = document.querySelector(
                     form.getAttribute("data-card-target")
                 );
 
-                searchAllCards(form, url, parentElement, paginationElement);
+                const $pagination = document.querySelector(
+                    form.getAttribute("data-card-target") + "Pagination"
+                );
+
+                searchAllCards(form, url, $parent, $pagination);
             }
 
             tabs.forEach((tab) => {
@@ -147,4 +161,4 @@ export function createCards(urlResource) {
     }
 }
 
-export default createCards;
+export default renderCards;
