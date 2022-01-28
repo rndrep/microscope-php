@@ -39,11 +39,14 @@ export function renderCards(urlResource) {
     const renderPagination = function (data, $parent, $pagination) {
         let currentPage = data.current_page,
             cardPerPage = data.per_page,
-            pageCount = data.last_page;
-
-        for (let i = 1; i < data.last_page + 1; i++) {
-            let btn = createPaginationButton(i);
-            $pagination.append(btn);
+            pageCount = data.last_page,
+            namberOfCard = data.data.length;
+        debugger;
+        if (namberOfCard > cardPerPage) {
+            for (let i = 1; i < data.last_page + 1; i++) {
+                let btn = createPaginationButton(i);
+                $pagination.append(btn);
+            }
         }
 
         function createPaginationButton(page) {
@@ -58,7 +61,7 @@ export function renderCards(urlResource) {
                 currentPage = page;
 
                 getResource(data.links[currentPage].url).then((data) => {
-                    clearCards($parent);
+                    clearElements($parent);
 
                     renderCards(data, $parent);
                 });
@@ -73,7 +76,7 @@ export function renderCards(urlResource) {
         }
     };
 
-    const clearCards = function (selector) {
+    const clearElements = function (selector) {
         while (selector.firstChild) {
             selector.removeChild(selector.firstChild);
         }
@@ -132,7 +135,12 @@ export function renderCards(urlResource) {
                     form.getAttribute("data-card-target")
                 );
 
-                clearCards($parent);
+                const $pagination = document.querySelector(
+                    form.getAttribute("data-card-target") + "Pagination"
+                );
+
+                clearElements($parent);
+                clearElements($pagination);
 
                 if (data.data.length === 0) {
                     messageFail.innerHTML = `<p class="form-label text-center mb-3">Ничего не найдено</p>`;
@@ -143,6 +151,7 @@ export function renderCards(urlResource) {
                 }
 
                 renderCards(data, $parent);
+                renderPagination(data, $parent, $pagination);
             });
         });
     };
