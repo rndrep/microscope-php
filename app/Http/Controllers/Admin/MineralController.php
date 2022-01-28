@@ -39,7 +39,7 @@ class MineralController extends Controller
      */
     public function list(Request $request)
     {
-        $params = $request->json()->all();
+        $params = $request->all();
         $params = array_intersect_key($params, self::SEARCH_FIELDS);
         $query = Mineral::query();
 
