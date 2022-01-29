@@ -65,7 +65,13 @@
                           </td>
                           <td>{{$item->id}}</td>
                           @foreach($fields as $field)
-                          <td>{!! $item->{$field->getProp()} !!}</td>
+                            <td>
+                            @if($field->getProp()=='photo')
+                              <img src="{{$item->getPhoto()}}" alt="" width="100">
+                            @else
+                              {!! $item->{$field->getProp()} !!}
+                            @endif
+                            </td>
                           @endforeach
                           <td>{{$item->getDictionaryPropName('mineralClass')}}</td>
                           <td>{{$item->getDictionaryPropName('mineralCrystalForm')}}</td>

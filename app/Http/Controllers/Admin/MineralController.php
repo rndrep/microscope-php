@@ -73,7 +73,7 @@ class MineralController extends Controller
         $items = Mineral::orderBy('name')->get();
         return view('admin.minerals.index', [
             'items' => $items,
-            'fields' => Mineral::getInputs()]);
+            'fields' => Mineral::getInfoFieldsAdmin()]);
     }
 
     public function create()

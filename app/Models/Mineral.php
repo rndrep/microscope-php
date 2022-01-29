@@ -34,21 +34,16 @@ class Mineral extends AbstractMediaEntity
             new InputField('Название', 'name', 'text', $item->name, TRUE),
             new TextareaField('Описание', 'description', $item->description),
             new TextareaField('Химический состав', 'composition', $item->composition),
-//            new InputField('Класс/подкласс', 'class', 'text', $item->class),
             new InputField('Видео', 'video', 'text', $item->video),
             new InputField('3D', 'model_3d', 'text', $item->model_3d),
             new TextareaField('Разновидности', 'varieties', $item->varieties),
             new InputField('Форма выделения', 'aggregates', 'text', $item->aggregates),
             new InputField('Черта', 'feature', 'text', $item->feature),
-//            new InputField('Сингония', 'syngony', 'text'),
-//            new InputField('Облик кристаллов', 'crystal_form', 'text', $item->crystal_form),
             new InputField('Твердость', 'hardness', 'number', $item->hardness),
             new InputField('Удельный вес, г/см3', 'specific_gravity', 'number', $item->specific_gravity),
             new InputField('Цвет', 'color', 'text', $item->color),
             new InputField('Цвет черты', 'feature_color', 'text', $item->feature_color),
-//            new InputField('Блеск', 'shine', 'text', $item->shine),
             new InputField('Прозрачность', 'transparency', 'text', $item->transparency),
-//            new InputField('Спайность', 'splitting', 'text'),
             new TextareaField('Прочие свойства', 'other_props', $item->other_props),
             new InputField('Диагностика', 'diagnosis', 'text', $item->diagnosis),
             new InputField('Генезис', 'genesis', 'text', $item->genesis),
@@ -58,22 +53,45 @@ class Mineral extends AbstractMediaEntity
         ];
     }
 
-    public function getInfoFields()
+    public static function getInfoFieldsAdmin(): array
+    {
+        return [
+            new InputField('Название', 'name', 'text'),
+            new InputField('Фото', 'photo', 'text'),
+            new TextareaField('Описание', 'description'),
+            new TextareaField('Химический состав', 'composition'),
+            new InputField('Видео', 'video', 'text'),
+            new InputField('3D', 'model_3d', 'text'),
+            new TextareaField('Разновидности', 'varieties'),
+            new InputField('Форма выделения', 'aggregates', 'text'),
+            new InputField('Черта', 'feature', 'text'),
+            new InputField('Твердость', 'hardness', 'number'),
+            new InputField('Удельный вес, г/см3', 'specific_gravity', 'number'),
+            new InputField('Цвет', 'color', 'text'),
+            new InputField('Цвет черты', 'feature_color', 'text'),
+            new InputField('Прозрачность', 'transparency', 'text'),
+            new TextareaField('Прочие свойства', 'other_props'),
+            new InputField('Диагностика', 'diagnosis', 'text'),
+            new InputField('Генезис', 'genesis', 'text'),
+            new InputField('Парагенезис', 'paragenesis', 'text'),
+            new InputField('Долгота', 'x', 'text'),
+            new InputField('Широта', 'y', 'text'),
+        ];
+    }
+
+    public function getInfoFields(): array
     {
         $fields = [
             ['Химический состав', $this->composition],
-//            ['Класс/подкласс', $this->class],
             ['Класс/подкласс', $this->mineralClass->name ?? ''],
             ['Разновидности', $this->varieties],
             ['Форма выделения', $this->aggregates],
             ['Черта', $this->feature],
-//            ['Облик кристаллов', $this->crystal_form],
             ['Облик кристаллов', $this->mineralCrystalForm->name ?? ''],
             ['Твердость', $this->hardness],
             ['Удельный вес, г/см3', $this->specific_gravity],
             ['Цвет', $this->color],
             ['Цвет черты', $this->feature_color],
-//            ['Блеск', $this->shine],
             ['Блеск', $this->mineralShine->name ?? ''],
             ['Прозрачность', $this->transparency],
             ['Прочие свойства', $this->other_props],
