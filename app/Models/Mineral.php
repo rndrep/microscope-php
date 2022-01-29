@@ -381,11 +381,6 @@ class Mineral extends AbstractMediaEntity
         return $this;
     }
 
-    public function getVideo()
-    {
-        return $this->video;
-    }
-
     public function setVideo($value): self
     {
         $this->video = $value;

@@ -238,6 +238,13 @@
                 </div>
                 <div class="col">
                   <div class="form-group">
+                    <label for="inputName">Видео</label>
+                    <input type="text" class="form-control" name="video"
+                      value="{{$item->video}}">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
                     <label for="inputName">3D обзор</label>
                     <input type="text" class="form-control" placeholder="" name="model_3d" value="{{$item->model_3d}}"
                       oninput="setCustomValidity('')">
