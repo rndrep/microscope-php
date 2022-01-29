@@ -55,35 +55,15 @@
                                         card-list
                                         list-group list-group-flush
                                     ">
+
+                                @foreach($fields as $field)
                                 <li class="list-group-item">
-                                    Тип:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockType')}}</a>
+                                    <div class="card-list__caption">
+                                        {{$field->getCaption()}}:
+                                    </div>
+                                    <a class="card-list__text">{!!$field->getValue()!!}</a>
                                 </li>
-                                <li class="list-group-item">
-                                    Класс:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockClass')}}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    Отряд:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockSquad')}}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    Семейство:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockFamily')}}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    Вид:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockKind')}}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    Текстура:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockTexture')}}
-                                    </a>
-                                </li>
-                                <li class="list-group-item">
-                                    Структура:
-                                    <a class="card-list__text">{{$item->getDictionaryPropName('rockStructure')}}</a>
-                                </li>
+                                @endforeach
 
                                 @include('dist.minerals-section', ['name' =>
                                 'Породообразующие минералы', 'items' =>

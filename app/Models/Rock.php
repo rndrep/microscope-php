@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\InfoField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -55,6 +56,26 @@ class Rock extends AbstractMediaEntity
 //        }
 //        return $query;
 //    }
+
+    public function getInfoFields(): array
+    {
+        $fields = [
+            ['Тип',  $this->getDictionaryPropName('rockType')],
+            ['Класс',  $this->getDictionaryPropName('rockClass')],
+            ['Отряд',  $this->getDictionaryPropName('rockSquad')],
+            ['Семейство',  $this->getDictionaryPropName('rockFamily')],
+            ['Вид',  $this->getDictionaryPropName('rockKind')],
+            ['Текстура',  $this->getDictionaryPropName('rockTexture')],
+            ['Структура',  $this->getDictionaryPropName('rockStructure')],
+        ];
+        $result = [];
+        foreach ($fields as $field) {
+            if (!empty($field[1])) {
+                $result[] = new InfoField($field[0], $field[1]);
+            }
+        }
+        return $result;
+    }
 
     public static function add($fields)
     {
