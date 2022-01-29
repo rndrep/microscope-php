@@ -56,7 +56,7 @@ class RockController extends Controller
             if (self::SEARCH_FIELDS[$key]['strict']) {
                 $query->where(self::SEARCH_FIELDS[$key]['prop'], $value);
             } else {
-                $query->where(self::SEARCH_FIELDS[$key]['prop'], 'LIKE', '%' . $value . '%');
+                $query->where(self::SEARCH_FIELDS[$key]['prop'], 'ILIKE', '%' . $value . '%');
             }
         }
 
