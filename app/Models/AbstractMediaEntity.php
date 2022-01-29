@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\YoutubeUrl;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,6 +32,11 @@ abstract class AbstractMediaEntity extends AbstractEntity
         $this->imagePathGallery = $this->commonImgPath . 'gallery/';
         $this->imagePathMicro = $this->commonImgPath . 'micro/';
         parent::__construct($attributes);
+    }
+
+    public function getVideo()
+    {
+        return YoutubeUrl::getUrl($this->video);
     }
 
     public function getPoint()

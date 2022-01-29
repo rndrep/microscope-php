@@ -22,7 +22,7 @@ class Rock extends AbstractMediaEntity
     {
         $this->commonImgPath = '/images/rocks/';
         $this->guarded = array_merge($this->guarded, [
-            'video', 'rock_type_id', 'rock_class_id', 'rock_squad_id', 'rock_family_id', 'rock_kind_id',
+            /*'video', */'rock_type_id', 'rock_class_id', 'rock_squad_id', 'rock_family_id', 'rock_kind_id',
             'rock_texture_id', 'rock_structure_id', 'forming_minerals', 'second_minerals', 'accessory_minerals'
         ]);
         parent::__construct($attributes);
@@ -342,11 +342,6 @@ class Rock extends AbstractMediaEntity
     private function deleteRelatedFossils()
     {
         Rock_Fossil::where('rock_id', $this->id)->delete();
-    }
-
-    public function getVideo()
-    {
-        return $this->video;
     }
 
     public function setVideo($value): self
