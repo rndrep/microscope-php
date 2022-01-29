@@ -38,8 +38,11 @@
     height: 0;
     overflow: hidden;
 
-    .page-link:hover {
-        text-decoration: none;
+    .page-link {
+        padding: 0.8rem 1.6rem;
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
 

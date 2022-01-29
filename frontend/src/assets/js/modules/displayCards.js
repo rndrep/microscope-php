@@ -3,22 +3,32 @@ import { postData } from "../services/services.js";
 import { getResource } from "../services/services.js";
 import Card from "./card";
 
-export function renderCards(urlResource) {
+export function displayCards() {
     const tabs = document.querySelectorAll(".tabs__link"),
         cardsWrapper = document.querySelector(".cards"),
         cardsRows = document.querySelectorAll(".cards__row"),
         cardContainer = document.querySelector(".cards .container"),
         forms = document.getElementsByTagName("form"),
-        messageFail = document.createElement("div"),
-        searchMessage = document.createElement("div"),
-        $pagination = document.getElementById("pagination");
+        searchMessage = document.createElement("div");
 
-    const searchCards = function (form, urlResource) {
+    const searchCards = function (form, urlResource, isPagination = false) {
         let formData = new FormData(form);
+        console.log(urlResource);
 
-        const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+        const serializeData = (formData) => {
+            let pairs = [];
 
-        return postData(urlResource, jsonData);
+            for (let [key, value] of formData.entries()) {
+                pairs.push(
+                    encodeURIComponent(key) + "=" + encodeURIComponent(value)
+                );
+            }
+            return (isPagination ? "&" : "?") + pairs.join("&");
+        };
+
+        const url = urlResource + serializeData(formData);
+        console.log(url);
+        return getResource(url);
     };
 
     const renderCards = function (data, $parent) {
@@ -36,20 +46,19 @@ export function renderCards(urlResource) {
         });
     };
 
-    const renderPagination = function (data, $parent, $pagination) {
+    const renderPagination = function (data, $parent, $pagination, form) {
         let currentPage = data.current_page,
             cardPerPage = data.per_page,
-            pageCount = data.last_page,
-            namberOfCard = data.data.length;
-        debugger;
+            namberOfCard = data.total;
+
         if (namberOfCard > cardPerPage) {
             for (let i = 1; i < data.last_page + 1; i++) {
-                let btn = createPaginationButton(i);
+                let btn = createPaginationButton(i, form);
                 $pagination.append(btn);
             }
         }
 
-        function createPaginationButton(page) {
+        function createPaginationButton(page, form) {
             let button = document.createElement("li");
             button.classList.add("page-item");
 
@@ -57,17 +66,27 @@ export function renderCards(urlResource) {
 
             button.innerHTML = `<a class="page-link">${page}</a>`;
 
-            button.addEventListener("click", function () {
+            button.addEventListener("click", function (event) {
                 currentPage = page;
 
-                getResource(data.links[currentPage].url).then((data) => {
-                    clearElements($parent);
+                if (this.classList.contains("active")) {
+                    return;
+                }
+                console.log(data.links[currentPage].url);
 
-                    renderCards(data, $parent);
-                });
+                searchCards(form, data.links[currentPage].url, true).then(
+                    (dataCurrentPage) => {
+                        console.log(dataCurrentPage);
+                        clearElements($parent);
+                        renderCards(dataCurrentPage, $parent);
+                    }
+                );
 
-                let currentButton = document.querySelector(".page-item.active");
-                currentButton.classList.remove("active");
+                for (let i = 0; i < $pagination.children.length; i++) {
+                    if ($pagination.children[i].classList.contains("active")) {
+                        $pagination.children[i].classList.remove("active");
+                    }
+                }
 
                 this.classList.add("active");
             });
@@ -96,8 +115,8 @@ export function renderCards(urlResource) {
 
     const addTabListener = function (tab) {
         tab.addEventListener("shown.bs.tab", (event) => {
-            messageFail.innerHTML = ``;
-            cardContainer.insertBefore(messageFail, cardsRows[0]);
+            searchMessage.innerHTML = ``;
+            cardContainer.insertBefore(searchMessage, cardsRows[0]);
 
             document
                 .querySelector(
@@ -142,18 +161,22 @@ export function renderCards(urlResource) {
                 clearElements($parent);
                 clearElements($pagination);
 
-                if (data.data.length === 0) {
-                    messageFail.innerHTML = `<p class="form-label text-center mb-3">Ничего не найдено</p>`;
-                    cardContainer.insertBefore(messageFail, cardsRows[0]);
-                } else {
-                    messageFail.innerHTML = `<p class="form-label text-center mb-3">Найдено ${data.data.length}</p>`;
-                    cardContainer.insertBefore(messageFail, cardsRows[0]);
-                }
+                showSearchMessage(data);
 
                 renderCards(data, $parent);
-                renderPagination(data, $parent, $pagination);
+                renderPagination(data, $parent, $pagination, form);
             });
         });
+    };
+
+    const showSearchMessage = (data) => {
+        if (data.total === 0) {
+            searchMessage.innerHTML = `<p class="form-label text-center mb-3">Ничего не найдено</p>`;
+            cardContainer.insertBefore(searchMessage, cardsRows[0]);
+        } else {
+            searchMessage.innerHTML = `<p class="form-label text-center mb-3">Найдено ${data.total}</p>`;
+            cardContainer.insertBefore(searchMessage, cardsRows[0]);
+        }
     };
 
     if (cardsWrapper) {
@@ -183,4 +206,4 @@ export function renderCards(urlResource) {
     }
 }
 
-export default renderCards;
+export default displayCards;
