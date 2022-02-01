@@ -13,7 +13,6 @@ export function displayCards() {
 
     const searchCards = function (form, urlResource, isPagination = false) {
         let formData = new FormData(form);
-        console.log(urlResource);
 
         const serializeData = (formData) => {
             let pairs = [];
@@ -27,7 +26,7 @@ export function displayCards() {
         };
 
         const url = urlResource + serializeData(formData);
-        console.log(url);
+
         return getResource(url);
     };
 
@@ -72,11 +71,9 @@ export function displayCards() {
                 if (this.classList.contains("active")) {
                     return;
                 }
-                console.log(data.links[currentPage].url);
 
                 searchCards(form, data.links[currentPage].url, true).then(
                     (dataCurrentPage) => {
-                        console.log(dataCurrentPage);
                         clearElements($parent);
                         renderCards(dataCurrentPage, $parent);
                     }

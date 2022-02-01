@@ -27,11 +27,14 @@ class Mineral extends AbstractMediaEntity
     public static function getInputs($item = false)
     {
         $item = $item ?: new class() {
-            public function __get($key) {return '';}
+            public function __get($key)
+            {
+                return '';
+            }
         };
 
         return [
-            new InputField('Название', 'name', 'text', $item->name, TRUE),
+            new InputField('Название', 'name', 'text', $item->name, true),
             new TextareaField('Описание', 'description', $item->description),
             new TextareaField('Химический состав', 'composition', $item->composition),
             new InputField('Видео', 'video', 'text', $item->video),
@@ -48,8 +51,8 @@ class Mineral extends AbstractMediaEntity
             new InputField('Диагностика', 'diagnosis', 'text', $item->diagnosis),
             new InputField('Генезис', 'genesis', 'text', $item->genesis),
             new InputField('Парагенезис', 'paragenesis', 'text', $item->paragenesis),
-            new InputField('Долгота', 'x', 'text', $item->x),
-            new InputField('Широта', 'y', 'text', $item->y),
+            // new InputField('Долгота', 'x', 'text', $item->x),
+            // new InputField('Широта', 'y', 'text', $item->y),
         ];
     }
 
@@ -151,11 +154,10 @@ class Mineral extends AbstractMediaEntity
     {
         $this->commonImgPath = '/images/minerals/';
         parent::__construct($attributes);
-
     }
 
-//doesn't work with Mineral::pluck
-//TODO: need to make getters ans setters
+    //doesn't work with Mineral::pluck
+    //TODO: need to make getters ans setters
 //    public function __call($name, $arguments)
 //    {
 //        //do a get
@@ -168,7 +170,7 @@ class Mineral extends AbstractMediaEntity
 //            $varName = Str::snake($matches[1]);
 //            $this->$varName = $arguments[0];
 //        }
-////        call_user_func($name, $arguments);
+    ////        call_user_func($name, $arguments);
 //    }
 
     public static function add($fields)
@@ -540,5 +542,4 @@ class Mineral extends AbstractMediaEntity
         $this->paragenesis = $value;
         return $this;
     }
-
 }
