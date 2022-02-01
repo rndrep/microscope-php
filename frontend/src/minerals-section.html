@@ -1,4 +1,5 @@
 <!-- Mineral-section -->
+@if(!empty($items))
 <li class="list-group-item">{{$name}}:
     @foreach($items as $item)
         @if($item['link'])
@@ -8,4 +9,5 @@
         @endif
     @endforeach
 </li>
+@endif
 <!-- ./ Mineral-section -->

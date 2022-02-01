@@ -238,26 +238,25 @@ class RockController extends Controller
         if (empty($id)) {
             return false;
         }
-        /** @var Rock $rock */
-        $rock = Rock::find($id);
+        /** @var Rock $item */
+        $item = Rock::find($id);
 
-        if (empty($rock)) {
+        if (empty($item)) {
             return false;
         }
 
-        if (!Auth::check() && !$rock->isPublic()) {
+        if (!Auth::check() && !$item->isPublic()) {
             abort(404);
         }
         $microRoute = Rock::getMicroscopeUrl($id);
         return view(
             'dist.rock',
             [
-                'item' => $rock,
-//TODO: Rock::getInfoFields()
-//                'fields' => $item->getInfoFields(),
+                'item' => $item,
+                'fields' => $item->getInfoFields(),
                 'microscopeRoute' => $microRoute,
                 'rotationRoute' => Rock::getRotationUrl($id),
-                'gallery' => $rock::getPhotoUrls(Rock::GALLERY_PATH . $rock->id),
+                'gallery' => $item::getPhotoUrls(Rock::GALLERY_PATH . $item->id),
             ]
         );
     }
