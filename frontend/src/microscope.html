@@ -1,59 +1,67 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        @@include('head.html', { "title": "Микроскоп" })
-    </head>
-    <body>
-        <div class="page">
-            @@include('navbar.html')
 
-            <!-- Breadcrumb -->
-            @@include('breadcrumb.html')
+<head>
+    @@include('head.html', { "title": "Микроскоп" })
+</head>
 
-            <!-- Microscope -->
-            <section class="microscope">
-                <div class="container">
-                    <div class="row microscope__wrap">
-                        <div class="col-md-5">
-                            <div class="microscope__container" id="ppl">
-                                <div
-                                    class="microscope__overlay"
-                                    name="plane polarised light"
-                                >
-                                    <p class="microscope__name">
-                                        с анализатором
-                                    </p>
-                                </div>
-                                <div class="microscope__wheel"></div>
-                                <!-- <div class="microscope__circle"></div> -->
+<body>
+    <div class="page">
+        @@include('navbar.html')
+
+        <!-- Breadcrumb -->
+        @@include('breadcrumb.html')
+
+        <!-- Microscope -->
+        <section class="microscope">
+            <div class="container">
+                <div class="row microscope__wrap">
+                    <div class="col-md-5">
+                        <div class="microscope__container" id="ppl">
+                            <div class="microscope__overlay" name="plane polarised light">
+                                <p class="microscope__name">
+                                    с анализатором
+                                </p>
                             </div>
+                            <div class="microscope__wheel"></div>
+                            <!-- <div class="microscope__circle"></div> -->
                         </div>
-                        <div class="col-md-1">
-                            <p class="microscope__degree"></p>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="microscope__container" id="xpl">
-                                <div
-                                    class="microscope__overlay"
-                                    name="cross polarized light"
-                                >
-                                    <p class="microscope__name">
-                                        без анализатора
-                                    </p>
-                                </div>
-                                <div class="microscope__wheel"></div>
-                                <!-- <div class="microscope__circle"></div> -->
+                    </div>
+                    <div class="col-md-1 d-flex">
+                        <p class="microscope__degree"></p>
+
+                    </div>
+                    <div class="col-md-5">
+                        <div class="microscope__container" id="xpl">
+                            <div class="microscope__overlay" name="cross polarized light">
+                                <p class="microscope__name">
+                                    без анализатора
+                                </p>
                             </div>
+                            <div class="microscope__wheel"></div>
+                            <!-- <div class="microscope__circle"></div> -->
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- ./ Microscope -->
+                <div class="row microscope__info">
+                    <div class="col"></div>
+                    <div class="col-md-5">
+                        <div class="microscope__scale">
+                            <div class="microscope__line"></div>
+                            <p>1mm</p>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </section>
+        <!-- ./ Microscope -->
 
-            <!-- Footer -->
-            @@include('footer.html')
-        </div>
+        <!-- Footer -->
+        @@include('footer.html')
+    </div>
 
-        @@include('js.html')
-    </body>
+    @@include('js.html')
+</body>
+
 </html>
