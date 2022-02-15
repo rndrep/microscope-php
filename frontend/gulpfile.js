@@ -36,8 +36,6 @@ const webConfig = {
     },
     output: {
         filename: "[name].js",
-        libraryTarget: "var",
-        library: "microLib",
     },
     module: {
         rules: [
@@ -143,7 +141,6 @@ function html() {
     );
 }
 
-
 function css() {
     return (
         src(path.src.css, { base: "src/assets/sass/" })
@@ -210,11 +207,15 @@ function svg() {
 function clean() {
     return del(
         [
-            path.build.css, '!../public/css/', '!../public/css/admin.css',
+            path.build.css,
+            "!../public/css/",
+            "!../public/css/admin.css",
             path.build.html,
             path.build.svg,
             path.build.images,
-            path.build.script, '!../public/js/', '!../public/js/admin.js',
+            path.build.script,
+            "!../public/js/",
+            "!../public/js/admin.js",
         ],
         { force: true }
     );
@@ -240,7 +241,12 @@ function watchFiles() {
 }
 
 const build = gulp.series(clean, gulp.parallel(html, css, images, script, svg)); // для выполнения всех тасков
-const watch = gulp.parallel(build, watchFiles, browserSync, cleanLaravelViewCache); //browserSync
+const watch = gulp.parallel(
+    build,
+    watchFiles,
+    browserSync,
+    cleanLaravelViewCache
+); //browserSync
 
 /* Exports Tasks */
 exports.html = html;
