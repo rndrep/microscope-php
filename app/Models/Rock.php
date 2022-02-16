@@ -323,33 +323,21 @@ class Rock extends AbstractMediaEntity
 
     public function setFormingMinerals($ids)
     {
-        if (empty($ids)) {
-            return false;
-        }
         $this->formingMinerals()->sync($ids);
     }
 
     public function setSecondMinerals($ids)
     {
-        if (empty($ids)) {
-            return false;
-        }
         $this->secondMinerals()->sync($ids);
     }
 
     public function setAccessoryMinerals($ids)
     {
-        if (empty($ids)) {
-            return false;
-        }
         $this->accessoryMinerals()->sync($ids);
     }
 
     public function setFossils($ids)
     {
-        if (empty($ids)) {
-            return false;
-        }
         $this->fossils()->sync($ids);
     }
 
