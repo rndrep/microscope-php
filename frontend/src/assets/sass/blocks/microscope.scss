@@ -5,24 +5,56 @@
 
 .microscope__wrap {
     display: flex;
-    align-items: flex-end;
     justify-content: center;
+
+    margin-bottom: 3.2rem;
 }
 
 .microscope__container {
     position: relative;
 
-    // min-width: 490px;
-    // min-height: 490px;
+    @media (max-width: $breakpoints_xs) {
+        min-height: 190px;
+    }
+
+    @media (min-width: $breakpoints_xs) {
+        min-height: 328px;
+    }
+
+    @media (min-width: $breakpoints_xm) {
+        min-height: 385px;
+    }
+
+    @media (min-width: $breakpoints_sm) {
+        min-height: 525px;
+    }
+
+    @media (min-width: $breakpoints_md) {
+        min-height: 285px;
+    }
+
+    @media (min-width: $breakpoints_lg) {
+        min-height: 385px;
+    }
+
+    @media (min-width: $breakpoints_xl) {
+        min-height: 460px;
+    }
+
+    @media (min-width: $breakpoints_xxl) {
+        min-height: 535px;
+    }
 }
 
 .microscope__degree {
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 
     margin: 0.8rem auto;
 
     min-width: 5rem;
+    min-height: 5rem;
     font-family: sans-serif;
     font-size: 2.4rem;
 }
@@ -54,8 +86,8 @@
     top: 0;
     left: 0;
 
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 
     pointer-events: none;
 }
@@ -140,6 +172,9 @@
     width: 100%;
     height: 100%;
 
+    min-width: 100%;
+    min-height: 100%;
+
     border-radius: 100%;
 }
 
@@ -151,4 +186,32 @@
     align-items: center;
 
     width: 100%;
+}
+
+.microscope__info {
+    justify-content: center;
+}
+
+.microscope__scale {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.microscope__line {
+    border: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='280' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3C!-- Created with SVG Editor - http://github.com/mzalive/SVG Editor/ --%3E%3Cg%3E%3Ctitle%3Ebackground%3C/title%3E%3Crect fill='none' id='canvas_background' height='18' width='282' y='-1' x='-1'/%3E%3C/g%3E%3Cg%3E%3Ctitle%3ELayer 1%3C/title%3E%3Cg id='svg_5'%3E%3Cline stroke-linecap='undefined' stroke-linejoin='undefined' id='svg_1' y2='8.000002' x2='278.334135' y1='8.000002' x1='1.000001' fill-opacity='null' stroke-opacity='null' stroke-width='2' stroke='%23000' fill='none'/%3E%3Cline stroke-linecap='undefined' stroke-linejoin='undefined' id='svg_2' y2='17.07623' x2='279' y1='-1.07623' x1='279' fill-opacity='null' stroke-opacity='null' stroke-width='2' stroke='%23000' fill='none'/%3E%3Cline stroke-linecap='undefined' stroke-linejoin='undefined' id='svg_4' y2='17.07623' x2='1' y1='-1.07623' x1='1' fill-opacity='null' stroke-opacity='null' stroke-width='2' stroke='%23000' fill='none'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 2px;
+    width: 100%;
+    height: 16px;
+    min-width: 142px;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
 }

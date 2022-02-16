@@ -155,7 +155,7 @@ class MineralController extends Controller
         $photos = [
             'ppl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'ppl'),
             'xpl' => AbstractMediaEntity::getPhotoUrls($publicPath . 'xpl'),
-            'smooth' => false,
+            'smooth' => true,
             'shift' => 10,
         ];
         return json_encode($photos);
