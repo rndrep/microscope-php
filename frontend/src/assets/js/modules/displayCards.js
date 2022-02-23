@@ -4,7 +4,7 @@ import { getResource } from "../services/services.js";
 import Card from "./card";
 import searchCards from "./searchCards";
 import renderCards from "./renderCards";
-import pagination from "./pagination";
+import PaginationButton from "./pagination";
 import clearElements from "./clearElements";
 
 export function displayCards() {
@@ -13,7 +13,6 @@ export function displayCards() {
         cardsRows = document.querySelectorAll(".cards__row"),
         cardContainer = document.querySelector(".cards .container"),
         forms = document.getElementsByTagName("form"),
-        visiblePages = 5,
         searchMessage = document.createElement("div");
 
     const searchAllCards = function (form, url, $parent, $pagination) {
@@ -25,17 +24,14 @@ export function displayCards() {
                 }
 
                 renderCards(data, $parent);
-
-                pagination(
+                new PaginationButton(
                     links,
                     form,
                     last_page,
-                    visiblePages,
                     current_page,
-                    $pagination,
-                    $parent
+                    $parent,
+                    $pagination
                 );
-                // renderPagination(data, cardContainer, $pagination);
             }
         );
     };
@@ -76,38 +72,33 @@ export function displayCards() {
 
             const url = form.getAttribute("data-url");
 
-            searchCards(form, url).then(({ data, last_page, current_page, links, total }) => {
-                const $parent = document.querySelector(
-                    form.getAttribute("data-card-target")
-                );
+            searchCards(form, url).then(
+                ({ data, last_page, current_page, links, total }) => {
+                    const $parent = document.querySelector(
+                        form.getAttribute("data-card-target")
+                    );
 
-                const $pagination = document.querySelector(
-                    form.getAttribute("data-card-target") + "Pagination"
-                );
+                    const $pagination = document.querySelector(
+                        form.getAttribute("data-card-target") + "Pagination"
+                    );
 
-                clearElements($parent);
-                clearElements($pagination);
+                    clearElements($parent);
+                    clearElements($pagination);
 
-                showSearchMessage(total);
+                    showSearchMessage(total);
 
-                renderCards(data, $parent);
-                pagination(
-                    links,
-                    form,
-                    last_page,
-                    visiblePages,
-                    current_page,
-                    $pagination,
-                    $parent
-                );
-                // new PaginationButton(
-                //         10,
-                //         5,
-                //         1,
-                //         document.querySelector("#rockCardsPagination")
-                //     );
-                // renderPagination(data, $parent, $pagination, form);
-            });
+                    renderCards(data, $parent);
+                 
+                    new PaginationButton(
+                        links,
+                        form,
+                        last_page,
+                        current_page,
+                        $parent,
+                        $pagination
+                    );
+                }
+            );
         });
     };
 
@@ -116,7 +107,7 @@ export function displayCards() {
             searchMessage.innerHTML = `<p class="form-label text-center mb-3">Ничего не найдено</p>`;
             cardContainer.insertBefore(searchMessage, cardsRows[0]);
         } else {
-            searchMessage.innerHTML = `<p class="form-label text-center mb-3">Найдено ${data.total}</p>`;
+            searchMessage.innerHTML = `<p class="form-label text-center mb-3">Найдено ${totalCards}</p>`;
             cardContainer.insertBefore(searchMessage, cardsRows[0]);
         }
     };
