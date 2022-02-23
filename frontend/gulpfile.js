@@ -47,7 +47,7 @@ const webConfig = {
         ],
     },
     mode: isDev ? "development" : "production",
-    devtool: isDev ? "eval" : false,
+    devtool: isDev ? "eval-source-map" : false,
 };
 
 /* Paths */

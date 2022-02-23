@@ -42,7 +42,7 @@
     @yield('content')
 
     <!-- footer -->
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="container">
             <div class="row footer__row">
                 <div class="col-lg-12">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> -->
 </div>
 <!-- js files -->
 <script

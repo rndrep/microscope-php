@@ -77,8 +77,8 @@
                   <!-- Micro photos -->
                   <div class="row">
                     <div class="col-lg-6 form-group">
-                      <label class=" col-form-label text-lg-right">Загрузка изображений микроскопа с
-                        анализатором</label>
+                      <label class=" col-form-label text-lg-right">Загрузка изображений микроскопа без
+                        анализатора</label>
 
                       <!-- PplDropzone -->
                       <form class="dropzone dropzone-queue mb-2" id="microPplDropzone"
@@ -135,8 +135,8 @@
 
                     </div>
                     <div class="col-lg-6 form-group">
-                      <label class="col-form-label text-lg-right">Загрузка изображений микроскопа без
-                        анализатора</label>
+                      <label class="col-form-label text-lg-right">Загрузка изображений микроскопа с
+                        анализатором</label>
                       <!-- XplDropzone -->
                       <form class="dropzone dropzone-queue mb-2" id="microXplDropzone"
                         action="{{ route('media_save', ['id' => $item->id, 'entity' => 'rock', 'type' => 'xpl']) }}"

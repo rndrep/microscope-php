@@ -58,9 +58,7 @@
 
                                 @foreach($fields as $field)
                                 <li class="list-group-item">
-                                    <div class="card-list__caption">
-                                        {{$field->getCaption()}}:
-                                    </div>
+                                    <div class="card-list__caption">{{$field->getCaption()}}: </div>
                                     <a class="card-list__text">{!!$field->getValue()!!}</a>
                                 </li>
                                 @endforeach
@@ -138,16 +136,16 @@
                                     <div class="video">
                                         <div class="video__item">
                                             <iframe width="560" height="315" src="{{$item->getVideo()}}"
-                                                    title="YouTube video player" frameborder="0"
-                                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen>
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
                                             </iframe>
                                         </div>
-<!--                                        <div class="video__item">-->
-<!--                                            <video preload="metadata" controls src="/assets/video/smallcat.mp4">-->
-<!--                                                <source src="/assets/video/smallcat.mp4" type="video/mp4" />-->
-<!--                                            </video>-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="video__item">-->
+                                        <!--                                            <video preload="metadata" controls src="/assets/video/smallcat.mp4">-->
+                                        <!--                                                <source src="/assets/video/smallcat.mp4" type="video/mp4" />-->
+                                        <!--                                            </video>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
