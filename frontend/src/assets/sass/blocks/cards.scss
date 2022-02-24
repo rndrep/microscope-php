@@ -44,6 +44,11 @@
             text-decoration: none;
         }
     }
+
+    .page-item.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
 }
 
 .cards__pagination_active {

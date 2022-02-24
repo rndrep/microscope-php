@@ -25,7 +25,7 @@ export function PaginationButton(
     cardContainer,
     paginationContainer
 ) {
-    if (totalPages <= 1) return; 
+    if (totalPages <= 1) return;
     let maxPagesVisible = 5;
     let pages = pageNumbers(totalPages, maxPagesVisible, currentPage);
     let currentPageBtn = null;
@@ -54,7 +54,10 @@ export function PaginationButton(
         buttonElement.appendChild(linkElement);
 
         buttonElement.className = `page-item ${cls}`;
-        buttonElement.disabled = disabled;
+        if (disabled) buttonElement.classList.add("disabled");
+        // buttonElement.disabled = disabled;
+        // disabled ? buttonElement.classList.add("disabled") : buttonElement.classList.remove("disabled");
+
         buttonElement.addEventListener("click", (e) => {
             handleClick(e);
             this.update();
@@ -92,8 +95,6 @@ export function PaginationButton(
         ) {
             return;
         }
-
-
     };
 
     buttons.set(
@@ -103,7 +104,10 @@ export function PaginationButton(
             disabled.start(),
             () => (currentPage = 1)
         ),
-        (btn) => (btn.disabled = disabled.start())
+        (btn) =>
+            disabled.start()
+                ? btn.classList.add("disabled")
+                : btn.classList.remove("disabled")
     );
 
     buttons.set(
@@ -113,7 +117,10 @@ export function PaginationButton(
             disabled.prev(),
             () => (currentPage -= 1)
         ),
-        (btn) => (btn.disabled = disabled.prev())
+        (btn) =>
+            disabled.prev()
+                ? btn.classList.add("disabled")
+                : btn.classList.remove("disabled")
     );
 
     pages.map((pageNumber, index) => {
@@ -139,7 +146,10 @@ export function PaginationButton(
             disabled.next(),
             () => (currentPage += 1)
         ),
-        (btn) => (btn.disabled = disabled.next())
+        (btn) =>
+            disabled.next()
+                ? btn.classList.add("disabled")
+                : btn.classList.remove("disabled")
     );
 
     buttons.set(
@@ -149,7 +159,10 @@ export function PaginationButton(
             disabled.end(),
             () => (currentPage = totalPages)
         ),
-        (btn) => (btn.disabled = disabled.end())
+        (btn) =>
+            disabled.end()
+                ? btn.classList.add("disabled")
+                : btn.classList.remove("disabled")
     );
 
     buttons.forEach((_, btn) => frag.appendChild(btn));
