@@ -8,7 +8,7 @@ export function initMap() {
         container = L.DomUtil.get("map"),
         initLayer = function (id) {
             return L.tileLayer(
-                "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+                "https://api.mapbox.com/styles/v1/vvk61/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
                 {
                     maxZoom: 18,
                     minZoom: 2,
@@ -21,8 +21,8 @@ export function initMap() {
             );
         },
         baseMaps = {
-            Спутник: initLayer("mapbox/satellite-v9"),
-            Улицы: initLayer("mapbox/outdoors-v11"),
+            Спутник: initLayer("cl00nru13000015nzgtd40wwp"),
+            Улицы: initLayer("ckxohle7n4wzp15rqn917g071"),
         },
         createIcon = function (iconColor) {
             let customIcon;
@@ -80,7 +80,7 @@ export function initMap() {
     if (mainMap) {
         try {
             const fullMap = L.map(mainMap).setView([40, 5], 1); // показывать при первой загрузке
-            initLayer("mapbox/streets-v11").addTo(fullMap);
+            initLayer("ckxohle7n4wzp15rqn917g071").addTo(fullMap);
 
             // TODO: добавить фото
             const showAllMArkers = function () {
@@ -145,7 +145,7 @@ export function initMap() {
             if (lat && lng != "") {
                 specificMap.setView([lng, lat], 2);
 
-                initLayer("mapbox/streets-v11").addTo(specificMap);
+                initLayer("ckxohle7n4wzp15rqn917g071").addTo(specificMap);
 
                 // TODO: добавить тип
                 createMarker(null, Number(lng), Number(lat), name).addTo(

@@ -55,9 +55,7 @@ export function PaginationButton(
 
         buttonElement.className = `page-item ${cls}`;
         if (disabled) buttonElement.classList.add("disabled");
-        // buttonElement.disabled = disabled;
-        // disabled ? buttonElement.classList.add("disabled") : buttonElement.classList.remove("disabled");
-
+     
         buttonElement.addEventListener("click", (e) => {
             handleClick(e);
             this.update();
