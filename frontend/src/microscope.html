@@ -10,7 +10,12 @@
         @@include('navbar.html')
 
         <!-- Breadcrumb -->
-        @@include('breadcrumb.html')
+        @@include('breadcrumb.html', {
+            "name": "info",
+            "routeName": "$routeName",
+            "itemId": "$itemId ?? '' ",
+            "itemName": "$iteName ?? '' "
+        })
 
         <!-- Microscope -->
         <section class="microscope">

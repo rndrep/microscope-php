@@ -134,11 +134,16 @@ class FossilController extends Controller
         }
         /** @var Fossil $item */
         $item = Fossil::find($id);
+
         if (empty($item)) {
             return false;
         }
+
+        if (!Auth::check() && !$item->isPublic()) {
+            abort(404);
+        }
         return view(
-            'dist.mineral',
+            'dist.fossil',
             [
                 'item' => $item,
                 'fields' => $item->getInfoFields(),

@@ -35,9 +35,18 @@ class PageController extends Controller
         return view('dist.404');
     }
 
-    public function microscope()
+    public function microscope(Request $request)
     {
-        return view('dist/microscope');
+        $mapType2Route = ['rock' => 'rock_info', 'mineral' => 'mineral_info', 'fossil' => 'fossil_info'];
+        $id = $request->query('id') ?? '';
+        $type = $request->query('type') ?? '';
+        $viewParams = [];
+        if ($id && $type) {
+            $viewParams['routeName'] = $mapType2Route[$type];
+            $viewParams['itemId'] = $id;
+            $viewParams['itemName'] = 'qwert'; // TODO: get item name from DB (need get model class)
+        }
+        return view('dist/microscope', $viewParams);
     }
 
     public function rotation(Request $request)
@@ -51,6 +60,11 @@ class PageController extends Controller
         return view('dist/map');
     }
 
+    /**
+     * TODO: write about what this method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function mapItems()
     {
         $result = [];
