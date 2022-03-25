@@ -1,11 +1,12 @@
 <!-- Mineral-section -->
 @if(!empty($items))
-<li class="list-group-item">{{$name}}:
+<li class="list-group-item">
+    <div class="card-list__caption">{{$name}}: </div>
     @foreach($items as $item)
         @if($item['link'])
-            <a class="card-list__link" href="{{$item['link']}}">{{$item['name']}}</a>
+            <a class="card-list__link" href="{{$item['link']}}">{{$item['name']}}</a>&nbsp;
         @else
-            <a class="card-list__link card-list__link_disabled">{{$item['name']}}</a>
+            <a class="card-list__link card-list__link_disabled">{{$item['name']}}</a>&nbsp;
         @endif
     @endforeach
 </li>

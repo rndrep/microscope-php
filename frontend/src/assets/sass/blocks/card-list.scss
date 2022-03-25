@@ -14,8 +14,7 @@
 
 .card-list__link,
 .card-list__text {
-    padding: 0.8rem 0;
-
+    white-space: break-spaces;
     font-weight: 400;
     @include link-hover($green);
 
@@ -37,6 +36,7 @@
 }
 
 .card-list__text {
+    word-wrap: break-word;
     text-decoration: none;
     cursor: default;
 
@@ -49,14 +49,20 @@
 }
 
 .card-list .list-group-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    line-height: 1.6;
     font-weight: 600;
 }
 
 .card-list__caption {
     display: inline-flex;
     justify-content: flex-start;
+    line-height: 1.6;
+    white-space: break-spaces;
 
-    min-width: 16rem;
 }
 
 .card-list__caption.sm {

@@ -63,9 +63,9 @@
         <!-- Content Wrapper. Contains page content -->
         @yield('content')
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
+        <!-- <footer class="main-footer">
             <strong>&copy; 2021 Национальный исследовательский Томский политехнический университет
-        </footer>
+        </footer> -->
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
