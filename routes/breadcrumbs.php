@@ -23,7 +23,14 @@ Breadcrumbs::for('info', function ($trail, $params = null) {
     }
 });
 
-Breadcrumbs::for('microscope', function ($trail) {
-    $trail->parent('info');
+Breadcrumbs::for('microscope', function ($trail, $params = null) {
+    ['routeName' => $routeName, 'itemId' => $itemId, 'itemName' => $itemName] = $params;
+    $trail->parent('info', ['routeName' => $routeName, 'itemId' => $itemId, 'itemName' => $itemName]);
     $trail->push('Микроскоп');
+});
+
+Breadcrumbs::for('rotation', function ($trail, $params = null) {
+    ['routeName' => $routeName, 'itemId' => $itemId, 'itemName' => $itemName] = $params;
+    $trail->parent('info', ['routeName' => $routeName, 'itemId' => $itemId, 'itemName' => $itemName]);
+    $trail->push('Поворот');
 });

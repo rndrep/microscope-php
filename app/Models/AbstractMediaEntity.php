@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Classes\YoutubeUrl;
+use App\Helpers\Model as ModelHelper;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -233,7 +234,10 @@ abstract class AbstractMediaEntity extends AbstractEntity
         $model = static::class;
         $item = $model::find($id);
         return ($item && !empty($item->model_3d))
-            ? route('rotation', ['src' => $item->model_3d])
+            ? route(
+                'rotation',
+                ['id' => $id, 'type' => ModelHelper::ShortNameByClass($model), 'src' => $item->model_3d]
+            )
             : '';
     }
 

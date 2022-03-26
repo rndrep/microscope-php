@@ -37,22 +37,29 @@ class PageController extends Controller
 
     public function microscope(Request $request)
     {
-        $mapType2Route = ['rock' => 'rock_info', 'mineral' => 'mineral_info', 'fossil' => 'fossil_info'];
-        $id = $request->query('id') ?? '';
-        $type = $request->query('type') ?? '';
-        $viewParams = [];
-        if ($id && $type) {
-            $viewParams['routeName'] = $mapType2Route[$type];
-            $viewParams['itemId'] = $id;
-            $viewParams['itemName'] = 'qwert'; // TODO: get item name from DB (need get model class)
-        }
-        return view('dist/microscope', $viewParams);
+        [$routeName, $entity] = $this->getBreadcumbsParams($request);
+        return view('dist/microscope', [
+            'routeName' => $routeName,
+            'itemId' => $entity->id ?? '',
+            'itemName' => $entity->name ?? '',
+        ]);
     }
 
     public function rotation(Request $request)
     {
         $src = $request->query('src');
-        return view('dist/rotation', ['src' => $src]);
+        [$routeName, $entity] = $this->getBreadcumbsParams($request);
+        $item = new \stdClass();
+        $item->id = $entity->id ?? '';
+        $item->name = $entity->name ?? '';
+        return view(
+            'dist/rotation',
+            [
+                'src' => $src,
+                'routeName' => $routeName,
+                'item' => $item
+            ]
+        );
     }
 
     public function map()
@@ -61,14 +68,12 @@ class PageController extends Controller
     }
 
     /**
-     * TODO: write about what this method
+     * Get all items to display on the map
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function mapItems()
     {
-        $result = [];
-        //TODO: use is_public
         $isAuth = Auth::check();
 
         $items = $isAuth
@@ -146,6 +151,27 @@ class PageController extends Controller
             'invertebrates' => Invertebrate::orderBy('name')->pluck('name', 'id'),
             'indexFossils' => IndexFossil::orderBy('name')->pluck('name', 'id'),
         ];
+    }
+
+    private function getBreadcumbsParams(Request $request)
+    {
+        $id = (int) $request->query('id') ?? 0;
+        $type = $request->query('type') ?? '';
+
+        /** @var \App\Models\AbstractEntity $modelClass */
+        $modelClass = \App\Helpers\Model::ClassByShortName($type);
+        $routeName = '';
+        $entity = '';
+
+        if (empty($modelClass)) {
+            return [$modelClass, $routeName, $entity];
+        }
+        $routeName = \App\Helpers\Model::infoRouteByName($type);
+        if (empty($routeName)) {
+            return [$modelClass, $routeName, $entity];
+        }
+        $entity = $modelClass::find($id);
+        return [$routeName, $entity];
     }
 
 }

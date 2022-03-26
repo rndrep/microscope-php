@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Model;
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
 use App\Models\Fossil;
@@ -252,6 +253,7 @@ class RockController extends Controller
         return view(
             'dist.rock',
             [
+                'routeName' => Model::infoRouteByName(Model::NAME_ROCK),
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'microscopeRoute' => $microRoute,

@@ -161,7 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Providers\CustomViewServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -175,6 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CustomViewServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
     ],
 
@@ -229,6 +230,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Custom Aliases
+         */
+        //TODO: alias doesn't work
+        'ModelHelper' => App\Helpers\Model::class,
     ],
 
 ];

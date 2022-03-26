@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Model;
 use App\Http\Controllers\Controller;
 use App\Models\Fossil;
 use App\Models\IndexFossil;
@@ -145,6 +146,7 @@ class FossilController extends Controller
         return view(
             'dist.fossil',
             [
+                'routeName' => Model::infoRouteByName(Model::NAME_FOSSIL),
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'gallery' => $item::getPhotoUrls(Fossil::GALLERY_PATH . $item->id),

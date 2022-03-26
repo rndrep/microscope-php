@@ -8,8 +8,12 @@
 			@@include('navbar.html')
 
 			<!-- Breadcrumb -->
-			@@include('breadcrumb.html')
-
+            @@include('breadcrumb.html', {
+                "name": "rotation",
+                "routeName": "$routeName",
+                "itemId": "$item->id",
+                "itemName": "$item->name"
+            })
 			<!-- Content -->
 
 			<!-- Rotation -->
