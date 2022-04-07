@@ -143,6 +143,7 @@ class FossilController extends Controller
         if (!Auth::check() && !$item->isPublic()) {
             abort(404);
         }
+
         return view(
             'dist.fossil',
             [

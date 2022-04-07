@@ -174,6 +174,10 @@ class MineralController extends Controller
             return false;
         }
 
+        if (!Auth::check() && !$item->isPublic()) {
+            abort(404);
+        }
+
         return view(
             'dist.mineral',
             [
