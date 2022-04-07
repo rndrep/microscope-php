@@ -135,6 +135,18 @@ npm run dev (for development)
 php artisan migrate
 php artisan db:seed
 ```
+# Build on production
+First build frontend templates. 
+In project folder
+```
+cd frontend/
+gulp build
+```
+then build npm
+``` 
+cd ..
+npm run prod
+```
 
 #	SERVER SETTINGS
 ## Set in nginx config
