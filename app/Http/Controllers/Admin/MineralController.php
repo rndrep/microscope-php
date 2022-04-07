@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Model;
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
 use App\Models\Mineral;
@@ -173,9 +174,14 @@ class MineralController extends Controller
             return false;
         }
 
+        if (!Auth::check() && !$item->isPublic()) {
+            abort(404);
+        }
+
         return view(
             'dist.mineral',
             [
+                'routeName' => Model::infoRouteByName(Model::NAME_MINERAL),
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'microscopeRoute' => Mineral::getMicroscopeUrl($id),

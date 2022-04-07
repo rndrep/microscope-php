@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Model;
 use App\Http\Controllers\Controller;
 use App\Models\Fossil;
 use App\Models\IndexFossil;
@@ -134,12 +135,19 @@ class FossilController extends Controller
         }
         /** @var Fossil $item */
         $item = Fossil::find($id);
+
         if (empty($item)) {
             return false;
         }
+
+        if (!Auth::check() && !$item->isPublic()) {
+            abort(404);
+        }
+
         return view(
-            'dist.mineral',
+            'dist.fossil',
             [
+                'routeName' => Model::infoRouteByName(Model::NAME_FOSSIL),
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
                 'gallery' => $item::getPhotoUrls(Fossil::GALLERY_PATH . $item->id),

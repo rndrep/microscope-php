@@ -35,15 +35,31 @@ class PageController extends Controller
         return view('dist.404');
     }
 
-    public function microscope()
+    public function microscope(Request $request)
     {
-        return view('dist/microscope');
+        [$routeName, $entity] = $this->getBreadcumbsParams($request);
+        return view('dist/microscope', [
+            'routeName' => $routeName,
+            'itemId' => $entity->id ?? '',
+            'itemName' => $entity->name ?? '',
+        ]);
     }
 
     public function rotation(Request $request)
     {
         $src = $request->query('src');
-        return view('dist/rotation', ['src' => $src]);
+        [$routeName, $entity] = $this->getBreadcumbsParams($request);
+        $item = new \stdClass();
+        $item->id = $entity->id ?? '';
+        $item->name = $entity->name ?? '';
+        return view(
+            'dist/rotation',
+            [
+                'src' => $src,
+                'routeName' => $routeName,
+                'item' => $item
+            ]
+        );
     }
 
     public function map()
@@ -51,10 +67,13 @@ class PageController extends Controller
         return view('dist/map');
     }
 
+    /**
+     * Get all items to display on the map
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function mapItems()
     {
-        $result = [];
-        //TODO: use is_public
         $isAuth = Auth::check();
 
         $items = $isAuth
@@ -132,6 +151,27 @@ class PageController extends Controller
             'invertebrates' => Invertebrate::orderBy('name')->pluck('name', 'id'),
             'indexFossils' => IndexFossil::orderBy('name')->pluck('name', 'id'),
         ];
+    }
+
+    private function getBreadcumbsParams(Request $request)
+    {
+        $id = (int) $request->query('id') ?? 0;
+        $type = $request->query('type') ?? '';
+
+        /** @var \App\Models\AbstractEntity $modelClass */
+        $modelClass = \App\Helpers\Model::ClassByShortName($type);
+        $routeName = '';
+        $entity = '';
+
+        if (empty($modelClass)) {
+            return [$modelClass, $routeName, $entity];
+        }
+        $routeName = \App\Helpers\Model::infoRouteByName($type);
+        if (empty($routeName)) {
+            return [$modelClass, $routeName, $entity];
+        }
+        $entity = $modelClass::find($id);
+        return [$routeName, $entity];
     }
 
 }

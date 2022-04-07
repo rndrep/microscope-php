@@ -1,8 +1,11 @@
 <!-- Breadcrumb -->
 <div class="container">
-    {{-- <div class="mb-3">{{ Breadcrumbs::render('home') }}</div> --}}
+    <div class="mb-3">
+        {{ Breadcrumbs::render(
+            '@@name', ['routeName' => @@routeName, 'itemId' => @@itemId, 'itemName' => @@itemName]
+        ) }}
+    </div>
     <!-- TODO: вставить крошки -->
-
 
     <!-- <nav aria-label="breadcrumb">
 		<ol class="breadcrumb">

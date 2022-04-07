@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Model;
 use App\Http\Controllers\Controller;
 use App\Models\AbstractMediaEntity;
 use App\Models\Fossil;
@@ -248,13 +249,14 @@ class RockController extends Controller
         if (!Auth::check() && !$item->isPublic()) {
             abort(404);
         }
-        $microRoute = Rock::getMicroscopeUrl($id);
+
         return view(
             'dist.rock',
             [
+                'routeName' => Model::infoRouteByName(Model::NAME_ROCK),
                 'item' => $item,
                 'fields' => $item->getInfoFields(),
-                'microscopeRoute' => $microRoute,
+                'microscopeRoute' => Rock::getMicroscopeUrl($id),
                 'rotationRoute' => Rock::getRotationUrl($id),
                 'gallery' => $item::getPhotoUrls(Rock::GALLERY_PATH . $item->id),
             ]
