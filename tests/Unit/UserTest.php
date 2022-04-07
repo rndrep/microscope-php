@@ -46,25 +46,25 @@ class UserTest extends TestCase
         self::assertNotEquals(Hash::make($pwd), $user->password);
     }
 
-    public function testAuth()
-    {
-        $email = 'test@test.com';
-        $pwd = 'test';
-        $user = new User();
-        $user->last_name = 'Иванов';
-        $user->first_name = 'Иван';
-        $user->email = $email;
-        $user->setPassword($pwd);
-        $user->save();
-
-        $this->assertFalse(Auth::check());
-        $this->assertTrue(Auth::attempt(['email' => $email, 'password' => $pwd]));
-        $this->assertTrue(Auth::check());
-        Auth::logout();
-        $this->assertFalse(Auth::check());
-
-        if ($user) {
-            $user->delete();
-        }
-    }
+//    public function testAuth()
+//    {
+//        $email = 'test@test.com';
+//        $pwd = 'test';
+//        $user = new User();
+//        $user->last_name = 'Иванов';
+//        $user->first_name = 'Иван';
+//        $user->email = $email;
+//        $user->setPassword($pwd);
+//        $user->save();
+//
+//        $this->assertFalse(Auth::check());
+//        $this->assertTrue(Auth::attempt(['email' => $email, 'password' => $pwd]));
+//        $this->assertTrue(Auth::check());
+//        Auth::logout();
+//        $this->assertFalse(Auth::check());
+//
+//        if ($user) {
+//            $user->delete();
+//        }
+//    }
 }
