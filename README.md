@@ -189,3 +189,21 @@ SSH login/pass: vagrant/vagrant
 ###### database access
 127.0.0.1:54320
 homestead / secret
+
+###### Github ssh key problem
+git push работал от старого глобального пользователя, хотя локальный пользователь был другим. 
+Проблемам в использовании старого ssh ключа.
+- Надо создать новый ключ для нового пользователя вместе с почтой.
+```
+$ ssh-keygen -t ed25519 -C "your_email@example.com"
+
+$ eval "$(ssh-agent -s)"
+> Agent pid 59566
+
+$ ssh-add ~/.ssh/id_ed25519
+```
+- Добавить новый ключ в настройках аккаунта гитхаб.
+- И добавить новый ключ для текущего репозитория - в папке с проектом ввести:
+```
+git config --add --local core.sshCommand 'ssh -i <<<PATH_TO_SSH_KEY>>>'
+```
