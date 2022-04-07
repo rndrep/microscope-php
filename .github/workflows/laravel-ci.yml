@@ -12,7 +12,7 @@ jobs:
       with:
         php-version: 7.3
     - name: Copy .env-example to .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      run: php -r "file_exists('.env') || copy('.env-example', '.env');"
     - name: Install composer dependencies
       run: |
         rm -rf vendor
