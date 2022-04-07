@@ -282,4 +282,14 @@ abstract class AbstractMediaEntity extends AbstractEntity
         return is_dir($dirPath) || Storage::makeDirectory($dirPath);
     }
 
+    public function isAnyPropFilled(array $props): bool
+    {
+        foreach ($props as $prop) {
+            if (!empty($this->{$prop})) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

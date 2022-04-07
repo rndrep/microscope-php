@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Classes\InfoField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Helpers\Model as ModelHelper;
 
 /**
  * Each Rock can have several forming, second and accessory minerals
@@ -269,56 +270,31 @@ class Rock extends AbstractMediaEntity
         if (!isset($this->formingMinerals)) {
             return [];
         }
-        return $this->getLinkItems($this->formingMinerals, Mineral::class, 'mineral_info');
+        return ModelHelper::makeItemsLinks($this->formingMinerals, Mineral::class, 'mineral_info');
     }
+
     public function getSecondMineralLinks()
     {
         if (!isset($this->secondMinerals)) {
             return [];
         }
-        return $this->getLinkItems($this->secondMinerals, Mineral::class, 'mineral_info');
+        return ModelHelper::makeItemsLinks($this->secondMinerals, Mineral::class, 'mineral_info');
     }
+
     public function getAccessoryMineralLinks()
     {
         if (!isset($this->accessoryMinerals)) {
             return [];
         }
-        return $this->getLinkItems($this->accessoryMinerals, Mineral::class, 'mineral_info');
+        return ModelHelper::makeItemsLinks($this->accessoryMinerals, Mineral::class, 'mineral_info');
     }
+
     public function getFossilLinks()
     {
         if (!isset($this->fossils)) {
             return [];
         }
-        return $this->getLinkItems($this->fossils, Fossil::class, 'fossil_info');
-    }
-
-    /**
-     * @param $entityItems
-     * @param Mineral|Fossil $entityClass
-     * @param $infoRoute
-     * @return array
-     */
-    private function getLinkItems($entityItems, $entityClass, $infoRoute)
-    {
-        $optProps = $entityClass::getOptionalProps();
-        $result = [];
-        foreach ($entityItems as $item) {
-            $needAddLink = FALSE;
-            foreach ($optProps as $optProp) {
-                if (!empty($item->{$optProp})) {
-                    $needAddLink = TRUE;
-                    break;
-                }
-            }
-            $result[] = [
-                'link' => $needAddLink
-                    ? route($infoRoute, $item->id)
-                    : '',
-                'name' => $item->name
-            ];
-        }
-        return $result;
+        return ModelHelper::makeItemsLinks($this->fossils, Fossil::class, 'fossil_info');
     }
 
     public function setFormingMinerals($ids)

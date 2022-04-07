@@ -6,6 +6,7 @@ use App\Classes\InfoField;
 use App\Classes\InputField;
 use App\Classes\TextareaField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Helpers\Model as ModelHelper;
 
 class Fossil extends AbstractMediaEntity
 {
@@ -59,23 +60,7 @@ class Fossil extends AbstractMediaEntity
     public function getRockLinks(): array
     {
         $rocks = Rock_Fossil::where('fossil_id', $this->id)->get();
-        return $this->makeRockLinks($rocks);
-    }
-
-    private function makeRockLinks($rockRelation)
-    {
-        $result = [];
-        foreach ($rockRelation as $record) {
-            $rock = Rock::find($record->rock_id);
-            if (empty($rock)) {
-                continue;
-            }
-            $result['rock-' . $rock->id] = [
-                'link' => route('rock_info', $rock->id),
-                'name' => $rock->name
-            ];
-        }
-        return $result;
+        return ModelHelper::makeRockLinks($rocks);
     }
 
     public static function add($fields)

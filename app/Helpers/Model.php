@@ -2,9 +2,11 @@
 
 namespace App\Helpers;
 
+use App\Models\AbstractMediaEntity;
 use App\Models\Fossil;
 use App\Models\Mineral;
 use App\Models\Rock;
+use Illuminate\Support\Facades\Auth;
 
 class Model
 {
@@ -39,6 +41,53 @@ class Model
     public static function infoRouteByName(string $name): string
     {
         return self::SHORT_NAME_TO_ROUTE[$name] ?? '';
+    }
+
+    /**
+     * @param AbstractMediaEntity[] $entityItems
+     * @param string $entityClass
+     * @param string $infoRoute
+     * @return array
+     */
+    public static function makeItemsLinks($entityItems, string $entityClass, string $infoRoute): array
+    {
+        if (!is_subclass_of($entityClass, AbstractMediaEntity::class)) {
+            return [];
+        }
+        //$entityClass is child of AbstractMediaEntity
+        $optProps = $entityClass::getOptionalProps();
+        $result = [];
+        foreach ($entityItems as $item) {
+            $needAddLink = ($item->isPublic() || Auth::check())
+                && $item->isAnyPropFilled($optProps);
+
+            $result[] = [
+                'link' => $needAddLink
+                    ? route($infoRoute, $item->id)
+                    : '',
+                'name' => $item->name
+            ];
+        }
+        return $result;
+    }
+
+    public static function makeRockLinks($rockRelation): array
+    {
+        $result = [];
+        foreach ($rockRelation as $record) {
+            $rock = Rock::find($record->rock_id);
+            if (empty($rock)) {
+                continue;
+            }
+            $needAddLink = $rock->isPublic() || Auth::check();
+            $result['rock-' . $rock->id] = [
+                'link' => $needAddLink
+                    ? route('rock_info', $rock->id)
+                    : '',
+                'name' => $rock->name
+            ];
+        }
+        return $result;
     }
 
 }

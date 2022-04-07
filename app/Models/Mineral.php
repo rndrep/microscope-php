@@ -6,6 +6,7 @@ use App\Classes\InfoField;
 use App\Classes\InputField;
 use App\Classes\TextareaField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Helpers\Model as ModelHelper;
 
 /**
  * Each Rock can have several forming, second and accessory minerals
@@ -119,26 +120,10 @@ class Mineral extends AbstractMediaEntity
         $secondRocks = Rock_SecondMineral::where(['mineral_id' => $this->id])->get();
         $accessoryRocks = Rock_AccessoryMineral::where(['mineral_id' => $this->id])->get();
 
-        $result = $this->makeRockLinks($formingRocks);
-        $result = array_merge($result, $this->makeRockLinks($secondRocks));
-        $result = array_merge($result, $this->makeRockLinks($accessoryRocks));
+        $result = ModelHelper::makeRockLinks($formingRocks);
+        $result = array_merge($result, ModelHelper::makeRockLinks($secondRocks));
+        $result = array_merge($result, ModelHelper::makeRockLinks($accessoryRocks));
 
-        return $result;
-    }
-
-    private function makeRockLinks($rockRelation)
-    {
-        $result = [];
-        foreach ($rockRelation as $record) {
-            $rock = Rock::find($record->rock_id);
-            if (empty($rock)) {
-                continue;
-            }
-            $result['rock-' . $rock->id] = [
-                'link' => route('rock_info', $rock->id),
-                'name' => $rock->name
-            ];
-        }
         return $result;
     }
 

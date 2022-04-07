@@ -66,7 +66,12 @@
                                     ">
                                 <li class="list-group-item">
                                     <div class="card-list__caption">Породы: </div>
-                                    @foreach($item->getRockLinks() as $link)<a class="card-list__link" href="{{$link['link']}}">{{$link['name']}}</a>&nbsp;
+                                    @foreach($item->getRockLinks() as $link)
+                                        @if($link['link'])
+                                            <a class="card-list__link" href="{{$link['link']}}">{{$link['name']}}</a>&nbsp;
+                                        @else
+                                            <a class="card-list__link card-list__link_disabled">{{$link['name']}}</a>&nbsp;
+                                        @endif
                                     @endforeach
                                 </li>
                                 @foreach($fields as $field)
