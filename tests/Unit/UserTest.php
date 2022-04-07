@@ -29,10 +29,10 @@ class UserTest extends TestCase
             2 => 'Студент'
         ];
         $user = new User();
-        $user->setRoleId(1);
+        $user->setRoleId(User::ROLE_ADMIN);
         $this->assertEquals($roles[1], $user->getRoleName());
         $this->assertTrue($user->isAdmin());
-        $user->setRoleId(2);
+        $user->setRoleId(User::ROLE_USER);
         $this->assertEquals($roles[2], $user->getRoleName());
         $this->assertTrue($user->isUser());
     }
