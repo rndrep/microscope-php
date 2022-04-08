@@ -142,7 +142,7 @@ In project folder
 cd frontend/
 gulp build
 ```
-then build npm
+then build style and js for admin panel 
 ``` 
 cd ..
 npm run prod
