@@ -272,6 +272,12 @@
         <!-- Cards -->
         <section class="cards">
             <div class="container">
+                @if(!Auth::check())
+                    <div class="form-label text-center mb-3">
+                        Чтобы получить доступ к изучению всех образцов,
+                        <a class="card-list__link" href="{{ route('login_form') }}">войдите на сайт</a>
+                    </div>
+                @endif
                 <div class="
                             cards__row
 
